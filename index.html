@@ -827,6 +827,21 @@
       background:
         linear-gradient(180deg, var(--accent-soft), transparent 45%),
         var(--bg-elev);
+      position: relative;
+    }
+    .price-badge {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 18%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.15rem;
     }
     .price-card h3 {
       margin: 0;
@@ -872,7 +887,7 @@
 
     .community-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
     .community-card {
@@ -1254,6 +1269,7 @@
         </div>
         <div class="price-grid">
           <article class="price-card best">
+            <span class="price-badge" data-i18n="pricing.endingSoon">近期截止</span>
             <h3 data-i18n="pricing.seriesTitle">Weave 系列激活码</h3>
             <p class="hint" data-i18n="pricing.seriesHint">三款插件高级支持</p>
             <div class="price-now">64<small data-i18n="pricing.yuan"> 元</small></div>
@@ -1304,7 +1320,7 @@
       <div class="wrap">
         <div class="section-intro">
           <h2 data-i18n="community.title">交流群</h2>
-          <p data-i18n="community.lead">欢迎加入 QQ 群交流与反馈。</p>
+          <p data-i18n="community.lead">欢迎加入 QQ / 微信群交流与反馈。</p>
         </div>
         <div class="community-grid">
           <article class="community-card">
@@ -1318,6 +1334,12 @@
             <h3 data-i18n="community.betaTitle">内测群②</h3>
             <p data-i18n="community.betaDesc">仅限已购买 Weave 系列插件的用户。</p>
             <a class="btn btn-ghost" href="https://qm.qq.com/q/6gvFHi5tBe" target="_blank" rel="noopener noreferrer" data-i18n="community.joinBeta">加入内测群</a>
+          </article>
+          <article class="community-card">
+            <div class="tag" data-i18n="community.wechatTag">微信群 · 购后</div>
+            <h3 data-i18n="community.wechatTitle">微信群</h3>
+            <p data-i18n="community.wechatDesc">仅限已购买 Weave 系列全家桶的用户进入。</p>
+            <a class="btn btn-ghost" href="mailto:tutaoyuan8@outlook.com?subject=Weave%20%E7%B3%BB%E5%88%97%E5%BE%AE%E4%BF%A1%E7%BE%A4" data-i18n="community.joinWechat">购后联系入群</a>
           </article>
         </div>
       </div>
@@ -1425,6 +1447,7 @@
           "pricing.lead": "基础体验永久可用。高级支持一次性买断：永久授权、邮箱绑定、支持五台设备。",
           "pricing.seriesTitle": "Weave 系列激活码",
           "pricing.seriesHint": "三款插件高级支持",
+          "pricing.endingSoon": "近期截止",
           "pricing.yuan": " 元",
           "pricing.old": "原价 108 元",
           "pricing.buySeries": "购买系列激活码",
@@ -1445,7 +1468,7 @@
           "pricing.lBuyout": "一次性买断",
           "pricing.note": "高级支持为一次性买断：永久授权、邮箱绑定、支持五台设备。独立激活码不适用于其它插件；如需三款齐全，请购买 Weave 系列激活码。",
           "community.title": "交流群",
-          "community.lead": "欢迎加入 QQ 群交流与反馈。",
+          "community.lead": "欢迎加入 QQ / 微信群交流与反馈。",
           "community.publicTag": "公开群",
           "community.publicTitle": "反馈群",
           "community.publicDesc": "Obsidian-Weave 系列公开交流与问题反馈。",
@@ -1454,6 +1477,10 @@
           "community.betaTitle": "内测群②",
           "community.betaDesc": "仅限已购买 Weave 系列插件的用户。",
           "community.joinBeta": "加入内测群",
+          "community.wechatTag": "微信群 · 购后",
+          "community.wechatTitle": "微信群",
+          "community.wechatDesc": "仅限已购买 Weave 系列全家桶的用户进入。",
+          "community.joinWechat": "购后联系入群",
           "install.title": "在 Obsidian 中安装",
           "install.lead": "设置 → 社区插件 → 浏览，搜索对应名称；或直接打开社区插件页。",
           "install.w": "搜索 Weave，初始化卡片库后开始复习。",
@@ -1523,6 +1550,7 @@
           "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices.",
           "pricing.seriesTitle": "Weave series license",
           "pricing.seriesHint": "Advanced support for all three plugins",
+          "pricing.endingSoon": "Ending soon",
           "pricing.yuan": " CNY",
           "pricing.old": "Was 108 CNY",
           "pricing.buySeries": "Buy series license",
@@ -1543,7 +1571,7 @@
           "pricing.lBuyout": "One-time buyout",
           "pricing.note": "Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Standalone licenses do not unlock other plugins; for all three, buy the Weave series license.",
           "community.title": "Community",
-          "community.lead": "Join QQ groups for discussion and feedback.",
+          "community.lead": "Join QQ / WeChat groups for discussion and feedback.",
           "community.publicTag": "Public",
           "community.publicTitle": "Feedback group",
           "community.publicDesc": "Public discussion and issue feedback for the Obsidian-Weave series.",
@@ -1552,6 +1580,10 @@
           "community.betaTitle": "Beta group 2",
           "community.betaDesc": "For users who purchased the Weave series only.",
           "community.joinBeta": "Join beta group",
+          "community.wechatTag": "WeChat · after purchase",
+          "community.wechatTitle": "WeChat group",
+          "community.wechatDesc": "Only for users who purchased the full Weave series bundle.",
+          "community.joinWechat": "Contact to join after purchase",
           "install.title": "Install in Obsidian",
           "install.lead": "Settings → Community plugins → Browse, or open each plugin’s community page.",
           "install.w": "Search Weave, initialize your card library, and start reviewing.",
