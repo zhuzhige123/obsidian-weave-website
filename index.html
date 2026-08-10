@@ -920,42 +920,16 @@
       flex: 1;
       font-size: 0.95rem;
     }
-    .community-qr {
-      width: min(100%, 180px);
-      aspect-ratio: 1;
-      margin: 0.15rem auto;
-      padding: 0;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: #fff;
-      overflow: hidden;
-      flex-shrink: 0;
-      cursor: zoom-in;
-      appearance: none;
-      -webkit-appearance: none;
-      font: inherit;
-      color: inherit;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-    .community-qr:hover,
-    .community-qr:focus-visible {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-soft);
-      outline: none;
-    }
-    .community-qr img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      pointer-events: none;
-    }
-    .community-qr-note {
+    .community-hint {
       margin: 0 !important;
       flex: 0 !important;
-      text-align: center;
-      color: var(--text-faint) !important;
+      padding: 0.55rem 0.7rem;
+      border-radius: 10px;
+      border: 1px dashed var(--border);
+      background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+      color: var(--text-muted) !important;
       font-size: 0.8rem !important;
+      line-height: 1.45;
     }
     .visually-hidden {
       position: absolute;
@@ -989,38 +963,64 @@
     }
     .image-lightbox__panel {
       position: relative;
-      max-width: min(92vw, 520px);
+      width: min(92vw, 420px);
       max-height: 88vh;
-      padding: 0.85rem;
+      padding: 1.1rem 1rem 1rem;
       border-radius: 16px;
-      background: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+      display: grid;
+      gap: 0.75rem;
+      justify-items: center;
     }
-    .image-lightbox__panel img {
+    .image-lightbox__heading {
+      margin: 0;
+      width: 100%;
+      padding-right: 2rem;
+      font-size: 1.05rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .image-lightbox__hint {
+      margin: 0;
+      width: 100%;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+    .image-lightbox__frame {
+      width: min(100%, 280px);
+      aspect-ratio: 1;
+      padding: 0.55rem;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid var(--border);
+    }
+    .image-lightbox__frame img {
       display: block;
       width: 100%;
-      height: auto;
-      max-height: calc(88vh - 1.7rem);
+      height: 100%;
       object-fit: contain;
     }
     .image-lightbox__close {
       position: absolute;
-      top: 0.45rem;
-      right: 0.45rem;
+      top: 0.55rem;
+      right: 0.55rem;
       width: 2rem;
       height: 2rem;
       border: 0;
       border-radius: 999px;
-      background: rgba(20, 22, 28, 0.72);
-      color: #fff;
+      background: color-mix(in srgb, var(--text) 12%, transparent);
+      color: var(--text);
       font-size: 1.25rem;
       line-height: 1;
       cursor: pointer;
     }
     .image-lightbox__close:hover,
     .image-lightbox__close:focus-visible {
-      background: rgba(20, 22, 28, 0.9);
+      background: color-mix(in srgb, var(--text) 20%, transparent);
       outline: none;
     }
 
@@ -1430,22 +1430,22 @@
             <div class="tag" data-i18n="community.publicTag">公开群</div>
             <h3 data-i18n="community.publicTitle">反馈群</h3>
             <p data-i18n="community.publicDesc">Obsidian-Weave 系列公开交流与问题反馈。</p>
+            <p class="community-hint" data-i18n="community.publicHint">申请入群时请填写入群理由，并说明从哪里知道本系列，便于判断是否为插件用户。</p>
             <a class="btn btn-primary" href="https://qm.qq.com/q/GcAcBRvCyO" target="_blank" rel="noopener noreferrer" data-i18n="community.joinPublic">加入反馈群</a>
           </article>
           <article class="community-card">
             <div class="tag" data-i18n="community.betaTag">内测群 · 购后</div>
             <h3 data-i18n="community.betaTitle">内测群②</h3>
             <p data-i18n="community.betaDesc">仅限已购买 Weave 系列全家桶的用户进入。</p>
+            <p class="community-hint" data-i18n="community.orderHint">申请入群时请提供订单号，否则难以核实购买身份。</p>
             <a class="btn btn-ghost" href="https://qm.qq.com/q/6gvFHi5tBe" target="_blank" rel="noopener noreferrer" data-i18n="community.joinBeta">加入内测群</a>
           </article>
           <article class="community-card">
             <div class="tag" data-i18n="community.wechatTag">微信群 · 购后</div>
             <h3 data-i18n="community.wechatTitle">微信群</h3>
             <p data-i18n="community.wechatDesc">仅限已购买 Weave 系列全家桶的用户进入。</p>
-            <button type="button" class="community-qr" id="wechatQrOpen" aria-haspopup="dialog" data-i18n-aria="community.wechatZoom" aria-label="点击放大二维码">
-              <img src="uploads/wechat-group-qr.png" alt="Weave 系列微信群二维码" width="180" height="180" />
-            </button>
-            <p class="community-qr-note" data-i18n="community.wechatScan">点击放大 · 扫码加入（购后）</p>
+            <p class="community-hint" data-i18n="community.orderHint">申请入群时请提供订单号，否则难以核实购买身份。</p>
+            <button type="button" class="btn btn-primary" id="wechatQrOpen" aria-haspopup="dialog" data-i18n="community.joinWechat">加入微信群</button>
           </article>
         </div>
       </div>
@@ -1490,8 +1490,11 @@
   <div class="image-lightbox" id="imageLightbox" hidden aria-hidden="true">
     <div class="image-lightbox__panel" role="dialog" aria-modal="true" aria-labelledby="imageLightboxTitle">
       <button type="button" class="image-lightbox__close" id="imageLightboxClose" data-i18n-aria="community.lightboxClose" aria-label="关闭">×</button>
-      <img id="imageLightboxImg" src="uploads/wechat-group-qr.png" alt="Weave 系列微信群二维码（放大）" />
-      <span id="imageLightboxTitle" class="visually-hidden" data-i18n="community.wechatTitle">微信群</span>
+      <h3 class="image-lightbox__heading" id="imageLightboxTitle" data-i18n="community.wechatTitle">微信群</h3>
+      <p class="image-lightbox__hint" data-i18n="community.wechatPopupHint">扫码加入前请准备好订单号；申请入群时填写订单号，便于核实全家桶购买身份。</p>
+      <div class="image-lightbox__frame">
+        <img id="imageLightboxImg" src="uploads/wechat-group-qr.png" alt="Weave 系列微信群二维码" width="280" height="280" />
+      </div>
     </div>
   </div>
 
@@ -1582,20 +1585,22 @@
           "pricing.lBuyout": "一次性买断",
           "pricing.note": "高级支持为一次性买断：永久授权、邮箱绑定、支持五台设备。独立激活码不适用于其它插件；如需三款齐全，请购买 Weave 系列激活码。",
           "community.title": "交流群",
-          "community.lead": "欢迎加入 QQ / 微信群交流与反馈。",
+          "community.lead": "欢迎加入 QQ / 微信群交流与反馈。公开群请备注来源；购后群请提供订单号。",
           "community.publicTag": "公开群",
           "community.publicTitle": "反馈群",
           "community.publicDesc": "Obsidian-Weave 系列公开交流与问题反馈。",
+          "community.publicHint": "申请入群时请填写入群理由，并说明从哪里知道本系列，便于判断是否为插件用户。",
           "community.joinPublic": "加入反馈群",
           "community.betaTag": "内测群 · 购后",
           "community.betaTitle": "内测群②",
           "community.betaDesc": "仅限已购买 Weave 系列全家桶的用户进入。",
+          "community.orderHint": "申请入群时请提供订单号，否则难以核实购买身份。",
           "community.joinBeta": "加入内测群",
           "community.wechatTag": "微信群 · 购后",
           "community.wechatTitle": "微信群",
           "community.wechatDesc": "仅限已购买 Weave 系列全家桶的用户进入。",
-          "community.wechatScan": "点击放大 · 扫码加入（购后）",
-          "community.wechatZoom": "点击放大二维码",
+          "community.joinWechat": "加入微信群",
+          "community.wechatPopupHint": "扫码加入前请准备好订单号；申请入群时填写订单号，便于核实全家桶购买身份。",
           "community.lightboxClose": "关闭",
           "install.title": "在 Obsidian 中安装",
           "install.lead": "设置 → 社区插件 → 浏览，搜索对应名称；或直接打开社区插件页。",
@@ -1687,20 +1692,22 @@
           "pricing.lBuyout": "One-time buyout",
           "pricing.note": "Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Standalone licenses do not unlock other plugins; for all three, buy the Weave series license.",
           "community.title": "Community",
-          "community.lead": "Join QQ / WeChat groups for discussion and feedback.",
+          "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
           "community.publicTag": "Public",
           "community.publicTitle": "Feedback group",
           "community.publicDesc": "Public discussion and issue feedback for the Obsidian-Weave series.",
+          "community.publicHint": "When requesting to join, write your reason and where you found this series so we can tell plugin users apart.",
           "community.joinPublic": "Join feedback group",
           "community.betaTag": "Beta · after purchase",
           "community.betaTitle": "Beta group 2",
           "community.betaDesc": "Only for users who purchased the full Weave series bundle.",
+          "community.orderHint": "Please provide your order ID when requesting to join; otherwise purchase cannot be verified.",
           "community.joinBeta": "Join beta group",
           "community.wechatTag": "WeChat · after purchase",
           "community.wechatTitle": "WeChat group",
           "community.wechatDesc": "Only for users who purchased the full Weave series bundle.",
-          "community.wechatScan": "Tap to enlarge · scan after purchase",
-          "community.wechatZoom": "Enlarge QR code",
+          "community.joinWechat": "Join WeChat group",
+          "community.wechatPopupHint": "Have your order ID ready before scanning. Include it in the join request so we can verify the full-bundle purchase.",
           "community.lightboxClose": "Close",
           "install.title": "Install in Obsidian",
           "install.lead": "Settings → Community plugins → Browse, or open each plugin’s community page.",
