@@ -101,27 +101,53 @@
     }
     .brand {
       display: inline-flex;
-      align-items: center;
+      align-items: baseline;
       gap: 0.7rem;
-      font-weight: 600;
-      font-size: 0.98rem;
-      letter-spacing: -0.02em;
+      line-height: 1;
     }
-    .brand-mark {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      background: var(--accent-soft);
-      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-      display: grid;
-      place-items: center;
+    .brand-lockup {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.38rem;
+    }
+    .brand-word {
+      position: relative;
+      font-size: 1.32rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-variant-ligatures: none;
+    }
+    .brand-word span {
       color: var(--accent);
-      flex-shrink: 0;
+    }
+    .brand-word::after {
+      content: "";
+      position: absolute;
+      left: 0.02em;
+      right: 0.18em;
+      bottom: -0.22em;
+      height: 1.5px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--accent) 85%, transparent),
+        color-mix(in srgb, var(--accent) 15%, transparent) 70%,
+        transparent
+      );
+    }
+    .brand-series {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--text);
     }
     .brand-sub {
       color: var(--text-faint);
-      font-weight: 500;
-      font-size: 0.8rem;
+      font-weight: 400;
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      transform: translateY(-0.05em);
     }
     .nav-right {
       display: flex;
@@ -976,14 +1002,11 @@
 <body>
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
-      <a class="brand" href="#top">
-        <span class="brand-mark" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2 2.5 L10 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 2.5 L2 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
-          </svg>
+      <a class="brand" href="#top" aria-label="Weave">
+        <span class="brand-lockup">
+          <span class="brand-word"><span>W</span>eave</span>
+          <span class="brand-series" data-i18n="brand.series">系列</span>
         </span>
-        <span data-i18n="brand">Weave 系列</span>
         <span class="brand-sub">for Obsidian</span>
       </a>
       <div class="nav-right">
@@ -1348,6 +1371,7 @@
           "meta.title": "Obsidian Weave 插件系列",
           "meta.desc": "干净、优雅、舒适的 Obsidian Weave 插件系列官网原型。",
           brand: "Weave 系列",
+          "brand.series": "系列",
           "nav.series": "系列",
           "nav.products": "产品",
           "nav.pricing": "价格",
@@ -1445,6 +1469,7 @@
           "meta.title": "Obsidian Weave Plugin Series",
           "meta.desc": "A calm, elegant Obsidian Weave plugin series site prototype.",
           brand: "Weave Series",
+          "brand.series": "Series",
           "nav.series": "Series",
           "nav.products": "Products",
           "nav.pricing": "Pricing",
