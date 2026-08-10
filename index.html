@@ -1370,7 +1370,7 @@
             <span class="price-badge" data-i18n="pricing.endingSoon">近期截止</span>
             <h3 data-i18n="pricing.seriesTitle">Weave 系列激活码</h3>
             <p class="hint" data-i18n="pricing.seriesHint">三款插件高级支持</p>
-            <div class="price-now">64<small data-i18n="pricing.yuan"> 元</small></div>
+            <div class="price-now" data-i18n="pricing.seriesNow">64 元</div>
             <div class="price-old" data-i18n="pricing.old">原价 108 元</div>
             <ul>
               <li>Weave</li>
@@ -1381,12 +1381,12 @@
               <li data-i18n="pricing.lEmail">邮箱绑定</li>
               <li data-i18n="pricing.lBuyout">一次性买断</li>
             </ul>
-            <a class="btn btn-primary" href="https://pay.ldxp.cn/item/ned9pw" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buySeries">购买系列激活码</a>
+            <a class="btn btn-primary" id="buySeries" href="https://pay.ldxp.cn/item/ned9pw" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buySeries">购买系列激活码</a>
           </article>
           <article class="price-card">
             <h3 data-i18n="pricing.readerTitle">独立阅读器</h3>
             <p class="hint" data-i18n="pricing.readerHint">仅 EPUB Reader</p>
-            <div class="price-now" style="font-size:1.65rem;">30<small data-i18n="pricing.yuan"> 元</small></div>
+            <div class="price-now" style="font-size:1.65rem;" data-i18n="pricing.readerNow">30 元</div>
             <div class="price-old" data-i18n="pricing.readerOld">原价 46 元</div>
             <ul>
               <li data-i18n="pricing.readerOnly">仅限于阅读器</li>
@@ -1395,7 +1395,7 @@
               <li data-i18n="pricing.lEmail">邮箱绑定</li>
               <li data-i18n="pricing.lBuyout">一次性买断</li>
             </ul>
-            <a class="btn btn-ghost" href="https://pay.ldxp.cn/item/zu4nrm" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buyReader">购买阅读器激活码</a>
+            <a class="btn btn-ghost" id="buyReader" href="https://pay.ldxp.cn/item/zu4nrm" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buyReader">购买阅读器激活码</a>
           </article>
           <article class="price-card">
             <h3 data-i18n="pricing.irTitle">增量阅读</h3>
@@ -1557,11 +1557,12 @@
           "pricing.seriesTitle": "Weave 系列激活码",
           "pricing.seriesHint": "三款插件高级支持",
           "pricing.endingSoon": "近期截止",
-          "pricing.yuan": " 元",
+          "pricing.seriesNow": "64 元",
           "pricing.old": "原价 108 元",
           "pricing.buySeries": "购买系列激活码",
           "pricing.readerTitle": "独立阅读器",
           "pricing.readerHint": "仅 EPUB Reader",
+          "pricing.readerNow": "30 元",
           "pricing.readerOld": "原价 46 元",
           "pricing.readerOnly": "仅限于阅读器",
           "pricing.buyReader": "购买阅读器激活码",
@@ -1658,18 +1659,19 @@
           "ir.f3": "Daily caps, resume, and next-appearance planning",
           "ir.f4": "…and more",
           "pricing.title": "Pricing",
-          "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices.",
-          "pricing.seriesTitle": "Weave series license",
+          "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Purchase is currently by email.",
+          "pricing.seriesTitle": "Weave series bundle",
           "pricing.seriesHint": "Advanced support for all three plugins",
           "pricing.endingSoon": "Ending soon",
-          "pricing.yuan": " CNY",
-          "pricing.old": "Was 108 CNY",
-          "pricing.buySeries": "Buy series license",
+          "pricing.seriesNow": "$18",
+          "pricing.old": "Was $36",
+          "pricing.buySeries": "Email to buy series",
           "pricing.readerTitle": "Reader only",
           "pricing.readerHint": "EPUB Reader only",
-          "pricing.readerOld": "Was 46 CNY",
+          "pricing.readerNow": "$9",
+          "pricing.readerOld": "Was $18",
           "pricing.readerOnly": "Reader only",
-          "pricing.buyReader": "Buy reader license",
+          "pricing.buyReader": "Email to buy reader",
           "pricing.irTitle": "Incremental Reading",
           "pricing.irHint": "Not sold separately",
           "pricing.irPrice": "Included in series",
@@ -1680,7 +1682,7 @@
           "pricing.lForever": "Perpetual license",
           "pricing.lEmail": "Email binding",
           "pricing.lBuyout": "One-time buyout",
-          "pricing.note": "Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Standalone licenses do not unlock other plugins; for all three, buy the Weave series license.",
+          "pricing.note": "Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Prices shown in USD are the current discount; originals are double. Standalone licenses do not unlock other plugins. To buy, email tutaoyuan8@outlook.com.",
           "community.title": "Community",
           "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
           "community.publicTag": "Public",
@@ -1755,6 +1757,32 @@
         }
         if (captionEl && slides[current]) {
           captionEl.textContent = slideCaption(slides[current]);
+        }
+
+        var buySeries = document.getElementById("buySeries");
+        var buyReader = document.getElementById("buyReader");
+        var mail = "mailto:tutaoyuan8@outlook.com";
+        if (buySeries) {
+          if (lang === "en") {
+            buySeries.href = mail + "?subject=" + encodeURIComponent("Purchase Weave series bundle ($18)");
+            buySeries.removeAttribute("target");
+            buySeries.removeAttribute("rel");
+          } else {
+            buySeries.href = "https://pay.ldxp.cn/item/ned9pw";
+            buySeries.setAttribute("target", "_blank");
+            buySeries.setAttribute("rel", "noopener noreferrer");
+          }
+        }
+        if (buyReader) {
+          if (lang === "en") {
+            buyReader.href = mail + "?subject=" + encodeURIComponent("Purchase Weave EPUB Reader ($9)");
+            buyReader.removeAttribute("target");
+            buyReader.removeAttribute("rel");
+          } else {
+            buyReader.href = "https://pay.ldxp.cn/item/zu4nrm";
+            buyReader.setAttribute("target", "_blank");
+            buyReader.setAttribute("rel", "noopener noreferrer");
+          }
         }
       }
 
