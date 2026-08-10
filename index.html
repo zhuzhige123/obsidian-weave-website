@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- YouTube 嵌入需要 Referer，避免 Error 153 -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Obsidian Weave 插件系列</title>
+  <meta name="description" content="干净、优雅、舒适的 Obsidian Weave 插件系列官网原型。" />
+  <style>
+    /* 优先使用本机已安装的京华老宋体 */
+    @font-face {
+      font-family: "JingHuaOldSong";
+      src:
+        local("京华老宋体"),
+        local("京華老宋體"),
+        local("KingHwa OldSong"),
+        local("KingHwaOldSong");
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Obsidian-inspired calm palette */
+    :root, html[data-theme="dark"] {
+      --bg: #1e1e1e;
+      --bg-elev: #252525;
+      --bg-soft: #2b2b2b;
+      --text: #dadada;
+      --text-muted: #999999;
+      --text-faint: #7a7a7a;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --accent: #a68cf5;
+      --accent-hover: #b9a4f8;
+      --accent-soft: rgba(166, 140, 245, 0.12);
+      --accent-ink: #1e1e1e;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --max: 1080px;
+      --nav-h: 64px;
+      --font: "JingHuaOldSong", "京华老宋体", "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f8f7f4;
+      --bg-elev: #ffffff;
+      --bg-soft: #f1efe9;
+      --text: #2a2a2a;
+      --text-muted: #6b6b6b;
+      --text-faint: #8a8a8a;
+      --border: rgba(30, 30, 30, 0.08);
+      --border-strong: rgba(30, 30, 30, 0.12);
+      --accent: #7c5cbf;
+      --accent-hover: #6a4aad;
+      --accent-soft: rgba(124, 92, 191, 0.1);
+      --accent-ink: #ffffff;
+      --shadow: 0 18px 40px rgba(40, 30, 20, 0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.75;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; border: 0; background: none; color: inherit; cursor: pointer; }
+
+    .wrap {
+      width: min(100% - clamp(1.5rem, 4vw, 3rem) * 2, var(--max));
+      margin-inline: auto;
+    }
+
+    /* Quiet top bar */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: var(--nav-h);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 600;
+      font-size: 0.98rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .brand-sub {
+      color: var(--text-faint);
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      margin-right: 0.4rem;
+    }
+    .nav-links > a,
+    .nav-drop > button {
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .nav-links > a:hover,
+    .nav-drop > button:hover,
+    .nav-drop.open > button {
+      color: var(--text);
+      background: var(--bg-soft);
+    }
+    .nav-drop {
+      position: relative;
+    }
+    .nav-drop > button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .nav-drop > button svg {
+      opacity: 0.7;
+      transition: transform 0.15s ease;
+    }
+    .nav-drop.open > button svg {
+      transform: rotate(180deg);
+    }
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 0.35rem);
+      left: 0;
+      min-width: 11.5rem;
+      padding: 0.35rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elev);
+      box-shadow: var(--shadow);
+      z-index: 50;
+    }
+    .nav-drop.open .nav-menu {
+      display: grid;
+      gap: 0.15rem;
+    }
+    .nav-menu a {
+      padding: 0.55rem 0.7rem;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover {
+      color: var(--text);
+      background: var(--bg-soft);
+    }
+    .nav-menu a .mail {
+      display: block;
+      color: var(--text-faint);
+      font-size: 0.78rem;
+      margin-top: 0.15rem;
+    }
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .icon-btn:hover {
+      background: var(--bg-soft);
+      color: var(--text);
+    }
+    .lang-btn {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 0.55rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .lang-btn:hover {
+      background: var(--bg-soft);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+    html[data-lang="en"] .lang-btn .lang-en { display: none; }
+    html[data-lang="zh"] .lang-btn .lang-zh,
+    html:not([data-lang]) .lang-btn .lang-zh { display: none; }
+    html[data-lang="en"] .lang-btn .lang-zh { display: inline; }
+    html[data-lang="zh"] .lang-btn .lang-en,
+    html:not([data-lang]) .lang-btn .lang-en { display: inline; }
+    .icon-btn .sun { display: none; }
+    html[data-theme="light"] .icon-btn .sun { display: block; }
+    html[data-theme="light"] .icon-btn .moon { display: none; }
+    .nav-cta {
+      margin-left: 0.35rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: filter 0.15s ease;
+    }
+    .nav-cta:hover { filter: brightness(1.06); }
+    .nav-toggle { display: none; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0.65rem 1.15rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: background 0.15s ease, border-color 0.15s ease, filter 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+    .btn-primary:hover { filter: brightness(1.06); }
+    .btn-ghost {
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-ghost:hover { background: var(--bg-soft); }
+
+    /* Hero: 幻灯片为主视觉；文案精简，避免双首屏 */
+    .hero {
+      padding: clamp(2.25rem, 5vw, 3.5rem) 0 clamp(3.5rem, 7vw, 5.5rem);
+    }
+    .hero-top {
+      max-width: 40rem;
+      margin: 0 0 clamp(1.6rem, 3.2vw, 2.25rem);
+    }
+    .eyebrow {
+      margin: 0 0 0.7rem;
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.55rem, 2.8vw, 2.05rem);
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .hero-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 1.5rem;
+      margin-top: 1.1rem;
+    }
+    .hero-bar .showcase-caption {
+      margin: 0;
+      text-align: left;
+      flex: 1 1 14rem;
+      min-height: 0;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    /* Coverflow showcase: center focus, sides recessed */
+    .showcase {
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+    .showcase-viewport {
+      position: relative;
+      height: clamp(240px, 36vw, 380px);
+      perspective: 1400px;
+      overflow: visible;
+    }
+    .showcase-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: min(68%, 720px);
+      height: 100%;
+      margin-left: calc(min(68%, 720px) / -2);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      overflow: hidden;
+      transform-origin: center center;
+      transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.45s ease,
+        filter 0.45s ease,
+        box-shadow 0.45s ease;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      will-change: transform, opacity;
+    }
+    .slide.is-center {
+      z-index: 5;
+      opacity: 1;
+      filter: none;
+      box-shadow: var(--shadow);
+      border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+    }
+    .slide.is-side {
+      z-index: 2;
+      opacity: 0.42;
+      filter: brightness(0.72) saturate(0.85);
+      cursor: pointer;
+    }
+    .slide.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .slide-media {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, var(--accent-soft), transparent 50%),
+        var(--bg-soft);
+    }
+    .slide-media img,
+    .slide-media iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 0;
+      display: block;
+    }
+    .slide-media iframe {
+      background: #000;
+    }
+    .slide-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      gap: 0.45rem;
+      color: var(--text-faint);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-align: center;
+      padding: 1rem;
+    }
+    .slide-placeholder strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .slide-badge {
+      position: absolute;
+      left: 0.9rem;
+      top: 0.9rem;
+      z-index: 2;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--bg) 75%, transparent);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .slide.is-center .slide-badge {
+      color: var(--accent);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+    }
+    .slide-yt-poster {
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .slide-yt-poster strong {
+      color: #fff;
+    }
+    .slide-yt-link {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.92);
+      background-size: cover;
+      background-position: center;
+    }
+    .slide-yt-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.5));
+    }
+    .slide-yt-link .play {
+      position: relative;
+      z-index: 1;
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(166, 140, 245, 0.92);
+      color: #1e1e1e;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .slide-yt-link:hover .play {
+      transform: scale(1.06);
+      background: #b9a4f8;
+    }
+    .slide-yt-link .hint {
+      position: relative;
+      z-index: 1;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .showcase-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-top: 1.35rem;
+    }
+    .showcase-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elev);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .showcase-btn:hover {
+      color: var(--text);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      background: var(--bg-soft);
+    }
+    .showcase-dots {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .showcase-dots button {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--text-faint);
+      opacity: 0.45;
+      transition: width 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+    }
+    .showcase-dots button.is-active {
+      width: 18px;
+      opacity: 1;
+      background: var(--accent);
+    }
+    .showcase-caption {
+      margin: 0.9rem 0 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      min-height: 1.4em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide {
+        transition: none;
+      }
+    }
+
+    .soft-panel {
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* Sections with generous air */
+    .section {
+      padding: clamp(4rem, 9vw, 6.5rem) 0;
+    }
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+    .section-intro {
+      max-width: 32rem;
+      margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+    }
+    .section-intro h2 {
+      margin: 0 0 0.85rem;
+      font-size: clamp(1.55rem, 2.6vw, 2rem);
+      font-weight: 650;
+      letter-spacing: -0.035em;
+      line-height: 1.25;
+    }
+    .section-intro p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .pillar {
+      padding: 1.6rem 1.4rem;
+      border-radius: var(--radius);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      min-height: 100%;
+      transition: border-color 0.2s ease;
+    }
+    .pillar:hover {
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+    }
+    .pillar.featured {
+      background:
+        linear-gradient(165deg, var(--accent-soft), transparent 55%),
+        var(--bg-elev);
+      border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+    }
+    .pillar .n {
+      display: block;
+      margin-bottom: 1.1rem;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .pillar h3 {
+      margin: 0 0 0.55rem;
+      font-size: 1.15rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .pillar p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .plugin {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+      gap: clamp(2rem, 5vw, 3.5rem);
+      align-items: center;
+      padding: clamp(2.5rem, 5vw, 3.5rem) 0;
+    }
+    .plugin + .plugin {
+      border-top: 1px solid var(--border);
+    }
+    .plugin-tag {
+      margin: 0 0 0.75rem;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .plugin h3 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+    .plugin-desc {
+      margin: 0 0 1.25rem;
+      color: var(--text-muted);
+      max-width: 40ch;
+      line-height: 1.7;
+    }
+    .feature-list {
+      margin: 0 0 1.5rem;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+    }
+    .feature-list li {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .feature-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.85;
+    }
+    .plugin-visual {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      overflow: hidden;
+      min-height: 240px;
+      position: relative;
+    }
+    .slot {
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+    }
+    .slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .plugin-visual .slot { min-height: 240px; }
+    .plugin-visual .slot.is-empty::after {
+      content: "截图位";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--text-faint);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      background: var(--bg-soft);
+    }
+    .plugin-visual .slot.is-empty img { display: none; }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 1rem;
+    }
+    .price-card {
+      padding: 1.75rem 1.5rem;
+      border-radius: var(--radius);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .price-card.best {
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      background:
+        linear-gradient(180deg, var(--accent-soft), transparent 45%),
+        var(--bg-elev);
+    }
+    .price-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 650;
+    }
+    .price-card .hint {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .price-now {
+      font-size: 2rem;
+      font-weight: 650;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+    .price-now small { font-size: 0.95rem; font-weight: 600; }
+    .price-old {
+      color: var(--text-faint);
+      text-decoration: line-through;
+      font-size: 0.92rem;
+    }
+    .price-card ul {
+      margin: 0.3rem 0 0.8rem;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+    .price-note {
+      margin-top: 1.5rem;
+      padding: 1rem 1.15rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-soft);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .community-card {
+      padding: 1.75rem 1.5rem;
+      border-radius: var(--radius);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .community-card .tag {
+      align-self: flex-start;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .community-card h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .community-card p {
+      margin: 0;
+      color: var(--text-muted);
+      flex: 1;
+      font-size: 0.95rem;
+    }
+
+    .install-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .install-card {
+      padding: 1.5rem 1.35rem;
+      border-radius: var(--radius);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .install-card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 650;
+    }
+    .install-card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      flex: 1;
+    }
+
+    footer {
+      padding: 2.5rem 0 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-faint);
+      font-size: 0.85rem;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.15rem;
+    }
+    .footer-links a:hover { color: var(--text-muted); }
+
+    @media (max-width: 900px) {
+      .pillars,
+      .price-grid,
+      .community-grid,
+      .install-grid,
+      .plugin {
+        grid-template-columns: 1fr;
+      }
+      .hero-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .showcase-viewport {
+        height: clamp(200px, 52vw, 280px);
+      }
+      .slide {
+        width: min(78%, 520px);
+        margin-left: calc(min(78%, 520px) / -2);
+      }
+      .nav-links { display: none; }
+      .nav-toggle { display: grid; }
+      .nav.open .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        padding: 0.5rem;
+        background: var(--bg-elev);
+        border-bottom: 1px solid var(--border);
+        gap: 0.15rem;
+      }
+      .nav.open .nav-drop .nav-menu {
+        position: static;
+        display: none;
+        box-shadow: none;
+        border: 0;
+        background: transparent;
+        padding: 0 0 0 0.75rem;
+        margin-top: 0.15rem;
+      }
+      .nav.open .nav-drop.open .nav-menu {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 2.5 L10 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 2.5 L2 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          </svg>
+        </span>
+        <span data-i18n="brand">Weave 系列</span>
+        <span class="brand-sub">for Obsidian</span>
+      </a>
+      <div class="nav-right">
+        <nav class="nav-links">
+          <a href="#series" data-i18n="nav.series">系列</a>
+          <a href="#products" data-i18n="nav.products">产品</a>
+          <a href="#pricing" data-i18n="nav.pricing">价格</a>
+          <a href="https://iwi05cktlph.feishu.cn/wiki/EAtZwld1uibt6ikU2SDcB2PenAb?fromScene=spaceOverview" target="_blank" rel="noopener noreferrer" data-i18n="nav.docs">教程</a>
+          <div class="nav-drop" id="communityDrop">
+            <button type="button" id="communityToggle" aria-expanded="false" aria-haspopup="true">
+              <span data-i18n="nav.community">交流</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav-menu" role="menu">
+              <a href="#community" role="menuitem" data-i18n="nav.communityGroups">交流群</a>
+              <a href="mailto:tutaoyuan8@outlook.com" role="menuitem">
+                <span data-i18n="nav.developerEmail">开发者邮箱</span>
+                <span class="mail">tutaoyuan8@outlook.com</span>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <button class="lang-btn" id="langToggle" type="button" aria-label="Switch language" title="Language">
+          <span class="lang-en">EN</span>
+          <span class="lang-zh">中</span>
+        </button>
+        <button class="icon-btn" id="themeToggle" type="button" data-i18n-aria="themeToggle" aria-label="切换深浅色" title="切换深浅色">
+          <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M17 7l1.4-1.4M5.6 18.4l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" id="navToggle" type="button" data-i18n-aria="menu" aria-label="菜单" aria-expanded="false">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <a class="nav-cta" href="#install" data-i18n="nav.install">安装</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-top">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Obsidian 插件系列</p>
+          <h1 data-i18n="hero.title">在 Obsidian 里，安静地完成长期学习</h1>
+        </div>
+
+        <div class="showcase" id="showcase" aria-roledescription="carousel" data-i18n-aria="showcase" aria-label="产品展示">
+          <div class="showcase-viewport">
+            <div class="showcase-track" id="showcaseTrack">
+              <article
+                class="slide"
+                data-type="bilibili"
+                data-bilibili="https://www.bilibili.com/video/BV1WyuA6GEij"
+                data-caption-zh="B站宣传视频 · BV1WyuA6GEij"
+                data-caption-en="Bilibili promo · BV1WyuA6GEij"
+              >
+                <span class="slide-badge" data-i18n="slide.badge1">01 B站</span>
+                <div class="slide-media">
+                  <div class="slide-placeholder"><strong>Bilibili</strong></div>
+                </div>
+              </article>
+              <article
+                class="slide"
+                data-type="youtube"
+                data-youtube="https://www.youtube.com/embed/xEMbtBqXTeQ"
+                data-caption-zh="Obsidian全平台阅读器系列教程④英文原著阅读"
+                data-caption-en="Obsidian reader series tutorial · English classics"
+              >
+                <span class="slide-badge">02 YouTube</span>
+                <div class="slide-media">
+                  <div class="slide-placeholder"><strong>YouTube</strong></div>
+                </div>
+              </article>
+              <article
+                class="slide"
+                data-type="youtube"
+                data-youtube="https://www.youtube.com/embed/8xEAYIWIj0E"
+                data-caption-zh="宣传视频 · 产品演示"
+                data-caption-en="Promo · Product demo"
+              >
+                <span class="slide-badge">03 YouTube</span>
+                <div class="slide-media">
+                  <div class="slide-placeholder"><strong>YouTube</strong></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="showcase-controls">
+            <button class="showcase-btn" id="showcasePrev" type="button" data-i18n-aria="prev" aria-label="上一张">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 L5 8 L10 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="showcase-dots" id="showcaseDots" data-i18n-aria="dots" aria-label="幻灯片指示"></div>
+            <button class="showcase-btn" id="showcaseNext" type="button" data-i18n-aria="next" aria-label="下一张">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-bar">
+          <p class="showcase-caption" id="showcaseCaption">B站宣传视频 · BV1WyuA6GEij</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pricing" data-i18n="hero.ctaPrice">查看价格</a>
+            <a class="btn btn-ghost" href="#series" data-i18n="hero.ctaSeries">了解系列</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="series">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2 data-i18n="series.title">三款插件，一条舒适的学习链路</h2>
+          <p data-i18n="series.lead">读、排、记三款独立插件。干净分工，按需组合，数据留在你的库中。不做成臃肿巨无——每款只做好一件事，合在一起构成完整闭环。</p>
+        </div>
+        <div class="pillars">
+          <article class="pillar featured">
+            <span class="n" data-i18n="series.p1n">01 · 优先</span>
+            <h3>Weave</h3>
+            <p data-i18n="series.p1">制卡、FSRS6 复习、题库检验。卡片与原文双向溯源。</p>
+          </article>
+          <article class="pillar">
+            <span class="n">02</span>
+            <h3>EPUB Reader</h3>
+            <p data-i18n="series.p2">库内读书与摘录，正文回显，一键回到原书段落。</p>
+          </article>
+          <article class="pillar">
+            <span class="n">03</span>
+            <h3>Incremental Reading</h3>
+            <p data-i18n="series.p3">阅读队列与日历排期，让「以后再看」真正被推进。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2 data-i18n="products.title">产品详情</h2>
+          <p data-i18n="products.lead">按优先级了解三款 Obsidian 社区插件。</p>
+        </div>
+
+        <article class="plugin" id="weave">
+          <div>
+            <p class="plugin-tag" data-i18n="weave.tag">01 · 记忆与检验</p>
+            <h3>Weave</h3>
+            <p class="plugin-desc" data-i18n="weave.desc">摘录、制卡、复习、测验、溯源。学习卡片独立存放，复习时仍可回到原文语境。</p>
+            <ul class="feature-list">
+              <li data-i18n="weave.f1">FSRS6 间隔复习，问答 / 挖空 / 填空 / 选择</li>
+              <li data-i18n="weave.f2">正式牌组、涌现牌组，表格与分析视图</li>
+              <li data-i18n="weave.f3">AI 制卡、CSV / APKG 互通与备份</li>
+              <li data-i18n="weave.f4">题库、模拟考试、记忆率曲线</li>
+            </ul>
+            <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
+          </div>
+          <div class="plugin-visual">
+            <div class="slot is-empty"><img src="uploads/weave-mac.png" alt="" /></div>
+          </div>
+        </article>
+
+        <article class="plugin" id="reader">
+          <div>
+            <p class="plugin-tag" data-i18n="reader.tag">02 · 阅读现场</p>
+            <h3>EPUB Reader</h3>
+            <p class="plugin-desc" data-i18n="reader.desc">在 Obsidian 里正经读书。摘录写入你的笔记或牌组，并可随时跳回原文。</p>
+            <ul class="feature-list">
+              <li data-i18n="reader.f1">EPUB 及常见电子书格式</li>
+              <li data-i18n="reader.f2">高亮、想法、正文回显</li>
+              <li data-i18n="reader.f3">双向定位：笔记 ↔ 书中段落</li>
+              <li data-i18n="reader.f4">可独立使用，也可与 Weave 联动制卡</li>
+            </ul>
+            <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-epub-reader" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
+          </div>
+          <div class="plugin-visual">
+            <div class="slot is-empty"><img src="uploads/epub-mac.png" alt="" /></div>
+          </div>
+        </article>
+
+        <article class="plugin" id="ir">
+          <div>
+            <p class="plugin-tag" data-i18n="ir.tag">03 · 阅读节奏</p>
+            <h3>Incremental Reading</h3>
+            <p class="plugin-desc" data-i18n="ir.desc">把收藏变成可排期的阅读点。随 Weave 系列购买，不单独售卖。</p>
+            <ul class="feature-list">
+              <li data-i18n="ir.f1">阅读点、专题、增量阅读日历</li>
+              <li data-i18n="ir.f2">网页、双链、PDF++、EPUB 等统一入队</li>
+              <li data-i18n="ir.f3">每日上限、续读与下次出现安排</li>
+            </ul>
+            <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-incremental-reading" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
+          </div>
+          <div class="plugin-visual">
+            <div class="slot is-empty"><img src="uploads/ir-mac.png" alt="" /></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2 data-i18n="pricing.title">价格</h2>
+          <p data-i18n="pricing.lead">基础体验永久可用。高级支持一次性买断：永久授权、邮箱绑定、支持五台设备。</p>
+        </div>
+        <div class="price-grid">
+          <article class="price-card best">
+            <h3 data-i18n="pricing.seriesTitle">Weave 系列激活码</h3>
+            <p class="hint" data-i18n="pricing.seriesHint">三款插件高级支持</p>
+            <div class="price-now">64<small data-i18n="pricing.yuan"> 元</small></div>
+            <div class="price-old" data-i18n="pricing.old">原价 108 元</div>
+            <ul>
+              <li>Weave</li>
+              <li>EPUB Reader</li>
+              <li>Incremental Reading</li>
+              <li data-i18n="pricing.lDevices">支持五台设备</li>
+              <li data-i18n="pricing.lForever">永久授权</li>
+              <li data-i18n="pricing.lEmail">邮箱绑定</li>
+              <li data-i18n="pricing.lBuyout">一次性买断</li>
+            </ul>
+            <a class="btn btn-primary" href="mailto:tutaoyuan8@outlook.com" data-i18n="pricing.buySeries">购买系列激活码</a>
+          </article>
+          <article class="price-card">
+            <h3 data-i18n="pricing.readerTitle">独立阅读器</h3>
+            <p class="hint" data-i18n="pricing.readerHint">仅 EPUB Reader</p>
+            <div class="price-now" style="font-size:1.65rem;">30<small data-i18n="pricing.yuan"> 元</small></div>
+            <div class="price-old" data-i18n="pricing.readerOld">原价 46 元</div>
+            <ul>
+              <li data-i18n="pricing.readerOnly">仅限于阅读器</li>
+              <li data-i18n="pricing.lDevices">支持五台设备</li>
+              <li data-i18n="pricing.lForever">永久授权</li>
+              <li data-i18n="pricing.lEmail">邮箱绑定</li>
+              <li data-i18n="pricing.lBuyout">一次性买断</li>
+            </ul>
+            <a class="btn btn-ghost" href="mailto:tutaoyuan8@outlook.com" data-i18n="pricing.buyReader">购买阅读器激活码</a>
+          </article>
+          <article class="price-card">
+            <h3 data-i18n="pricing.irTitle">增量阅读</h3>
+            <p class="hint" data-i18n="pricing.irHint">不单独售卖</p>
+            <div class="price-now" style="font-size:1.25rem;color:var(--text-muted);" data-i18n="pricing.irPrice">随系列购买</div>
+            <ul>
+              <li data-i18n="pricing.irL1">请选择系列激活码</li>
+              <li data-i18n="pricing.irL2">购后三款一并可用</li>
+              <li data-i18n="pricing.lDevices">支持五台设备</li>
+              <li data-i18n="pricing.lForever">永久授权</li>
+            </ul>
+            <a class="btn btn-ghost" href="#pricing" data-i18n="pricing.seeSeries">查看系列方案</a>
+          </article>
+        </div>
+        <div class="price-note" data-i18n="pricing.note">高级支持为一次性买断：永久授权、邮箱绑定、支持五台设备。独立激活码不适用于其它插件；如需三款齐全，请购买 Weave 系列激活码。</div>
+      </div>
+    </section>
+
+    <section class="section" id="community">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2 data-i18n="community.title">交流群</h2>
+          <p data-i18n="community.lead">欢迎加入 QQ 群交流与反馈。</p>
+        </div>
+        <div class="community-grid">
+          <article class="community-card">
+            <div class="tag" data-i18n="community.publicTag">公开群</div>
+            <h3 data-i18n="community.publicTitle">反馈群</h3>
+            <p data-i18n="community.publicDesc">Obsidian-Weave 系列公开交流与问题反馈。</p>
+            <a class="btn btn-primary" href="https://qm.qq.com/q/GcAcBRvCyO" target="_blank" rel="noopener noreferrer" data-i18n="community.joinPublic">加入反馈群</a>
+          </article>
+          <article class="community-card">
+            <div class="tag" data-i18n="community.betaTag">内测群 · 购后</div>
+            <h3 data-i18n="community.betaTitle">内测群②</h3>
+            <p data-i18n="community.betaDesc">仅限已购买 Weave 系列插件的用户。</p>
+            <a class="btn btn-ghost" href="https://qm.qq.com/q/6gvFHi5tBe" target="_blank" rel="noopener noreferrer" data-i18n="community.joinBeta">加入内测群</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="install">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2 data-i18n="install.title">在 Obsidian 中安装</h2>
+          <p data-i18n="install.lead">设置 → 社区插件 → 浏览，搜索对应名称；或直接打开社区插件页。</p>
+        </div>
+        <div class="install-grid">
+          <article class="install-card">
+            <h3>1. Weave</h3>
+            <p data-i18n="install.w">搜索 Weave，初始化卡片库后开始复习。</p>
+            <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave" target="_blank" rel="noopener noreferrer" data-i18n="install.open">打开社区页面</a>
+          </article>
+          <article class="install-card">
+            <h3>2. EPUB Reader</h3>
+            <p data-i18n="install.r">搜索阅读器插件，在库内打开电子书。</p>
+            <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-epub-reader" target="_blank" rel="noopener noreferrer" data-i18n="install.open">打开社区页面</a>
+          </article>
+          <article class="install-card">
+            <h3>3. Incremental Reading</h3>
+            <p data-i18n="install.i">搜索增量阅读，建立阅读点与日历。</p>
+            <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-incremental-reading" target="_blank" rel="noopener noreferrer" data-i18n="install.open">打开社区页面</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div data-i18n="footer.brand">Obsidian Weave 插件系列</div>
+      <div class="footer-links">
+        <a href="mailto:tutaoyuan8@outlook.com" data-i18n="footer.contact">授权联系</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var themeKey = "weave-theme-obsidian";
+      var langKey = "weave-lang-obsidian";
+      var savedTheme = localStorage.getItem(themeKey);
+      if (savedTheme === "light" || savedTheme === "dark") root.setAttribute("data-theme", savedTheme);
+
+      var I18N = {
+        zh: {
+          "meta.title": "Obsidian Weave 插件系列",
+          "meta.desc": "干净、优雅、舒适的 Obsidian Weave 插件系列官网原型。",
+          brand: "Weave 系列",
+          "nav.series": "系列",
+          "nav.products": "产品",
+          "nav.pricing": "价格",
+          "nav.docs": "教程",
+          "nav.community": "交流",
+          "nav.communityGroups": "交流群",
+          "nav.developerEmail": "开发者邮箱",
+          "nav.install": "安装",
+          themeToggle: "切换深浅色",
+          menu: "菜单",
+          showcase: "产品展示",
+          prev: "上一张",
+          next: "下一张",
+          dots: "幻灯片指示",
+          "slide.badge1": "01 B站",
+          "hero.eyebrow": "Obsidian 插件系列",
+          "hero.title": "在 Obsidian 里，安静地完成长期学习",
+          "hero.ctaPrice": "查看价格",
+          "hero.ctaSeries": "了解系列",
+          "series.title": "三款插件，一条舒适的学习链路",
+          "series.lead": "读、排、记三款独立插件。干净分工，按需组合，数据留在你的库中。不做成臃肿巨无——每款只做好一件事，合在一起构成完整闭环。",
+          "series.p1n": "01 · 优先",
+          "series.p1": "制卡、FSRS6 复习、题库检验。卡片与原文双向溯源。",
+          "series.p2": "库内读书与摘录，正文回显，一键回到原书段落。",
+          "series.p3": "阅读队列与日历排期，让「以后再看」真正被推进。",
+          "products.title": "产品详情",
+          "products.lead": "按优先级了解三款 Obsidian 社区插件。",
+          "weave.tag": "01 · 记忆与检验",
+          "weave.desc": "摘录、制卡、复习、测验、溯源。学习卡片独立存放，复习时仍可回到原文语境。",
+          "weave.f1": "FSRS6 间隔复习，问答 / 挖空 / 填空 / 选择",
+          "weave.f2": "正式牌组、涌现牌组，表格与分析视图",
+          "weave.f3": "AI 制卡、CSV / APKG 互通与备份",
+          "weave.f4": "题库、模拟考试、记忆率曲线",
+          viewCommunity: "社区插件页",
+          "reader.tag": "02 · 阅读现场",
+          "reader.desc": "在 Obsidian 里正经读书。摘录写入你的笔记或牌组，并可随时跳回原文。",
+          "reader.f1": "EPUB 及常见电子书格式",
+          "reader.f2": "高亮、想法、正文回显",
+          "reader.f3": "双向定位：笔记 ↔ 书中段落",
+          "reader.f4": "可独立使用，也可与 Weave 联动制卡",
+          "ir.tag": "03 · 阅读节奏",
+          "ir.desc": "把收藏变成可排期的阅读点。随 Weave 系列购买，不单独售卖。",
+          "ir.f1": "阅读点、专题、增量阅读日历",
+          "ir.f2": "网页、双链、PDF++、EPUB 等统一入队",
+          "ir.f3": "每日上限、续读与下次出现安排",
+          "pricing.title": "价格",
+          "pricing.lead": "基础体验永久可用。高级支持一次性买断：永久授权、邮箱绑定、支持五台设备。",
+          "pricing.seriesTitle": "Weave 系列激活码",
+          "pricing.seriesHint": "三款插件高级支持",
+          "pricing.yuan": " 元",
+          "pricing.old": "原价 108 元",
+          "pricing.buySeries": "购买系列激活码",
+          "pricing.readerTitle": "独立阅读器",
+          "pricing.readerHint": "仅 EPUB Reader",
+          "pricing.readerOld": "原价 46 元",
+          "pricing.readerOnly": "仅限于阅读器",
+          "pricing.buyReader": "购买阅读器激活码",
+          "pricing.irTitle": "增量阅读",
+          "pricing.irHint": "不单独售卖",
+          "pricing.irPrice": "随系列购买",
+          "pricing.irL1": "请选择系列激活码",
+          "pricing.irL2": "购后三款一并可用",
+          "pricing.seeSeries": "查看系列方案",
+          "pricing.lDevices": "支持五台设备",
+          "pricing.lForever": "永久授权",
+          "pricing.lEmail": "邮箱绑定",
+          "pricing.lBuyout": "一次性买断",
+          "pricing.note": "高级支持为一次性买断：永久授权、邮箱绑定、支持五台设备。独立激活码不适用于其它插件；如需三款齐全，请购买 Weave 系列激活码。",
+          "community.title": "交流群",
+          "community.lead": "欢迎加入 QQ 群交流与反馈。",
+          "community.publicTag": "公开群",
+          "community.publicTitle": "反馈群",
+          "community.publicDesc": "Obsidian-Weave 系列公开交流与问题反馈。",
+          "community.joinPublic": "加入反馈群",
+          "community.betaTag": "内测群 · 购后",
+          "community.betaTitle": "内测群②",
+          "community.betaDesc": "仅限已购买 Weave 系列插件的用户。",
+          "community.joinBeta": "加入内测群",
+          "install.title": "在 Obsidian 中安装",
+          "install.lead": "设置 → 社区插件 → 浏览，搜索对应名称；或直接打开社区插件页。",
+          "install.w": "搜索 Weave，初始化卡片库后开始复习。",
+          "install.r": "搜索阅读器插件，在库内打开电子书。",
+          "install.i": "搜索增量阅读，建立阅读点与日历。",
+          "install.open": "打开社区页面",
+          "footer.brand": "Obsidian Weave 插件系列",
+          "footer.contact": "授权联系",
+          sideHint: "切到中间后播放",
+          sideHintBi: "B站 · 切到中间后播放",
+          slideTo: "切换到第 {n} 张"
+        },
+        en: {
+          "meta.title": "Obsidian Weave Plugin Series",
+          "meta.desc": "A calm, elegant Obsidian Weave plugin series site prototype.",
+          brand: "Weave Series",
+          "nav.series": "Series",
+          "nav.products": "Products",
+          "nav.pricing": "Pricing",
+          "nav.docs": "Docs",
+          "nav.community": "Community",
+          "nav.communityGroups": "Groups",
+          "nav.developerEmail": "Developer email",
+          "nav.install": "Install",
+          themeToggle: "Toggle theme",
+          menu: "Menu",
+          showcase: "Product showcase",
+          prev: "Previous",
+          next: "Next",
+          dots: "Slide indicators",
+          "slide.badge1": "01 Bilibili",
+          "hero.eyebrow": "Obsidian plugin series",
+          "hero.title": "Quiet long-term learning, inside Obsidian",
+          "hero.ctaPrice": "View pricing",
+          "hero.ctaSeries": "Explore the series",
+          "series.title": "Three plugins, one calm learning loop",
+          "series.lead": "Read, schedule, and remember as three independent plugins. Clean roles, combine as needed, and keep your data in your vault. No bloated mega-app—each does one job well.",
+          "series.p1n": "01 · Priority",
+          "series.p1": "Card creation, FSRS6 review, and exam practice—with two-way links back to source text.",
+          "series.p2": "Read and highlight in your vault, with one-click return to the original paragraph.",
+          "series.p3": "Reading queues and calendar scheduling so “read later” actually moves forward.",
+          "products.title": "Product details",
+          "products.lead": "Meet the three Obsidian community plugins, in priority order.",
+          "weave.tag": "01 · Memory & testing",
+          "weave.desc": "Extract, create cards, review, quiz, and trace sources. Cards live on their own, yet stay connected to original context.",
+          "weave.f1": "FSRS6 spaced review: Q&A / cloze / fill-in / multiple choice",
+          "weave.f2": "Formal and emergent decks, table and analytics views",
+          "weave.f3": "AI card creation, CSV / APKG exchange and backup",
+          "weave.f4": "Question banks, mock exams, retention curves",
+          viewCommunity: "Community page",
+          "reader.tag": "02 · Reading in place",
+          "reader.desc": "Real reading inside Obsidian. Send highlights to notes or decks, and jump back to the source anytime.",
+          "reader.f1": "EPUB and common ebook formats",
+          "reader.f2": "Highlights, ideas, and in-text echoes",
+          "reader.f3": "Two-way location: notes ↔ book paragraphs",
+          "reader.f4": "Works alone, or with Weave for card creation",
+          "ir.tag": "03 · Reading rhythm",
+          "ir.desc": "Turn saved material into schedulable reading points. Included with the Weave series—not sold alone.",
+          "ir.f1": "Reading points, topics, and incremental-reading calendar",
+          "ir.f2": "Queue web pages, wikilinks, PDF++, EPUB, and more",
+          "ir.f3": "Daily caps, resume, and next-appearance planning",
+          "pricing.title": "Pricing",
+          "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices.",
+          "pricing.seriesTitle": "Weave series license",
+          "pricing.seriesHint": "Advanced support for all three plugins",
+          "pricing.yuan": " CNY",
+          "pricing.old": "Was 108 CNY",
+          "pricing.buySeries": "Buy series license",
+          "pricing.readerTitle": "Reader only",
+          "pricing.readerHint": "EPUB Reader only",
+          "pricing.readerOld": "Was 46 CNY",
+          "pricing.readerOnly": "Reader only",
+          "pricing.buyReader": "Buy reader license",
+          "pricing.irTitle": "Incremental Reading",
+          "pricing.irHint": "Not sold separately",
+          "pricing.irPrice": "Included in series",
+          "pricing.irL1": "Choose the series license",
+          "pricing.irL2": "All three unlock after purchase",
+          "pricing.seeSeries": "See series plan",
+          "pricing.lDevices": "Up to 5 devices",
+          "pricing.lForever": "Perpetual license",
+          "pricing.lEmail": "Email binding",
+          "pricing.lBuyout": "One-time buyout",
+          "pricing.note": "Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Standalone licenses do not unlock other plugins; for all three, buy the Weave series license.",
+          "community.title": "Community",
+          "community.lead": "Join QQ groups for discussion and feedback.",
+          "community.publicTag": "Public",
+          "community.publicTitle": "Feedback group",
+          "community.publicDesc": "Public discussion and issue feedback for the Obsidian-Weave series.",
+          "community.joinPublic": "Join feedback group",
+          "community.betaTag": "Beta · after purchase",
+          "community.betaTitle": "Beta group 2",
+          "community.betaDesc": "For users who purchased the Weave series only.",
+          "community.joinBeta": "Join beta group",
+          "install.title": "Install in Obsidian",
+          "install.lead": "Settings → Community plugins → Browse, or open each plugin’s community page.",
+          "install.w": "Search Weave, initialize your card library, and start reviewing.",
+          "install.r": "Search the reader plugin and open ebooks in your vault.",
+          "install.i": "Search Incremental Reading to build reading points and a calendar.",
+          "install.open": "Open community page",
+          "footer.brand": "Obsidian Weave plugin series",
+          "footer.contact": "Licensing contact",
+          sideHint: "Bring to center to play",
+          sideHintBi: "Bilibili · bring to center",
+          slideTo: "Go to slide {n}"
+        }
+      };
+
+      var lang = localStorage.getItem(langKey) === "en" ? "en" : "zh";
+      var captionEl = document.getElementById("showcaseCaption");
+      var slides = Array.prototype.slice.call(document.querySelectorAll("#showcaseTrack .slide"));
+      var current = 0;
+      var dotsWrap = document.getElementById("showcaseDots");
+      var sideOffset = 56;
+      var sideScale = 0.78;
+
+      function t(key) {
+        var pack = I18N[lang] || I18N.zh;
+        return pack[key] || I18N.zh[key] || key;
+      }
+
+      function slideCaption(slide) {
+        return slide.getAttribute(lang === "en" ? "data-caption-en" : "data-caption-zh") ||
+          slide.getAttribute("data-caption") || "";
+      }
+
+      function applyLang() {
+        root.setAttribute("data-lang", lang);
+        root.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
+        document.title = t("meta.title");
+        var desc = document.querySelector('meta[name="description"]');
+        if (desc) desc.setAttribute("content", t("meta.desc"));
+
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (key) el.textContent = t(key);
+        });
+        document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n-aria");
+          if (!key) return;
+          var val = t(key);
+          el.setAttribute("aria-label", val);
+          if (el.hasAttribute("title")) el.setAttribute("title", val);
+        });
+
+        if (dotsWrap) {
+          Array.prototype.forEach.call(dotsWrap.children, function (dot, i) {
+            dot.setAttribute("aria-label", t("slideTo").replace("{n}", String(i + 1)));
+          });
+        }
+        if (captionEl && slides[current]) {
+          captionEl.textContent = slideCaption(slides[current]);
+        }
+      }
+
+      function setLang(next) {
+        lang = next === "en" ? "en" : "zh";
+        localStorage.setItem(langKey, lang);
+        applyLang();
+        if (slides.length) render();
+      }
+
+      var langToggle = document.getElementById("langToggle");
+      if (langToggle) {
+        langToggle.addEventListener("click", function () {
+          setLang(lang === "zh" ? "en" : "zh");
+        });
+      }
+
+      var themeToggle = document.getElementById("themeToggle");
+      if (themeToggle) {
+        themeToggle.addEventListener("click", function () {
+          var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+          root.setAttribute("data-theme", next);
+          localStorage.setItem(themeKey, next);
+        });
+      }
+
+      var nav = document.getElementById("nav");
+      var toggle = document.getElementById("navToggle");
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          var open = nav.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+      }
+
+      var communityDrop = document.getElementById("communityDrop");
+      var communityToggle = document.getElementById("communityToggle");
+      if (communityDrop && communityToggle) {
+        communityToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var open = communityDrop.classList.toggle("open");
+          communityToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        communityDrop.querySelectorAll(".nav-menu a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            communityDrop.classList.remove("open");
+            communityToggle.setAttribute("aria-expanded", "false");
+            if (nav) nav.classList.remove("open");
+            if (toggle) toggle.setAttribute("aria-expanded", "false");
+          });
+        });
+        document.addEventListener("click", function (e) {
+          if (!communityDrop.contains(e.target)) {
+            communityDrop.classList.remove("open");
+            communityToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+
+      document.querySelectorAll(".plugin-visual .slot").forEach(function (slot) {
+        var img = slot.querySelector("img");
+        if (!img) return;
+        function ok() { slot.classList.remove("is-empty"); }
+        function bad() { slot.classList.add("is-empty"); }
+        if (img.complete && img.naturalWidth > 0) ok();
+        else {
+          img.addEventListener("load", ok);
+          img.addEventListener("error", bad);
+        }
+      });
+
+      function youtubeId(value) {
+        if (!value) return "";
+        var m = String(value).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
+        if (m) return m[1];
+        if (/^[A-Za-z0-9_-]{6,}$/.test(value)) return value;
+        return "";
+      }
+
+      function youtubeStart(value) {
+        if (!value) return 0;
+        var m = String(value).match(/[?&#]t=(\d+)(s)?/i) || String(value).match(/start=(\d+)/i);
+        return m ? parseInt(m[1], 10) : 0;
+      }
+
+      function bilibiliId(value) {
+        if (!value) return "";
+        var m = String(value).match(/BV[0-9A-Za-z]+/);
+        if (m) return m[0];
+        if (/^BV[0-9A-Za-z]+$/.test(value)) return value;
+        return "";
+      }
+
+      function renderSidePoster(media, label) {
+        var el = document.createElement("div");
+        el.className = "slide-yt-link";
+        el.innerHTML =
+          '<span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>' +
+          '<span class="hint">' + label + "</span>";
+        media.appendChild(el);
+      }
+
+      function renderYoutubePoster(media, yt) {
+        var el = document.createElement("div");
+        el.className = "slide-yt-link";
+        el.style.backgroundImage = "url(https://i.ytimg.com/vi/" + yt + "/hqdefault.jpg)";
+        el.innerHTML =
+          '<span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>' +
+          '<span class="hint">' + t("sideHint") + "</span>";
+        media.appendChild(el);
+      }
+
+      function mountIframe(media, src, title, keyAttr, keyValue) {
+        media.innerHTML = "";
+        var iframe = document.createElement("iframe");
+        iframe.src = src;
+        iframe.title = title;
+        iframe.setAttribute("scrolling", "no");
+        iframe.setAttribute("border", "0");
+        iframe.setAttribute("frameborder", "no");
+        iframe.setAttribute("framespacing", "0");
+        iframe.setAttribute("allowfullscreen", "true");
+        iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+        iframe.setAttribute(keyAttr, keyValue);
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        media.appendChild(iframe);
+      }
+
+      function ensureMedia(slide, active) {
+        var media = slide.querySelector(".slide-media");
+        if (!media) return;
+        var type = (slide.getAttribute("data-type") || "image").toLowerCase();
+        var title = slideCaption(slide) || "Weave";
+        var image = slide.getAttribute("data-image") || "";
+
+        if (type === "bilibili") {
+          var bv = bilibiliId(slide.getAttribute("data-bilibili") || "");
+          if (!bv) return;
+          var existingBi = media.querySelector("iframe");
+          var biSrc =
+            "https://player.bilibili.com/player.html?bvid=" +
+            encodeURIComponent(bv) +
+            "&page=1&high_quality=1&danmaku=0&autoplay=0";
+          if (active) {
+            if (existingBi && existingBi.getAttribute("data-bv") === bv) return;
+            mountIframe(media, biSrc, title, "data-bv", bv);
+          } else {
+            media.innerHTML = "";
+            renderSidePoster(media, t("sideHintBi"));
+          }
+          return;
+        }
+
+        if (type === "youtube") {
+          var rawYt = slide.getAttribute("data-youtube") || "";
+          var yt = youtubeId(rawYt);
+          var start = youtubeStart(rawYt);
+          if (!yt) return;
+          var existing = media.querySelector("iframe");
+          var wantSrc = "https://www.youtube.com/embed/" + yt + "?rel=0";
+          if (start > 0) wantSrc += "&start=" + start;
+          if (active) {
+            if (existing && existing.getAttribute("data-yt") === yt) return;
+            mountIframe(media, wantSrc, title, "data-yt", yt);
+          } else {
+            media.innerHTML = "";
+            renderYoutubePoster(media, yt);
+          }
+          return;
+        }
+
+        if (image) {
+          var existingImg = media.querySelector("img");
+          if (!existingImg) {
+            media.innerHTML = "";
+            var imgEl = document.createElement("img");
+            imgEl.alt = title;
+            imgEl.src = image;
+            imgEl.addEventListener("error", function () {
+              media.innerHTML =
+                '<div class="slide-placeholder"><strong>Slot</strong>' + image + "</div>";
+            });
+            media.appendChild(imgEl);
+          }
+        }
+      }
+
+      function relativePos(i) {
+        var n = slides.length;
+        var diff = (i - current + n) % n;
+        if (diff > Math.floor(n / 2)) diff -= n;
+        return diff;
+      }
+
+      function render() {
+        if (!slides.length) return;
+        slides.forEach(function (slide, i) {
+          var pos = relativePos(i);
+          slide.classList.remove("is-center", "is-side", "is-hidden");
+          if (pos === 0) {
+            slide.classList.add("is-center");
+            slide.style.transform = "translateX(0) scale(1) translateZ(0)";
+            slide.setAttribute("aria-hidden", "false");
+          } else if (Math.abs(pos) === 1) {
+            slide.classList.add("is-side");
+            slide.style.transform =
+              "translateX(" + (pos * sideOffset) + "%) scale(" + sideScale + ") translateZ(-80px)";
+            slide.setAttribute("aria-hidden", "true");
+          } else {
+            slide.classList.add("is-hidden");
+            slide.style.transform =
+              "translateX(" + (pos * sideOffset * 1.35) + "%) scale(0.7) translateZ(-120px)";
+            slide.setAttribute("aria-hidden", "true");
+          }
+          ensureMedia(slide, pos === 0);
+        });
+
+        if (captionEl) captionEl.textContent = slideCaption(slides[current]);
+        if (dotsWrap) {
+          Array.prototype.forEach.call(dotsWrap.children, function (dot, i) {
+            dot.classList.toggle("is-active", i === current);
+            dot.setAttribute("aria-current", i === current ? "true" : "false");
+          });
+        }
+      }
+
+      function go(delta) {
+        if (!slides.length) return;
+        current = (current + delta + slides.length) % slides.length;
+        render();
+      }
+
+      function goTo(index) {
+        if (!slides.length) return;
+        current = (index + slides.length) % slides.length;
+        render();
+      }
+
+      if (dotsWrap && slides.length) {
+        dotsWrap.innerHTML = "";
+        slides.forEach(function (_, i) {
+          var dot = document.createElement("button");
+          dot.type = "button";
+          dot.addEventListener("click", function () { goTo(i); });
+          dotsWrap.appendChild(dot);
+        });
+      }
+
+      var prevBtn = document.getElementById("showcasePrev");
+      var nextBtn = document.getElementById("showcaseNext");
+      if (prevBtn) prevBtn.addEventListener("click", function () { go(-1); });
+      if (nextBtn) nextBtn.addEventListener("click", function () { go(1); });
+
+      slides.forEach(function (slide, i) {
+        slide.addEventListener("click", function () {
+          if (relativePos(i) !== 0) goTo(i);
+        });
+      });
+
+      document.addEventListener("keydown", function (e) {
+        var tag = (e.target && e.target.tagName) || "";
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+        if (e.key === "ArrowLeft") go(-1);
+        if (e.key === "ArrowRight") go(1);
+      });
+
+      applyLang();
+      render();
+    })();
+  </script>
+
+</html>
