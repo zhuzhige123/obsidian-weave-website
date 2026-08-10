@@ -1413,7 +1413,6 @@
             <a class="btn btn-ghost" href="#pricing" data-i18n="pricing.seeSeries">查看系列方案</a>
           </article>
         </div>
-        <div class="price-note" data-i18n="pricing.note" data-i18n-empty-hide hidden></div>
         <div class="price-note" data-i18n="pricing.usdNote" data-i18n-empty-hide hidden></div>
       </div>
     </section>
@@ -1580,7 +1579,6 @@
           "pricing.lForever": "永久授权",
           "pricing.lEmail": "邮箱绑定",
           "pricing.lBuyout": "一次性买断",
-          "pricing.note": "",
           "pricing.usdNote": "",
           "community.title": "交流群",
           "community.lead": "欢迎加入 QQ / 微信群交流与反馈。公开群请备注来源；购后群请提供订单号。",
@@ -1687,7 +1685,6 @@
           "pricing.lForever": "Perpetual license",
           "pricing.lEmail": "Email binding",
           "pricing.lBuyout": "One-time buyout",
-          "pricing.note": "",
           "pricing.usdNote": "In this series’ official pricing, USD prices are higher than the China price because they are set together from purchasing power, typical prices in different markets, and a modest discount after balancing the price gap—still a reasonable rate.",
           "community.title": "Community",
           "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
@@ -1729,7 +1726,9 @@
 
       function t(key) {
         var pack = I18N[lang] || I18N.zh;
-        return pack[key] || I18N.zh[key] || key;
+        if (Object.prototype.hasOwnProperty.call(pack, key)) return pack[key];
+        if (Object.prototype.hasOwnProperty.call(I18N.zh, key)) return I18N.zh[key];
+        return key;
       }
 
       function slideCaption(slide) {
