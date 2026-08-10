@@ -664,6 +664,13 @@
       background: var(--accent);
       opacity: 0.85;
     }
+    .feature-list li:last-child {
+      color: var(--text-faint);
+      padding-left: 0;
+    }
+    .feature-list li:last-child::before {
+      display: none;
+    }
     .plugin-visual {
       border-radius: var(--radius);
       border: 1px solid var(--border);
@@ -1125,9 +1132,10 @@
             <p class="plugin-desc" data-i18n="weave.desc">摘录、制卡、复习、测验、溯源。学习卡片独立存放，复习时仍可回到原文语境。</p>
             <ul class="feature-list">
               <li data-i18n="weave.f1">FSRS6 间隔复习，问答 / 挖空 / 填空 / 选择</li>
-              <li data-i18n="weave.f2">正式牌组、涌现牌组，表格与分析视图</li>
+              <li data-i18n="weave.f2">正式牌组、涌现牌组；表格、网格、看板与时间线视图</li>
               <li data-i18n="weave.f3">AI 制卡、CSV / APKG 互通与备份</li>
               <li data-i18n="weave.f4">题库、模拟考试、记忆率曲线</li>
+              <li data-i18n="weave.f5">……以及更多</li>
             </ul>
             <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
           </div>
@@ -1155,12 +1163,13 @@
           <div>
             <p class="plugin-tag" data-i18n="reader.tag">02 · 阅读现场</p>
             <h3>EPUB Reader</h3>
-            <p class="plugin-desc" data-i18n="reader.desc">在 Obsidian 里正经读书。摘录写入你的笔记或牌组，并可随时跳回原文。</p>
+            <p class="plugin-desc" data-i18n="reader.desc">在 Obsidian 里沉浸阅读：英著词汇辅助、摘录可引用到任意文件与卡片，并能溯源回到正文、反向找到相关摘录。</p>
             <ul class="feature-list">
-              <li data-i18n="reader.f1">EPUB 及常见电子书格式</li>
-              <li data-i18n="reader.f2">高亮、想法、正文回显</li>
-              <li data-i18n="reader.f3">双向定位：笔记 ↔ 书中段落</li>
-              <li data-i18n="reader.f4">可独立使用，也可与 Weave 联动制卡</li>
+              <li data-i18n="reader.f1">EPUB 及常见电子书格式，高亮与正文回显</li>
+              <li data-i18n="reader.f2">英著阅读词汇辅助模式</li>
+              <li data-i18n="reader.f3">任意文件引用摘录卡片，溯源正文阅读</li>
+              <li data-i18n="reader.f4">反向索引：从摘录回到引用它的笔记与文章</li>
+              <li data-i18n="reader.f5">……以及更多</li>
             </ul>
             <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-epub-reader" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
           </div>
@@ -1185,11 +1194,12 @@
           <div>
             <p class="plugin-tag" data-i18n="ir.tag">03 · 阅读节奏</p>
             <h3>Incremental Reading</h3>
-            <p class="plugin-desc" data-i18n="ir.desc">把收藏变成可排期的阅读点。随 Weave 系列购买，不单独售卖。</p>
+            <p class="plugin-desc" data-i18n="ir.desc">把收藏变成可排期的阅读点。目前处于增量阅读探索性设计第二阶段；随 Weave 系列购买，不单独售卖。</p>
             <ul class="feature-list">
               <li data-i18n="ir.f1">阅读点、专题、增量阅读日历</li>
               <li data-i18n="ir.f2">网页、双链、PDF++、EPUB 等统一入队</li>
               <li data-i18n="ir.f3">每日上限、续读与下次出现安排</li>
+              <li data-i18n="ir.f4">……以及更多</li>
             </ul>
             <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-incremental-reading" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
           </div>
@@ -1368,21 +1378,24 @@
           "weave.tag": "01 · 记忆与检验",
           "weave.desc": "摘录、制卡、复习、测验、溯源。学习卡片独立存放，复习时仍可回到原文语境。",
           "weave.f1": "FSRS6 间隔复习，问答 / 挖空 / 填空 / 选择",
-          "weave.f2": "正式牌组、涌现牌组，表格与分析视图",
+          "weave.f2": "正式牌组、涌现牌组；表格、网格、看板与时间线视图",
           "weave.f3": "AI 制卡、CSV / APKG 互通与备份",
           "weave.f4": "题库、模拟考试、记忆率曲线",
+          "weave.f5": "……以及更多",
           viewCommunity: "社区插件页",
           "reader.tag": "02 · 阅读现场",
-          "reader.desc": "在 Obsidian 里正经读书。摘录写入你的笔记或牌组，并可随时跳回原文。",
-          "reader.f1": "EPUB 及常见电子书格式",
-          "reader.f2": "高亮、想法、正文回显",
-          "reader.f3": "双向定位：笔记 ↔ 书中段落",
-          "reader.f4": "可独立使用，也可与 Weave 联动制卡",
+          "reader.desc": "在 Obsidian 里沉浸阅读：英著词汇辅助、摘录可引用到任意文件与卡片，并能溯源回到正文、反向找到相关摘录。",
+          "reader.f1": "EPUB 及常见电子书格式，高亮与正文回显",
+          "reader.f2": "英著阅读词汇辅助模式",
+          "reader.f3": "任意文件引用摘录卡片，溯源正文阅读",
+          "reader.f4": "反向索引：从摘录回到引用它的笔记与文章",
+          "reader.f5": "……以及更多",
           "ir.tag": "03 · 阅读节奏",
-          "ir.desc": "把收藏变成可排期的阅读点。随 Weave 系列购买，不单独售卖。",
+          "ir.desc": "把收藏变成可排期的阅读点。目前处于增量阅读探索性设计第二阶段；随 Weave 系列购买，不单独售卖。",
           "ir.f1": "阅读点、专题、增量阅读日历",
           "ir.f2": "网页、双链、PDF++、EPUB 等统一入队",
           "ir.f3": "每日上限、续读与下次出现安排",
+          "ir.f4": "……以及更多",
           "pricing.title": "价格",
           "pricing.lead": "基础体验永久可用。高级支持一次性买断：永久授权、邮箱绑定、支持五台设备。",
           "pricing.seriesTitle": "Weave 系列激活码",
@@ -1462,21 +1475,24 @@
           "weave.tag": "01 · Memory & testing",
           "weave.desc": "Extract, create cards, review, quiz, and trace sources. Cards live on their own, yet stay connected to original context.",
           "weave.f1": "FSRS6 spaced review: Q&A / cloze / fill-in / multiple choice",
-          "weave.f2": "Formal and emergent decks, table and analytics views",
+          "weave.f2": "Formal and emergent decks; table, grid, kanban, and timeline views",
           "weave.f3": "AI card creation, CSV / APKG exchange and backup",
           "weave.f4": "Question banks, mock exams, retention curves",
+          "weave.f5": "…and more",
           viewCommunity: "Community page",
           "reader.tag": "02 · Reading in place",
-          "reader.desc": "Real reading inside Obsidian. Send highlights to notes or decks, and jump back to the source anytime.",
-          "reader.f1": "EPUB and common ebook formats",
-          "reader.f2": "Highlights, ideas, and in-text echoes",
-          "reader.f3": "Two-way location: notes ↔ book paragraphs",
-          "reader.f4": "Works alone, or with Weave for card creation",
+          "reader.desc": "Immersive reading in Obsidian: vocabulary assist for English classics, excerpt cards you can reference from any file, jump back to source text, and reverse-index related excerpts.",
+          "reader.f1": "EPUB and common ebook formats, with highlights and in-text echoes",
+          "reader.f2": "Vocabulary-assist mode for English classics",
+          "reader.f3": "Reference excerpt cards from any file, then return to source reading",
+          "reader.f4": "Reverse index: from an excerpt back to notes and articles that cite it",
+          "reader.f5": "…and more",
           "ir.tag": "03 · Reading rhythm",
-          "ir.desc": "Turn saved material into schedulable reading points. Included with the Weave series—not sold alone.",
+          "ir.desc": "Turn saved material into schedulable reading points. Currently in exploratory design phase 2 of Incremental Reading; included with the Weave series—not sold alone.",
           "ir.f1": "Reading points, topics, and incremental-reading calendar",
           "ir.f2": "Queue web pages, wikilinks, PDF++, EPUB, and more",
           "ir.f3": "Daily caps, resume, and next-appearance planning",
+          "ir.f4": "…and more",
           "pricing.title": "Pricing",
           "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices.",
           "pricing.seriesTitle": "Weave series license",
