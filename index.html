@@ -890,6 +890,9 @@
       font-size: 0.9rem;
       line-height: 1.65;
     }
+    .price-note + .price-note {
+      margin-top: 0.75rem;
+    }
 
     .community-grid {
       display: grid;
@@ -1411,6 +1414,7 @@
           </article>
         </div>
         <div class="price-note" data-i18n="pricing.note">高级支持为一次性买断：永久授权、邮箱绑定、支持五台设备。独立激活码不适用于其它插件；如需三款齐全，请购买 Weave 系列激活码。</div>
+        <div class="price-note" data-i18n="pricing.usdNote" data-i18n-empty-hide hidden></div>
       </div>
     </section>
 
@@ -1577,6 +1581,7 @@
           "pricing.lEmail": "邮箱绑定",
           "pricing.lBuyout": "一次性买断",
           "pricing.note": "高级支持为一次性买断：永久授权、邮箱绑定、支持五台设备。独立激活码不适用于其它插件；如需三款齐全，请购买 Weave 系列激活码。",
+          "pricing.usdNote": "",
           "community.title": "交流群",
           "community.lead": "欢迎加入 QQ / 微信群交流与反馈。公开群请备注来源；购后群请提供订单号。",
           "community.publicTag": "公开群",
@@ -1683,6 +1688,7 @@
           "pricing.lEmail": "Email binding",
           "pricing.lBuyout": "One-time buyout",
           "pricing.note": "Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Prices shown in USD are the current discount; originals are double. Standalone licenses do not unlock other plugins. To buy, email tutaoyuan8@outlook.com.",
+          "pricing.usdNote": "USD prices are higher than the China CNY price because they are set from purchasing power, local market rates, and current promotions together—still meant to be a fair, reasonable offer.",
           "community.title": "Community",
           "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
           "community.publicTag": "Public",
@@ -1740,7 +1746,12 @@
 
         document.querySelectorAll("[data-i18n]").forEach(function (el) {
           var key = el.getAttribute("data-i18n");
-          if (key) el.textContent = t(key);
+          if (!key) return;
+          var val = t(key);
+          el.textContent = val;
+          if (el.hasAttribute("data-i18n-empty-hide")) {
+            el.hidden = !String(val || "").trim();
+          }
         });
         document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
           var key = el.getAttribute("data-i18n-aria");
