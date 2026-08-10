@@ -669,8 +669,9 @@
       border: 1px solid var(--border);
       background: var(--bg-elev);
       overflow: hidden;
-      min-height: 240px;
+      min-height: 280px;
       position: relative;
+      aspect-ratio: 16 / 10;
     }
     .slot {
       position: absolute;
@@ -683,7 +684,7 @@
       object-fit: cover;
       object-position: top center;
     }
-    .plugin-visual .slot { min-height: 240px; }
+    .plugin-visual .slot { min-height: 280px; }
     .plugin-visual .slot.is-empty::after {
       content: "截图位";
       position: absolute;
@@ -696,6 +697,82 @@
       background: var(--bg-soft);
     }
     .plugin-visual .slot.is-empty img { display: none; }
+
+    .shot-slide {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+    }
+    .shot-slide .shot {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+    .shot-slide .shot.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 1;
+    }
+    .shot-slide .shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .shot-nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0.7rem;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      pointer-events: none;
+    }
+    .shot-nav button {
+      pointer-events: auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+      backdrop-filter: blur(8px);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+    }
+    .shot-nav button:hover {
+      color: var(--text);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    }
+    .shot-dots {
+      display: flex;
+      gap: 0.35rem;
+      pointer-events: auto;
+    }
+    .shot-dots button {
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      opacity: 0.7;
+    }
+    html[data-theme="light"] .shot-dots button {
+      background: rgba(0, 0, 0, 0.28);
+    }
+    .shot-dots button.is-active {
+      width: 16px;
+      opacity: 1;
+      background: var(--accent);
+    }
 
     .price-grid {
       display: grid;
@@ -952,9 +1029,9 @@
               <article
                 class="slide"
                 data-type="bilibili"
-                data-bilibili="https://www.bilibili.com/video/BV1WyuA6GEij"
-                data-caption-zh="B站宣传视频 · BV1WyuA6GEij"
-                data-caption-en="Bilibili promo · BV1WyuA6GEij"
+                data-bilibili="https://www.bilibili.com/video/BV1FYGp6AEKh"
+                data-caption-zh="Obsidian全平台阅读器系列教程①"
+                data-caption-en="Obsidian all-platform reader tutorial ①"
               >
                 <span class="slide-badge" data-i18n="slide.badge1">01 B站</span>
                 <div class="slide-media">
@@ -999,7 +1076,7 @@
         </div>
 
         <div class="hero-bar">
-          <p class="showcase-caption" id="showcaseCaption">B站宣传视频 · BV1WyuA6GEij</p>
+          <p class="showcase-caption" id="showcaseCaption">Obsidian全平台阅读器系列教程①</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#pricing" data-i18n="hero.ctaPrice">查看价格</a>
             <a class="btn btn-ghost" href="#series" data-i18n="hero.ctaSeries">了解系列</a>
@@ -1055,7 +1132,20 @@
             <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
           </div>
           <div class="plugin-visual">
-            <div class="slot is-empty"><img src="uploads/weave-mac.png" alt="" /></div>
+            <div class="shot-slide" data-shot-slide>
+              <div class="shot is-active"><img src="uploads/weave-slide-1.png" alt="Weave 截图 1" /></div>
+              <div class="shot"><img src="uploads/weave-slide-2.png" alt="Weave 截图 2" /></div>
+              <div class="shot"><img src="uploads/weave-slide-3.png" alt="Weave 截图 3" /></div>
+              <div class="shot-nav">
+                <button type="button" data-shot-prev aria-label="上一张">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 L5 8 L10 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="shot-dots" data-shot-dots></div>
+                <button type="button" data-shot-next aria-label="下一张">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
           </div>
         </article>
 
@@ -1073,7 +1163,7 @@
             <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-epub-reader" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
           </div>
           <div class="plugin-visual">
-            <div class="slot is-empty"><img src="uploads/epub-mac.png" alt="" /></div>
+            <div class="slot"><img src="uploads/reader-cover.png" alt="EPUB Reader 封面" /></div>
           </div>
         </article>
 
@@ -1090,7 +1180,7 @@
             <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave-incremental-reading" target="_blank" rel="noopener noreferrer" data-i18n="viewCommunity">社区插件页</a>
           </div>
           <div class="plugin-visual">
-            <div class="slot is-empty"><img src="uploads/ir-mac.png" alt="" /></div>
+            <div class="slot"><img src="uploads/ir-main.png" alt="Incremental Reading 主界面" /></div>
           </div>
         </article>
       </div>
@@ -1521,6 +1611,54 @@
           img.addEventListener("load", ok);
           img.addEventListener("error", bad);
         }
+      });
+
+      /* 产品区截图幻灯片 */
+      document.querySelectorAll("[data-shot-slide]").forEach(function (rootSlide) {
+        var shots = Array.prototype.slice.call(rootSlide.querySelectorAll(".shot"));
+        if (shots.length < 2) return;
+        var dotsWrap = rootSlide.querySelector("[data-shot-dots]");
+        var idx = 0;
+        var timer = null;
+
+        function show(n) {
+          idx = (n + shots.length) % shots.length;
+          shots.forEach(function (shot, i) {
+            shot.classList.toggle("is-active", i === idx);
+          });
+          if (dotsWrap) {
+            Array.prototype.forEach.call(dotsWrap.children, function (dot, i) {
+              dot.classList.toggle("is-active", i === idx);
+            });
+          }
+        }
+
+        function restart() {
+          if (timer) clearInterval(timer);
+          timer = setInterval(function () { show(idx + 1); }, 4200);
+        }
+
+        if (dotsWrap) {
+          dotsWrap.innerHTML = "";
+          shots.forEach(function (_, i) {
+            var dot = document.createElement("button");
+            dot.type = "button";
+            dot.setAttribute("aria-label", "截图 " + (i + 1));
+            dot.addEventListener("click", function () {
+              show(i);
+              restart();
+            });
+            dotsWrap.appendChild(dot);
+          });
+        }
+
+        var prev = rootSlide.querySelector("[data-shot-prev]");
+        var next = rootSlide.querySelector("[data-shot-next]");
+        if (prev) prev.addEventListener("click", function () { show(idx - 1); restart(); });
+        if (next) next.addEventListener("click", function () { show(idx + 1); restart(); });
+
+        show(0);
+        restart();
       });
 
       function youtubeId(value) {
