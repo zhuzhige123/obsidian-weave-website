@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-lang="zh" data-view="tutorials">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>教程 · Obsidian Weave 插件系列</title>
+  <meta name="description" content="Obsidian Weave 插件系列用户使用教程原型。" />
+  <style>
+    @font-face {
+      font-family: "JingHuaOldSong";
+      src:
+        local("京华老宋体"),
+        local("京華老宋體"),
+        local("KingHwa OldSong"),
+        local("KingHwaOldSong");
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root, html[data-theme="dark"] {
+      --bg: #1e1e1e;
+      --bg-elev: #252525;
+      --bg-soft: #2b2b2b;
+      --text: #dadada;
+      --text-muted: #999999;
+      --text-faint: #7a7a7a;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --accent: #a68cf5;
+      --accent-hover: #b9a4f8;
+      --accent-soft: rgba(166, 140, 245, 0.12);
+      --accent-ink: #1e1e1e;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --nav-h: 64px;
+      --sidebar-w: 280px;
+      --toc-w: 220px;
+      --font: "JingHuaOldSong", "京华老宋体", "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+      --scrollbar-track: #2a2a2a;
+      --scrollbar-thumb: #555555;
+      --scrollbar-thumb-hover: #6a6a6a;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f8f7f4;
+      --bg-elev: #ffffff;
+      --bg-soft: #f1efe9;
+      --text: #2a2a2a;
+      --text-muted: #6b6b6b;
+      --text-faint: #8a8a8a;
+      --border: rgba(30, 30, 30, 0.08);
+      --border-strong: rgba(30, 30, 30, 0.12);
+      --accent: #7c5cbf;
+      --accent-hover: #6a4aad;
+      --accent-soft: rgba(124, 92, 191, 0.1);
+      --accent-ink: #ffffff;
+      --shadow: 0 18px 40px rgba(40, 30, 20, 0.08);
+      --scrollbar-track: #eceae4;
+      --scrollbar-thumb: #c4bfb4;
+      --scrollbar-thumb-hover: #a8a399;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+    html::-webkit-scrollbar { width: 10px; height: 10px; }
+    html::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+    html::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 999px;
+      border: 2px solid var(--scrollbar-track);
+    }
+    html::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; border: 0; background: none; color: inherit; cursor: pointer; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--nav-h);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-inline: clamp(1rem, 3vw, 1.75rem);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.3rem;
+      font-weight: 600;
+      font-size: 0.98rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-word {
+      position: relative;
+      display: inline-block;
+      font-weight: 650;
+      line-height: 1.1;
+      padding-bottom: 0.15rem;
+    }
+    .brand-w {
+      color: var(--accent);
+      font-size: 1.18em;
+      font-weight: 700;
+    }
+    .brand-underline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 35%, transparent) 72%, transparent 100%);
+      pointer-events: none;
+    }
+    .brand-series { font-weight: 650; }
+    .brand-sub {
+      color: var(--text-faint);
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-left: 0.1rem;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      margin-right: 0.25rem;
+    }
+    .nav-links a,
+    .nav-links button {
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .nav-links a:hover,
+    .nav-links button:hover {
+      color: var(--text);
+      background: var(--bg-soft);
+    }
+    .nav-links .is-active {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .nav-dropdown {
+      position: relative;
+    }
+    .nav-dropdown-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .nav-dropdown-trigger:hover,
+    .nav-dropdown.is-open .nav-dropdown-trigger {
+      color: var(--text);
+      background: var(--bg-soft);
+    }
+    .nav-dropdown-trigger.is-active {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .nav-dropdown-trigger .chevron {
+      width: 12px;
+      height: 12px;
+      opacity: 0.7;
+      transition: transform 0.15s ease;
+    }
+    .nav-dropdown.is-open .nav-dropdown-trigger .chevron {
+      transform: rotate(180deg);
+    }
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 0.35rem);
+      left: 0;
+      min-width: 13.5rem;
+      padding: 0.35rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      box-shadow: var(--shadow);
+      z-index: 80;
+    }
+    .nav-dropdown-menu[hidden] { display: none !important; }
+    .nav-dropdown-item {
+      display: flex;
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      text-align: left;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+    .nav-dropdown-item:hover {
+      background: var(--bg-soft);
+      color: var(--text);
+    }
+    .nav-dropdown-item.is-active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .icon-btn:hover { background: var(--bg-soft); color: var(--text); }
+    .lang-btn {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 0.55rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .lang-btn:hover { background: var(--bg-soft); color: var(--text); }
+    html[data-lang="en"] .lang-btn .lang-en { display: none; }
+    html[data-lang="zh"] .lang-btn .lang-zh,
+    html:not([data-lang]) .lang-btn .lang-zh { display: none; }
+    html[data-lang="en"] .lang-btn .lang-zh { display: inline; }
+    html[data-lang="zh"] .lang-btn .lang-en,
+    html:not([data-lang]) .lang-btn .lang-en { display: inline; }
+    .icon-btn .sun { display: none; }
+    html[data-theme="light"] .icon-btn .sun { display: block; }
+    html[data-theme="light"] .icon-btn .moon { display: none; }
+    .nav-cta {
+      margin-left: 0.35rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .nav-toggle { display: none; }
+    .sidebar-toggle { display: none; }
+
+    .docs-shell {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) minmax(0, 1fr) var(--toc-w);
+      min-height: calc(100vh - var(--nav-h));
+    }
+
+    .docs-sidebar {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow: auto;
+      border-right: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+      padding: 1.1rem 0 2rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+    .docs-sidebar::-webkit-scrollbar { width: 8px; }
+    .docs-sidebar::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+    .docs-sidebar::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 999px;
+      border: 2px solid var(--scrollbar-track);
+    }
+    .docs-sidebar::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+    .sidebar-head {
+      padding: 0 1rem 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.75rem;
+    }
+    .docs-search {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.88rem;
+    }
+    .docs-search::placeholder { color: var(--text-faint); }
+    .docs-search:focus {
+      outline: none;
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    }
+    .nav-group { padding: 0.65rem 0 0.15rem; }
+    .nav-group-title {
+      position: relative;
+      padding: 0.5rem 1rem 0.5rem calc(1rem + 16px);
+      margin: 0.1rem 0 0.35rem;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 650;
+      line-height: 1.25;
+      letter-spacing: 0.04em;
+      text-transform: none;
+    }
+    .nav-group-title::before {
+      content: "";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 1em;
+      border-radius: 2px;
+    }
+    .nav-group-title.accent-purple::before {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.85), rgba(147, 51, 234, 0.65));
+    }
+    .nav-group-title.accent-pink::before {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.85), rgba(219, 39, 119, 0.65));
+    }
+    .nav-group-title.accent-blue::before {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.85), rgba(37, 99, 235, 0.65));
+    }
+    .nav-group-title.accent-cyan::before {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.85), rgba(14, 165, 233, 0.65));
+    }
+    .nav-group-title.accent-green::before {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.85), rgba(22, 163, 74, 0.65));
+    }
+    .nav-group-title.accent-orange::before {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.85), rgba(234, 88, 12, 0.65));
+    }
+    .nav-group-title.accent-yellow::before {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.85), rgba(202, 138, 4, 0.65));
+    }
+    .nav-group-title.accent-red::before {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.85), rgba(220, 38, 38, 0.65));
+    }
+    .nav-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      width: 100%;
+      padding: 0.45rem 1rem;
+      text-align: left;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+      border-left: 2px solid transparent;
+      transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    }
+    .nav-item:hover {
+      background: var(--bg-soft);
+      color: var(--text);
+    }
+    .nav-item.is-active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-left-color: var(--accent);
+    }
+    .nav-item .code {
+      flex-shrink: 0;
+      margin-top: 0.12rem;
+      color: var(--text-faint);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .nav-item.is-active .code { color: color-mix(in srgb, var(--accent) 70%, var(--text-faint)); }
+    .nav-item.is-hidden { display: none; }
+
+    .docs-main {
+      min-width: 0;
+      padding: clamp(1.5rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem) 4rem;
+    }
+    .doc-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      color: var(--text-faint);
+      font-size: 0.82rem;
+    }
+    .doc-breadcrumb span::after {
+      content: "›";
+      margin-left: 0.35rem;
+      opacity: 0.55;
+    }
+    .doc-breadcrumb span:last-child::after { content: none; }
+    .doc-breadcrumb .current { color: var(--text-muted); }
+    .doc-header {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.85rem;
+    }
+    .doc-tag {
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+    .doc-tag.accent {
+      background: var(--accent-soft);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+      color: var(--accent);
+    }
+    .doc-tag.plugin {
+      background: color-mix(in srgb, var(--bg-soft) 80%, var(--accent-soft));
+      color: var(--text);
+    }
+    .doc-tag.group {
+      background: var(--bg-soft);
+      color: var(--text-muted);
+    }
+    .doc-tag.topic {
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .doc-tag.is-filter {
+      cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+    }
+    .doc-tag.is-filter:hover {
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+      color: var(--text);
+    }
+    .doc-tag.is-filter.is-active {
+      background: var(--accent-soft);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+      color: var(--accent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .doc-tag-results {
+      margin: 0 0 1.1rem;
+      padding: 0.85rem 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-elev);
+    }
+    .doc-tag-results[hidden] { display: none !important; }
+    .tag-results-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .tag-results-clear {
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-faint);
+      font-size: 0.74rem;
+      font-weight: 600;
+      transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    }
+    .tag-results-clear:hover {
+      background: var(--bg-soft);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+    .tag-results-empty {
+      margin: 0;
+      color: var(--text-faint);
+      font-size: 0.86rem;
+    }
+    .tag-results-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .tag-result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      width: 100%;
+      padding: 0.55rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      text-align: left;
+      color: var(--text);
+      transition: background 0.12s ease, border-color 0.12s ease;
+    }
+    .tag-result-item:hover {
+      background: var(--bg-soft);
+      border-color: var(--border);
+    }
+    .tag-result-item.is-current {
+      background: var(--accent-soft);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+    }
+    .tag-result-item .code {
+      flex-shrink: 0;
+      margin-top: 0.08rem;
+      color: var(--text-faint);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .tag-result-item.is-current .code {
+      color: color-mix(in srgb, var(--accent) 70%, var(--text-faint));
+    }
+    .tag-result-item .title {
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+    .doc-header h2 {
+      margin: 0 0 0.55rem;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      font-weight: 650;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+    }
+    .doc-lead {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 42rem;
+    }
+    .doc-body h3,
+    .doc-body h4 {
+      scroll-margin-top: calc(var(--nav-h) + 1rem);
+    }
+    .doc-body h3 {
+      margin: 2.25rem 0 0.85rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 1.22rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: 0.015em;
+      color: var(--text);
+    }
+    .doc-body h3:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+    .doc-body h4 {
+      margin: 1.65rem 0 0.65rem;
+      font-size: 1.05rem;
+      font-weight: 650;
+      line-height: 1.4;
+      color: color-mix(in srgb, var(--text) 92%, var(--accent));
+    }
+    .lang-fallback-note {
+      margin: 0 0 1.25rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+      background: var(--accent-soft);
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+    .doc-body p + ol,
+    .doc-body p + ul { margin-top: 0.35rem; }
+    .doc-body strong { font-weight: 700; color: var(--text); }
+    .doc-body ol,
+    .doc-body ul {
+      margin: 0.35rem 0 1.35rem;
+      padding-left: 1.85rem;
+      list-style-position: outside;
+    }
+    .doc-body ol { list-style-type: decimal; }
+    .doc-body ul { list-style-type: disc; }
+    .doc-body ol ol { list-style-type: lower-alpha; margin-top: 0.35rem; }
+    .doc-body ul ul { list-style-type: circle; margin-top: 0.35rem; }
+    .doc-body li {
+      margin-bottom: 0.5rem;
+      padding-left: 0.3rem;
+    }
+    .doc-body li::marker {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .doc-body ol > li::marker { color: var(--accent); }
+    .doc-body li > ul,
+    .doc-body li > ol {
+      margin: 0.45rem 0 0.25rem;
+      padding-left: 1.5rem;
+    }
+    .doc-body a[data-goto] {
+      color: var(--accent);
+      border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+    .doc-body code {
+      font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.86em;
+      padding: 0.08em 0.35em;
+      border-radius: 4px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+    }
+    .doc-body pre {
+      margin: 0 0 1.25rem;
+      padding: 0.95rem 1.05rem;
+      overflow: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+    .doc-body pre::-webkit-scrollbar { height: 8px; width: 8px; }
+    .doc-body pre::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+    .doc-body pre::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 999px;
+    }
+    .doc-body pre code {
+      padding: 0;
+      border: 0;
+      background: none;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      white-space: pre;
+    }
+    .doc-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 1.35rem;
+      font-size: 0.92rem;
+    }
+    .doc-body th,
+    .doc-body td {
+      text-align: left;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .doc-body th {
+      background: var(--bg-soft);
+      font-weight: 650;
+    }
+    .doc-body blockquote {
+      margin: 1rem 0 1.25rem;
+      padding: 0.85rem 1rem;
+      border-left: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+      background: var(--accent-soft);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+    .doc-body blockquote p:last-child { margin-bottom: 0; }
+    .figure {
+      margin: 1.35rem 0 1.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-elev);
+    }
+    .figure img { width: 100%; height: auto; }
+    .figure figcaption {
+      padding: 0.65rem 0.85rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-faint);
+      font-size: 0.82rem;
+    }
+    .figure.is-placeholder .ph {
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      color: var(--text-faint);
+      font-size: 0.88rem;
+      background:
+        linear-gradient(160deg, var(--accent-soft), transparent 55%),
+        var(--bg-soft);
+    }
+    .doc-nav-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .doc-nav-btn {
+      flex: 1;
+      max-width: 16rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .doc-nav-btn:hover {
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+      background: var(--bg-soft);
+    }
+    .doc-nav-btn .label {
+      display: block;
+      color: var(--text-faint);
+      font-size: 0.74rem;
+      margin-bottom: 0.2rem;
+    }
+    .doc-nav-btn .title {
+      display: block;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .doc-nav-btn.next { margin-left: auto; text-align: right; }
+
+    .docs-toc {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow: auto;
+      padding: 1.75rem 1rem 2rem 0.5rem;
+      border-left: 1px solid var(--border);
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+    .docs-toc::-webkit-scrollbar { width: 8px; }
+    .docs-toc::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+    .docs-toc::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 999px;
+      border: 2px solid var(--scrollbar-track);
+    }
+    .docs-toc::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+    .docs-toc h3 {
+      margin: 0 0 0.75rem;
+      color: var(--text-faint);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toc-list { list-style: none; margin: 0; padding: 0; }
+    .toc-list a {
+      display: block;
+      padding: 0.28rem 0;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+      border-left: 2px solid transparent;
+      padding-left: 0.65rem;
+      transition: color 0.12s ease, border-color 0.12s ease;
+    }
+    .toc-list a:hover { color: var(--text); }
+    .toc-list a.is-active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+    }
+    .toc-list li + li { margin-top: 0.1rem; }
+
+    .path-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .path-card {
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+    }
+    .path-card h4 {
+      margin: 0 0 0.35rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .path-card p {
+      margin: 0 0 0.65rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+    .path-card a {
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: var(--nav-h) 0 0 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 44;
+    }
+
+    @media (max-width: 1100px) {
+      .docs-shell { grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
+      .docs-toc { display: none; }
+    }
+    @media (max-width: 820px) {
+      .docs-shell { grid-template-columns: 1fr; }
+      .sidebar-toggle {
+        display: grid;
+        place-items: center;
+      }
+      .docs-sidebar {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        bottom: 0;
+        width: min(88vw, var(--sidebar-w));
+        z-index: 45;
+        transform: translateX(-105%);
+        transition: transform 0.22s ease;
+        box-shadow: var(--shadow);
+      }
+      .docs-sidebar.is-open { transform: translateX(0); }
+      .sidebar-backdrop.is-open { display: block; }
+      .nav-links { display: none; }
+      .nav-toggle { display: grid; place-items: center; }
+      .nav.open .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        padding: 0.5rem;
+        background: var(--bg-elev);
+        border-bottom: 1px solid var(--border);
+      }
+      .path-cards { grid-template-columns: 1fr; }
+    }
+
+    html[data-embed="1"] .nav { display: none; }
+    html[data-embed="1"] { --nav-h: 0px; }
+    html[data-embed="1"] .docs-sidebar,
+    html[data-embed="1"] .docs-toc {
+      top: 0;
+      height: 100vh;
+    }
+    .embed-sidebar-toggle { display: none; }
+    @media (max-width: 820px) {
+      html[data-embed="1"] .embed-sidebar-toggle {
+        display: grid;
+        position: fixed;
+        top: 0.7rem;
+        left: 0.7rem;
+        z-index: 46;
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" id="brandHome" title="返回首页">
+        <span class="brand-word" aria-hidden="true">
+          <span class="brand-w">W</span>eave
+          <span class="brand-underline"></span>
+        </span>
+        <span class="brand-series" data-i18n="brand.suffix">系列</span>
+        <span class="brand-sub">for Obsidian</span>
+      </a>
+      <div class="nav-right">
+        <button class="icon-btn sidebar-toggle" id="sidebarToggle" type="button" aria-label="打开教程目录">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <nav class="nav-links">
+          <a href="index.html" data-i18n="nav.home">首页</a>
+          <div class="nav-dropdown" id="navTutorialsWrap">
+            <button type="button" class="nav-dropdown-trigger is-active" id="navTutorials" aria-haspopup="true" aria-expanded="false">
+              <span data-i18n="nav.tutorials">教程</span>
+              <svg class="chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5 L6 7.5 L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="navTutorialsMenu" hidden>
+              <button type="button" class="nav-dropdown-item is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Deck</button>
+              <button type="button" class="nav-dropdown-item" data-plugin-nav="reader" data-i18n="plugin.reader">EPUB Reader</button>
+              <button type="button" class="nav-dropdown-item" data-plugin-nav="ir" data-i18n="plugin.ir">Incremental Reading</button>
+            </div>
+          </div>
+          <a href="index.html#pricing" data-i18n="nav.pricing">价格</a>
+          <a href="index.html#install" data-i18n="nav.install">安装</a>
+        </nav>
+        <button class="lang-btn" id="langToggle" type="button" aria-label="Switch language">
+          <span class="lang-en">EN</span>
+          <span class="lang-zh">中</span>
+        </button>
+        <button class="icon-btn" id="themeToggle" type="button" data-i18n-aria="themeToggle" aria-label="切换深浅色">
+          <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5Z" stroke="currentColor" stroke-width="1.7"/></svg>
+          <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" id="navToggle" type="button" data-i18n-aria="menu" aria-label="菜单">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <a class="nav-cta" href="index.html#install" data-i18n="nav.installCta">安装插件</a>
+      </div>
+    </div>
+  </header>
+
+  <button class="icon-btn embed-sidebar-toggle" id="embedSidebarToggle" type="button" aria-label="打开教程目录">
+    <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" id="docsSidebar" aria-label="教程目录">
+      <div class="sidebar-head">
+        <input class="docs-search" id="docsSearch" type="search" data-i18n-placeholder="sidebar.search" placeholder="搜索教程…" autocomplete="off" />
+      </div>
+      <nav id="sidebarNav"></nav>
+    </aside>
+
+    <main class="docs-main">
+      <div class="doc-breadcrumb" id="docBreadcrumb"></div>
+      <header class="doc-header">
+        <div class="doc-meta" id="docMeta"></div>
+        <div class="doc-tag-results" id="docTagResults" hidden></div>
+        <h2 id="docTitle"></h2>
+        <p class="doc-lead" id="docLead"></p>
+      </header>
+      <article class="doc-body" id="docBody"></article>
+      <div class="doc-nav-row" id="docPager"></div>
+    </main>
+
+    <aside class="docs-toc" aria-label="本页目录">
+      <h3 data-i18n="toc.title">本页目录</h3>
+      <ul class="toc-list" id="tocList"></ul>
+    </aside>
+  </div>
+
+  <script src="tutorials-data.js"></script>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var themeKey = "weave-theme-obsidian";
+      var langKey = "weave-lang-obsidian";
+      var savedTheme = localStorage.getItem(themeKey);
+      if (savedTheme === "light" || savedTheme === "dark") root.setAttribute("data-theme", savedTheme);
+      var savedLang = localStorage.getItem(langKey);
+      if (savedLang === "zh" || savedLang === "en") root.setAttribute("data-lang", savedLang);
+      if (/[?&]embed=1(?:&|$)/.test(location.search)) {
+        root.setAttribute("data-embed", "1");
+      }
+
+      var I18N = {
+        zh: {
+          brand: "Weave 系列",
+          "brand.suffix": "系列",
+          "nav.home": "首页",
+          "nav.tutorials": "教程",
+          "plugin.weave": "Weave Deck",
+          "plugin.reader": "EPUB Reader",
+          "plugin.ir": "增量阅读",
+          "nav.pricing": "价格",
+          "nav.install": "安装",
+          "nav.installCta": "安装插件",
+          themeToggle: "切换深浅色",
+          menu: "菜单",
+          "sidebar.search": "搜索教程…",
+          "toc.title": "本页目录",
+          "pager.prev": "上一篇",
+          "pager.next": "下一篇",
+          "tag.beginner": "入门",
+          "tag.intermediate": "进阶",
+          "tag.filterHeading": "包含「{tag}」的教程",
+          "tag.filterEmpty": "暂无匹配教程",
+          "tag.filterClear": "清除筛选",
+          "content.zhFallback": "正文英文版整理中，以下为中文原文。",
+          "group.start": "开始使用",
+          "group.creation": "制卡与导入",
+          "group.management": "卡片管理",
+          "group.study": "牌组与学习",
+          "group.er01": "书架与入门",
+          "group.er02": "摘录与高亮",
+          "group.er03": "阅读功能",
+          "group.er04": "设置与联动",
+          "group.series": "系列插件",
+          "crumb.tutorials": "教程",
+          "crumb.home": "首页"
+        },
+        en: {
+          brand: "Weave Series",
+          "brand.suffix": "Series",
+          "nav.home": "Home",
+          "nav.tutorials": "Tutorials",
+          "plugin.weave": "Weave Deck",
+          "plugin.reader": "EPUB Reader",
+          "plugin.ir": "Incremental Reading",
+          "nav.pricing": "Pricing",
+          "nav.install": "Install",
+          "nav.installCta": "Install",
+          themeToggle: "Toggle theme",
+          menu: "Menu",
+          "sidebar.search": "Search tutorials…",
+          "toc.title": "On this page",
+          "pager.prev": "Previous",
+          "pager.next": "Next",
+          "tag.beginner": "Beginner",
+          "tag.intermediate": "Intermediate",
+          "tag.filterHeading": "Tutorials tagged “{tag}”",
+          "tag.filterEmpty": "No matching tutorials",
+          "tag.filterClear": "Clear filter",
+          "content.zhFallback": "English article text is in progress. Showing the Chinese original below.",
+          "group.start": "Getting started",
+          "group.creation": "Create & import",
+          "group.management": "Card management",
+          "group.study": "Decks & study",
+          "group.er01": "Bookshelf & basics",
+          "group.er02": "Excerpts & highlights",
+          "group.er03": "Reading features",
+          "group.er04": "Settings & integration",
+          "group.series": "Plugin series",
+          "crumb.tutorials": "Tutorials",
+          "crumb.home": "Home"
+        }
+      };
+
+      function lang() {
+        return root.getAttribute("data-lang") === "en" ? "en" : "zh";
+      }
+      function t(key) {
+        var L = I18N[lang()];
+        return (L && L[key]) || I18N.zh[key] || key;
+      }
+      function applyI18n() {
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          el.textContent = t(el.getAttribute("data-i18n"));
+        });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+          el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
+        });
+        document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+          el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria")));
+        });
+        document.title = (lang() === "en" ? "Tutorials · " : "教程 · ") + "Obsidian Weave";
+      }
+
+      var GROUPS_BY_PLUGIN = {
+        weave: [
+          { id: "start", labelKey: "group.start" },
+          { id: "creation", labelKey: "group.creation" },
+          { id: "management", labelKey: "group.management" },
+          { id: "study", labelKey: "group.study" },
+          { id: "series", labelKey: "group.series" }
+        ],
+        reader: [
+          { id: "start", labelKey: "group.start" },
+          { id: "er01", labelKey: "group.er01" },
+          { id: "er02", labelKey: "group.er02" },
+          { id: "er03", labelKey: "group.er03" },
+          { id: "er04", labelKey: "group.er04" }
+        ],
+        ir: [
+          { id: "series", labelKey: "group.series" }
+        ]
+      };
+      function currentGroups() {
+        return GROUPS_BY_PLUGIN[currentPlugin] || GROUPS_BY_PLUGIN.weave;
+      }
+
+      var TUTORIALS = window.WEAVE_TUTORIALS || [];
+      if (!TUTORIALS.length) {
+        document.getElementById("docTitle").textContent = "未加载到教程数据";
+        document.getElementById("docLead").textContent = "请确认 tutorials-data.js 与 tutorials.html 在同一目录。";
+      }
+
+      var currentPlugin = "weave";
+      var currentId = "welcome";
+      var activeTagFilter = null;
+
+      function isEmbed() {
+        return root.getAttribute("data-embed") === "1";
+      }
+      function syncPluginNavUI() {
+        document.querySelectorAll("[data-plugin-nav]").forEach(function (btn) {
+          btn.classList.toggle("is-active", btn.getAttribute("data-plugin-nav") === currentPlugin);
+        });
+      }
+      function switchPlugin(plugin) {
+        if (!plugin || plugin === currentPlugin) return;
+        currentPlugin = plugin;
+        activeTagFilter = null;
+        syncPluginNavUI();
+        var list = flatNavList();
+        if (list.length) openTutorial(list[0].id, true);
+        else renderSidebar();
+        if (isEmbed() && window.parent !== window) {
+          window.parent.postMessage({ type: "weave-plugin-changed", plugin: plugin }, "*");
+        }
+      }
+
+      function byId(id) {
+        return TUTORIALS.filter(function (x) { return x.id === id; })[0];
+      }
+      function visibleTutorials() {
+        return TUTORIALS.filter(function (x) {
+          if (x.plugin === currentPlugin) return true;
+          if (currentPlugin === "weave" && x.group === "series" && x.id === "series-intro") return true;
+          if (currentPlugin === "ir" && x.group === "series" && x.id === "ir-soon") return true;
+          return false;
+        });
+      }
+      function flatNavList() {
+        var list = [];
+        currentGroups().forEach(function (g) {
+          var items = visibleTutorials().filter(function (x) { return x.group === g.id; });
+          if (items.length) list = list.concat(items);
+        });
+        return list;
+      }
+
+      var GROUP_ACCENTS = {
+        start: "accent-purple",
+        creation: "accent-blue",
+        management: "accent-green",
+        study: "accent-orange",
+        series: "accent-pink",
+        er01: "accent-blue",
+        er02: "accent-green",
+        er03: "accent-cyan",
+        er04: "accent-purple"
+      };
+
+      function renderSidebar() {
+        var nav = document.getElementById("sidebarNav");
+        var q = (document.getElementById("docsSearch").value || "").trim().toLowerCase();
+        nav.innerHTML = "";
+        currentGroups().forEach(function (g) {
+          var items = visibleTutorials().filter(function (x) {
+            if (x.group !== g.id) return false;
+            if (!q) return true;
+            var title = (x.title[lang()] || x.title.zh).toLowerCase();
+            return title.indexOf(q) !== -1 || (x.code && x.code.toLowerCase().indexOf(q) !== -1);
+          });
+          if (!items.length) return;
+          var titleEl = document.createElement("div");
+          titleEl.className = "nav-group-title " + (GROUP_ACCENTS[g.id] || "accent-purple");
+          titleEl.textContent = t(g.labelKey);
+          nav.appendChild(titleEl);
+          var groupWrap = document.createElement("div");
+          groupWrap.className = "nav-group";
+          items.forEach(function (item) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "nav-item" + (item.id === currentId ? " is-active" : "");
+            btn.setAttribute("data-id", item.id);
+            btn.innerHTML = '<span class="code">' + item.code + "</span><span>" + (item.title[lang()] || item.title.zh) + "</span>";
+            btn.addEventListener("click", function () {
+              openTutorial(item.id, true);
+              closeSidebar();
+            });
+            groupWrap.appendChild(btn);
+          });
+          nav.appendChild(groupWrap);
+        });
+      }
+
+      function renderToc() {
+        var toc = document.getElementById("tocList");
+        toc.innerHTML = "";
+        document.querySelectorAll("#docBody h3").forEach(function (h, i) {
+          if (!h.id) h.id = "sec-" + i;
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = "#" + h.id;
+          a.textContent = h.textContent;
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            h.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+          li.appendChild(a);
+          toc.appendChild(li);
+        });
+      }
+
+      function renderPager() {
+        var list = flatNavList();
+        var idx = -1;
+        for (var i = 0; i < list.length; i++) if (list[i].id === currentId) idx = i;
+        var pager = document.getElementById("docPager");
+        pager.innerHTML = "";
+        if (idx > 0) {
+          var prev = list[idx - 1];
+          var a = document.createElement("button");
+          a.type = "button";
+          a.className = "doc-nav-btn prev";
+          a.innerHTML = '<span class="label">' + t("pager.prev") + '</span><span class="title">' + (prev.title[lang()] || prev.title.zh) + "</span>";
+          a.addEventListener("click", function () { openTutorial(prev.id, true); });
+          pager.appendChild(a);
+        }
+        if (idx >= 0 && idx < list.length - 1) {
+          var next = list[idx + 1];
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "doc-nav-btn next";
+          b.innerHTML = '<span class="label">' + t("pager.next") + '</span><span class="title">' + (next.title[lang()] || next.title.zh) + "</span>";
+          b.addEventListener("click", function () { openTutorial(next.id, true); });
+          pager.appendChild(b);
+        }
+      }
+
+      function escHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+      function groupLabelKey(groupId) {
+        var map = {
+          start: "group.start",
+          creation: "group.creation",
+          management: "group.management",
+          study: "group.study",
+          series: "group.series",
+          er01: "group.er01",
+          er02: "group.er02",
+          er03: "group.er03",
+          er04: "group.er04"
+        };
+        return map[groupId] || "";
+      }
+      function pluginLabel(plugin) {
+        if (plugin === "reader") return "EPUB Reader";
+        if (plugin === "ir") return lang() === "en" ? "Incremental Reading" : "增量阅读";
+        return "Weave Deck";
+      }
+      function titleKeywords(doc) {
+        if (doc.keywords && doc.keywords[lang()] && doc.keywords[lang()].length) {
+          return doc.keywords[lang()];
+        }
+        if (doc.keywords && doc.keywords.zh && doc.keywords.zh.length) {
+          return doc.keywords.zh;
+        }
+        var title = doc.title[lang()] || doc.title.zh || "";
+        return title
+          .split(/[与、·/／]|(?:\s*&\s*)|(?:\s+and\s+)/i)
+          .map(function (part) { return part.trim(); })
+          .filter(function (part) {
+            return part.length >= 2 && part.length <= 14;
+          })
+          .slice(0, 3);
+      }
+      function buildDocTags(doc) {
+        var tags = [];
+        if (doc.code && doc.code !== "—") {
+          tags.push({ kind: "code", value: doc.code, label: doc.code, className: "accent" });
+        }
+        if (doc.plugin) {
+          tags.push({ kind: "plugin", value: doc.plugin, label: pluginLabel(doc.plugin), className: "plugin" });
+        }
+        var groupKey = groupLabelKey(doc.group);
+        if (groupKey && doc.group !== "start") {
+          tags.push({ kind: "group", value: doc.group, label: t(groupKey), className: "group" });
+        }
+        if (doc.level) {
+          tags.push({
+            kind: "level",
+            value: doc.level,
+            label: t(doc.level === "beginner" ? "tag.beginner" : "tag.intermediate"),
+            className: ""
+          });
+        }
+        var seen = {};
+        titleKeywords(doc).forEach(function (keyword) {
+          var key = keyword.toLowerCase();
+          if (seen[key]) return;
+          seen[key] = true;
+          tags.push({ kind: "topic", value: keyword, label: keyword, className: "topic" });
+        });
+        return tags;
+      }
+      function tutorialMatchesTag(doc, filter) {
+        if (!filter || !doc) return false;
+        if (filter.kind === "code") return doc.code === filter.value;
+        if (filter.kind === "plugin") return doc.plugin === filter.value;
+        if (filter.kind === "group") return doc.group === filter.value;
+        if (filter.kind === "level") return doc.level === filter.value;
+        if (filter.kind === "topic") {
+          var needle = String(filter.value).toLowerCase();
+          return titleKeywords(doc).some(function (word) {
+            return word.toLowerCase() === needle;
+          });
+        }
+        return false;
+      }
+      function tutorialsMatchingTag(filter) {
+        return TUTORIALS.filter(function (doc) {
+          if (!doc || !doc.id || doc.group === "start" || doc.group === "series") return false;
+          return tutorialMatchesTag(doc, filter);
+        });
+      }
+      function renderDocMeta(doc) {
+        return buildDocTags(doc).map(function (tag) {
+          var isActive =
+            activeTagFilter &&
+            activeTagFilter.kind === tag.kind &&
+            activeTagFilter.value === tag.value;
+          return (
+            '<button type="button" class="doc-tag is-filter ' +
+            tag.className +
+            (isActive ? " is-active" : "") +
+            '" data-tag-kind="' +
+            escHtml(tag.kind) +
+            '" data-tag-value="' +
+            escHtml(tag.value) +
+            '" data-tag-label="' +
+            escHtml(tag.label) +
+            '">' +
+            escHtml(tag.label) +
+            "</button>"
+          );
+        }).join("");
+      }
+      function bindDocMetaEvents() {
+        document.querySelectorAll("#docMeta .doc-tag.is-filter").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            setTagFilter(
+              btn.getAttribute("data-tag-kind"),
+              btn.getAttribute("data-tag-value"),
+              btn.getAttribute("data-tag-label")
+            );
+          });
+        });
+      }
+      function clearTagFilter() {
+        activeTagFilter = null;
+        var doc = byId(currentId);
+        if (doc) {
+          document.getElementById("docMeta").innerHTML = renderDocMeta(doc);
+          bindDocMetaEvents();
+        }
+        renderTagResults();
+      }
+      function setTagFilter(kind, value, label) {
+        if (
+          activeTagFilter &&
+          activeTagFilter.kind === kind &&
+          String(activeTagFilter.value) === String(value)
+        ) {
+          clearTagFilter();
+          return;
+        }
+        activeTagFilter = { kind: kind, value: value, label: label };
+        var doc = byId(currentId);
+        if (doc) {
+          document.getElementById("docMeta").innerHTML = renderDocMeta(doc);
+          bindDocMetaEvents();
+        }
+        renderTagResults();
+      }
+      function renderTagResults() {
+        var panel = document.getElementById("docTagResults");
+        if (!panel) return;
+        if (!activeTagFilter) {
+          panel.hidden = true;
+          panel.innerHTML = "";
+          return;
+        }
+        var matches = tutorialsMatchingTag(activeTagFilter);
+        var heading = t("tag.filterHeading").replace("{tag}", activeTagFilter.label);
+        var html =
+          '<div class="tag-results-head"><span>' +
+          escHtml(heading) +
+          " (" +
+          matches.length +
+          ')</span><button type="button" class="tag-results-clear" data-clear-tag>' +
+          escHtml(t("tag.filterClear")) +
+          "</button></div>";
+        if (!matches.length) {
+          html += '<p class="tag-results-empty">' + escHtml(t("tag.filterEmpty")) + "</p>";
+        } else {
+          html += '<ul class="tag-results-list">';
+          matches.forEach(function (doc) {
+            html +=
+              '<li><button type="button" class="tag-result-item' +
+              (doc.id === currentId ? " is-current" : "") +
+              '" data-open-id="' +
+              escHtml(doc.id) +
+              '"><span class="code">' +
+              escHtml(doc.code) +
+              '</span><span class="title">' +
+              escHtml(doc.title[lang()] || doc.title.zh) +
+              "</span></button></li>";
+          });
+          html += "</ul>";
+        }
+        panel.innerHTML = html;
+        panel.hidden = false;
+        var clearBtn = panel.querySelector("[data-clear-tag]");
+        if (clearBtn) clearBtn.addEventListener("click", clearTagFilter);
+        panel.querySelectorAll("[data-open-id]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            openTutorial(btn.getAttribute("data-open-id"), true);
+          });
+        });
+      }
+
+      function localizedField(doc, field) {
+        var bag = doc[field];
+        if (!bag) return "";
+        if (lang() === "en" && bag.en) return bag.en;
+        return bag.zh || bag.en || "";
+      }
+      function localizedBody(doc) {
+        if (!doc.body) return "";
+        if (lang() === "en" && doc.body.en) return doc.body.en;
+        var html = doc.body.zh || doc.body.en || "";
+        if (lang() === "en" && doc.body.zh && !doc.body.en) {
+          html = '<div class="lang-fallback-note">' + escHtml(t("content.zhFallback")) + "</div>" + html;
+        }
+        return html;
+      }
+
+      function openTutorial(id, pushHash) {
+        var doc = byId(id);
+        if (!doc) return;
+        if (currentId !== id) activeTagFilter = null;
+        currentId = id;
+        if (doc.plugin && doc.plugin !== currentPlugin) {
+          currentPlugin = doc.plugin;
+          syncPluginNavUI();
+          if (isEmbed() && window.parent !== window) {
+            window.parent.postMessage({ type: "weave-plugin-changed", plugin: currentPlugin }, "*");
+          }
+        }
+        document.getElementById("docTitle").textContent = localizedField(doc, "title");
+        document.getElementById("docLead").textContent = localizedField(doc, "lead");
+        document.getElementById("docBody").innerHTML = localizedBody(doc);
+        document.getElementById("docMeta").innerHTML = renderDocMeta(doc);
+        bindDocMetaEvents();
+        renderTagResults();
+        document.getElementById("docBreadcrumb").innerHTML =
+          '<span><a href="index.html">' + t("crumb.home") + "</a></span>" +
+          "<span>" + t("crumb.tutorials") + "</span>" +
+          '<span class="current">' + (doc.title[lang()] || doc.title.zh) + "</span>";
+        document.querySelectorAll("#docBody [data-goto]").forEach(function (el) {
+          el.addEventListener("click", function (e) {
+            e.preventDefault();
+            openTutorial(el.getAttribute("data-goto"), true);
+          });
+        });
+        renderSidebar();
+        renderToc();
+        renderPager();
+        if (pushHash) {
+          if (history.replaceState) history.replaceState(null, "", "#" + id);
+          else location.hash = id;
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function closeSidebar() {
+        document.getElementById("docsSidebar").classList.remove("is-open");
+        document.getElementById("sidebarBackdrop").classList.remove("is-open");
+        document.getElementById("sidebarBackdrop").hidden = true;
+      }
+      function openSidebar() {
+        document.getElementById("docsSidebar").classList.add("is-open");
+        document.getElementById("sidebarBackdrop").classList.add("is-open");
+        document.getElementById("sidebarBackdrop").hidden = false;
+      }
+
+      document.getElementById("themeToggle").addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem(themeKey, next);
+      });
+      document.getElementById("langToggle").addEventListener("click", function () {
+        var next = lang() === "zh" ? "en" : "zh";
+        root.setAttribute("data-lang", next);
+        localStorage.setItem(langKey, next);
+        activeTagFilter = null;
+        applyI18n();
+        renderSidebar();
+        openTutorial(currentId, false);
+      });
+      document.getElementById("navToggle").addEventListener("click", function () {
+        document.getElementById("nav").classList.toggle("open");
+      });
+      document.getElementById("sidebarToggle").addEventListener("click", openSidebar);
+      var embedToggle = document.getElementById("embedSidebarToggle");
+      if (embedToggle) embedToggle.addEventListener("click", openSidebar);
+      document.getElementById("sidebarBackdrop").addEventListener("click", closeSidebar);
+      document.getElementById("docsSearch").addEventListener("input", renderSidebar);
+
+      var navTutorialsWrap = document.getElementById("navTutorialsWrap");
+      var navTutorials = document.getElementById("navTutorials");
+      var navTutorialsMenu = document.getElementById("navTutorialsMenu");
+      function closePluginMenu() {
+        if (!navTutorialsWrap || !navTutorialsMenu || !navTutorials) return;
+        navTutorialsWrap.classList.remove("is-open");
+        navTutorialsMenu.hidden = true;
+        navTutorials.setAttribute("aria-expanded", "false");
+      }
+      function openPluginMenu() {
+        if (!navTutorialsWrap || !navTutorialsMenu || !navTutorials) return;
+        navTutorialsWrap.classList.add("is-open");
+        navTutorialsMenu.hidden = false;
+        navTutorials.setAttribute("aria-expanded", "true");
+      }
+      if (navTutorials) {
+        navTutorials.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (navTutorialsWrap && navTutorialsWrap.classList.contains("is-open")) closePluginMenu();
+          else openPluginMenu();
+        });
+      }
+      if (navTutorialsMenu) {
+        navTutorialsMenu.querySelectorAll("[data-plugin-nav]").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            switchPlugin(btn.getAttribute("data-plugin-nav"));
+            closePluginMenu();
+          });
+        });
+      }
+      document.addEventListener("click", function () {
+        closePluginMenu();
+      });
+      if (navTutorialsWrap) {
+        navTutorialsWrap.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      }
+      window.addEventListener("message", function (e) {
+        if (!e.data) return;
+        if (e.data.type === "weave-set-plugin") {
+          switchPlugin(e.data.plugin);
+          return;
+        }
+        if (e.data.type === "weave-set-lang") {
+          var next = e.data.lang === "en" ? "en" : "zh";
+          root.setAttribute("data-lang", next);
+          localStorage.setItem(langKey, next);
+          activeTagFilter = null;
+          applyI18n();
+          renderSidebar();
+          openTutorial(currentId, false);
+        }
+      });
+
+      applyI18n();
+      var hash = (location.hash || "").replace(/^#/, "");
+      if (hash && byId(hash)) {
+        currentId = hash;
+        var hashDoc = byId(hash);
+        if (hashDoc && hashDoc.plugin) {
+          currentPlugin = hashDoc.plugin;
+          syncPluginNavUI();
+        }
+      }
+      syncPluginNavUI();
+      openTutorial(currentId, false);
+    })();
+  </script>
+</body>
+</html>

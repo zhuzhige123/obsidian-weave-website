@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark" data-lang="zh">
+<html lang="zh-CN" data-theme="dark" data-lang="zh" data-site-view="home">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -225,6 +225,50 @@
       color: var(--text-faint);
       font-size: 0.78rem;
       margin-top: 0.15rem;
+    }
+    .nav-menu button {
+      display: block;
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      border-radius: 8px;
+      border: 0;
+      background: none;
+      color: var(--text-muted);
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-align: left;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+    .nav-menu button:hover {
+      color: var(--text);
+      background: var(--bg-soft);
+    }
+    .nav-menu button.is-active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-weight: 600;
+    }
+    html[data-site-view="tutorials"] #top { display: none; }
+    html[data-site-view="tutorials"] #view-tutorials { display: block; }
+    html[data-site-view="tutorials"] .nav { z-index: 70; }
+    #view-tutorials {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+      background: var(--bg);
+    }
+    #view-tutorials iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
     }
     .icon-btn {
       width: 36px;
@@ -1131,7 +1175,17 @@
           <a href="#series" data-i18n="nav.series">系列</a>
           <a href="#products" data-i18n="nav.products">产品</a>
           <a href="#pricing" data-i18n="nav.pricing">价格</a>
-          <a href="https://iwi05cktlph.feishu.cn/wiki/EAtZwld1uibt6ikU2SDcB2PenAb?fromScene=spaceOverview" target="_blank" rel="noopener noreferrer" data-i18n="nav.docs">教程</a>
+          <div class="nav-drop" id="tutorialsDrop">
+            <button type="button" id="navTutorials" aria-expanded="false" aria-haspopup="true">
+              <span data-i18n="nav.docs">教程</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav-menu" role="menu">
+              <button type="button" role="menuitem" class="is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Deck</button>
+              <button type="button" role="menuitem" data-plugin-nav="reader" data-i18n="plugin.reader">EPUB Reader</button>
+              <button type="button" role="menuitem" data-plugin-nav="ir" data-i18n="plugin.ir">Incremental Reading</button>
+            </div>
+          </div>
           <div class="nav-drop" id="communityDrop">
             <button type="button" id="communityToggle" aria-expanded="false" aria-haspopup="true">
               <span data-i18n="nav.community">交流</span>
@@ -1161,6 +1215,10 @@
       </div>
     </div>
   </header>
+
+  <div id="view-tutorials" aria-label="教程界面" hidden>
+    <iframe id="tutorialsFrame" title="Weave Tutorials" src="about:blank"></iframe>
+  </div>
 
   <main id="top">
     <section class="hero">
@@ -1511,6 +1569,9 @@
           "nav.products": "产品",
           "nav.pricing": "价格",
           "nav.docs": "教程",
+          "plugin.weave": "Weave Deck",
+          "plugin.reader": "EPUB Reader",
+          "plugin.ir": "增量阅读",
           "nav.community": "交流",
           "nav.communityGroups": "交流群",
           "nav.developerEmail": "开发者邮箱",
@@ -1616,7 +1677,10 @@
           "nav.series": "Series",
           "nav.products": "Products",
           "nav.pricing": "Pricing",
-          "nav.docs": "Docs",
+          "nav.docs": "Tutorials",
+          "plugin.weave": "Weave Deck",
+          "plugin.reader": "EPUB Reader",
+          "plugin.ir": "Incremental Reading",
           "nav.community": "Community",
           "nav.communityGroups": "Groups",
           "nav.developerEmail": "Developer email",
@@ -1801,6 +1865,10 @@
         localStorage.setItem(langKey, lang);
         applyLang();
         if (slides.length) render();
+        var tutorialsFrame = document.getElementById("tutorialsFrame");
+        if (tutorialsFrame && tutorialsFrame.contentWindow) {
+          tutorialsFrame.contentWindow.postMessage({ type: "weave-set-lang", lang: lang }, "*");
+        }
       }
 
       var langToggle = document.getElementById("langToggle");
@@ -2147,6 +2215,122 @@
             closeLightbox();
           }
         });
+      })();
+
+      /* 首页 ↔ 教程 iframe */
+      (function initTutorialsView() {
+        var viewKey = "weave-site-view";
+        var tutorialsFrame = document.getElementById("tutorialsFrame");
+        var viewTutorials = document.getElementById("view-tutorials");
+        var tutorialsDrop = document.getElementById("tutorialsDrop");
+        var navTutorials = document.getElementById("navTutorials");
+        var currentTutorialPlugin = "weave";
+
+        function syncTutorialPluginNav(plugin) {
+          currentTutorialPlugin = plugin || "weave";
+          document.querySelectorAll("[data-plugin-nav]").forEach(function (btn) {
+            btn.classList.toggle("is-active", btn.getAttribute("data-plugin-nav") === currentTutorialPlugin);
+          });
+        }
+
+        function sendPluginToFrame(plugin) {
+          if (tutorialsFrame && tutorialsFrame.contentWindow) {
+            tutorialsFrame.contentWindow.postMessage({ type: "weave-set-plugin", plugin: plugin }, "*");
+          }
+        }
+
+        function closeTutorialsMenu() {
+          if (!tutorialsDrop || !navTutorials) return;
+          tutorialsDrop.classList.remove("open");
+          navTutorials.setAttribute("aria-expanded", "false");
+        }
+
+        function openTutorialsMenu() {
+          if (!tutorialsDrop || !navTutorials) return;
+          tutorialsDrop.classList.add("open");
+          navTutorials.setAttribute("aria-expanded", "true");
+        }
+
+        function setSiteView(view, pushHash) {
+          var isTutorials = view === "tutorials";
+          root.setAttribute("data-site-view", isTutorials ? "tutorials" : "home");
+          if (viewTutorials) viewTutorials.hidden = !isTutorials;
+          if (isTutorials && tutorialsFrame) {
+            if (tutorialsFrame.getAttribute("src") === "about:blank") {
+              tutorialsFrame.addEventListener(
+                "load",
+                function onTutorialsFrameLoad() {
+                  tutorialsFrame.removeEventListener("load", onTutorialsFrameLoad);
+                  sendPluginToFrame(currentTutorialPlugin);
+                },
+                { once: true }
+              );
+              tutorialsFrame.setAttribute("src", "tutorials.html?embed=1");
+            } else {
+              sendPluginToFrame(currentTutorialPlugin);
+            }
+          }
+          if (!isTutorials) closeTutorialsMenu();
+          document.documentElement.style.overflow = isTutorials ? "hidden" : "";
+          if (pushHash) {
+            var hash = isTutorials ? "#tutorials" : "#top";
+            if (history.replaceState) history.replaceState(null, "", hash);
+            else location.hash = hash;
+          }
+          try { localStorage.setItem(viewKey, view); } catch (e) {}
+        }
+
+        if (navTutorials && tutorialsDrop) {
+          navTutorials.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var inTutorials = root.getAttribute("data-site-view") === "tutorials";
+            if (!inTutorials) {
+              setSiteView("tutorials", true);
+              openTutorialsMenu();
+              return;
+            }
+            if (tutorialsDrop.classList.contains("open")) closeTutorialsMenu();
+            else openTutorialsMenu();
+          });
+          tutorialsDrop.querySelectorAll("[data-plugin-nav]").forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              syncTutorialPluginNav(btn.getAttribute("data-plugin-nav"));
+              setSiteView("tutorials", true);
+              sendPluginToFrame(currentTutorialPlugin);
+              closeTutorialsMenu();
+              var nav = document.getElementById("nav");
+              var toggle = document.getElementById("navToggle");
+              if (nav) nav.classList.remove("open");
+              if (toggle) toggle.setAttribute("aria-expanded", "false");
+            });
+          });
+        }
+
+        window.addEventListener("message", function (e) {
+          if (e.data && e.data.type === "weave-plugin-changed") {
+            syncTutorialPluginNav(e.data.plugin);
+          }
+        });
+
+        document.querySelectorAll('a[href="#top"], a[href="#series"], a[href="#products"], a[href="#pricing"], a[href="#community"], a[href="#install"]').forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (root.getAttribute("data-site-view") === "tutorials") {
+              setSiteView("home", false);
+            }
+          });
+        });
+
+        syncTutorialPluginNav(currentTutorialPlugin);
+        var initialView = "home";
+        if (location.hash === "#tutorials") initialView = "tutorials";
+        else {
+          try {
+            var savedView = localStorage.getItem(viewKey);
+            if (savedView === "tutorials") initialView = "tutorials";
+          } catch (e2) {}
+        }
+        setSiteView(initialView, false);
       })();
 
       applyLang();
