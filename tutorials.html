@@ -1504,10 +1504,17 @@
         document.getElementById("sidebarBackdrop").hidden = false;
       }
 
+      function applyTheme(next) {
+        var theme = next === "light" ? "light" : "dark";
+        root.setAttribute("data-theme", theme);
+        localStorage.setItem(themeKey, theme);
+        if (isEmbed() && window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: "weave-theme-changed", theme: theme }, "*");
+        }
+      }
+
       document.getElementById("themeToggle").addEventListener("click", function () {
-        var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
-        root.setAttribute("data-theme", next);
-        localStorage.setItem(themeKey, next);
+        applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");
       });
       document.getElementById("langToggle").addEventListener("click", function () {
         var next = lang() === "zh" ? "en" : "zh";
@@ -1570,6 +1577,12 @@
         if (!e.data) return;
         if (e.data.type === "weave-set-plugin") {
           switchPlugin(e.data.plugin);
+          return;
+        }
+        if (e.data.type === "weave-set-theme") {
+          var theme = e.data.theme === "light" ? "light" : "dark";
+          root.setAttribute("data-theme", theme);
+          localStorage.setItem(themeKey, theme);
           return;
         }
         if (e.data.type === "weave-set-lang") {

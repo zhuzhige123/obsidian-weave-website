@@ -1878,12 +1878,20 @@
         });
       }
 
+      function syncThemeToTutorialsFrame(theme) {
+        var tutorialsFrame = document.getElementById("tutorialsFrame");
+        if (tutorialsFrame && tutorialsFrame.contentWindow) {
+          tutorialsFrame.contentWindow.postMessage({ type: "weave-set-theme", theme: theme }, "*");
+        }
+      }
+
       var themeToggle = document.getElementById("themeToggle");
       if (themeToggle) {
         themeToggle.addEventListener("click", function () {
           var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
           root.setAttribute("data-theme", next);
           localStorage.setItem(themeKey, next);
+          syncThemeToTutorialsFrame(next);
         });
       }
 
@@ -2239,6 +2247,14 @@
           }
         }
 
+        function syncFrameState() {
+          if (!tutorialsFrame || !tutorialsFrame.contentWindow) return;
+          var theme = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+          tutorialsFrame.contentWindow.postMessage({ type: "weave-set-theme", theme: theme }, "*");
+          tutorialsFrame.contentWindow.postMessage({ type: "weave-set-lang", lang: lang }, "*");
+          sendPluginToFrame(currentTutorialPlugin);
+        }
+
         function closeTutorialsMenu() {
           if (!tutorialsDrop || !navTutorials) return;
           tutorialsDrop.classList.remove("open");
@@ -2261,13 +2277,13 @@
                 "load",
                 function onTutorialsFrameLoad() {
                   tutorialsFrame.removeEventListener("load", onTutorialsFrameLoad);
-                  sendPluginToFrame(currentTutorialPlugin);
+                  syncFrameState();
                 },
                 { once: true }
               );
               tutorialsFrame.setAttribute("src", "tutorials.html?embed=1");
             } else {
-              sendPluginToFrame(currentTutorialPlugin);
+              syncFrameState();
             }
           }
           if (!isTutorials) closeTutorialsMenu();
@@ -2308,8 +2324,15 @@
         }
 
         window.addEventListener("message", function (e) {
-          if (e.data && e.data.type === "weave-plugin-changed") {
+          if (!e.data) return;
+          if (e.data.type === "weave-plugin-changed") {
             syncTutorialPluginNav(e.data.plugin);
+            return;
+          }
+          if (e.data.type === "weave-theme-changed") {
+            var theme = e.data.theme === "light" ? "light" : "dark";
+            root.setAttribute("data-theme", theme);
+            localStorage.setItem(themeKey, theme);
           }
         });
 
