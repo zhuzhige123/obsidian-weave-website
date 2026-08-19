@@ -17,7 +17,9 @@ SOURCE_READER_MD = Path(
     r"\10-项目\Weave产品\02-宣传与教程\obsidian weave epub reader 教程"
 )
 WEAVE_MD_DIR = ROOT / "tutorials" / "md"
+WEAVE_MD_EN_DIR = ROOT / "tutorials" / "md-en"
 READER_MD_DIR = ROOT / "tutorials" / "md-reader"
+READER_MD_EN_DIR = ROOT / "tutorials" / "md-reader-en"
 OUT_JS = ROOT / "tutorials-data.js"
 ASSETS = ROOT / "assets" / "tutorials"
 
@@ -385,8 +387,8 @@ def wiki_image(m: re.Match[str]) -> str:
             f"<figcaption>{esc(name)}</figcaption></figure>"
         )
     return (
-        f'<figure class="figure is-placeholder"><div class="ph">界面截图 · {esc(name)}</div>'
-        f"<figcaption>配图待放入 assets/tutorials/{esc(name)}</figcaption></figure>"
+        f'<figure class="figure is-placeholder"><div class="ph">Screenshot · {esc(name)}</div>'
+        f"<figcaption>Place image at assets/tutorials/{esc(name)}</figcaption></figure>"
     )
 
 
@@ -658,10 +660,9 @@ def copy_sources() -> None:
     WEAVE_MD_DIR.mkdir(parents=True, exist_ok=True)
     READER_MD_DIR.mkdir(parents=True, exist_ok=True)
     ASSETS.mkdir(parents=True, exist_ok=True)
-    if not SOURCE_WEAVE_MD.exists():
-        raise SystemExit(f"Source folder not found: {SOURCE_WEAVE_MD}")
-    if not SOURCE_READER_MD.exists():
-        raise SystemExit(f"Source folder not found: {SOURCE_READER_MD}")
+    if not SOURCE_WEAVE_MD.exists() or not SOURCE_READER_MD.exists():
+        print("skip copy: product-library source folders not found; using committed markdown")
+        return
     weave_count = 0
     for src in SOURCE_WEAVE_MD.glob("*.md"):
         shutil.copy2(src, WEAVE_MD_DIR / src.name)
@@ -683,13 +684,30 @@ def english_lead(item: dict, zh_lead: str) -> str:
     return zh_lead
 
 
-def append_catalog(tutorials: list, catalog: list, md_dir: Path) -> None:
+def append_catalog(
+    tutorials: list,
+    catalog: list,
+    md_dir: Path,
+    md_en_dir: Path | None = None,
+) -> None:
     for item in catalog:
         path = md_dir / item["file"]
         if not path.exists():
             raise SystemExit(f"Missing: {path}")
         md = path.read_text(encoding="utf-8")
         lead, body = convert_markdown(md)
+        lead_obj = {"zh": lead, "en": english_lead(item, lead)}
+        body_obj: dict[str, str] = {"zh": body}
+        if md_en_dir is not None:
+            en_path = md_en_dir / item["file"]
+            if en_path.exists():
+                en_md = en_path.read_text(encoding="utf-8")
+                en_lead, en_body = convert_markdown(en_md)
+                body_obj["en"] = en_body
+                if en_lead:
+                    lead_obj["en"] = en_lead
+            else:
+                raise SystemExit(f"Missing English translation: {en_path}")
         tutorials.append(
             {
                 "id": item["id"],
@@ -698,8 +716,8 @@ def append_catalog(tutorials: list, catalog: list, md_dir: Path) -> None:
                 "group": item["group"],
                 "level": item["level"],
                 "title": item["title"],
-                "lead": {"zh": lead, "en": english_lead(item, lead)},
-                "body": {"zh": body},
+                "lead": lead_obj,
+                "body": body_obj,
             }
         )
 
@@ -707,8 +725,8 @@ def append_catalog(tutorials: list, catalog: list, md_dir: Path) -> None:
 def build() -> None:
     copy_sources()
     tutorials = [WELCOME, READER_WELCOME]
-    append_catalog(tutorials, WEAVE_CATALOG, WEAVE_MD_DIR)
-    append_catalog(tutorials, READER_CATALOG, READER_MD_DIR)
+    append_catalog(tutorials, WEAVE_CATALOG, WEAVE_MD_DIR, WEAVE_MD_EN_DIR)
+    append_catalog(tutorials, READER_CATALOG, READER_MD_DIR, READER_MD_EN_DIR)
     tutorials.extend([SERIES, IR])
     payload = json.dumps(tutorials, ensure_ascii=False, indent=2)
     OUT_JS.write_text(
