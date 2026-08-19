@@ -5,7 +5,7 @@ Excerpts can land in three places—pick by scenario.
 
 1. **Markdown notes**: Most common. Open a `.md` file and place the cursor where you want insertion.
 2. **Canvas boards**: After binding a canvas, excerpts become nodes. See `Er-02e Canvas 脑图摘录`.
-3. **Weave Deck**: With Weave installed, content can fill memory cards. See `Er-04c 与 Weave 制卡、增量阅读、AI 联动`.
+3. **Weave Deck**: With Weave Deck installed, content can fill memory cards. See `Er-04c 与 Weave Deck 制卡、增量阅读、AI 联动`.
 
 > Note: The reader does not treat excerpts stored only in invisible plugin cache as formal notes. For long-term retention, they must land in Vault files.
 
@@ -35,7 +35,7 @@ After selecting body text, a toolbar appears. Common actions include:
 2. Insert excerpt (or copy, depending on auto mode).
 3. Add a thought.
 4. Copy plain text.
-5. Create card (requires Weave).
+5. Create card (requires Weave Deck).
 6. Add to vocabulary (requires related capability; see `Er-03b 生词标注与词汇表`).
 
 

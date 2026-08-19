@@ -1,4 +1,4 @@
-Weave EPUB Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidian 里打开 EPUB、TXT、FB2/FBZ、MOBI、AZW3、CBZ、PDF 等图书，用「我的书架」管理导入、封面、进度与阅读状态。可单独使用；安装 Weave 主插件后，还能衔接制卡、增量阅读与 AI。以下是详细介绍：
+Weave EPUB Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidian 里打开 EPUB、TXT、FB2/FBZ、MOBI、AZW3、CBZ、PDF 等图书，用「我的书架」管理导入、封面、进度与阅读状态。可单独使用；安装 Weave Deck 后，还能衔接制卡、增量阅读与 AI。以下是详细介绍：
 
 ## 1. 安装与启用
 推荐从社区插件市场安装。
@@ -74,9 +74,9 @@ Weave EPUB Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidi
 3. 阅读状态包括「未开始」「阅读中」「已读完」。
 
 
-## 9. 与 Weave 主插件的关系
+## 9. 与 Weave Deck 的关系
 阅读器可以独立完成阅读、书架与基础摘录。
 
-1. 不安装 Weave，也能阅读、管理书架，并把摘录写入 Markdown / Canvas。
-2. 安装 Weave 后，可选衔接制卡复习、增量阅读、AI 菜单，以及把摘录写入牌组。
-3. 若已激活 Weave 主插件，阅读器高级支持可继承授权，不必再单独输入阅读器激活码。
+1. 不安装 Weave Deck，也能阅读、管理书架，并把摘录写入 Markdown / Canvas。
+2. 安装 Weave Deck 后，可选衔接制卡复习、增量阅读、AI 菜单，以及把摘录写入牌组。
+3. 若已激活 Weave Deck，阅读器高级支持可继承授权，不必再单独输入阅读器激活码。

@@ -38,7 +38,7 @@ The sidebar TOC moves you by chapter.
 1. Open the sidebar and switch to the TOC.
 2. Click a chapter name; the body jumps to that chapter.
 3. The current chapter is indicated. At the first or last chapter, continuing to turn pages prompts that you are already at the start or end.
-4. If the Incremental Reading plugin is installed, chapters can also be **Added to Incremental Reading** from the TOC. See `Er-04c 与 Weave 制卡、增量阅读、AI 联动`.
+4. If the Incremental Reading plugin is installed, chapters can also be **Added to Incremental Reading** from the TOC. See `Er-04c 与 Weave Deck 制卡、增量阅读、AI 联动`.
 
 
 ## 6. Reading Typography

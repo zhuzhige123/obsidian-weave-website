@@ -20,7 +20,7 @@ After inserting excerpts into Markdown, Canvas, or decks per `Er-02a 摘录笔�
 1. In the note that holds the excerpt, click the book icon or deep link beside it.
 2. The reader opens the matching book and tries to scroll to the original sentence.
 3. Backlinks on Canvas nodes work the same way back into the book.
-4. Weave cards with reader traces can also jump back from study UI. See source-field notes in `We-01a 新建卡片`.
+4. Weave Deck cards with reader traces can also jump back from study UI. See source-field notes in `We-01a 新建卡片`.
 
 > Note: Precise positioning may prompt for premium activation. Without activation, the book may open but not land on the exact sentence.
 

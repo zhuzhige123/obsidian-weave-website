@@ -656,6 +656,57 @@ IR = {
 }
 
 
+def rename_plugin_mentions(text: str) -> str:
+    """Display name is Weave Deck; series name stays Weave. Do not touch technical ids."""
+    if not text:
+        return text
+    tokens = [
+        ("Weave EPUB Reader", "\x00EPUB_READER\x00"),
+        ("weave epub reader", "\x00epub_reader\x00"),
+        ("Weave Deck", "\x00WEAVE_DECK\x00"),
+        ("Obsidian Weave 插件系列", "\x00SERIES_ZH\x00"),
+        ("Obsidian Weave plugin series", "\x00SERIES_EN\x00"),
+        ("Obsidian Weave plugin family", "\x00SERIES_FAM\x00"),
+        ("Weave 系列", "\x00SERIES_ZH2\x00"),
+        ("Weave series", "\x00SERIES_EN2\x00"),
+        ("Weave Series", "\x00SERIES_EN3\x00"),
+        ("Weave-family", "\x00SERIES_FAM2\x00"),
+        ("obsidian weave epub reader 教程", "\x00DIR_ER\x00"),
+        ("obsidian weave 教程", "\x00DIR_WE\x00"),
+        ("weave-decks", "\x00CODE_DECKS\x00"),
+        ("weave-epub-reader", "\x00ID_READER\x00"),
+        ("we_source", "\x00WE_SOURCE\x00"),
+    ]
+    for src, token in tokens:
+        text = text.replace(src, token)
+    text = text.replace("Weave 主插件", "\x00WEAVE_DECK\x00")
+    text = text.replace("the main Weave plugin", "\x00WEAVE_DECK\x00")
+    text = text.replace("main Weave plugin", "\x00WEAVE_DECK\x00")
+    text = re.sub(r"Obsidian Weave", "\x00WEAVE_DECK\x00", text)
+    text = re.sub(r"obsidian weave", "\x00WEAVE_DECK\x00", text)
+    text = re.sub(
+        r"Weave(?! Deck)(?! EPUB)(?! 系列)(?!-family)(?! series)(?! Series)",
+        "\x00WEAVE_DECK\x00",
+        text,
+    )
+    text = re.sub(r"(?<![A-Za-z0-9_\-])weave(?![A-Za-z0-9_\-])", "\x00WEAVE_DECK\x00", text)
+    for src, token in tokens:
+        restored = "Weave EPUB Reader" if src == "weave epub reader" else src
+        text = text.replace(token, restored)
+    text = re.sub(r"(Weave Deck)(?=[\u4e00-\u9fff])", r"\1 ", text)
+    text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave Deck)", r" \1", text)
+    text = re.sub(r"(Weave EPUB Reader)(?=[\u4e00-\u9fff])", r"\1 ", text)
+    text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave EPUB Reader)", r" \1", text)
+    text = text.replace("Weave Deck后", "Weave Deck 后")
+    text = text.replace("Weave Deck中", "Weave Deck 中")
+    text = text.replace("Weave Deck时", "Weave Deck 时")
+    text = text.replace("Weave Deck的", "Weave Deck 的")
+    text = text.replace("Weave Deck与", "Weave Deck 与")
+    while "Weave Deck Deck" in text:
+        text = text.replace("Weave Deck Deck", "Weave Deck")
+    return text
+
+
 def copy_sources() -> None:
     WEAVE_MD_DIR.mkdir(parents=True, exist_ok=True)
     READER_MD_DIR.mkdir(parents=True, exist_ok=True)
@@ -665,11 +716,15 @@ def copy_sources() -> None:
         return
     weave_count = 0
     for src in SOURCE_WEAVE_MD.glob("*.md"):
-        shutil.copy2(src, WEAVE_MD_DIR / src.name)
+        dest = WEAVE_MD_DIR / src.name
+        shutil.copy2(src, dest)
+        dest.write_text(rename_plugin_mentions(dest.read_text(encoding="utf-8")), encoding="utf-8", newline="\n")
         weave_count += 1
     reader_count = 0
     for src in SOURCE_READER_MD.glob("*.md"):
-        shutil.copy2(src, READER_MD_DIR / src.name)
+        dest = READER_MD_DIR / src.name
+        shutil.copy2(src, dest)
+        dest.write_text(rename_plugin_mentions(dest.read_text(encoding="utf-8")), encoding="utf-8", newline="\n")
         reader_count += 1
     print(f"copied {weave_count} weave markdown -> {WEAVE_MD_DIR}")
     print(f"copied {reader_count} reader markdown -> {READER_MD_DIR}")
@@ -694,14 +749,16 @@ def append_catalog(
         path = md_dir / item["file"]
         if not path.exists():
             raise SystemExit(f"Missing: {path}")
-        md = path.read_text(encoding="utf-8")
+        md = rename_plugin_mentions(path.read_text(encoding="utf-8"))
+        path.write_text(md, encoding="utf-8", newline="\n")
         lead, body = convert_markdown(md)
         lead_obj = {"zh": lead, "en": english_lead(item, lead)}
         body_obj: dict[str, str] = {"zh": body}
         if md_en_dir is not None:
             en_path = md_en_dir / item["file"]
             if en_path.exists():
-                en_md = en_path.read_text(encoding="utf-8")
+                en_md = rename_plugin_mentions(en_path.read_text(encoding="utf-8"))
+                en_path.write_text(en_md, encoding="utf-8", newline="\n")
                 en_lead, en_body = convert_markdown(en_md)
                 body_obj["en"] = en_body
                 if en_lead:

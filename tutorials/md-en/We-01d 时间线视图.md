@@ -1,4 +1,4 @@
-Timeline view in Obsidian Weave card management is a layout under grid view. It groups and arranges cards by time—good for reviewing recently added or organized cards and browsing thematic or document-related card history chronologically. Here is a detailed guide:
+Timeline view in Weave Deck card management is a layout under grid view. It groups and arranges cards by time—good for reviewing recently added or organized cards and browsing thematic or document-related card history chronologically. Here is a detailed guide:
 
 ## Open Timeline View
 Timeline is not a top-level view alongside table and grid—it is a layout within grid view.

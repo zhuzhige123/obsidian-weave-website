@@ -1,4 +1,4 @@
-Obsidian Weave does not have separate “Q&A template,” “cloze template,” or “multiple-choice template” switches. Question types are parsed dynamically from specific patterns in card Markdown when saving and previewing. Below are common question types and related capabilities, with standard medical examples.
+Weave Deck does not have separate “Q&A template,” “cloze template,” or “multiple-choice template” switches. Question types are parsed dynamically from specific patterns in card Markdown when saving and previewing. Below are common question types and related capabilities, with standard medical examples.
 
 > Note: Change the writing pattern to change the question type. Presentation differences in the study interface are covered in `We-02c 记忆学习界面`. In this tutorial, cloze symbols, Anki numbered clozes, word markers, etc. are always shown in code blocks so plugins like Dataview do not mis-parse `==` or `::` as query syntax.
 
@@ -119,7 +119,7 @@ A nephron includes structures such as the ==glomerulus== and ==renal tubule==. A
 This type suits multiple clozes in the same passage that you want as sub-cards for one-at-a-time practice instead of revealing all at once.
 
 1. Use Anki-compatible numbered cloze syntax: write c1, c2, c3… in the same passage.
-2. Number from 1; consecutive numbering is recommended. With two or more numbered clozes, Weave can treat them as progressive cloze and generate corresponding sub-cards.
+2. Number from 1; consecutive numbering is recommended. With two or more numbered clozes, Weave Deck can treat them as progressive cloze and generate corresponding sub-cards.
 3. During study, each turn mainly practices one cloze; other positions display by rule to reduce interference.
 4. Good for anatomy pathways, physiological mechanisms, drug names and doses—multiple points in one context.
 
@@ -146,7 +146,7 @@ The glomerular filtration barrier from inside out:
 This type suits English words and medical English terms—pronunciation and meaning—often added via fingertip translation lookup flows.
 
 1. Install fingertip translation from the Obsidian community plugin marketplace.
-2. After selecting text for lookup, choose Add to Weave in the popup and specify a deck.
+2. After selecting text for lookup, choose Add to Weave Deck in the popup and specify a deck.
 3. Card content includes word-related markers and definition structure; study can auto-play pronunciation.
 4. US vs. UK defaults follow fingertip translation plugin settings.
 5. In memory study **More**, you can enable auto-play media to play pronunciation when switching cards or showing answers.
@@ -170,8 +170,8 @@ Myocardial infarction; heart attack
 This capability suits atlases, anatomy diagrams, and structure diagrams where you hide a region, recall, then reveal.
 
 1. Put an image in the card first.
-2. While editing, place the cursor on the image line and use editor menu **Weave Image Mask**, or command palette **Edit Image Mask**, to add a mask region.
-3. On supported image files, right-click **Weave Image Mask** also works.
+2. While editing, place the cursor on the image line and use editor menu **Weave Deck Image Mask**, or command palette **Edit Image Mask**, to add a mask region.
+3. On supported image files, right-click **Weave Deck Image Mask** also works.
 4. In memory study, masked images hide the region first; **Show Answer** reveals it.
 5. During study you can click individual masks to reveal or cover again as needed.
 
@@ -182,9 +182,9 @@ Because card preview and editing use official Obsidian capabilities, beyond the 
 
 1. Excalidraw: partial drawings render in cards with trace-back to the drawing region—good for anatomy sketches, mechanism diagrams, surgical step sketches.
 2. Video timestamps: cards with timestamped video notes; review can jump to that moment for repeated listening—good for English shadowing, surgical teaching video, lecture replay. Often used with Media Extended and similar plugins.
-3. Also PDF++ excerpts and trace-back, mind maps, formulas, components, etc. Without corresponding plugins, Weave’s main Markdown card and review path is unaffected.
+3. Also PDF++ excerpts and trace-back, mind maps, formulas, components, etc. Without corresponding plugins, Weave Deck’s main Markdown card and review path is unaffected.
 
-> Note: Weave handles memory and testing; reading, drawing, and video context should reuse the Obsidian ecosystem. After material is in cards, study can still jump back to original context.
+> Note: Weave Deck handles memory and testing; reading, drawing, and video context should reuse the Obsidian ecosystem. After material is in cards, study can still jump back to original context.
 
 ![[QQ_1786424056485.png]]
 
@@ -199,4 +199,4 @@ Pick a format by memory goal.
 6. Atlas region identification: use image mask.
 7. Hand-drawn structure or video clips: use Excalidraw or video timestamp patterns with the relevant community plugins available.
 
-> Note: Question types and capabilities come from content patterns and ecosystem plugins together. You change Markdown and material references; Weave recognizes types and presents them accordingly in preview and study.
+> Note: Question types and capabilities come from content patterns and ecosystem plugins together. You change Markdown and material references; Weave Deck recognizes types and presents them accordingly in preview and study.

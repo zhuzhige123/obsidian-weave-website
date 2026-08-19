@@ -1,4 +1,4 @@
-Obsidian Weave supports viewing study data for one or more memory decks in the deck analysis chart modal. Switch among deck profile, retention rate, study calibration, card counts, review timing, tag difficulty, and load forecast charts. Here is a detailed guide:
+Weave Deck supports viewing study data for one or more memory decks in the deck analysis chart modal. Switch among deck profile, retention rate, study calibration, card counts, review timing, tag difficulty, and load forecast charts. Here is a detailed guide:
 
 ## Open Deck Analysis
 Use this to enter from Deck Study and view study and review data for a memory deck.

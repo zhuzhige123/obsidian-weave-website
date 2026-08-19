@@ -1,4 +1,4 @@
-The Obsidian Weave card management interface supports table, grid, kanban, and other views. Kanban view organizes cards into multiple columns by status, deck, priority, question type, tags, and other dimensions. Some groupings support drag-and-drop to adjust membership. Here is a detailed guide:
+The Weave Deck card management interface supports table, grid, kanban, and other views. Kanban view organizes cards into multiple columns by status, deck, priority, question type, tags, and other dimensions. Some groupings support drag-and-drop to adjust membership. Here is a detailed guide:
 
 ## Open Kanban View
 After installing the plugin, open the plugin main interface. Use the top-left menu to switch to **Card Management**.

@@ -1,4 +1,4 @@
-AI Card Generation in the Obsidian Weave main interface is for handing a study note to a large language model and automatically splitting it into multiple memory card drafts. Results go to a preview area first—you can review each card and choose what to import. It suits longer material that needs understanding and summarization before card creation. Here is a detailed guide:
+AI Card Generation in the Weave Deck main interface is for handing a study note to a large language model and automatically splitting it into multiple memory card drafts. Results go to a preview area first—you can review each card and choose what to import. It suits longer material that needs understanding and summarization before card creation. Here is a detailed guide:
 
 ## Open AI Card Generation
 

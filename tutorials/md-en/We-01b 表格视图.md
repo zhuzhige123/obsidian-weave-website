@@ -1,4 +1,4 @@
-The Obsidian Weave card management interface supports table, grid, kanban, and other views. Table view suits browsing large batches of cards, property search and filtering, sorting, inline edits, and batch organization. Here is a detailed guide:
+The Weave Deck card management interface supports table, grid, kanban, and other views. Table view suits browsing large batches of cards, property search and filtering, sorting, inline edits, and batch organization. Here is a detailed guide:
 
 ## Open Table View
 After installing the plugin, open the plugin main interface. Use the top-left menu to switch to **Card Management**.

@@ -1,4 +1,4 @@
-The Obsidian Weave card management interface supports table, grid, kanban, and other views. Grid card view suits browsing content as a card wall, multi-select organization, and placing in an Obsidian sidebar alongside the active document for linked viewing. Here is a detailed guide:
+The Weave Deck card management interface supports table, grid, kanban, and other views. Grid card view suits browsing content as a card wall, multi-select organization, and placing in an Obsidian sidebar alongside the active document for linked viewing. Here is a detailed guide:
 
 ## Open Grid View
 After installing the plugin, open the plugin main interface. Use the top-left menu to switch to **Card Management**.

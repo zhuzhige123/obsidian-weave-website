@@ -1,4 +1,4 @@
-In the Obsidian Weave main interface, **Deck Study** and **Card Management** are two important entries. Deck Study works at the deck level—for creating decks, browsing decks, starting memory study, and import/export. Here is a detailed guide:
+In the Weave Deck main interface, **Deck Study** and **Card Management** are two important entries. Deck Study works at the deck level—for creating decks, browsing decks, starting memory study, and import/export. Here is a detailed guide:
 ![[QQ_1786447495859.png]]
 
 ![[QQ_1786447562170.png]]
@@ -56,7 +56,7 @@ Use this to start review from a deck.
 
 ![[QQ_1786447683734.png]]
 ## Import CSV and Legacy APKG
-Use this to import existing card packages or spreadsheet data into Weave—not everyone needs it, so entries can be hidden in settings.
+Use this to import existing card packages or spreadsheet data into Weave Deck—not everyone needs it, so entries can be hidden in settings.
 
 1. Open the top-left menu in Deck Study.
 2. Choose **Import Legacy Card Package** or **Import CSV File**.

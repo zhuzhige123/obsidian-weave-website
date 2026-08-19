@@ -1,4 +1,4 @@
-Batch parsing in the Obsidian Weave main interface is for notes that already contain multiple cards in a fixed format—you split them by rules, preview first, then import to a deck. It does not call a large model; it reads Markdown using parse templates (delimiters or regex) you configure in the plugin and organizes matches into cards pending confirmation. It suits AI chat exports, standardized card drafts, and notes split by divider lines. Here is a detailed guide:
+Batch parsing in the Weave Deck main interface is for notes that already contain multiple cards in a fixed format—you split them by rules, preview first, then import to a deck. It does not call a large model; it reads Markdown using parse templates (delimiters or regex) you configure in the plugin and organizes matches into cards pending confirmation. It suits AI chat exports, standardized card drafts, and notes split by divider lines. Here is a detailed guide:
 
 ## Open Parse Preview
 

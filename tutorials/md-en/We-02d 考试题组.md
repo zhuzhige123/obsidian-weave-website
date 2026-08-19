@@ -1,4 +1,4 @@
-Obsidian Weave **exam question groups** organize existing multiple-choice and answerable cloze questions into question banks for timed tests, wrong-question review, and accuracy analysis. Groups mainly store question references and test data; card body text stays in memory decks. Good for drill, mock exams, and stage assessment—complementing **memory decks** focused on spaced repetition. Here is a detailed guide:
+Weave Deck **exam question groups** organize existing multiple-choice and answerable cloze questions into question banks for timed tests, wrong-question review, and accuracy analysis. Groups mainly store question references and test data; card body text stays in memory decks. Good for drill, mock exams, and stage assessment—complementing **memory decks** focused on spaced repetition. Here is a detailed guide:
 
 ## Relationship Between Exam Question Groups and Memory Decks
 

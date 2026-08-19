@@ -1,4 +1,4 @@
-Obsidian Weave supports embedding a **Deck Study view** in ordinary Markdown notes. In the editor, use the right-click menu to insert selected memory decks as a `weave-decks` code block; after the note renders, deck cards display directly and you can start study from there. Good for putting study entry in course notes, review checklists, topic pages, or dashboards. Here is a detailed guide:
+Weave Deck supports embedding a **Deck Study view** in ordinary Markdown notes. In the editor, use the right-click menu to insert selected memory decks as a `weave-decks` code block; after the note renders, deck cards display directly and you can start study from there. Good for putting study entry in course notes, review checklists, topic pages, or dashboards. Here is a detailed guide:
 
 ## Overview
 
@@ -17,13 +17,13 @@ The embedded deck view essentially moves deck cards from the plugin’s **Deck S
 
 ## Insert via Editor Right-Click
 
-The most common insertion path is the Weave right-click menu in the Markdown editor.
+The most common insertion path is the Weave Deck right-click menu in the Markdown editor.
 
 1. Open any Markdown note and place the cursor where you want insertion.
     
 2. **Right-click** in the edit area to open the Obsidian editor menu.
     
-3. Find **Weave Actions** and open its submenu.
+3. Find **Weave Deck Actions** and open its submenu.
     
 4. Choose **Insert Deck View** to expand the deck selection list.
     

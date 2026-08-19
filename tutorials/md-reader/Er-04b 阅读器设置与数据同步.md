@@ -36,7 +36,7 @@
 **建议随 Vault 同步：**
 
 1. 图书原文件（epub、pdf 等）。
-2. 你的 Markdown 摘录、Canvas、Weave 牌组。
+2. 你的 Markdown 摘录、Canvas、Weave Deck 牌组。
 3. 书籍数据笔记 `data_*.md` 与封面。
 
 **通常不必跨设备同步：**

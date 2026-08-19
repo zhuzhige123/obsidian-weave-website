@@ -1,4 +1,4 @@
-Vocabulary marking highlights words from the Weave word bank in EPUB body text and Markdown preview, and lets you add selections to the vocabulary list. Good for collecting words while reading foreign text and reviewing later in Weave. Requires reader premium support; adding to the vocabulary list requires Weave installed. Details below:
+Vocabulary marking highlights words from the Weave Deck word bank in EPUB body text and Markdown preview, and lets you add selections to the vocabulary list. Good for collecting words while reading foreign text and reviewing later in Weave Deck. Requires reader premium support; adding to the vocabulary list requires Weave Deck installed. Details below:
 
 ## 1. Master Switch
 Under reader settings **Vocabulary** or basic settings:
@@ -24,16 +24,16 @@ Under reader settings **Vocabulary** or basic settings:
 
 ## 4. Add Words from the Book
 1. Select a word or phrase.
-2. On the toolbar, choose add to Weave vocabulary (label may be **Vocabulary**).
+2. On the toolbar, choose add to Weave Deck vocabulary (label may be **Vocabulary**).
 3. Default deck name is often **Vocabulary list**—follow actual selection.
 4. Words already in the bank prompt that they exist.
-5. Without Weave installed, you are told the vocabulary list is unavailable.
+5. Without Weave Deck installed, you are told the vocabulary list is unavailable.
 
-> Note: Community plugins such as fingertip translation can offer **Add to Weave** in lookup popovers—complementary to reader vocabulary capture. See `We-01a 新建卡片`.
+> Note: Community plugins such as fingertip translation can offer **Add to Weave Deck** in lookup popovers—complementary to reader vocabulary capture. See `We-01a 新建卡片`.
 
 ## 5. Word Card Popover
 Clicking a marked word may open a word card.
 
-1. You can rate **Remember / Fuzzy / Forgot** (requires Weave review).
+1. You can rate **Remember / Fuzzy / Forgot** (requires Weave Deck review).
 2. Settings can toggle **Show review interval**—estimated next review above buttons.
 3. You can also toggle interval display from the word card context menu.

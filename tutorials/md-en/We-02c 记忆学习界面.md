@@ -1,4 +1,4 @@
-The Obsidian Weave memory study interface is where you actually review memory cards. After entering from Deck Study, you progress in a **view question → show answer → rate** loop until the session ends. Here is a detailed guide:
+The Weave Deck memory study interface is where you actually review memory cards. After entering from Deck Study, you progress in a **view question → show answer → rate** loop until the session ends. Here is a detailed guide:
 
 ## Memory Study Interface
 Use this to start today’s review from a memory deck.
@@ -34,12 +34,12 @@ Card content preview in memory study and the edit experience when opened both us
    - PDF++ excerpts and related display
    - Math formulas
    - And more content relying on Obsidian native edit/preview ecosystem
-4. Editing and viewing cards in Weave therefore feels closer to “writing and reading notes in Obsidian” than entering another unfamiliar editor.
+4. Editing and viewing cards in Weave Deck therefore feels closer to “writing and reading notes in Obsidian” than entering another unfamiliar editor.
 
-> Note: Cards still live in Weave deck data; what changed is preview and edit hook into official capabilities for broader ecosystem compatibility.
+> Note: Cards still live in Weave Deck deck data; what changed is preview and edit hook into official capabilities for broader ecosystem compatibility.
 
 ## Edit with Markdown Mindset; Types Parsed from Content
-Weave has no separate “Q&A template,” “cloze template,” or “multiple-choice template.” Question type is not “pick template then fill”—it is parsed dynamically from patterns in card Markdown when saving and previewing.
+Weave Deck has no separate “Q&A template,” “cloze template,” or “multiple-choice template.” Question type is not “pick template then fill”—it is parsed dynamically from patterns in card Markdown when saving and previewing.
 
 1. When editing cards, write content directly in Markdown mindset.
 2. Plain Q&A: write front and back like normal Markdown.
@@ -62,8 +62,8 @@ Hints in memory study follow official Obsidian footnote syntax—not a separate 
 Use this for atlases, anatomy diagrams, etc. where you hide a region, recall, then reveal.
 
 1. Put an image in the card first.
-2. While editing, place the cursor on the image line and use editor menu **Weave Image Mask**, or command palette **Edit Image Mask**, to add mask regions.
-3. On supported image files, right-click **Weave Image Mask** also works.
+2. While editing, place the cursor on the image line and use editor menu **Weave Deck Image Mask**, or command palette **Edit Image Mask**, to add mask regions.
+3. On supported image files, right-click **Weave Deck Image Mask** also works.
 4. In memory study, masked images hide regions first; **Show Answer** reveals masks.
 5. During study you can click individual masks to reveal or cover again as needed.
 

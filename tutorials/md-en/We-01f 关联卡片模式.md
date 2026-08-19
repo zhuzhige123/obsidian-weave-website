@@ -1,4 +1,4 @@
-Obsidian Weave supports enabling linked card mode in card management to view reference relationships between one card and others. After enabling, clicking a card filters cards it references and cards that reference it. Here is a detailed guide:
+Weave Deck supports enabling linked card mode in card management to view reference relationships between one card and others. After enabling, clicking a card filters cards it references and cards that reference it. Here is a detailed guide:
 
 ## Linked Card Mode
 This feature shows the reference network between cards via in-content references. It works best in grid card view and can also be used in kanban view.
@@ -13,7 +13,7 @@ This feature shows the reference network between cards via in-content references
 > Note: Linked card mode and locate-and-jump mode usually cannot run together—enabling one turns off the other.
 
 ## Build Card References
-Linked card mode depends on Weave card references in card content—not automatic guessing by same deck, tag, or source document.
+Linked card mode depends on Weave Deck card references in card content—not automatic guessing by same deck, tag, or source document.
 
 1. In grid view, set top-left card property to **Unique Identifier**.
 2. Click the identifier to copy the linked card reference format.

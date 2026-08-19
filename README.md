@@ -27,7 +27,7 @@ python -m http.server 8765
 | `index.html` | 正式首页（Obsidian 气质版）；顶栏「教程」可切换至教程界面 |
 | `tutorials.html` | 教程界面原型（侧栏目录 + 正文 + 本页目录） |
 | `tutorials-data.js` | 由教程 Markdown 生成的正文数据，勿手改 |
-| `tutorials/md/` | 从产品库迁入的 Weave 主插件教程稿 |
+| `tutorials/md/` | 从产品库迁入的 Weave Deck 教程稿 |
 | `tutorials/md-reader/` | 从产品库迁入的 EPUB Reader 教程稿 |
 | `scripts/build-tutorials.py` | 从上述 Markdown 生成 `tutorials-data.js` |
 | `scripts/build-tutorials.py` | 把 Markdown 转成 `tutorials-data.js` |
