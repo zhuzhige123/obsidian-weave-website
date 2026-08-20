@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weave 官网 · 深浅色切换动效原型</title>
+  <style>
+    @font-face {
+      font-family: "JingHuaOldSong";
+      src:
+        url("../fonts/KingHwaOldSong.woff2") format("woff2"),
+        local("京华老宋体"),
+        local("KingHwa OldSong");
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root, html[data-theme="dark"] {
+      --bg: #1e1e1e;
+      --bg-elev: #252525;
+      --bg-soft: #2b2b2b;
+      --text: #dadada;
+      --text-muted: #999999;
+      --text-faint: #7a7a7a;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --accent: #a68cf5;
+      --accent-soft: rgba(166, 140, 245, 0.12);
+      --accent-ink: #1e1e1e;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+      --ok: #7dba8a;
+      --warn: #c9a86a;
+      --font: "JingHuaOldSong", "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+      --mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", Consolas, monospace;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f8f7f4;
+      --bg-elev: #ffffff;
+      --bg-soft: #f1efe9;
+      --text: #2a2a2a;
+      --text-muted: #6b6b6b;
+      --text-faint: #8a8a8a;
+      --border: rgba(30, 30, 30, 0.08);
+      --border-strong: rgba(30, 30, 30, 0.12);
+      --accent: #7c5cbf;
+      --accent-soft: rgba(124, 92, 191, 0.1);
+      --accent-ink: #ffffff;
+      --shadow: 0 16px 36px rgba(40, 30, 20, 0.08);
+      --ok: #3d8a52;
+      --warn: #9a7040;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.7;
+      letter-spacing: 0.03em;
+      -webkit-font-smoothing: antialiased;
+    }
+    button { font: inherit; border: 0; background: none; color: inherit; cursor: pointer; }
+    a { color: inherit; }
+
+    /* —— 页面壳 —— */
+    .proto-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem clamp(1rem, 3vw, 2rem);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .proto-bar h1 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+    .proto-bar h1 span { color: var(--accent); }
+    .proto-bar p {
+      margin: 0.15rem 0 0;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .proto-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elev);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .chip strong { color: var(--text); font-weight: 600; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-ghost {
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elev);
+      color: var(--text);
+    }
+    .btn-ghost:hover { background: var(--bg-soft); }
+
+    .wrap {
+      width: min(100% - 2rem, 1180px);
+      margin: 0 auto;
+      padding: 1.75rem 0 4rem;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 860px) {
+      .intro { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .panel h2 {
+      margin: 0 0 0.55rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .panel p { margin: 0 0 0.7rem; color: var(--text-muted); font-size: 0.9rem; }
+    .panel ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+    }
+    .panel li { margin: 0.25rem 0; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem; }
+    .tag {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    .tag.ok { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+    .tag.warn { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card.is-selected {
+      border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent), var(--shadow);
+    }
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.95rem 1rem 0.7rem;
+    }
+    .card-head h3 {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .card-head .meta {
+      margin: 0.28rem 0 0;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .badge {
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.02em;
+      padding: 0.18rem 0.45rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--text-faint);
+    }
+    .badge.rec {
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .stage {
+      position: relative;
+      margin: 0 0.85rem;
+      height: 220px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: #1e1e1e;
+      isolation: isolate;
+    }
+    .stage-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 0.7rem 0.8rem;
+      color: #dadada;
+      background: #1e1e1e;
+      transition: none;
+    }
+    .stage[data-mode="light"] .stage-inner {
+      color: #2a2a2a;
+      background: #f8f7f4;
+    }
+
+    .mini-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.72rem;
+    }
+    .stage[data-mode="light"] .mini-nav {
+      border-bottom-color: rgba(30,30,30,0.08);
+    }
+    .mini-brand { font-weight: 600; letter-spacing: 0.06em; }
+    .mini-brand em { font-style: normal; color: #a68cf5; }
+    .stage[data-mode="light"] .mini-brand em { color: #7c5cbf; }
+    .mini-actions { display: flex; gap: 0.35rem; align-items: center; }
+    .mini-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: grid;
+      place-items: center;
+      font-size: 0.65rem;
+      opacity: 0.85;
+    }
+    .stage[data-mode="light"] .mini-dot { border-color: rgba(30,30,30,0.12); }
+    .mini-hero { padding-top: 0.85rem; }
+    .mini-eyebrow {
+      margin: 0;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+    .mini-title {
+      margin: 0.35rem 0 0.4rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+    }
+    .mini-desc {
+      margin: 0;
+      font-size: 0.72rem;
+      opacity: 0.65;
+      max-width: 28em;
+    }
+    .mini-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+      margin-top: auto;
+      padding-top: 0.75rem;
+    }
+    .mini-card {
+      height: 42px;
+      border-radius: 8px;
+      background: #2b2b2b;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .stage[data-mode="light"] .mini-card {
+      background: #f1efe9;
+      border-color: rgba(30,30,30,0.06);
+    }
+    .mini-card:nth-child(2) { opacity: 0.85; }
+    .mini-card:nth-child(3) { opacity: 0.7; }
+
+    .card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding: 0.85rem 1rem 1rem;
+      margin-top: auto;
+    }
+    .fit {
+      font-size: 0.74rem;
+      color: var(--text-faint);
+      max-width: 14rem;
+      line-height: 1.45;
+    }
+    .try-btn {
+      flex-shrink: 0;
+      min-height: 34px;
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-strong);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .try-btn:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); color: var(--accent); }
+    .select-btn {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .select-btn:hover { color: var(--accent); }
+
+    /* —— 全页演示层 —— */
+    .fullscreen-demo {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .fullscreen-demo.is-open { display: flex; }
+    .fs-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(12px);
+    }
+    .fs-top h2 { margin: 0; font-size: 0.95rem; }
+    .fs-top p { margin: 0.2rem 0 0; font-size: 0.78rem; color: var(--text-muted); }
+    .fs-body {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .fs-mock {
+      width: min(920px, 100%);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .fs-mock .mini-nav {
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .fs-mock .mini-hero { padding: 2rem 1.5rem 1.25rem; }
+    .fs-mock .mini-eyebrow { font-size: 0.75rem; }
+    .fs-mock .mini-title { font-size: 1.85rem; max-width: 14em; }
+    .fs-mock .mini-desc { font-size: 0.92rem; max-width: 36em; }
+    .fs-mock .mini-cards {
+      padding: 0 1.5rem 1.5rem;
+      gap: 0.75rem;
+    }
+    .fs-mock .mini-card { height: 88px; background: var(--bg-soft); border-color: var(--border); }
+    .fs-mock .mini-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border-color: var(--border-strong);
+      font-size: 0.9rem;
+    }
+    .fs-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      display: grid;
+      place-items: center;
+      background: var(--bg-soft);
+    }
+    .fs-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* View Transition 命名（圆形揭示） */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+    html.vt-circle::view-transition-old(root) {
+      z-index: 1;
+    }
+    html.vt-circle::view-transition-new(root) {
+      z-index: 9999;
+      animation: vt-circle-in 620ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html.vt-circle.theme-to-light::view-transition-old(root) { z-index: 9999; }
+    html.vt-circle.theme-to-light::view-transition-new(root) {
+      z-index: 1;
+      animation: none;
+    }
+    html.vt-circle.theme-to-light::view-transition-old(root) {
+      animation: vt-circle-in 620ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes vt-circle-in {
+      from { clip-path: circle(0px at var(--vt-x) var(--vt-y)); }
+      to { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); }
+    }
+
+    /* 全页效果层 */
+    .fx-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 200;
+    }
+    .fx-layer .fx-panel {
+      position: absolute;
+      inset: 0;
+    }
+
+    .note {
+      margin-top: 1.75rem;
+      padding: 1rem 1.15rem;
+      border-radius: 12px;
+      border: 1px dashed var(--border-strong);
+      color: var(--text-muted);
+      font-size: 0.84rem;
+    }
+    .note strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <header class="proto-bar">
+    <div>
+      <h1>Weave 官网 · <span>深浅色切换动效</span>原型</h1>
+      <p>对照官网配色与版式。点「试切换」看单卡效果；选中后可「全页演示」。</p>
+    </div>
+    <div class="proto-actions">
+      <span class="chip">当前推荐：<strong id="pickedLabel">柔和淡入</strong></span>
+      <button class="btn btn-ghost" type="button" id="openFullscreen">全页演示</button>
+      <button class="btn btn-primary" type="button" id="globalToggle">切换主题</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="intro">
+      <div class="panel">
+        <h2>设计读法</h2>
+        <p>官网气质是「安静、长期、书卷感」，不是炫技落地页。动效应短、稳、可感知，避免抢内容。</p>
+        <ul>
+          <li>默认时长建议 400–700ms，可被「减少动态」系统设置关闭。</li>
+          <li>优先从右上角主题按钮发起（圆形揭示），符合操作来源。</li>
+          <li>教程 iframe 需同步主题，复杂遮罩效果要额外处理。</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag ok">推荐上线：柔和淡入 / 圆形揭示</span>
+          <span class="tag">备选：横向擦除 / 模糊溶解</span>
+          <span class="tag warn">慎用：对切 / 墨染（偏喧）</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>怎么用这份原型</h2>
+        <p>下方 8 种效果各自独立预览。选一种作为官网候选后，再进入全页演示感受整体节奏。</p>
+        <ul>
+          <li>「试切换」：只在该卡片小舞台内播放。</li>
+          <li>「选为候选」：写入顶部推荐标签。</li>
+          <li>「全页演示」：用候选效果切换整页主题。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="grid" id="effectGrid" aria-label="动效对比"></section>
+
+    <p class="note">
+      <strong>说明：</strong>官网已采用「圆形揭示」作为正式切换动效（见 <code>index.html</code> / <code>tutorials.html</code>）。
+      本页仍保留多效果对比，便于以后改版选型。
+      路径：<code>prototypes/theme-transition-effects.html</code>
+    </p>
+  </div>
+
+  <div class="fullscreen-demo" id="fullscreenDemo" aria-hidden="true">
+    <div class="fs-top">
+      <div>
+        <h2 id="fsTitle">全页演示 · 柔和淡入</h2>
+        <p>点击右上角月亮/太阳，或按空格切换。Esc 退出。</p>
+      </div>
+      <div class="proto-actions">
+        <span class="chip">效果：<strong id="fsEffectLabel">柔和淡入</strong></span>
+        <button class="btn btn-ghost" type="button" id="closeFullscreen">退出演示</button>
+        <button class="fs-toggle" type="button" id="fsThemeToggle" aria-label="切换深浅色" title="切换深浅色">☾</button>
+      </div>
+    </div>
+    <div class="fs-body" id="fsBody">
+      <div class="fs-mock" id="fsMock">
+        <div class="mini-nav">
+          <div class="mini-brand">W<em>e</em>ave <span style="opacity:.55;font-weight:400;letter-spacing:.12em;margin-left:.35rem">系列</span></div>
+          <div class="mini-actions">
+            <span style="opacity:.55;font-size:.8rem">系列 · 产品 · 价格 · 教程</span>
+            <button class="fs-toggle" type="button" id="fsThemeToggle2" aria-label="切换深浅色">☾</button>
+          </div>
+        </div>
+        <div class="mini-hero">
+          <p class="mini-eyebrow">Obsidian 插件系列</p>
+          <h3 class="mini-title">在 Obsidian 里，安静地完成长期学习</h3>
+          <p class="mini-desc">读、排、记三款独立插件。干净分工，按需组合——切换主题时，动效应同样安静。</p>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card"></div>
+          <div class="mini-card"></div>
+          <div class="mini-card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fx-layer" id="fxLayer" aria-hidden="true"></div>
+
+  <script>
+    (function () {
+      var EFFECTS = [
+        {
+          id: "soft-fade",
+          name: "柔和淡入",
+          badge: "推荐",
+          rec: true,
+          duration: "480ms",
+          meta: "背景与文字颜色平滑过渡。实现成本最低，最贴合「安静」气质。",
+          fit: "官网默认首选；兼容性最好。"
+        },
+        {
+          id: "circle-reveal",
+          name: "圆形揭示",
+          badge: "推荐",
+          rec: true,
+          duration: "620ms",
+          meta: "从主题按钮圆心向外展开。操作来源清晰，现代但克制。",
+          fit: "需 View Transitions 或 clip-path 回退。"
+        },
+        {
+          id: "wipe-x",
+          name: "横向擦除",
+          badge: "备选",
+          duration: "560ms",
+          meta: "新主题从左向右扫过。节奏明确，略偏「切换感」。",
+          fit: "适合产品页；教程页需注意 iframe。"
+        },
+        {
+          id: "wipe-y",
+          name: "纵向幕布",
+          badge: "备选",
+          duration: "560ms",
+          meta: "自上而下落下的幕布感。比横向更安静一点。",
+          fit: "与纵向阅读习惯接近。"
+        },
+        {
+          id: "blur-dissolve",
+          name: "模糊溶解",
+          badge: "备选",
+          duration: "520ms",
+          meta: "轻微模糊后换成新主题。书卷感强，但低端机略吃性能。",
+          fit: "桌面端体验更好。"
+        },
+        {
+          id: "diagonal",
+          name: "斜向切开",
+          badge: "实验",
+          duration: "600ms",
+          meta: "对角线扫过。辨识度高，但对「安静」品牌稍显锋利。",
+          fit: "可作节日彩蛋，不宜默认。"
+        },
+        {
+          id: "split",
+          name: "中缝对开",
+          badge: "实验",
+          duration: "640ms",
+          meta: "左右两半向外拉开露出新主题。戏剧性强。",
+          fit: "偏演示/宣传，日常切换偏重。"
+        },
+        {
+          id: "ink-bloom",
+          name: "墨染铺开",
+          badge: "实验",
+          duration: "700ms",
+          meta: "色块从中心晕开。有纸墨联想，但饱和时会抢眼。",
+          fit: "可弱化透明度后作备选。"
+        }
+      ];
+
+      var pickedId = "soft-fade";
+      var root = document.documentElement;
+      var grid = document.getElementById("effectGrid");
+      var pickedLabel = document.getElementById("pickedLabel");
+      var fxLayer = document.getElementById("fxLayer");
+      var fullscreen = document.getElementById("fullscreenDemo");
+      var busy = false;
+
+      function themeOf(el) {
+        return (el.getAttribute("data-mode") || el.getAttribute("data-theme") || "dark") === "light"
+          ? "light"
+          : "dark";
+      }
+
+      function opposite(t) {
+        return t === "light" ? "dark" : "light";
+      }
+
+      function colorsFor(theme) {
+        if (theme === "light") {
+          return { bg: "#f8f7f4", elev: "#ffffff", soft: "#f1efe9", text: "#2a2a2a", accent: "#7c5cbf" };
+        }
+        return { bg: "#1e1e1e", elev: "#252525", soft: "#2b2b2b", text: "#dadada", accent: "#a68cf5" };
+      }
+
+      function miniMarkup(theme) {
+        var moon = theme === "light" ? "☀" : "☾";
+        return (
+          '<div class="stage-inner">' +
+          '<div class="mini-nav">' +
+          '<div class="mini-brand">W<em>e</em>ave</div>' +
+          '<div class="mini-actions"><span class="mini-dot">' + moon + "</span></div>" +
+          "</div>" +
+          '<div class="mini-hero">' +
+          '<p class="mini-eyebrow">Obsidian 插件系列</p>' +
+          '<h4 class="mini-title">安静地完成长期学习</h4>' +
+          '<p class="mini-desc">三款插件，一条舒适的学习链路。</p>' +
+          "</div>" +
+          '<div class="mini-cards"><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div>' +
+          "</div>"
+        );
+      }
+
+      function renderCards() {
+        grid.innerHTML = "";
+        EFFECTS.forEach(function (fx) {
+          var card = document.createElement("article");
+          card.className = "card" + (fx.id === pickedId ? " is-selected" : "");
+          card.dataset.effect = fx.id;
+          card.innerHTML =
+            '<div class="card-head">' +
+            "<div><h3>" + fx.name + "</h3>" +
+            '<p class="meta">' + fx.meta + "</p></div>" +
+            '<span class="badge' + (fx.rec ? " rec" : "") + '">' + fx.badge + " · " + fx.duration + "</span>" +
+            "</div>" +
+            '<div class="stage" data-mode="dark" data-effect="' + fx.id + '">' + miniMarkup("dark") + "</div>" +
+            '<div class="card-foot">' +
+            '<div><p class="fit">' + fx.fit + "</p>" +
+            '<button type="button" class="select-btn" data-select="' + fx.id + '">选为候选</button></div>' +
+            '<button type="button" class="try-btn" data-try="' + fx.id + '">试切换</button>' +
+            "</div>";
+          grid.appendChild(card);
+        });
+      }
+
+      function setPicked(id) {
+        pickedId = id;
+        var fx = EFFECTS.find(function (e) { return e.id === id; }) || EFFECTS[0];
+        pickedLabel.textContent = fx.name;
+        document.getElementById("fsEffectLabel").textContent = fx.name;
+        document.getElementById("fsTitle").textContent = "全页演示 · " + fx.name;
+        document.querySelectorAll(".card").forEach(function (c) {
+          c.classList.toggle("is-selected", c.dataset.effect === id);
+        });
+      }
+
+      function wait(ms) {
+        return new Promise(function (resolve) { setTimeout(resolve, ms); });
+      }
+
+      function snapshotClone(sourceEl, theme) {
+        var clone = sourceEl.cloneNode(true);
+        clone.setAttribute("data-mode", theme);
+        clone.style.cssText =
+          "position:absolute;inset:0;margin:0;border:0;border-radius:0;height:100%;pointer-events:none;";
+        var inner = clone.querySelector(".stage-inner");
+        if (inner) {
+          /* keep structure; mode attribute drives CSS */
+        } else {
+          clone.innerHTML = miniMarkup(theme).replace('class="stage-inner"', 'class="stage-inner"');
+        }
+        /* rebuild content for correct icon/colors */
+        clone.innerHTML = miniMarkup(theme);
+        return clone;
+      }
+
+      async function runStageEffect(stage, effectId) {
+        if (busy) return;
+        busy = true;
+        var from = themeOf(stage);
+        var to = opposite(from);
+        var toColors = colorsFor(to);
+        var fromColors = colorsFor(from);
+        var w = stage.clientWidth;
+        var h = stage.clientHeight;
+
+        var oldLayer = snapshotClone(stage, from);
+        var newLayer = snapshotClone(stage, to);
+        stage.innerHTML = "";
+        stage.appendChild(oldLayer);
+        stage.appendChild(newLayer);
+
+        var anim;
+        try {
+          if (effectId === "soft-fade") {
+            newLayer.style.opacity = "0";
+            anim = newLayer.animate(
+              [{ opacity: 0 }, { opacity: 1 }],
+              { duration: 480, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+            );
+            oldLayer.animate(
+              [{ opacity: 1 }, { opacity: 0 }],
+              { duration: 480, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+            );
+          } else if (effectId === "circle-reveal") {
+            var btn = stage.getBoundingClientRect();
+            /* 模拟右上角按钮位置 */
+            var x = w - 28;
+            var y = 22;
+            var r = Math.hypot(Math.max(x, w - x), Math.max(y, h - y));
+            newLayer.style.clipPath = "circle(0px at " + x + "px " + y + "px)";
+            anim = newLayer.animate(
+              [
+                { clipPath: "circle(0px at " + x + "px " + y + "px)" },
+                { clipPath: "circle(" + r + "px at " + x + "px " + y + "px)" }
+              ],
+              { duration: 620, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+            );
+          } else if (effectId === "wipe-x") {
+            newLayer.style.clipPath = "inset(0 100% 0 0)";
+            anim = newLayer.animate(
+              [{ clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0 0 0)" }],
+              { duration: 560, easing: "cubic-bezier(0.45, 0, 0.2, 1)", fill: "forwards" }
+            );
+          } else if (effectId === "wipe-y") {
+            newLayer.style.clipPath = "inset(0 0 100% 0)";
+            anim = newLayer.animate(
+              [{ clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0 0)" }],
+              { duration: 560, easing: "cubic-bezier(0.45, 0, 0.2, 1)", fill: "forwards" }
+            );
+          } else if (effectId === "blur-dissolve") {
+            newLayer.style.opacity = "0";
+            newLayer.style.filter = "blur(10px)";
+            oldLayer.animate(
+              [
+                { filter: "blur(0px)", opacity: 1 },
+                { filter: "blur(8px)", opacity: 0 }
+              ],
+              { duration: 520, easing: "ease", fill: "forwards" }
+            );
+            anim = newLayer.animate(
+              [
+                { filter: "blur(10px)", opacity: 0 },
+                { filter: "blur(0px)", opacity: 1 }
+              ],
+              { duration: 520, easing: "ease", fill: "forwards" }
+            );
+          } else if (effectId === "diagonal") {
+            newLayer.style.clipPath = "polygon(0 0, 0 0, 0 100%, 0 100%)";
+            anim = newLayer.animate(
+              [
+                { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" },
+                { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }
+              ],
+              { duration: 600, easing: "cubic-bezier(0.4, 0, 0.15, 1)", fill: "forwards" }
+            );
+          } else if (effectId === "split") {
+            var left = document.createElement("div");
+            var right = document.createElement("div");
+            [left, right].forEach(function (pane, i) {
+              pane.style.cssText =
+                "position:absolute;top:0;bottom:0;width:50%;overflow:hidden;z-index:2;";
+              pane.style.left = i === 0 ? "0" : "50%";
+              var snap = snapshotClone(stage, from);
+              snap.style.position = "absolute";
+              snap.style.inset = "0";
+              snap.style.width = w + "px";
+              if (i === 1) snap.style.left = -w / 2 + "px";
+              pane.appendChild(snap);
+              stage.appendChild(pane);
+            });
+            newLayer.style.zIndex = "1";
+            left.animate(
+              [{ transform: "translateX(0)" }, { transform: "translateX(-100%)" }],
+              { duration: 640, easing: "cubic-bezier(0.5, 0, 0.2, 1)", fill: "forwards" }
+            );
+            anim = right.animate(
+              [{ transform: "translateX(0)" }, { transform: "translateX(100%)" }],
+              { duration: 640, easing: "cubic-bezier(0.5, 0, 0.2, 1)", fill: "forwards" }
+            );
+            oldLayer.style.display = "none";
+          } else if (effectId === "ink-bloom") {
+            var ink = document.createElement("div");
+            ink.style.cssText =
+              "position:absolute;left:50%;top:48%;width:24px;height:24px;border-radius:50%;" +
+              "transform:translate(-50%,-50%) scale(0);background:" + toColors.bg + ";" +
+              "box-shadow:0 0 0 0 " + toColors.accent + "33;z-index:3;";
+            stage.appendChild(ink);
+            newLayer.style.opacity = "0";
+            ink.animate(
+              [
+                { transform: "translate(-50%,-50%) scale(0)", borderRadius: "50%" },
+                { transform: "translate(-50%,-50%) scale(" + (Math.max(w, h) / 12) + ")", borderRadius: "42%" }
+              ],
+              { duration: 520, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fill: "forwards" }
+            );
+            await wait(280);
+            anim = newLayer.animate(
+              [{ opacity: 0 }, { opacity: 1 }],
+              { duration: 420, easing: "ease-out", fill: "forwards" }
+            );
+            oldLayer.animate(
+              [{ opacity: 1 }, { opacity: 0 }],
+              { duration: 360, easing: "ease-out", fill: "forwards" }
+            );
+          }
+
+          if (anim && anim.finished) await anim.finished;
+          else await wait(650);
+        } catch (e) {
+          /* ignore */
+        }
+
+        stage.setAttribute("data-mode", to);
+        stage.innerHTML = miniMarkup(to);
+        busy = false;
+      }
+
+      async function runPageEffect(effectId, originEl) {
+        if (busy) return;
+        busy = true;
+        var from = themeOf(root);
+        var to = opposite(from);
+        var toColors = colorsFor(to);
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (reduce || effectId === "soft-fade") {
+          root.style.transition = "background-color 0.45s ease, color 0.45s ease";
+          document.body.style.transition = "background-color 0.45s ease, color 0.45s ease";
+          root.setAttribute("data-theme", to);
+          syncFsIcons(to);
+          await wait(480);
+          root.style.transition = "";
+          document.body.style.transition = "";
+          busy = false;
+          return;
+        }
+
+        if (effectId === "circle-reveal" && document.startViewTransition) {
+          var rect = (originEl || document.getElementById("globalToggle")).getBoundingClientRect();
+          var x = rect.left + rect.width / 2;
+          var y = rect.top + rect.height / 2;
+          var r = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+          );
+          root.style.setProperty("--vt-x", x + "px");
+          root.style.setProperty("--vt-y", y + "px");
+          root.style.setProperty("--vt-r", r + "px");
+          root.classList.add("vt-circle");
+          root.classList.toggle("theme-to-light", to === "light");
+          try {
+            var vt = document.startViewTransition(function () {
+              root.setAttribute("data-theme", to);
+              syncFsIcons(to);
+            });
+            await vt.finished;
+          } catch (e2) {
+            root.setAttribute("data-theme", to);
+            syncFsIcons(to);
+          }
+          root.classList.remove("vt-circle", "theme-to-light");
+          busy = false;
+          return;
+        }
+
+        /* 覆盖层方案：截视觉用纯色/裁剪代替整页截图，更轻 */
+        fxLayer.innerHTML = "";
+        var cover = document.createElement("div");
+        cover.className = "fx-panel";
+        cover.style.background = toColors.bg;
+        fxLayer.appendChild(cover);
+
+        var anim;
+        if (effectId === "circle-reveal") {
+          var o = (originEl || document.getElementById("globalToggle")).getBoundingClientRect();
+          var cx = o.left + o.width / 2;
+          var cy = o.top + o.height / 2;
+          var rr = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
+          cover.style.clipPath = "circle(0px at " + cx + "px " + cy + "px)";
+          anim = cover.animate(
+            [
+              { clipPath: "circle(0px at " + cx + "px " + cy + "px)" },
+              { clipPath: "circle(" + rr + "px at " + cx + "px " + cy + "px)" }
+            ],
+            { duration: 620, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+          );
+        } else if (effectId === "wipe-x") {
+          cover.style.clipPath = "inset(0 100% 0 0)";
+          anim = cover.animate(
+            [{ clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0 0 0)" }],
+            { duration: 560, easing: "cubic-bezier(0.45, 0, 0.2, 1)", fill: "forwards" }
+          );
+        } else if (effectId === "wipe-y") {
+          cover.style.clipPath = "inset(0 0 100% 0)";
+          anim = cover.animate(
+            [{ clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0 0)" }],
+            { duration: 560, easing: "cubic-bezier(0.45, 0, 0.2, 1)", fill: "forwards" }
+          );
+        } else if (effectId === "blur-dissolve") {
+          cover.style.opacity = "0";
+          cover.style.backdropFilter = "blur(0px)";
+          cover.style.background = "color-mix(in srgb, " + toColors.bg + " 70%, transparent)";
+          document.body.animate(
+            [{ filter: "blur(0px)" }, { filter: "blur(6px)" }, { filter: "blur(0px)" }],
+            { duration: 520, easing: "ease" }
+          );
+          anim = cover.animate(
+            [{ opacity: 0 }, { opacity: 1 }],
+            { duration: 420, easing: "ease", fill: "forwards" }
+          );
+        } else if (effectId === "diagonal") {
+          cover.style.clipPath = "polygon(0 0, 0 0, 0 100%, 0 100%)";
+          anim = cover.animate(
+            [
+              { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" },
+              { clipPath: "polygon(0 0, 120% 0, 100% 100%, 0 100%)" }
+            ],
+            { duration: 600, easing: "cubic-bezier(0.4, 0, 0.15, 1)", fill: "forwards" }
+          );
+        } else if (effectId === "split") {
+          fxLayer.innerHTML = "";
+          var L = document.createElement("div");
+          var R = document.createElement("div");
+          L.className = "fx-panel";
+          R.className = "fx-panel";
+          L.style.cssText = "width:50%;right:auto;background:" + colorsFor(from).bg + ";";
+          R.style.cssText = "width:50%;left:auto;background:" + colorsFor(from).bg + ";";
+          var mid = document.createElement("div");
+          mid.className = "fx-panel";
+          mid.style.background = toColors.bg;
+          mid.style.zIndex = "0";
+          fxLayer.appendChild(mid);
+          fxLayer.appendChild(L);
+          fxLayer.appendChild(R);
+          root.setAttribute("data-theme", to);
+          syncFsIcons(to);
+          L.animate(
+            [{ transform: "translateX(0)" }, { transform: "translateX(-100%)" }],
+            { duration: 640, easing: "cubic-bezier(0.5, 0, 0.2, 1)", fill: "forwards" }
+          );
+          anim = R.animate(
+            [{ transform: "translateX(0)" }, { transform: "translateX(100%)" }],
+            { duration: 640, easing: "cubic-bezier(0.5, 0, 0.2, 1)", fill: "forwards" }
+          );
+          if (anim && anim.finished) await anim.finished;
+          else await wait(640);
+          fxLayer.innerHTML = "";
+          busy = false;
+          return;
+        } else if (effectId === "ink-bloom") {
+          cover.style.borderRadius = "50%";
+          cover.style.width = "40px";
+          cover.style.height = "40px";
+          cover.style.left = "50%";
+          cover.style.top = "42%";
+          cover.style.right = "auto";
+          cover.style.bottom = "auto";
+          cover.style.transform = "translate(-50%,-50%) scale(0)";
+          cover.style.background = toColors.bg;
+          anim = cover.animate(
+            [
+              { transform: "translate(-50%,-50%) scale(0)" },
+              { transform: "translate(-50%,-50%) scale(" + (Math.max(innerWidth, innerHeight) / 18) + ")" }
+            ],
+            { duration: 700, easing: "cubic-bezier(0.2, 0.75, 0.2, 1)", fill: "forwards" }
+          );
+        }
+
+        if (anim && anim.finished) await anim.finished;
+        else await wait(600);
+
+        root.setAttribute("data-theme", to);
+        syncFsIcons(to);
+        fxLayer.innerHTML = "";
+        busy = false;
+      }
+
+      function syncFsIcons(theme) {
+        var icon = theme === "light" ? "☀" : "☾";
+        ["fsThemeToggle", "fsThemeToggle2"].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = icon;
+        });
+      }
+
+      grid.addEventListener("click", function (e) {
+        var tryBtn = e.target.closest("[data-try]");
+        if (tryBtn) {
+          var id = tryBtn.getAttribute("data-try");
+          var stage = tryBtn.closest(".card").querySelector(".stage");
+          runStageEffect(stage, id);
+          return;
+        }
+        var sel = e.target.closest("[data-select]");
+        if (sel) setPicked(sel.getAttribute("data-select"));
+      });
+
+      document.getElementById("globalToggle").addEventListener("click", function (e) {
+        runPageEffect(pickedId, e.currentTarget);
+      });
+
+      document.getElementById("openFullscreen").addEventListener("click", function () {
+        fullscreen.classList.add("is-open");
+        fullscreen.setAttribute("aria-hidden", "false");
+        syncFsIcons(themeOf(root));
+      });
+      document.getElementById("closeFullscreen").addEventListener("click", function () {
+        fullscreen.classList.remove("is-open");
+        fullscreen.setAttribute("aria-hidden", "true");
+      });
+
+      function fsToggle(e) {
+        runPageEffect(pickedId, e.currentTarget);
+      }
+      document.getElementById("fsThemeToggle").addEventListener("click", fsToggle);
+      document.getElementById("fsThemeToggle2").addEventListener("click", fsToggle);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && fullscreen.classList.contains("is-open")) {
+          fullscreen.classList.remove("is-open");
+          fullscreen.setAttribute("aria-hidden", "true");
+        }
+        if (e.code === "Space" && fullscreen.classList.contains("is-open")) {
+          e.preventDefault();
+          runPageEffect(pickedId, document.getElementById("fsThemeToggle"));
+        }
+      });
+
+      renderCards();
+      setPicked("soft-fade");
+    })();
+  </script>
+</body>
+</html>

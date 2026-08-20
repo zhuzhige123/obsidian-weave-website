@@ -74,6 +74,46 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
+
+    /* 深浅色：圆形揭示（View Transitions；无 API 时见脚本回退） */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+    html.is-theme-circle::view-transition-old(root) {
+      z-index: 1;
+    }
+    html.is-theme-circle::view-transition-new(root) {
+      z-index: 9999;
+      animation: weave-theme-circle 620ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* sticky 顶栏单独成组，避免圆形揭示时 old/new 各画一次导航 */
+    html.is-theme-circle::view-transition-group(weave-nav) {
+      z-index: 10001;
+      animation: none;
+    }
+    html.is-theme-circle::view-transition-old(weave-nav),
+    html.is-theme-circle::view-transition-new(weave-nav) {
+      animation: none;
+      mix-blend-mode: normal;
+      height: 100%;
+      overflow: clip;
+    }
+    /* 过渡期间去掉 blur，减少 sticky + backdrop 合成残影 */
+    html.is-theme-circle .nav {
+      backdrop-filter: none;
+      background: var(--bg);
+    }
+    @keyframes weave-theme-circle {
+      from { clip-path: circle(0px at var(--weave-theme-x) var(--weave-theme-y)); }
+      to { clip-path: circle(var(--weave-theme-r) at var(--weave-theme-x) var(--weave-theme-y)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.is-theme-circle::view-transition-new(root) {
+        animation: none;
+      }
+    }
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
     button { font: inherit; border: 0; background: none; color: inherit; cursor: pointer; }
@@ -92,6 +132,7 @@
       background: color-mix(in srgb, var(--bg) 82%, transparent);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      view-transition-name: weave-nav;
     }
     .nav-inner {
       height: 100%;
@@ -973,6 +1014,34 @@
       flex: 1;
       font-size: 0.95rem;
     }
+    .community-email {
+      max-width: 36rem;
+      padding: 1.75rem 1.5rem;
+      border-radius: var(--radius);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .community-email p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    .community-email .mail-line {
+      color: var(--text);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    /* 中文：QQ / 微信群；英文：仅邮箱反馈 */
+    html[data-lang="en"] .community-zh { display: none !important; }
+    html[data-lang="zh"] .community-en,
+    html:not([data-lang]) .community-en { display: none !important; }
+    html[data-lang="en"] .nav-community-zh { display: none !important; }
+    html[data-lang="zh"] .nav-community-en,
+    html:not([data-lang]) .nav-community-en { display: none !important; }
     .visually-hidden {
       position: absolute;
       width: 1px;
@@ -1192,7 +1261,8 @@
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="nav-menu" role="menu">
-              <a href="#community" role="menuitem" data-i18n="nav.communityGroups">交流群</a>
+              <a class="nav-community-zh" href="#community" role="menuitem" data-i18n="nav.communityGroups">交流群</a>
+              <a class="nav-community-en" href="#community" role="menuitem" data-i18n="nav.communityContact">Feedback</a>
               <a href="mailto:tutaoyuan8@outlook.com" role="menuitem">
                 <span data-i18n="nav.developerEmail">开发者邮箱</span>
                 <span class="mail">tutaoyuan8@outlook.com</span>
@@ -1479,9 +1549,10 @@
       <div class="wrap">
         <div class="section-intro">
           <h2 data-i18n="community.title">交流群</h2>
-          <p data-i18n="community.lead">欢迎加入 QQ / 微信群交流与反馈。</p>
+          <p class="community-zh" data-i18n="community.lead">欢迎加入 QQ / 微信群交流与反馈。</p>
+          <p class="community-en" data-i18n="community.leadEn">No public groups yet. Please contact the developer by email for feedback.</p>
         </div>
-        <div class="community-grid">
+        <div class="community-grid community-zh">
           <article class="community-card">
             <div class="tag" data-i18n="community.publicTag">公开群</div>
             <h3 data-i18n="community.publicTitle">反馈群</h3>
@@ -1500,6 +1571,11 @@
             <p data-i18n="community.wechatDesc">仅限已购买 Weave 系列全家桶的用户进入。</p>
             <button type="button" class="btn btn-primary" id="wechatQrOpen" aria-haspopup="dialog" data-i18n="community.joinWechat">加入微信群</button>
           </article>
+        </div>
+        <div class="community-email community-en">
+          <p data-i18n="community.emailBody">No public chat groups are available for international users at the moment. Please email the developer for questions and feedback.</p>
+          <div class="mail-line">tutaoyuan8@outlook.com</div>
+          <a class="btn btn-primary" href="mailto:tutaoyuan8@outlook.com" data-i18n="community.emailCta">Email the developer</a>
         </div>
       </div>
     </section>
@@ -1574,6 +1650,7 @@
           "plugin.ir": "增量阅读",
           "nav.community": "交流",
           "nav.communityGroups": "交流群",
+          "nav.communityContact": "反馈联系",
           "nav.developerEmail": "开发者邮箱",
           "nav.install": "安装",
           themeToggle: "切换深浅色",
@@ -1643,6 +1720,9 @@
           "pricing.usdNote": "",
           "community.title": "交流群",
           "community.lead": "欢迎加入 QQ / 微信群交流与反馈。公开群请备注来源；购后群请提供订单号。",
+          "community.leadEn": "暂无公开群，请以开发者邮箱联系反馈。",
+          "community.emailBody": "暂无面向国际用户的公开交流群。如有问题或反馈，请通过开发者邮箱联系。",
+          "community.emailCta": "发送邮件",
           "community.publicTag": "公开群",
           "community.publicTitle": "反馈群",
           "community.publicDesc": "Obsidian-Weave 系列公开交流与问题反馈。",
@@ -1683,6 +1763,7 @@
           "plugin.ir": "Incremental Reading",
           "nav.community": "Community",
           "nav.communityGroups": "Groups",
+          "nav.communityContact": "Feedback",
           "nav.developerEmail": "Developer email",
           "nav.install": "Install",
           themeToggle: "Toggle theme",
@@ -1752,6 +1833,9 @@
           "pricing.usdNote": "In this series’ official pricing, USD prices are higher than the China price because they are set together from purchasing power, typical prices in different markets, and a modest discount after balancing the price gap—still a reasonable rate.",
           "community.title": "Community",
           "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
+          "community.leadEn": "No public groups yet. Please contact the developer by email for feedback.",
+          "community.emailBody": "No public chat groups are available for international users at the moment. Please email the developer for questions and feedback.",
+          "community.emailCta": "Email the developer",
           "community.publicTag": "Public",
           "community.publicTitle": "Feedback group",
           "community.publicDesc": "Public discussion and issue feedback for the Obsidian-Weave series.",
@@ -1885,13 +1969,99 @@
         }
       }
 
+      function setThemeCircleOrigin(originEl) {
+        var x;
+        var y;
+        if (originEl && originEl.getBoundingClientRect) {
+          var rect = originEl.getBoundingClientRect();
+          x = rect.left + rect.width / 2;
+          y = rect.top + rect.height / 2;
+        } else {
+          x = window.innerWidth - 48;
+          y = 32;
+        }
+        var radius = Math.hypot(
+          Math.max(x, window.innerWidth - x),
+          Math.max(y, window.innerHeight - y)
+        );
+        root.style.setProperty("--weave-theme-x", x + "px");
+        root.style.setProperty("--weave-theme-y", y + "px");
+        root.style.setProperty("--weave-theme-r", radius + "px");
+        return { x: x, y: y, radius: radius };
+      }
+
+      function applyTheme(next, options) {
+        options = options || {};
+        var theme = next === "light" ? "light" : "dark";
+        var current = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+        if (theme === current) {
+          if (options.syncFrame !== false) syncThemeToTutorialsFrame(theme);
+          return;
+        }
+
+        function commit() {
+          root.setAttribute("data-theme", theme);
+          localStorage.setItem(themeKey, theme);
+          if (options.syncFrame !== false) syncThemeToTutorialsFrame(theme);
+        }
+
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var animate = options.animate !== false && !reduceMotion;
+
+        if (animate && typeof document.startViewTransition === "function") {
+          setThemeCircleOrigin(options.originEl);
+          root.classList.add("is-theme-circle");
+          var cleaned = false;
+          function cleanupThemeCircle() {
+            if (cleaned) return;
+            cleaned = true;
+            root.classList.remove("is-theme-circle");
+          }
+          try {
+            var transition = document.startViewTransition(commit);
+            Promise.resolve(transition.finished).then(cleanupThemeCircle, cleanupThemeCircle);
+          } catch (err) {
+            cleanupThemeCircle();
+            commit();
+            return;
+          }
+          /* 兜底：避免过渡异常时 class 残留 */
+          window.setTimeout(cleanupThemeCircle, 900);
+          return;
+        }
+
+        if (animate) {
+          var origin = setThemeCircleOrigin(options.originEl);
+          var overlay = document.createElement("div");
+          overlay.setAttribute("aria-hidden", "true");
+          overlay.style.cssText =
+            "position:fixed;inset:0;z-index:10000;pointer-events:none;background:" +
+            (theme === "light" ? "#f8f7f4" : "#1e1e1e") +
+            ";clip-path:circle(0px at " + origin.x + "px " + origin.y + "px);";
+          document.body.appendChild(overlay);
+          var anim = overlay.animate(
+            [
+              { clipPath: "circle(0px at " + origin.x + "px " + origin.y + "px)" },
+              { clipPath: "circle(" + origin.radius + "px at " + origin.x + "px " + origin.y + "px)" }
+            ],
+            { duration: 620, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+          );
+          function finishFallback() {
+            commit();
+            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+          }
+          Promise.resolve(anim.finished).then(finishFallback, finishFallback);
+          return;
+        }
+
+        commit();
+      }
+
       var themeToggle = document.getElementById("themeToggle");
       if (themeToggle) {
         themeToggle.addEventListener("click", function () {
           var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
-          root.setAttribute("data-theme", next);
-          localStorage.setItem(themeKey, next);
-          syncThemeToTutorialsFrame(next);
+          applyTheme(next, { originEl: themeToggle, animate: true });
         });
       }
 
@@ -2331,8 +2501,11 @@
           }
           if (e.data.type === "weave-theme-changed") {
             var theme = e.data.theme === "light" ? "light" : "dark";
-            root.setAttribute("data-theme", theme);
-            localStorage.setItem(themeKey, theme);
+            applyTheme(theme, {
+              originEl: document.getElementById("themeToggle"),
+              animate: true,
+              syncFrame: false
+            });
           }
         });
 
