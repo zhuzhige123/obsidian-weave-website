@@ -36,12 +36,26 @@
       --accent-hover: #b9a4f8;
       --accent-soft: rgba(166, 140, 245, 0.12);
       --accent-ink: #1e1e1e;
+      /* 主按钮贴纸质暖调，紫只作轻点缀 */
+      --cta: #d8cfc0;
+      --cta-hover: #e4dcd0;
+      --cta-ink: #1e1e1e;
       --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
       --radius: 12px;
       --radius-sm: 8px;
       --max: 1080px;
       --nav-h: 64px;
       --font: "JingHuaOldSong", "京华老宋体", "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+      /* 宣传图气质：视口最左上角（含顶栏）暖光 + 轻纸纹 */
+      --atmosphere-glow:
+        radial-gradient(
+          ellipse 100% 100% at 0% 0%,
+          rgba(255, 242, 220, 0.22) 0%,
+          rgba(240, 225, 200, 0.1) 32%,
+          transparent 70%
+        );
+      --atmosphere-grain-opacity: 0.05;
+      --atmosphere-grain-blend: soft-light;
     }
 
     html[data-theme="light"] {
@@ -57,13 +71,27 @@
       --accent-hover: #6a4aad;
       --accent-soft: rgba(124, 92, 191, 0.1);
       --accent-ink: #ffffff;
+      --cta: #3a342c;
+      --cta-hover: #2a2620;
+      --cta-ink: #f8f7f4;
       --shadow: 0 18px 40px rgba(40, 30, 20, 0.08);
+      --atmosphere-glow:
+        radial-gradient(
+          ellipse 100% 100% at 0% 0%,
+          rgba(255, 255, 255, 0.55) 0%,
+          rgba(255, 248, 236, 0.22) 34%,
+          transparent 70%
+        );
+      --atmosphere-grain-opacity: 0.035;
+      --atmosphere-grain-blend: multiply;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      position: relative;
+      isolation: isolate;
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
@@ -73,6 +101,41 @@
       letter-spacing: 0.03em;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+    }
+
+    /* 纸纹在底层；暖光盖住顶栏，从视口 0,0（顶栏最左上角）发出 */
+    .site-atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .site-atmosphere::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: var(--atmosphere-grain-opacity);
+      mix-blend-mode: var(--atmosphere-grain-blend);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      background-repeat: repeat;
+    }
+    /* 暖光盖在顶栏之上，原点=整页视口左上角（顶栏最顶角） */
+    .site-corner-light {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: min(820px, 92vw);
+      height: min(560px, 78vh);
+      z-index: 75;
+      pointer-events: none;
+      background: var(--atmosphere-glow);
+      background-repeat: no-repeat;
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .site-atmosphere::after { opacity: 0.02; }
+      .site-corner-light { opacity: 0.5; }
     }
 
     /* 深浅色：圆形揭示（View Transitions；无 API 时见脚本回退） */
@@ -129,8 +192,9 @@
       top: 0;
       z-index: 40;
       height: var(--nav-h);
-      background: color-mix(in srgb, var(--bg) 82%, transparent);
-      backdrop-filter: blur(14px);
+      /* 更透，让顶栏最左上角能接住暖光 */
+      background: color-mix(in srgb, var(--bg) 58%, transparent);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       view-transition-name: weave-nav;
     }
@@ -292,7 +356,10 @@
       background: var(--accent-soft);
       font-weight: 600;
     }
-    html[data-site-view="tutorials"] #top { display: none; }
+    html[data-site-view="tutorials"] #top,
+    html[data-site-view="tutorials"] footer {
+      display: none;
+    }
     html[data-site-view="tutorials"] #view-tutorials { display: block; }
     html[data-site-view="tutorials"] .nav { z-index: 70; }
     #view-tutorials {
@@ -303,13 +370,15 @@
       right: 0;
       bottom: 0;
       z-index: 50;
-      background: var(--bg);
+      /* 透明，沿用首页整页左上角暖光；首页正文/页脚已隐藏，避免透字 */
+      background: transparent;
     }
     #view-tutorials iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
+      background: transparent;
     }
     .icon-btn {
       width: 36px;
@@ -357,13 +426,13 @@
       margin-left: 0.35rem;
       padding: 0.45rem 0.9rem;
       border-radius: 8px;
-      background: var(--accent);
-      color: var(--accent-ink);
+      background: var(--cta);
+      color: var(--cta-ink);
       font-size: 0.88rem;
       font-weight: 600;
-      transition: filter 0.15s ease;
+      transition: background 0.15s ease, filter 0.15s ease;
     }
-    .nav-cta:hover { filter: brightness(1.06); }
+    .nav-cta:hover { background: var(--cta-hover); }
     .nav-toggle { display: none; }
 
     .btn {
@@ -384,10 +453,10 @@
       transition: background 0.15s ease, border-color 0.15s ease, filter 0.15s ease;
     }
     .btn-primary {
-      background: var(--accent);
-      color: var(--accent-ink);
+      background: var(--cta);
+      color: var(--cta-ink);
     }
-    .btn-primary:hover { filter: brightness(1.06); }
+    .btn-primary:hover { background: var(--cta-hover); filter: none; }
     .btn-ghost {
       border: 1px solid var(--border-strong);
       color: var(--text);
@@ -508,6 +577,12 @@
       object-fit: cover;
       border: 0;
       display: block;
+    }
+    .slide[data-fit="contain"] .slide-media {
+      background: var(--bg-soft);
+    }
+    .slide[data-fit="contain"] .slide-media img {
+      object-fit: contain;
     }
     .slide-media iframe {
       background: #000;
@@ -848,6 +923,20 @@
       object-position: top center;
       display: block;
     }
+    .shot-slide .shot.is-empty {
+      background: var(--bg-soft);
+    }
+    .shot-slide .shot.is-empty::after {
+      content: "截图待补";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--text-faint);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+    }
+    .shot-slide .shot.is-empty img { display: none; }
     .shot-nav {
       position: absolute;
       left: 0;
@@ -952,6 +1041,35 @@
       line-height: 1.1;
     }
     .price-now small { font-size: 0.95rem; font-weight: 600; }
+    .price-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem 0.7rem;
+    }
+    .price-rise {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .price-rise-icon {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
+      color: var(--text-muted);
+      flex: 0 0 auto;
+    }
+    .price-next {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-muted);
+      line-height: 1.1;
+    }
     .price-old {
       color: var(--text-faint);
       text-decoration: line-through;
@@ -1230,6 +1348,8 @@
   </style>
 </head>
 <body>
+  <div class="site-atmosphere" aria-hidden="true"></div>
+  <div class="site-corner-light" aria-hidden="true"></div>
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="#top" aria-label="Weave">
@@ -1337,6 +1457,55 @@
                   <div class="slide-placeholder"><strong>YouTube</strong></div>
                 </div>
               </article>
+              <article
+                class="slide"
+                data-type="image"
+                data-image="assets/promo/weave-series-banner-og.png"
+                data-caption-zh="Weave 系列 · 品牌横幅"
+                data-caption-en="Weave series · Brand banner"
+              >
+                <span class="slide-badge" data-i18n="slide.badge4">04 系列</span>
+                <div class="slide-media">
+                  <div class="slide-placeholder"><strong>Series</strong></div>
+                </div>
+              </article>
+              <article
+                class="slide"
+                data-type="image"
+                data-image="assets/promo/weave-series-avatar-square.png"
+                data-fit="contain"
+                data-caption-zh="Weave 系列 · 方图标识"
+                data-caption-en="Weave series · Square mark"
+              >
+                <span class="slide-badge" data-i18n="slide.badge5">05 标识</span>
+                <div class="slide-media">
+                  <div class="slide-placeholder"><strong>Avatar</strong></div>
+                </div>
+              </article>
+              <article
+                class="slide"
+                data-type="image"
+                data-image="assets/promo/weave-plugin-banner-ir.png"
+                data-caption-zh="Incremental Reading · 插件横幅"
+                data-caption-en="Incremental Reading · Plugin banner"
+              >
+                <span class="slide-badge" data-i18n="slide.badge6">06 IR</span>
+                <div class="slide-media">
+                  <div class="slide-placeholder"><strong>IR</strong></div>
+                </div>
+              </article>
+              <article
+                class="slide"
+                data-type="image"
+                data-image="assets/promo/weave-plugin-banner-deck.png"
+                data-caption-zh="Weave Deck · 插件横幅"
+                data-caption-en="Weave Deck · Plugin banner"
+              >
+                <span class="slide-badge" data-i18n="slide.badge7">07 Deck</span>
+                <div class="slide-media">
+                  <div class="slide-placeholder"><strong>Deck</strong></div>
+                </div>
+              </article>
             </div>
           </div>
           <div class="showcase-controls">
@@ -1364,7 +1533,7 @@
       <div class="wrap">
         <div class="section-intro">
           <h2 data-i18n="series.title">三款插件，一条舒适的学习链路</h2>
-          <p data-i18n="series.lead">读、排、记三款独立插件。干净分工，按需组合，数据留在你的库中。不做成臃肿巨无——每款只做好一件事，合在一起构成完整闭环。</p>
+          <p data-i18n="series.lead">三款独立插件，干净分工、按需组合；数据留在你的库里，合起来是一条完整学习链路。</p>
         </div>
         <div class="pillars">
           <article class="pillar featured">
@@ -1390,7 +1559,7 @@
       <div class="wrap">
         <div class="section-intro">
           <h2 data-i18n="products.title">产品详情</h2>
-          <p data-i18n="products.lead">按优先级了解三款 Obsidian 社区插件。</p>
+          <p data-i18n="products.lead">截图与要点如下；需要闭环时再回到上方系列总览。</p>
         </div>
 
         <article class="plugin" id="weave">
@@ -1498,10 +1667,21 @@
         </div>
         <div class="price-grid">
           <article class="price-card best">
-            <span class="price-badge" data-i18n="pricing.endingSoon">近期截止</span>
+            <span class="price-badge" data-i18n="pricing.endingSoon">优惠至 8月31日</span>
             <h3 data-i18n="pricing.seriesTitle">Weave 系列激活码</h3>
             <p class="hint" data-i18n="pricing.seriesHint">三款插件高级支持</p>
-            <div class="price-now" data-i18n="pricing.seriesNow">64 元</div>
+            <div class="price-row">
+              <div class="price-now" data-i18n="pricing.seriesNow">64 元</div>
+              <div class="price-rise">
+                <span class="price-rise-icon" data-i18n-aria="pricing.riseTo" aria-label="升至">
+                  <svg width="14" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+                    <path d="M1.5 10.5 L6 6 L9 8.5 L14 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.5 3 H14 V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="price-next" data-i18n="pricing.seriesNext">78 元</span>
+              </div>
+            </div>
             <div class="price-old" data-i18n="pricing.old">原价 108 元</div>
             <ul>
               <li>Weave Deck</li>
@@ -1515,6 +1695,7 @@
             <a class="btn btn-primary" id="buySeries" href="https://pay.ldxp.cn/item/ned9pw" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buySeries">购买系列激活码</a>
           </article>
           <article class="price-card">
+            <span class="price-badge" data-i18n="pricing.readerEndingSoon">优惠至 8月31日</span>
             <h3 data-i18n="pricing.readerTitle">独立阅读器</h3>
             <p class="hint" data-i18n="pricing.readerHint">仅 EPUB Reader</p>
             <div class="price-now" style="font-size:1.65rem;" data-i18n="pricing.readerNow">30 元</div>
@@ -1541,6 +1722,7 @@
             <a class="btn btn-ghost" href="#pricing" data-i18n="pricing.seeSeries">查看系列方案</a>
           </article>
         </div>
+        <div class="price-note" data-i18n="pricing.deadlineNote">优惠价截止至 8月31日；系列此后升至 78 元，原价 108 元。</div>
         <div class="price-note" data-i18n="pricing.usdNote" data-i18n-empty-hide hidden></div>
       </div>
     </section>
@@ -1660,18 +1842,22 @@
           next: "下一张",
           dots: "幻灯片指示",
           "slide.badge1": "01 B站",
+          "slide.badge4": "04 系列",
+          "slide.badge5": "05 标识",
+          "slide.badge6": "06 IR",
+          "slide.badge7": "07 Deck",
           "hero.eyebrow": "Obsidian 插件系列",
           "hero.title": "在 Obsidian 里，安静地完成长期学习",
           "hero.ctaPrice": "查看价格",
           "hero.ctaSeries": "了解系列",
           "series.title": "三款插件，一条舒适的学习链路",
-          "series.lead": "读、排、记三款独立插件。干净分工，按需组合，数据留在你的库中。不做成臃肿巨无——每款只做好一件事，合在一起构成完整闭环。",
+          "series.lead": "三款独立插件，干净分工、按需组合；数据留在你的库里，合起来是一条完整学习链路。",
           "series.p1n": "01 · 优先",
           "series.p1": "制卡、FSRS6 复习、题库检验。卡片与原文双向溯源。",
           "series.p2": "库内读书与摘录，正文回显，一键回到原书段落。",
           "series.p3": "阅读队列与日历排期，让「以后再看」真正被推进。",
           "products.title": "产品详情",
-          "products.lead": "按优先级了解三款 Obsidian 社区插件。",
+          "products.lead": "截图与要点如下；需要闭环时再回到上方系列总览。",
           "weave.tag": "01 · 记忆与检验",
           "weave.desc": "摘录、制卡、复习、测验、溯源。学习卡片独立存放，复习时仍可回到原文语境。",
           "weave.f1": "FSRS6 间隔复习，问答 / 挖空 / 填空 / 选择",
@@ -1697,8 +1883,11 @@
           "pricing.lead": "基础体验永久可用。高级支持一次性买断：永久授权、邮箱绑定、支持五台设备。",
           "pricing.seriesTitle": "Weave 系列激活码",
           "pricing.seriesHint": "三款插件高级支持",
-          "pricing.endingSoon": "近期截止",
+          "pricing.endingSoon": "优惠至 8月31日",
+          "pricing.readerEndingSoon": "优惠至 8月31日",
           "pricing.seriesNow": "64 元",
+          "pricing.riseTo": "升至",
+          "pricing.seriesNext": "78 元",
           "pricing.old": "原价 108 元",
           "pricing.buySeries": "购买系列激活码",
           "pricing.readerTitle": "独立阅读器",
@@ -1717,6 +1906,7 @@
           "pricing.lForever": "永久授权",
           "pricing.lEmail": "邮箱绑定",
           "pricing.lBuyout": "一次性买断",
+          "pricing.deadlineNote": "优惠价截止至 8月31日；系列此后升至 78 元，原价 108 元。",
           "pricing.usdNote": "",
           "community.title": "交流群",
           "community.lead": "欢迎加入 QQ / 微信群交流与反馈。公开群请备注来源；购后群请提供订单号。",
@@ -1773,18 +1963,22 @@
           next: "Next",
           dots: "Slide indicators",
           "slide.badge1": "01 Bilibili",
+          "slide.badge4": "04 Series",
+          "slide.badge5": "05 Mark",
+          "slide.badge6": "06 IR",
+          "slide.badge7": "07 Deck",
           "hero.eyebrow": "Obsidian plugin series",
           "hero.title": "Quiet long-term learning, inside Obsidian",
           "hero.ctaPrice": "View pricing",
           "hero.ctaSeries": "Explore the series",
           "series.title": "Three plugins, one calm learning loop",
-          "series.lead": "Read, schedule, and remember as three independent plugins. Clean roles, combine as needed, and keep your data in your vault. No bloated mega-app—each does one job well.",
+          "series.lead": "Three independent plugins with clean roles—combine as needed, keep data in your vault, and form one calm learning loop.",
           "series.p1n": "01 · Priority",
           "series.p1": "Card creation, FSRS6 review, and exam practice—with two-way links back to source text.",
           "series.p2": "Read and highlight in your vault, with one-click return to the original paragraph.",
           "series.p3": "Reading queues and calendar scheduling so “read later” actually moves forward.",
           "products.title": "Product details",
-          "products.lead": "Meet the three Obsidian community plugins, in priority order.",
+          "products.lead": "Screenshots and highlights below—return to the series overview above for the full loop.",
           "weave.tag": "01 · Memory & testing",
           "weave.desc": "Extract, create cards, review, quiz, and trace sources. Cards live on their own, yet stay connected to original context.",
           "weave.f1": "FSRS6 spaced review: Q&A / cloze / fill-in / multiple choice",
@@ -1810,8 +2004,11 @@
           "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Purchase is currently by email.",
           "pricing.seriesTitle": "Weave series bundle",
           "pricing.seriesHint": "Advanced support for all three plugins",
-          "pricing.endingSoon": "Ending soon",
+          "pricing.endingSoon": "Thru Aug 31",
+          "pricing.readerEndingSoon": "Thru Aug 31",
           "pricing.seriesNow": "$15",
+          "pricing.riseTo": "Rises to",
+          "pricing.seriesNext": "$18",
           "pricing.old": "Was $30",
           "pricing.buySeries": "Email to buy series",
           "pricing.readerTitle": "Reader only",
@@ -1830,6 +2027,7 @@
           "pricing.lForever": "Perpetual license",
           "pricing.lEmail": "Email binding",
           "pricing.lBuyout": "One-time buyout",
+          "pricing.deadlineNote": "Sale prices end Aug 31; the series then rises to $18 (list $30).",
           "pricing.usdNote": "In this series’ official pricing, USD prices are higher than the China price because they are set together from purchasing power, typical prices in different markets, and a modest discount after balancing the price gap—still a reasonable rate.",
           "community.title": "Community",
           "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
@@ -2110,6 +2308,18 @@
         }
       });
 
+      document.querySelectorAll(".shot-slide .shot").forEach(function (shot) {
+        var img = shot.querySelector("img");
+        if (!img) return;
+        function ok() { shot.classList.remove("is-empty"); }
+        function bad() { shot.classList.add("is-empty"); }
+        if (img.complete && img.naturalWidth > 0) ok();
+        else {
+          img.addEventListener("load", ok);
+          img.addEventListener("error", bad);
+        }
+      });
+
       /* 产品区截图幻灯片 */
       document.querySelectorAll("[data-shot-slide]").forEach(function (rootSlide) {
         var shots = Array.prototype.slice.call(rootSlide.querySelectorAll(".shot"));
@@ -2260,15 +2470,20 @@
         }
 
         if (image) {
+          var fit = (slide.getAttribute("data-fit") || "cover").toLowerCase();
           var existingImg = media.querySelector("img");
-          if (!existingImg) {
+          if (!existingImg || existingImg.getAttribute("data-src") !== image) {
             media.innerHTML = "";
             var imgEl = document.createElement("img");
             imgEl.alt = title;
             imgEl.src = image;
+            imgEl.setAttribute("data-src", image);
+            imgEl.loading = "lazy";
+            imgEl.decoding = "async";
+            if (fit === "contain") imgEl.style.objectFit = "contain";
             imgEl.addEventListener("error", function () {
               media.innerHTML =
-                '<div class="slide-placeholder"><strong>Slot</strong>' + image + "</div>";
+                '<div class="slide-placeholder"><strong>Image</strong></div>';
             });
             media.appendChild(imgEl);
           }
@@ -2397,7 +2612,6 @@
 
       /* 首页 ↔ 教程 iframe */
       (function initTutorialsView() {
-        var viewKey = "weave-site-view";
         var tutorialsFrame = document.getElementById("tutorialsFrame");
         var viewTutorials = document.getElementById("view-tutorials");
         var tutorialsDrop = document.getElementById("tutorialsDrop");
@@ -2463,7 +2677,6 @@
             if (history.replaceState) history.replaceState(null, "", hash);
             else location.hash = hash;
           }
-          try { localStorage.setItem(viewKey, view); } catch (e) {}
         }
 
         if (navTutorials && tutorialsDrop) {
@@ -2518,14 +2731,8 @@
         });
 
         syncTutorialPluginNav(currentTutorialPlugin);
-        var initialView = "home";
-        if (location.hash === "#tutorials") initialView = "tutorials";
-        else {
-          try {
-            var savedView = localStorage.getItem(viewKey);
-            if (savedView === "tutorials") initialView = "tutorials";
-          } catch (e2) {}
-        }
+        /* 默认进首页；仅显式 #tutorials 才打开教程，避免刷新卡在文档站 */
+        var initialView = location.hash === "#tutorials" ? "tutorials" : "home";
         setSiteView(initialView, false);
       })();
 

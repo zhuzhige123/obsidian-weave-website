@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>价格「升至」可视化方案对比 · Weave</title>
+  <style>
+    @font-face {
+      font-family: "JingHuaOldSong";
+      src:
+        url("../fonts/KingHwaOldSong.woff2") format("woff2"),
+        local("京华老宋体"),
+        local("KingHwa OldSong");
+      font-weight: 400 700;
+      font-display: swap;
+    }
+
+    :root, html[data-theme="dark"] {
+      --bg: #1e1e1e;
+      --bg-elev: #252525;
+      --bg-soft: #2b2b2b;
+      --text: #dadada;
+      --text-muted: #999999;
+      --text-faint: #7a7a7a;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --accent: #a68cf5;
+      --accent-soft: rgba(166, 140, 245, 0.12);
+      --cta: #d8cfc0;
+      --cta-ink: #1e1e1e;
+      --font: "JingHuaOldSong", "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+    }
+    html[data-theme="light"] {
+      --bg: #f8f7f4;
+      --bg-elev: #ffffff;
+      --bg-soft: #f1efe9;
+      --text: #2a2a2a;
+      --text-muted: #6b6b6b;
+      --text-faint: #8a8a8a;
+      --border: rgba(30, 30, 30, 0.08);
+      --border-strong: rgba(30, 30, 30, 0.12);
+      --accent: #7c5cbf;
+      --accent-soft: rgba(124, 92, 191, 0.1);
+      --cta: #3a342c;
+      --cta-ink: #f8f7f4;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      letter-spacing: 0.03em;
+    }
+    .page {
+      width: min(100% - 2.5rem, 1080px);
+      margin: 0 auto;
+      padding: 2.5rem 0 4rem;
+    }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+    .lead {
+      margin: 0.5rem 0 0;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 40rem;
+    }
+    .theme-btn {
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+    @media (min-width: 860px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .option {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-elev);
+      padding: 1.15rem 1.2rem 1.35rem;
+    }
+    .option-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+    .option-id {
+      font-size: 0.78rem;
+      font-weight: 650;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+    .option-name {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .option-note {
+      margin: 0.35rem 0 0;
+      color: var(--text-faint);
+      font-size: 0.8rem;
+    }
+    .pick {
+      margin-top: 0.9rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .pick strong { color: var(--accent); font-weight: 600; }
+
+    /* 共用卡片壳 */
+    .demo-card {
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+      border-radius: 12px;
+      background:
+        linear-gradient(180deg, var(--accent-soft), transparent 45%),
+        var(--bg-elev);
+      padding: 1.35rem 1.25rem 1.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .badge {
+      align-self: flex-start;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+      background: color-mix(in srgb, var(--accent) 18%, transparent);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .demo-card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 650;
+    }
+    .hint {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    .price-now {
+      font-size: 2rem;
+      font-weight: 650;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+    .price-old {
+      color: var(--text-faint);
+      text-decoration: line-through;
+      font-size: 0.9rem;
+    }
+    .price-next {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    /* A：细箭头 */
+    .row-a {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.7rem;
+    }
+    .arrow-line {
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-faint);
+      opacity: 0.9;
+    }
+
+    /* B：上升折线图标 */
+    .row-b {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.75rem;
+    }
+    .icon-trend {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
+      color: var(--text-muted);
+    }
+
+    /* C：阶梯台阶 */
+    .row-c {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 0.65rem 0.85rem;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .step-bar {
+      width: 100%;
+      min-width: 3.2rem;
+      height: 4px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 55%, transparent);
+    }
+    .step.is-next .step-bar {
+      height: 9px;
+      background: color-mix(in srgb, var(--text-muted) 45%, transparent);
+    }
+    .step.is-next .price-next { align-self: flex-start; }
+
+    /* D：虚线桥 */
+    .row-d {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem 0.55rem;
+    }
+    .bridge {
+      width: 2.4rem;
+      height: 0;
+      border-top: 1px dashed color-mix(in srgb, var(--text-faint) 70%, transparent);
+      position: relative;
+    }
+    .bridge::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -3.5px;
+      border: 4px solid transparent;
+      border-left: 5px solid color-mix(in srgb, var(--text-faint) 80%, transparent);
+    }
+
+    /* E：胶囊「后」 */
+    .row-e {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.7rem;
+    }
+    .pill-after {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem 0.2rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-soft) 80%, transparent);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+    .pill-after svg { opacity: 0.75; }
+
+    /* F：斜上箭头 + 78 */
+    .row-f {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.65rem;
+    }
+    .rise-cluster {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+    }
+    .rise-cluster svg {
+      transform: translateY(1px);
+      opacity: 0.85;
+    }
+
+    /* G：时间轴小点 */
+    .row-g {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem 0.55rem;
+    }
+    .timeline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-faint);
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .dot.is-next {
+      background: var(--text-faint);
+      box-shadow: none;
+    }
+    .rail {
+      width: 1.6rem;
+      height: 1px;
+      background: color-mix(in srgb, var(--text-faint) 55%, transparent);
+    }
+
+    .recommend {
+      margin-top: 2rem;
+      padding: 1.1rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+    .recommend h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+    }
+    .recommend p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div>
+        <h1>价格「升至」可视化 · 方案对比</h1>
+        <p class="lead">同一语境：64 元（现价）→ 之后 78 元。下方 7 种替换「升至」文字的可视化，便于你点名选用。</p>
+      </div>
+      <button class="theme-btn" id="themeToggle" type="button">切换深浅色</button>
+    </div>
+
+    <div class="grid">
+      <!-- A -->
+      <section class="option">
+        <div class="option-head">
+          <div>
+            <div class="option-id">方案 A</div>
+            <h2 class="option-name">细线箭头</h2>
+            <p class="option-note">最克制，像印刷排版里的连接符</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <span class="badge">优惠至 8月31日</span>
+          <h3>Weave 系列激活码</h3>
+          <p class="hint">三款插件高级支持</p>
+          <div class="row-a">
+            <span class="price-now">64 元</span>
+            <span class="arrow-line" aria-hidden="true">
+              <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
+                <path d="M1 6 H22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M18 2.5 L23.5 6 L18 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="price-next">78 元</span>
+          </div>
+          <div class="price-old">原价 108 元</div>
+        </div>
+        <p class="pick">适合：安静官网默认。可读性靠数字本身。</p>
+      </section>
+
+      <!-- B -->
+      <section class="option">
+        <div class="option-head">
+          <div>
+            <div class="option-id">方案 B · 推荐</div>
+            <h2 class="option-name">圆形趋势图标</h2>
+            <p class="option-note">一眼是「上涨」，又不抢 64 的主角</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <span class="badge">优惠至 8月31日</span>
+          <h3>Weave 系列激活码</h3>
+          <p class="hint">三款插件高级支持</p>
+          <div class="row-b">
+            <span class="price-now">64 元</span>
+            <span class="icon-trend" aria-label="升至">
+              <svg width="14" height="14" viewBox="0 0 16 14" fill="none">
+                <path d="M1.5 10.5 L6 6 L9 8.5 L14 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.5 3 H14 V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="price-next">78 元</span>
+          </div>
+          <div class="price-old">原价 108 元</div>
+        </div>
+        <p class="pick"><strong>个人首选：</strong>语义清楚、气质稳，和纸质站最搭。</p>
+      </section>
+
+      <!-- C -->
+      <section class="option">
+        <div class="option-head">
+          <div>
+            <div class="option-id">方案 C</div>
+            <h2 class="option-name">阶梯高度</h2>
+            <p class="option-note">用矮条 / 高条暗示「之后更高」</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <span class="badge">优惠至 8月31日</span>
+          <h3>Weave 系列激活码</h3>
+          <p class="hint">三款插件高级支持</p>
+          <div class="row-c">
+            <div class="step">
+              <span class="price-now">64 元</span>
+              <span class="step-bar" aria-hidden="true"></span>
+            </div>
+            <div class="step is-next">
+              <span class="price-next">78 元</span>
+              <span class="step-bar" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="price-old">原价 108 元</div>
+        </div>
+        <p class="pick">适合：想更「图解」、少依赖图标含义。</p>
+      </section>
+
+      <!-- D -->
+      <section class="option">
+        <div class="option-head">
+          <div>
+            <div class="option-id">方案 D</div>
+            <h2 class="option-name">虚线桥</h2>
+            <p class="option-note">编辑感，像时间轴上的过渡</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <span class="badge">优惠至 8月31日</span>
+          <h3>Weave 系列激活码</h3>
+          <p class="hint">三款插件高级支持</p>
+          <div class="row-d">
+            <span class="price-now">64 元</span>
+            <span class="bridge" aria-hidden="true"></span>
+            <span class="price-next">78 元</span>
+          </div>
+          <div class="price-old">原价 108 元</div>
+        </div>
+        <p class="pick">适合：极简；箭头语义比趋势图稍弱。</p>
+      </section>
+
+      <!-- E -->
+      <section class="option">
+        <div class="option-head">
+          <div>
+            <div class="option-id">方案 E</div>
+            <h2 class="option-name">小胶囊 + 箭头</h2>
+            <p class="option-note">带一点「8.31 后」语境，仍偏安静</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <span class="badge">优惠至 8月31日</span>
+          <h3>Weave 系列激活码</h3>
+          <p class="hint">三款插件高级支持</p>
+          <div class="row-e">
+            <span class="price-now">64 元</span>
+            <span class="pill-after">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 8.5 L6 3.5 L10 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              8.31 后
+            </span>
+            <span class="price-next">78 元</span>
+          </div>
+          <div class="price-old">原价 108 元</div>
+        </div>
+        <p class="pick">适合：要把截止日期与涨价绑在一起说。</p>
+      </section>
+
+      <!-- F -->
+      <section class="option">
+        <div class="option-head">
+          <div>
+            <div class="option-id">方案 F</div>
+            <h2 class="option-name">斜上箭头贴 78</h2>
+            <p class="option-note">「升」的动作贴在次价旁边</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <span class="badge">优惠至 8月31日</span>
+          <h3>Weave 系列激活码</h3>
+          <p class="hint">三款插件高级支持</p>
+          <div class="row-f">
+            <span class="price-now">64 元</span>
+            <span class="rise-cluster">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 11 L8 5 L13 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 5 V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span class="price-next">78 元</span>
+            </span>
+          </div>
+          <div class="price-old">原价 108 元</div>
+        </div>
+        <p class="pick">适合：想强化「往上」动势，又不加圆底。</p>
+      </section>
+
+      <!-- G -->
+      <section class="option">
+        <div class="option-head">
+          <div>
+            <div class="option-id">方案 G</div>
+            <h2 class="option-name">双点时间轴</h2>
+            <p class="option-note">现在点（紫）→ 之后点（灰）</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <span class="badge">优惠至 8月31日</span>
+          <h3>Weave 系列激活码</h3>
+          <p class="hint">三款插件高级支持</p>
+          <div class="row-g">
+            <span class="timeline" aria-hidden="true">
+              <span class="dot"></span>
+              <span class="rail"></span>
+              <span class="dot is-next"></span>
+            </span>
+            <span class="price-now">64 元</span>
+            <span class="price-next">78 元</span>
+          </div>
+          <div class="price-old">原价 108 元</div>
+        </div>
+        <p class="pick">适合：偏叙事；数字与点的对应要再微调才完美。</p>
+      </section>
+    </div>
+
+    <aside class="recommend">
+      <h2>建议怎么选</h2>
+      <p>
+        官网气质偏安静纸质时，优先 <strong>方案 B（圆形趋势图标）</strong> 或 <strong>方案 A（细线箭头）</strong>。
+        若你更想强调「8.31 之后」，选 <strong>方案 E</strong>。
+        告诉我字母（如 B / E），我再写进正式 <code>index.html</code>。
+      </p>
+    </aside>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById("themeToggle");
+      btn.addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+      });
+    })();
+  </script>
+</body>
+</html>
