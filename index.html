@@ -1085,6 +1085,19 @@
       color: var(--text-muted);
       font-size: 0.92rem;
     }
+    .price-buy-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: auto;
+    }
+    .price-buy-actions .btn {
+      width: 100%;
+      font-size: 0.86rem;
+      min-height: 40px;
+      padding-left: 0.85rem;
+      padding-right: 0.85rem;
+    }
     .price-note {
       margin-top: 1.5rem;
       padding: 1rem 1.15rem;
@@ -1667,7 +1680,7 @@
         </div>
         <div class="price-grid">
           <article class="price-card best">
-            <span class="price-badge" data-i18n="pricing.endingSoon">优惠至 8月31日</span>
+            <span class="price-badge" data-i18n="pricing.endingSoon">优惠至 9月1日</span>
             <h3 data-i18n="pricing.seriesTitle">Weave 系列激活码</h3>
             <p class="hint" data-i18n="pricing.seriesHint">三款插件高级支持</p>
             <div class="price-row">
@@ -1692,10 +1705,13 @@
               <li data-i18n="pricing.lEmail">邮箱绑定</li>
               <li data-i18n="pricing.lBuyout">一次性买断</li>
             </ul>
-            <a class="btn btn-primary" id="buySeries" href="mailto:tutaoyuan8@outlook.com?subject=%E8%B4%AD%E4%B9%B0%20Weave%20%E7%B3%BB%E5%88%97%E6%BF%80%E6%B4%BB%E7%A0%81" data-i18n="pricing.buySeries">邮件购买系列激活码</a>
+            <div class="price-buy-actions">
+              <a class="btn btn-primary" href="https://pay.ldxp.cn/shop/4IRQ543S" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buySeriesCn">微信 / 支付宝购买</a>
+              <a class="btn btn-ghost" href="https://pancake.waffo.ai/store/obsidian-weave-z0o9emwu/product/PROD_0VsgIaepp0QoBwAlvca5nO?type=onetime&amp;currency=USD" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buySeriesIntl">国际支付购买</a>
+            </div>
           </article>
           <article class="price-card">
-            <span class="price-badge" data-i18n="pricing.readerEndingSoon">优惠至 8月31日</span>
+            <span class="price-badge" data-i18n="pricing.readerEndingSoon">近期截止</span>
             <h3 data-i18n="pricing.readerTitle">独立阅读器</h3>
             <p class="hint" data-i18n="pricing.readerHint">仅 EPUB Reader</p>
             <div class="price-now" style="font-size:1.65rem;" data-i18n="pricing.readerNow">30 元</div>
@@ -1707,7 +1723,10 @@
               <li data-i18n="pricing.lEmail">邮箱绑定</li>
               <li data-i18n="pricing.lBuyout">一次性买断</li>
             </ul>
-            <a class="btn btn-ghost" id="buyReader" href="mailto:tutaoyuan8@outlook.com?subject=%E8%B4%AD%E4%B9%B0%20Weave%20EPUB%20Reader%20%E6%BF%80%E6%B4%BB%E7%A0%81" data-i18n="pricing.buyReader">邮件购买阅读器激活码</a>
+            <div class="price-buy-actions">
+              <a class="btn btn-primary" href="https://pay.ldxp.cn/shop/4IRQ543S" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buyReaderCn">微信 / 支付宝购买</a>
+              <a class="btn btn-ghost" href="https://pancake.waffo.ai/store/obsidian-weave-z0o9emwu/product/PROD_1kbSye1i2mi2RjUpfmRhag?type=onetime&amp;currency=USD" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buyReaderIntl">国际支付购买</a>
+            </div>
           </article>
           <article class="price-card">
             <h3 data-i18n="pricing.irTitle">增量阅读</h3>
@@ -1722,7 +1741,7 @@
             <a class="btn btn-ghost" href="#pricing" data-i18n="pricing.seeSeries">查看系列方案</a>
           </article>
         </div>
-        <div class="price-note" data-i18n="pricing.deadlineNote">优惠价截止至 8月31日；系列此后升至 78 元，原价 108 元。</div>
+        <div class="price-note" data-i18n="pricing.deadlineNote">优惠价截止至 9月1日；系列此后升至 78 元，原价 108 元。</div>
         <div class="price-note" data-i18n="pricing.usdNote" data-i18n-empty-hide hidden></div>
       </div>
     </section>
@@ -1885,19 +1904,21 @@
           "pricing.lead": "基础体验永久可用。高级支持一次性买断：永久授权、邮箱绑定、支持五台设备。",
           "pricing.seriesTitle": "Weave 系列激活码",
           "pricing.seriesHint": "三款插件高级支持",
-          "pricing.endingSoon": "优惠至 8月31日",
-          "pricing.readerEndingSoon": "优惠至 8月31日",
+          "pricing.endingSoon": "优惠至 9月1日",
+          "pricing.readerEndingSoon": "近期截止",
           "pricing.seriesNow": "64 元",
           "pricing.riseTo": "升至",
           "pricing.seriesNext": "78 元",
           "pricing.old": "原价 108 元",
-          "pricing.buySeries": "邮件购买系列激活码",
+          "pricing.buySeriesCn": "微信 / 支付宝购买",
+          "pricing.buySeriesIntl": "国际支付购买",
           "pricing.readerTitle": "独立阅读器",
           "pricing.readerHint": "仅 EPUB Reader",
           "pricing.readerNow": "30 元",
           "pricing.readerOld": "原价 46 元",
           "pricing.readerOnly": "仅限于阅读器",
-          "pricing.buyReader": "邮件购买阅读器激活码",
+          "pricing.buyReaderCn": "微信 / 支付宝购买",
+          "pricing.buyReaderIntl": "国际支付购买",
           "pricing.irTitle": "增量阅读",
           "pricing.irHint": "不单独售卖",
           "pricing.irPrice": "随系列购买",
@@ -1908,7 +1929,7 @@
           "pricing.lForever": "永久授权",
           "pricing.lEmail": "邮箱绑定",
           "pricing.lBuyout": "一次性买断",
-          "pricing.deadlineNote": "优惠价截止至 8月31日；系列此后升至 78 元，原价 108 元。",
+          "pricing.deadlineNote": "优惠价截止至 9月1日；系列此后升至 78 元，原价 108 元。",
           "pricing.usdNote": "",
           "community.title": "交流群",
           "community.lead": "欢迎加入 QQ / 微信群交流与反馈。公开群请备注来源；购后群请提供订单号。",
@@ -2005,22 +2026,24 @@
           "ir.f3": "Daily caps, resume, and next-appearance planning",
           "ir.f4": "…and more",
           "pricing.title": "Pricing",
-          "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices. Purchase is currently by email.",
+          "pricing.lead": "Essential experience stays free. Premium is a one-time buyout: perpetual license, email binding, up to 5 devices.",
           "pricing.seriesTitle": "Weave series bundle",
           "pricing.seriesHint": "Advanced support for all three plugins",
-          "pricing.endingSoon": "Thru Aug 31",
-          "pricing.readerEndingSoon": "Thru Aug 31",
+          "pricing.endingSoon": "Ending soon",
+          "pricing.readerEndingSoon": "Ending soon",
           "pricing.seriesNow": "$15",
           "pricing.riseTo": "Rises to",
           "pricing.seriesNext": "$18",
           "pricing.old": "Was $30",
-          "pricing.buySeries": "Email to buy series",
+          "pricing.buySeriesCn": "WeChat / Alipay",
+          "pricing.buySeriesIntl": "International checkout",
           "pricing.readerTitle": "Reader only",
           "pricing.readerHint": "EPUB Reader only",
           "pricing.readerNow": "$9",
           "pricing.readerOld": "Was $18",
           "pricing.readerOnly": "Reader only",
-          "pricing.buyReader": "Email to buy reader",
+          "pricing.buyReaderCn": "WeChat / Alipay",
+          "pricing.buyReaderIntl": "International checkout",
           "pricing.irTitle": "Incremental Reading",
           "pricing.irHint": "Not sold separately",
           "pricing.irPrice": "Included in series",
@@ -2031,7 +2054,7 @@
           "pricing.lForever": "Perpetual license",
           "pricing.lEmail": "Email binding",
           "pricing.lBuyout": "One-time buyout",
-          "pricing.deadlineNote": "Sale prices end Aug 31; the series then rises to $18 (list $30).",
+          "pricing.deadlineNote": "Sale prices end soon; the series then rises to $18 (list $30).",
           "pricing.usdNote": "In this series’ official pricing, USD prices are higher than the China price because they are set together from purchasing power, typical prices in different markets, and a modest discount after balancing the price gap—still a reasonable rate.",
           "community.title": "Community",
           "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
@@ -2119,24 +2142,6 @@
         }
         if (captionEl && slides[current]) {
           captionEl.textContent = slideCaption(slides[current]);
-        }
-
-        var buySeries = document.getElementById("buySeries");
-        var buyReader = document.getElementById("buyReader");
-        var mail = "mailto:tutaoyuan8@outlook.com";
-        if (buySeries) {
-          buySeries.href = mail + "?subject=" + encodeURIComponent(
-            lang === "en" ? "Purchase Weave series bundle" : "购买 Weave 系列激活码"
-          );
-          buySeries.removeAttribute("target");
-          buySeries.removeAttribute("rel");
-        }
-        if (buyReader) {
-          buyReader.href = mail + "?subject=" + encodeURIComponent(
-            lang === "en" ? "Purchase Weave EPUB Reader" : "购买 Weave EPUB Reader 激活码"
-          );
-          buyReader.removeAttribute("target");
-          buyReader.removeAttribute("rel");
         }
       }
 
