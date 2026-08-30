@@ -1692,7 +1692,7 @@
               <li data-i18n="pricing.lEmail">邮箱绑定</li>
               <li data-i18n="pricing.lBuyout">一次性买断</li>
             </ul>
-            <a class="btn btn-primary" id="buySeries" href="https://pay.ldxp.cn/item/ned9pw" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buySeries">购买系列激活码</a>
+            <a class="btn btn-primary" id="buySeries" href="mailto:tutaoyuan8@outlook.com?subject=%E8%B4%AD%E4%B9%B0%20Weave%20%E7%B3%BB%E5%88%97%E6%BF%80%E6%B4%BB%E7%A0%81" data-i18n="pricing.buySeries">邮件购买系列激活码</a>
           </article>
           <article class="price-card">
             <span class="price-badge" data-i18n="pricing.readerEndingSoon">优惠至 8月31日</span>
@@ -1707,7 +1707,7 @@
               <li data-i18n="pricing.lEmail">邮箱绑定</li>
               <li data-i18n="pricing.lBuyout">一次性买断</li>
             </ul>
-            <a class="btn btn-ghost" id="buyReader" href="https://pay.ldxp.cn/item/zu4nrm" target="_blank" rel="noopener noreferrer" data-i18n="pricing.buyReader">购买阅读器激活码</a>
+            <a class="btn btn-ghost" id="buyReader" href="mailto:tutaoyuan8@outlook.com?subject=%E8%B4%AD%E4%B9%B0%20Weave%20EPUB%20Reader%20%E6%BF%80%E6%B4%BB%E7%A0%81" data-i18n="pricing.buyReader">邮件购买阅读器激活码</a>
           </article>
           <article class="price-card">
             <h3 data-i18n="pricing.irTitle">增量阅读</h3>
@@ -1891,13 +1891,13 @@
           "pricing.riseTo": "升至",
           "pricing.seriesNext": "78 元",
           "pricing.old": "原价 108 元",
-          "pricing.buySeries": "购买系列激活码",
+          "pricing.buySeries": "邮件购买系列激活码",
           "pricing.readerTitle": "独立阅读器",
           "pricing.readerHint": "仅 EPUB Reader",
           "pricing.readerNow": "30 元",
           "pricing.readerOld": "原价 46 元",
           "pricing.readerOnly": "仅限于阅读器",
-          "pricing.buyReader": "购买阅读器激活码",
+          "pricing.buyReader": "邮件购买阅读器激活码",
           "pricing.irTitle": "增量阅读",
           "pricing.irHint": "不单独售卖",
           "pricing.irPrice": "随系列购买",
@@ -2125,26 +2125,18 @@
         var buyReader = document.getElementById("buyReader");
         var mail = "mailto:tutaoyuan8@outlook.com";
         if (buySeries) {
-          if (lang === "en") {
-            buySeries.href = mail + "?subject=" + encodeURIComponent("Purchase Weave series bundle ($15)");
-            buySeries.removeAttribute("target");
-            buySeries.removeAttribute("rel");
-          } else {
-            buySeries.href = "https://pay.ldxp.cn/item/ned9pw";
-            buySeries.setAttribute("target", "_blank");
-            buySeries.setAttribute("rel", "noopener noreferrer");
-          }
+          buySeries.href = mail + "?subject=" + encodeURIComponent(
+            lang === "en" ? "Purchase Weave series bundle" : "购买 Weave 系列激活码"
+          );
+          buySeries.removeAttribute("target");
+          buySeries.removeAttribute("rel");
         }
         if (buyReader) {
-          if (lang === "en") {
-            buyReader.href = mail + "?subject=" + encodeURIComponent("Purchase Weave EPUB Reader ($9)");
-            buyReader.removeAttribute("target");
-            buyReader.removeAttribute("rel");
-          } else {
-            buyReader.href = "https://pay.ldxp.cn/item/zu4nrm";
-            buyReader.setAttribute("target", "_blank");
-            buyReader.setAttribute("rel", "noopener noreferrer");
-          }
+          buyReader.href = mail + "?subject=" + encodeURIComponent(
+            lang === "en" ? "Purchase Weave EPUB Reader" : "购买 Weave EPUB Reader 激活码"
+          );
+          buyReader.removeAttribute("target");
+          buyReader.removeAttribute("rel");
         }
       }
 
