@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>隐私政策 · Privacy Policy — Obsidian Weave</title>
+  <meta name="description" content="Obsidian Weave 插件系列隐私政策 / Privacy Policy." />
+  <link rel="canonical" href="https://zhuzhige123.github.io/obsidian-weave-website/privacy.html" />
+  <style>
+    @font-face {
+      font-family: "JingHuaOldSong";
+      src: url("fonts/KingHwaOldSong.woff2") format("woff2"), local("京华老宋体"), local("KingHwaOldSong");
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root, html[data-theme="dark"] {
+      --bg: #1e1e1e; --bg-elev: #252525; --text: #dadada; --text-muted: #999; --text-faint: #7a7a7a;
+      --border: rgba(255,255,255,.08); --accent: #a68cf5; --font: "JingHuaOldSong","京华老宋体","Songti SC","Noto Serif SC",serif;
+      --max: 760px; --nav-h: 64px;
+    }
+    html[data-theme="light"] {
+      --bg: #f8f7f4; --bg-elev: #fff; --text: #2a2a2a; --text-muted: #6b6b6b; --text-faint: #8a8a8a;
+      --border: rgba(30,30,30,.08); --accent: #7c5cbf;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.75; letter-spacing: .03em; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20; height: var(--nav-h);
+      display: flex; align-items: center; border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+    }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: min(100% - 2rem, 1080px); margin-inline: auto; }
+    .brand { color: var(--text); font-weight: 700; letter-spacing: .04em; }
+    .brand:hover { text-decoration: none; opacity: .85; }
+    .top-actions { display: flex; gap: .5rem; align-items: center; }
+    .chip {
+      border: 1px solid var(--border); background: transparent; color: var(--text-muted);
+      border-radius: 999px; padding: .35rem .75rem; font: inherit; font-size: .85rem; cursor: pointer;
+    }
+    .chip:hover, .chip.is-active { color: var(--text); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+    main { padding: 2.5rem 0 4rem; }
+    h1 { font-size: clamp(1.6rem, 3vw, 2rem); margin: 0 0 .5rem; line-height: 1.3; }
+    .meta { color: var(--text-faint); font-size: .9rem; margin-bottom: 2rem; }
+    .lang-block[hidden] { display: none !important; }
+    .legal h2 { font-size: 1.15rem; margin: 2rem 0 .75rem; }
+    .legal h3 { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--text-muted); }
+    .legal ul { padding-left: 1.2rem; }
+    .legal li { margin: .35rem 0; }
+    .note {
+      margin: 1.25rem 0; padding: .9rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--bg-elev); color: var(--text-muted); font-size: .95rem;
+    }
+    footer { border-top: 1px solid var(--border); padding: 2rem 0 2.5rem; color: var(--text-faint); font-size: .85rem; }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; width: min(100% - 2rem, 1080px); margin-inline: auto; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.15rem; }
+    .footer-links a { color: var(--text-faint); }
+    .footer-links a:hover { color: var(--text-muted); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./">← Weave</a>
+      <div class="top-actions">
+        <button type="button" class="chip is-active" id="btnZh" data-set-lang="zh">中文</button>
+        <button type="button" class="chip" id="btnEn" data-set-lang="en">EN</button>
+        <button type="button" class="chip" id="themeToggle" aria-label="Toggle theme">主题</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="lang-block" data-lang-panel="zh">
+      <h1>隐私政策</h1>
+      <p class="meta">生效日期：2026-08-30 · Obsidian Weave 插件系列 · <a href="./">官网</a></p>
+
+      <div class="legal">
+        <div class="note">本政策说明 Obsidian Weave 插件系列如何处理与网站访问、购买、激活相关的信息。学习笔记与牌组等内容默认保存在您本地的 Obsidian 库中。若订单由 <strong>Waffo Pancake</strong> 作为 Merchant of Record 处理，支付与账单相关个人数据还将按其隐私政策处理。</div>
+
+        <h2>1. 我们是谁</h2>
+        <p>本政策由 Obsidian Weave 插件系列的独立开发者提供（联系：<a href="mailto:tutaoyuan8@outlook.com">tutaoyuan8@outlook.com</a>）。官网：<a href="https://zhuzhige123.github.io/obsidian-weave-website/">https://zhuzhige123.github.io/obsidian-weave-website/</a>。</p>
+
+        <h2>2. 我们收集哪些信息</h2>
+        <h3>2.1 您直接提供的信息</h3>
+        <ul>
+          <li>购买与授权相关的<strong>邮箱</strong>（用于发送/绑定激活码、客服沟通）。</li>
+          <li>您主动发送的支持邮件内容（订单号、问题描述等）。</li>
+        </ul>
+        <h3>2.2 激活与设备相关信息</h3>
+        <ul>
+          <li>为核验高级支持授权，激活过程可能提交激活码、邮箱以及<strong>设备指纹摘要</strong>等到许可证服务。</li>
+          <li>我们用这些信息确认授权有效性与设备数量限制，不用于广告画像。</li>
+        </ul>
+        <h3>2.3 支付信息</h3>
+        <ul>
+          <li>当您通过 Waffo Pancake 结账时，支付卡号等敏感支付数据由支付处理方收集与处理，<strong>不会</strong>存储在我们的服务器上。</li>
+          <li>我们可能收到订单状态、交易号、购买邮箱、商品与金额等必要履约信息。</li>
+        </ul>
+        <h3>2.4 网站与托管</h3>
+        <ul>
+          <li>官网托管于 GitHub Pages。访问时，托管方可能自动记录标准服务器日志（如 IP、浏览器类型、访问时间）。我们不另行运营独立的用户追踪系统。</li>
+          <li>本站可能使用浏览器本地存储（如主题/语言偏好），仅保存在您的设备上。</li>
+        </ul>
+        <h3>2.5 本地库数据（默认不上传）</h3>
+        <p>阅读、制卡、复习、摘录等产生的笔记与卡片默认保存在您的 Obsidian 库本地。我们不会主动上传您的 Vault 正文内容。</p>
+        <h3>2.6 可选 AI 功能</h3>
+        <p>若您启用 AI 相关功能，选中的文本会发送到<strong>您自行配置</strong>的第三方 AI 接口。该处理由对应第三方按其条款与隐私政策进行；我们不控制其模型训练或留存策略。</p>
+
+        <h2>3. 我们如何使用信息</h2>
+        <ul>
+          <li>交付激活码、验证授权、执行设备数量限制；</li>
+          <li>处理订单相关客服、退款与防欺诈；</li>
+          <li>改进产品稳定性与安全；</li>
+          <li>履行法律义务。</li>
+        </ul>
+        <p>我们不会出售您的个人信息。</p>
+
+        <h2>4. 共享与披露</h2>
+        <ul>
+          <li><strong>支付与 MoR：</strong>Waffo Pancake 及其支付合作方可处理交易、税务、风控与退款相关数据。</li>
+          <li><strong>托管与基础设施：</strong>如 GitHub Pages、许可证服务托管方等，仅在提供服务所必需范围内处理。</li>
+          <li><strong>法律要求：</strong>在法律要求或为保护权利、安全所必要时可能披露。</li>
+        </ul>
+
+        <h2>5. 国际传输</h2>
+        <p>由于托管、支付或许可证服务可能位于不同国家和地区，您的信息可能被跨境处理。我们将在合理范围内采取措施，并依赖服务商提供的合规机制。</p>
+
+        <h2>6. 保留期限</h2>
+        <ul>
+          <li>授权与订单履约所需记录：在授权有效及处理争议、退款、合规所需期间保留。</li>
+          <li>客服邮件：通常保留至问题关闭后一段合理时间。</li>
+          <li>本地 Vault 数据由您自行管理与删除。</li>
+        </ul>
+
+        <h2>7. 安全</h2>
+        <p>我们采取合理的技术与组织措施保护授权相关数据。但没有任何互联网传输或存储方式是百分之百安全的。请妥善保管激活码与邮箱账户。</p>
+
+        <h2>8. 您的权利</h2>
+        <p>根据适用法律，您可能有权访问、更正、删除或限制处理与您相关的个人信息，或撤回同意（不影响撤回前基于同意的处理）。请通过 <a href="mailto:tutaoyuan8@outlook.com">tutaoyuan8@outlook.com</a> 联系我们。我们将在合理期限内回应。</p>
+        <p>若支付数据由 Waffo Pancake 控制，您可能还需按其渠道行使相关权利。</p>
+
+        <h2>9. 儿童</h2>
+        <p>本服务面向成人用户。我们不故意收集 16 岁以下儿童的个人信息。若您认为我们误收了相关信息，请联系删除。</p>
+
+        <h2>10. 第三方链接与服务</h2>
+        <p>官网可能链接到 Obsidian 社区、视频平台或其他第三方站点。其隐私实践由对方负责，请查阅其政策。</p>
+
+        <h2>11. 政策更新</h2>
+        <p>我们可能更新本政策，并在本页面更新生效日期。重大变更将尽量在官网提示。</p>
+
+        <h2>12. 联系我们</h2>
+        <p>隐私相关问题请邮件：<a href="mailto:tutaoyuan8@outlook.com">tutaoyuan8@outlook.com</a>。另请参阅我们的 <a href="./terms.html">服务条款</a>。</p>
+      </div>
+    </div>
+
+    <div class="lang-block" data-lang-panel="en" hidden>
+      <h1>Privacy Policy</h1>
+      <p class="meta">Effective date: 2026-08-30 · Obsidian Weave plugin series · <a href="./">Home</a></p>
+
+      <div class="legal">
+        <div class="note">This Policy explains how the Obsidian Weave plugin series handles information related to website visits, purchases, and activation. Study notes and decks stay in your local Obsidian vault by default. When an order is processed by <strong>Waffo Pancake</strong> as Merchant of Record, payment and billing personal data are also processed under their privacy policy.</div>
+
+        <h2>1. Who We Are</h2>
+        <p>This Policy is provided by the independent developer of the Obsidian Weave plugin series (contact: <a href="mailto:tutaoyuan8@outlook.com">tutaoyuan8@outlook.com</a>). Website: <a href="https://zhuzhige123.github.io/obsidian-weave-website/">https://zhuzhige123.github.io/obsidian-weave-website/</a>.</p>
+
+        <h2>2. Information We Collect</h2>
+        <h3>2.1 Information You Provide</h3>
+        <ul>
+          <li><strong>Email</strong> for purchase, license binding, and support.</li>
+          <li>Contents of support emails you send (order IDs, issue descriptions, etc.).</li>
+        </ul>
+        <h3>2.2 Activation &amp; Device Data</h3>
+        <ul>
+          <li>Activation may submit an activation code, email, and a <strong>device fingerprint digest</strong> to the license service.</li>
+          <li>We use this to validate licenses and device limits—not for advertising profiles.</li>
+        </ul>
+        <h3>2.3 Payment Data</h3>
+        <ul>
+          <li>When you check out via Waffo Pancake, sensitive payment data is collected by the payment processor and is <strong>not</strong> stored on our servers.</li>
+          <li>We may receive fulfillment data such as order status, transaction ID, purchase email, product, and amount.</li>
+        </ul>
+        <h3>2.4 Website Hosting</h3>
+        <ul>
+          <li>The website is hosted on GitHub Pages. The host may collect standard server logs (IP, user agent, timestamps). We do not run a separate analytics/tracking stack.</li>
+          <li>Local browser storage may keep preferences such as theme/language on your device only.</li>
+        </ul>
+        <h3>2.5 Local Vault Data (Not Uploaded by Default)</h3>
+        <p>Notes, cards, and excerpts created while reading or studying remain in your Obsidian vault locally. We do not actively upload vault content.</p>
+        <h3>2.6 Optional AI Features</h3>
+        <p>If you enable AI features, selected text is sent to <strong>third-party AI endpoints you configure</strong>. Those providers process data under their own terms and privacy policies.</p>
+
+        <h2>3. How We Use Information</h2>
+        <ul>
+          <li>Deliver activation codes, validate licenses, enforce device limits;</li>
+          <li>Provide order support, refunds, and fraud prevention;</li>
+          <li>Improve reliability and security;</li>
+          <li>Comply with legal obligations.</li>
+        </ul>
+        <p>We do not sell your personal information.</p>
+
+        <h2>4. Sharing &amp; Disclosure</h2>
+        <ul>
+          <li><strong>Payments / MoR:</strong> Waffo Pancake and its payment partners may process transaction, tax, risk, and refund data.</li>
+          <li><strong>Hosting / infrastructure:</strong> providers such as GitHub Pages or license hosting, only as needed to operate the Service.</li>
+          <li><strong>Legal:</strong> when required by law or to protect rights and safety.</li>
+        </ul>
+
+        <h2>5. International Transfers</h2>
+        <p>Hosting, payments, or license services may process data in other countries. We rely on reasonable measures and provider compliance mechanisms where applicable.</p>
+
+        <h2>6. Retention</h2>
+        <ul>
+          <li>License and order records: retained as needed for the license term, disputes, refunds, and compliance.</li>
+          <li>Support emails: retained for a reasonable period after resolution.</li>
+          <li>Vault data: managed and deleted by you locally.</li>
+        </ul>
+
+        <h2>7. Security</h2>
+        <p>We apply reasonable safeguards to license-related data. No internet transmission is perfectly secure—please protect your activation code and email account.</p>
+
+        <h2>8. Your Rights</h2>
+        <p>Depending on applicable law, you may request access, correction, deletion, or restriction of processing, or withdraw consent where processing is consent-based. Contact <a href="mailto:tutaoyuan8@outlook.com">tutaoyuan8@outlook.com</a>. We will respond within a reasonable time.</p>
+        <p>For payment data controlled by Waffo Pancake, you may also need to exercise rights through their channels.</p>
+
+        <h2>9. Children</h2>
+        <p>The Service is intended for adults. We do not knowingly collect personal information from children under 16. Contact us to request deletion if you believe such data was collected in error.</p>
+
+        <h2>10. Third-Party Links</h2>
+        <p>The website may link to Obsidian Community, video platforms, or other sites. Their privacy practices are their own responsibility.</p>
+
+        <h2>11. Changes</h2>
+        <p>We may update this Policy and revise the effective date on this page. Material changes will be indicated on the website where practical.</p>
+
+        <h2>12. Contact</h2>
+        <p>Privacy questions: <a href="mailto:tutaoyuan8@outlook.com">tutaoyuan8@outlook.com</a>. See also our <a href="./terms.html">Terms of Service</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>Obsidian Weave 插件系列</div>
+      <div class="footer-links">
+        <a href="./terms.html">服务条款</a>
+        <a href="./privacy.html">隐私政策</a>
+        <a href="mailto:tutaoyuan8@outlook.com">授权联系</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var themeKey = "weave-site-theme";
+      var langKey = "weave-site-lang";
+      var savedTheme = localStorage.getItem(themeKey);
+      if (savedTheme === "light" || savedTheme === "dark") root.setAttribute("data-theme", savedTheme);
+      function setLang(lang) {
+        lang = lang === "en" ? "en" : "zh";
+        root.setAttribute("data-lang", lang);
+        localStorage.setItem(langKey, lang);
+        document.querySelectorAll("[data-lang-panel]").forEach(function (el) {
+          el.hidden = el.getAttribute("data-lang-panel") !== lang;
+        });
+        document.getElementById("btnZh").classList.toggle("is-active", lang === "zh");
+        document.getElementById("btnEn").classList.toggle("is-active", lang === "en");
+        document.getElementById("themeToggle").textContent = lang === "en" ? "Theme" : "主题";
+      }
+      setLang(localStorage.getItem(langKey) === "en" ? "en" : "zh");
+      document.querySelectorAll("[data-set-lang]").forEach(function (btn) {
+        btn.addEventListener("click", function () { setLang(btn.getAttribute("data-set-lang")); });
+      });
+      document.getElementById("themeToggle").addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem(themeKey, next);
+      });
+    })();
+  </script>
+</body>
+</html>
