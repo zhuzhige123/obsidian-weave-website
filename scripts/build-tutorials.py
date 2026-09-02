@@ -38,6 +38,7 @@ LINK_MAP = {
     "We-02c 记忆学习界面": "study-session",
     "We-02d 考试题组": "exam-deck",
     "We-02e 插入牌组视图": "embed-deck",
+    "Er-00a 设计理念下的一些考虑": "reader-design",
     "Er-01a 安装与打开书架": "reader-install-shelf",
     "Er-01b 阅读器界面与阅读模式": "reader-ui-modes",
     "Er-01c 书签、进度与参考阅读点": "reader-bookmarks-progress",
@@ -188,6 +189,19 @@ WEAVE_CATALOG = [
 ]
 
 READER_CATALOG = [
+    {
+        "file": "Er-00a 设计理念下的一些考虑.md",
+        "id": "reader-design",
+        "code": "Er-00a",
+        "plugin": "reader",
+        "group": "start",
+        "level": "beginner",
+        "title": {"zh": "设计理念下的一些考虑", "en": "Design considerations"},
+        "lead_en": "Why the reader makes certain choices in Obsidian.",
+        "created": "2026-09-02",
+        "layout": "essay",
+        "numberedHeadings": True,
+    },
     {
         "file": "Er-01a 安装与打开书架.md",
         "id": "reader-install-shelf",
@@ -442,6 +456,7 @@ def convert_markdown(md: str) -> tuple[str, str]:
         para: list[str] = []
         list_items: list[tuple[str, int, str]] | None = None
         table_rows: list[str] = []
+        seen_heading = False
         i = 0
 
         def flush_list() -> None:
@@ -476,6 +491,7 @@ def convert_markdown(md: str) -> tuple[str, str]:
             if m_h:
                 flush_para(para, html_parts)
                 flush_list()
+                seen_heading = True
                 level = len(m_h.group(1))
                 tag = "h3" if level == 2 else f"h{level}"
                 html_parts.append(f"<{tag}>{inline(m_h.group(2))}</{tag}>")
@@ -509,7 +525,8 @@ def convert_markdown(md: str) -> tuple[str, str]:
                     list_items.append(("ul", 0, m_ul.group(1)))
                 i += 1
                 continue
-            if is_first and not lead and not stripped.startswith("#"):
+            # Lead is only the first paragraph before any heading (tutorial intro style).
+            if is_first and not lead and not seen_heading and not stripped.startswith("#"):
                 lead = re.sub(r"\s+", " ", stripped)
                 i += 1
                 continue
@@ -607,17 +624,19 @@ READER_WELCOME = {
     },
     "body": {
         "zh": """<div class="path-cards">
+<article class="path-card"><h4>设计理念</h4><p>为何手动书架、手动进度、不自动建摘录文件。</p><a href="#reader-design" data-goto="reader-design">设计理念下的一些考虑</a></article>
 <article class="path-card"><h4>第一次打开</h4><p>安装插件，把书放进书架。</p><a href="#reader-install-shelf" data-goto="reader-install-shelf">安装与打开书架</a></article>
 <article class="path-card"><h4>边读边记</h4><p>摘录写入笔记并跳回原文。</p><a href="#reader-excerpt-workflow" data-goto="reader-excerpt-workflow">摘录工作流 → 双向溯源</a></article>
 <article class="path-card"><h4>英文原著</h4><p>生词标注与词汇表。</p><a href="#reader-vocabulary" data-goto="reader-vocabulary">生词标注与词汇表</a></article>
 </div>
-<h3>Er-01～Er-04 怎么读</h3>
-<p><strong>Er-01</strong> 入门与界面；<strong>Er-02</strong> 摘录与高亮；<strong>Er-03</strong> 阅读增强；<strong>Er-04</strong> 导出、设置与系列联动。正文来自产品库 <code>obsidian weave epub reader 教程</code>。</p>""",
+<h3>Er-00～Er-04 怎么读</h3>
+<p><strong>Er-00</strong> 设计理念；<strong>Er-01</strong> 入门与界面；<strong>Er-02</strong> 摘录与高亮；<strong>Er-03</strong> 阅读增强；<strong>Er-04</strong> 导出、设置与系列联动。正文来自产品库 <code>obsidian weave epub reader 教程</code>。</p>""",
         "en": """<div class="path-cards">
+<article class="path-card"><h4>Design</h4><p>Manual shelf, manual progress, excerpts where you choose.</p><a href="#reader-design" data-goto="reader-design">Design considerations</a></article>
 <article class="path-card"><h4>First open</h4><p>Install and add books.</p><a href="#reader-install-shelf" data-goto="reader-install-shelf">Install & bookshelf</a></article>
 <article class="path-card"><h4>Read & excerpt</h4><p>Notes with bidirectional links.</p><a href="#reader-excerpt-workflow" data-goto="reader-excerpt-workflow">Excerpt workflow</a></article>
 </div>
-<p>Er-01 setup, Er-02 excerpts, Er-03 reading features, Er-04 export & integration.</p>""",
+<p>Er-00 design, Er-01 setup, Er-02 excerpts, Er-03 reading features, Er-04 export & integration.</p>""",
     },
 }
 
@@ -775,6 +794,11 @@ def append_catalog(
                 "title": item["title"],
                 "lead": lead_obj,
                 "body": body_obj,
+                **{
+                    key: item[key]
+                    for key in ("created", "updated", "layout", "numberedHeadings")
+                    if key in item
+                },
             }
         )
 

@@ -28,9 +28,8 @@ python -m http.server 8765
 | `tutorials.html` | 教程界面原型（侧栏目录 + 正文 + 本页目录） |
 | `tutorials-data.js` | 由教程 Markdown 生成的正文数据，勿手改 |
 | `tutorials/md/` | 从产品库迁入的 Weave Deck 教程稿 |
-| `tutorials/md-reader/` | 从产品库迁入的 EPUB Reader 教程稿 |
+| `tutorials/md-reader/` | 从产品库迁入的 EPUB Reader 教程稿（含 `Er-00a 设计理念下的一些考虑`） |
 | `scripts/build-tutorials.py` | 从上述 Markdown 生成 `tutorials-data.js` |
-| `scripts/build-tutorials.py` | 把 Markdown 转成 `tutorials-data.js` |
 | `tech.html` | 科技风备选页 |
 | `uploads/` | 产品截图占位（放入同名 png 即可显示） |
 | `assets/` | 辅助资源 |

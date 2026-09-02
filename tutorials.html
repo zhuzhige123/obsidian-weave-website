@@ -468,6 +468,43 @@
       padding-bottom: 1.25rem;
       border-bottom: 1px solid var(--border);
     }
+    .doc-header.is-essay {
+      margin-bottom: 2rem;
+      padding-bottom: 1.35rem;
+      text-align: left;
+    }
+    .docs-main.is-essay-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .docs-main.is-essay-layout .doc-breadcrumb,
+    .docs-main.is-essay-layout .doc-header,
+    .docs-main.is-essay-layout .doc-body,
+    .docs-main.is-essay-layout .doc-footer,
+    .docs-main.is-essay-layout .doc-nav-row {
+      width: min(100%, 44rem);
+    }
+    .docs-main.is-essay-layout .doc-breadcrumb {
+      align-self: center;
+    }
+    .doc-footer {
+      margin: 2.5rem 0 0;
+      padding-top: 1.15rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-faint);
+      font-size: 0.84rem;
+      letter-spacing: 0.02em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.35rem 0.75rem;
+    }
+    .doc-footer[hidden] { display: none !important; }
+    .doc-footer .sep {
+      margin: 0 0.15rem;
+      opacity: 0.4;
+    }
     .doc-meta {
       display: flex;
       flex-wrap: wrap;
@@ -607,6 +644,8 @@
       line-height: 1.75;
       max-width: 42rem;
     }
+    .doc-lead:empty,
+    .doc-lead[hidden] { display: none !important; }
     .doc-body h3,
     .doc-body h4 {
       scroll-margin-top: calc(var(--nav-h) + 1rem);
@@ -625,6 +664,54 @@
       margin-top: 0;
       padding-top: 0;
       border-top: none;
+    }
+    .doc-body.is-essay {
+      max-width: none;
+    }
+    .doc-body.is-essay p {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+    }
+    .doc-body.is-essay h3 {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: 0.85rem;
+      row-gap: 0.15rem;
+      align-items: baseline;
+      margin: 2.75rem 0 1rem;
+      padding: 1.35rem 0 0;
+      border-top: 1px solid var(--border);
+      font-size: 1.14rem;
+      font-weight: 650;
+      line-height: 1.45;
+    }
+    .doc-body.is-essay h3:first-child {
+      margin-top: 0.35rem;
+      padding-top: 0;
+      border-top: none;
+    }
+    .doc-body.is-essay h3 .section-num {
+      color: var(--accent);
+      font-size: 0.78em;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.45;
+    }
+    .doc-body.is-essay h3 + p {
+      margin-top: 0.15rem;
+    }
+    .doc-body.is-essay h3 ~ p + p {
+      margin-top: 0.85rem;
+    }
+    .toc-list a .toc-num {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      margin-right: 0.35rem;
+      font-size: 0.78em;
+      letter-spacing: 0.04em;
     }
     .doc-body h4 {
       margin: 1.65rem 0 0.65rem;
@@ -1003,6 +1090,7 @@
         <p class="doc-lead" id="docLead"></p>
       </header>
       <article class="doc-body" id="docBody"></article>
+      <footer class="doc-footer" id="docFooter" hidden></footer>
       <div class="doc-nav-row" id="docPager"></div>
     </main>
 
@@ -1060,7 +1148,9 @@
           "group.er04": "设置与联动",
           "group.series": "系列插件",
           "crumb.tutorials": "教程",
-          "crumb.home": "首页"
+          "crumb.home": "首页",
+          "meta.created": "创建于",
+          "meta.updated": "更新于"
         },
         en: {
           brand: "Weave Series",
@@ -1095,7 +1185,9 @@
           "group.er04": "Settings & integration",
           "group.series": "Plugin series",
           "crumb.tutorials": "Tutorials",
-          "crumb.home": "Home"
+          "crumb.home": "Home",
+          "meta.created": "Created",
+          "meta.updated": "Updated"
         }
       };
 
@@ -1247,13 +1339,86 @@
           var li = document.createElement("li");
           var a = document.createElement("a");
           a.href = "#" + h.id;
-          a.textContent = h.textContent;
+          var num = h.getAttribute("data-section");
+          var titleNode = h.cloneNode(true);
+          var numEl = titleNode.querySelector(".section-num");
+          if (numEl) numEl.remove();
+          var titleText = (titleNode.textContent || "").trim();
+          if (num) {
+            a.innerHTML =
+              '<span class="toc-num">' +
+              escHtml(num) +
+              "</span>" +
+              escHtml(titleText);
+          } else {
+            a.textContent = titleText;
+          }
           a.addEventListener("click", function (e) {
             e.preventDefault();
             h.scrollIntoView({ behavior: "smooth", block: "start" });
           });
           li.appendChild(a);
           toc.appendChild(li);
+        });
+      }
+
+      function pad2(n) {
+        return n < 10 ? "0" + n : String(n);
+      }
+      function formatDocDate(iso) {
+        if (!iso) return "";
+        var parts = String(iso).split("-");
+        if (parts.length < 3) return iso;
+        var y = parts[0];
+        var m = parseInt(parts[1], 10);
+        var d = parseInt(parts[2], 10);
+        if (lang() === "en") {
+          var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+          return months[m - 1] + " " + d + ", " + y;
+        }
+        return y + "年" + m + "月" + d + "日";
+      }
+      function buildDateBits(doc) {
+        var bits = [];
+        if (doc.created) bits.push(t("meta.created") + " " + formatDocDate(doc.created));
+        if (doc.updated) bits.push(t("meta.updated") + " " + formatDocDate(doc.updated));
+        return bits;
+      }
+      function renderEssayMeta(doc) {
+        var footer = document.getElementById("docFooter");
+        var bits = buildDateBits(doc);
+        var isEssay = doc.layout === "essay";
+        if (!footer) return;
+        if (isEssay && bits.length) {
+          footer.hidden = false;
+          footer.innerHTML = bits
+            .map(function (b) { return "<span>" + escHtml(b) + "</span>"; })
+            .join('<span class="sep" aria-hidden="true">·</span>');
+        } else {
+          footer.hidden = true;
+          footer.textContent = "";
+        }
+      }
+      function decorateEssayBody(doc) {
+        var body = document.getElementById("docBody");
+        var header = document.querySelector(".doc-header");
+        var main = document.querySelector(".docs-main");
+        var isEssay = doc.layout === "essay";
+        var numbered = !!doc.numberedHeadings || isEssay;
+        body.classList.toggle("is-essay", isEssay);
+        if (header) header.classList.toggle("is-essay", isEssay);
+        if (main) main.classList.toggle("is-essay-layout", isEssay);
+        if (!numbered) return;
+        body.querySelectorAll("h3").forEach(function (h, i) {
+          var n = pad2(i + 1);
+          h.setAttribute("data-section", n);
+          if (!h.querySelector(".section-num")) {
+            var span = document.createElement("span");
+            span.className = "section-num";
+            span.setAttribute("aria-hidden", "true");
+            span.textContent = n;
+            h.insertBefore(span, h.firstChild);
+          }
         });
       }
 
@@ -1509,8 +1674,17 @@
           }
         }
         document.getElementById("docTitle").textContent = localizedField(doc, "title");
-        document.getElementById("docLead").textContent = localizedField(doc, "lead");
+        var leadBag = doc.lead || {};
+        var leadText =
+          lang() === "en"
+            ? leadBag.en || ""
+            : leadBag.zh || "";
+        var leadEl = document.getElementById("docLead");
+        leadEl.textContent = leadText;
+        leadEl.hidden = !leadText;
         document.getElementById("docBody").innerHTML = localizedBody(doc);
+        decorateEssayBody(doc);
+        renderEssayMeta(doc);
         document.getElementById("docMeta").innerHTML = renderDocMeta(doc);
         bindDocMetaEvents();
         renderTagResults();
