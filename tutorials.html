@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>教程 · Obsidian Weave 插件系列</title>
   <meta name="description" content="Obsidian Weave 插件系列用户使用教程原型。" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/brand/favicon-48.png" />
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
   <style>
     @font-face {
       font-family: "JingHuaOldSong";
@@ -148,11 +151,20 @@
     }
     .brand {
       display: inline-flex;
-      align-items: baseline;
-      gap: 0.3rem;
+      align-items: center;
+      gap: 0.45rem;
       font-weight: 600;
       font-size: 0.98rem;
       letter-spacing: -0.02em;
+    }
+    .brand-mark {
+      width: 1.55rem;
+      height: 1.55rem;
+      border-radius: 5px;
+      flex: 0 0 auto;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--border) 90%, transparent);
     }
     .brand-word {
       position: relative;
@@ -1025,6 +1037,14 @@
   <header class="nav" id="nav">
     <div class="nav-inner">
       <a class="brand" href="index.html" id="brandHome" title="返回首页">
+        <img
+          class="brand-mark"
+          src="assets/brand/weave-mark-128.png"
+          width="26"
+          height="26"
+          alt=""
+          decoding="async"
+        />
         <span class="brand-word" aria-hidden="true">
           <span class="brand-w">W</span>eave
           <span class="brand-underline"></span>

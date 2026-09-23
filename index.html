@@ -8,6 +8,10 @@
   <meta name="waffo-verify" content="f01af109ecd2ec3c254d2929ff1c8b5a" />
   <title>Obsidian Weave 插件系列</title>
   <meta name="description" content="干净、优雅、舒适的 Obsidian Weave 插件系列官网原型。" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/brand/favicon-48.png" />
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+  <meta property="og:image" content="https://zhuzhige123.github.io/obsidian-weave-website/assets/brand/weave-mark.png" />
   <style>
     /* 京华老宋体：站点内嵌子集，访客无需本机安装 */
     @font-face {
@@ -208,9 +212,18 @@
     }
     .brand {
       display: inline-flex;
-      align-items: baseline;
+      align-items: center;
       gap: 0.7rem;
       line-height: 1;
+    }
+    .brand-mark {
+      width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 6px;
+      flex: 0 0 auto;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--border-strong) 80%, transparent);
     }
     .brand-lockup {
       display: inline-flex;
@@ -1367,6 +1380,14 @@
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="#top" aria-label="Weave">
+        <img
+          class="brand-mark"
+          src="assets/brand/weave-mark-128.png"
+          width="28"
+          height="28"
+          alt=""
+          decoding="async"
+        />
         <span class="brand-lockup">
           <span class="brand-word"><span>W</span>eave</span>
           <span class="brand-series" data-i18n="brand.series">系列</span>
