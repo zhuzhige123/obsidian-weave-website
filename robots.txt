@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zhuzhige123.github.io/obsidian-weave-website/sitemap.xml
