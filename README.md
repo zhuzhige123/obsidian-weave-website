@@ -4,32 +4,47 @@ Weave 插件系列的静态官网。
 
 ## 在线访问（正式入口）
 
-**https://zhuzhige123.github.io/obsidian-weave-website/**
+**https://obsidian-weave.xyz/**
 
-请统一使用上述 HTTPS 地址对外宣传、插件内跳转与外链。
+请统一使用上述 HTTPS 地址对外宣传、插件内跳转与外链。  
+`https://zhuzhige123.github.io/obsidian-weave-website/` 会由 GitHub Pages 跳转到正式域名。
 
-### 自定义域名说明（obsidian-weave.xyz）
+### 自定义域名（GitHub Pages）
 
-DNS 已指向 GitHub Pages，但 **HTTPS 证书尚未签发**，强行绑定会导致：
+仓库根目录的 `CNAME` 文件内容必须是：
 
-- `github.io` 被 301 到 `http://obsidian-weave.xyz/`
-- `https://obsidian-weave.xyz/` 证书错误，搜索引擎难以收录
+```
+obsidian-weave.xyz
+```
 
-因此仓库已暂时移除 `CNAME`，优先保证可被搜索的 HTTPS 主站。
+DNS（阿里云万网）需要同时具备：
 
-证书就绪后可再启用自定义域名：
+| 记录类型 | 主机记录 | 记录值 |
+|------|------|------|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| AAAA | `@` | `2606:50c0:8000::153` |
+| AAAA | `@` | `2606:50c0:8001::153` |
+| AAAA | `@` | `2606:50c0:8002::153` |
+| AAAA | `@` | `2606:50c0:8003::153` |
+| CNAME | `www` | `zhuzhige123.github.io` |
 
-1. 在仓库根目录重新添加内容为 `obsidian-weave.xyz` 的 `CNAME` 文件并推送
-2. 打开 **Settings → Pages**，等待域名旁显示 DNS check 通过
-3. 勾选 **Enforce HTTPS**（若提示证书不存在，再等数小时后重试）
-4. 确认 `https://obsidian-weave.xyz/` 可打开后，再把全文链接与 `sitemap.xml` / `robots.txt` 改成该域名
+AAAA（IPv6）建议补齐，否则 GitHub 有时迟迟签不出 HTTPS 证书。
+
+绑定后打开 **Settings → Pages**：
+
+1. Custom domain 显示 `obsidian-weave.xyz`
+2. 等待 DNS check 通过
+3. 证书就绪后勾选 **Enforce HTTPS**
 
 ### 让搜索引擎收录（需你本人操作一次）
 
 1. 打开 [Google Search Console](https://search.google.com/search-console)
-2. 添加资源：网址前缀 `https://zhuzhige123.github.io/obsidian-weave-website/`
+2. 添加资源：网址前缀 `https://obsidian-weave.xyz/`
 3. 按提示完成所有权验证
-4. 提交站点地图：`https://zhuzhige123.github.io/obsidian-weave-website/sitemap.xml`
+4. 提交站点地图：`https://obsidian-weave.xyz/sitemap.xml`
 5. 可选：用「网址检查」请求编入索引首页与 `tutorials.html`
 
 Bing 可到 [Bing Webmaster Tools](https://www.bing.com/webmasters) 做同样提交。
