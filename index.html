@@ -237,16 +237,22 @@
     }
     .nav-inner {
       height: 100%;
-      display: flex;
+      width: min(100%, 72rem);
+      margin-inline: auto;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
+      column-gap: 1rem;
+      padding-inline: clamp(1.5rem, 4vw, 2.5rem);
     }
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
       line-height: 1;
+      justify-self: start;
+      min-width: 0;
     }
     .brand-mark {
       width: 1.7rem;
@@ -304,13 +310,17 @@
     .nav-right {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 0.35rem;
+      justify-self: end;
+      min-width: 0;
     }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 0.15rem;
-      margin-right: 0.4rem;
+      justify-content: center;
+      gap: 0.2rem;
+      justify-self: center;
     }
     .nav-links > a,
     .nav-drop > button {
@@ -360,9 +370,6 @@
       .nav-drop:hover > button {
         color: var(--text);
         background: var(--bg-soft);
-      }
-      .nav-drop:hover > button svg {
-        transform: rotate(180deg);
       }
       /* 悬停移向子菜单时的缓冲带 */
       .nav-drop::after {
@@ -1731,7 +1738,13 @@
         width: min(78%, 520px);
         margin-left: calc(min(78%, 520px) / -2);
       }
-      .nav-links { display: none; }
+      .nav-inner {
+        display: flex;
+        justify-content: space-between;
+      }
+      .nav-links {
+        display: none;
+      }
       .nav-toggle { display: grid; }
       .nav.open .nav-links {
         display: flex;
@@ -1741,10 +1754,12 @@
         top: var(--nav-h);
         left: 0;
         right: 0;
+        transform: none;
         padding: 0.5rem;
         background: var(--bg-elev);
         border-bottom: 1px solid var(--border);
         gap: 0.15rem;
+        z-index: 5;
       }
       .nav.open .nav-drop .nav-menu {
         position: static;
@@ -1766,7 +1781,7 @@
   <div class="site-atmosphere" aria-hidden="true"></div>
   <div class="site-corner-light" aria-hidden="true"></div>
   <header class="nav" id="nav">
-    <div class="wrap nav-inner">
+    <div class="nav-inner">
       <a class="brand" href="#top" aria-label="Weave">
         <img
           class="brand-mark"
@@ -1782,8 +1797,8 @@
         </span>
         <span class="brand-sub">for Obsidian</span>
       </a>
-      <div class="nav-right">
-        <nav class="nav-links">
+      <nav class="nav-links">
+          <a href="#products" data-i18n="nav.series">插件系列</a>
           <div class="nav-drop" id="changelogDrop">
             <button type="button" id="changelogToggle" aria-expanded="false" aria-haspopup="true">
               <span data-i18n="nav.changelog">更新日志</span>
@@ -1803,11 +1818,9 @@
               </button>
             </div>
           </div>
-          <a href="#pricing" data-i18n="nav.pricing">价格</a>
           <div class="nav-drop" id="tutorialsDrop">
             <button type="button" id="navTutorials" aria-expanded="false" aria-haspopup="true">
               <span data-i18n="nav.docs">教程</span>
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="nav-menu" role="menu">
               <button type="button" role="menuitem" class="is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Deck</button>
@@ -1828,7 +1841,9 @@
               </a>
             </div>
           </div>
-        </nav>
+          <a href="#pricing" data-i18n="nav.pricing">价格</a>
+      </nav>
+      <div class="nav-right">
         <button class="lang-btn" id="langToggle" type="button" aria-label="Switch language" title="Language">
           <span class="lang-en">EN</span>
           <span class="lang-zh">中</span>
@@ -2252,7 +2267,7 @@
           "meta.desc": "Obsidian Weave 插件系列官网：Weave Deck 记忆牌组、EPUB Reader 阅读摘录、增量阅读排期，在 Obsidian 内完成摘录、制卡、复习与测试闭环。",
           brand: "Weave 系列",
           "brand.series": "系列",
-          "nav.series": "系列",
+          "nav.series": "插件系列",
           "nav.products": "产品",
           "nav.changelog": "更新日志",
           "nav.pricing": "价格",
@@ -2380,7 +2395,7 @@
           "meta.desc": "Official site for the Obsidian Weave plugin series: Weave Deck, EPUB Reader, and Incremental Reading—excerpt, cards, review, and tests inside Obsidian.",
           brand: "Weave Series",
           "brand.series": "Series",
-          "nav.series": "Series",
+          "nav.series": "Plugins",
           "nav.products": "Products",
           "nav.changelog": "Changelog",
           "nav.pricing": "Pricing",
