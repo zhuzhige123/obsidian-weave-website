@@ -36,6 +36,28 @@
       font-display: swap;
     }
 
+    /* 更新日志拉丁刊头：Libre Baskerville，仅覆盖西文与数字 */
+    @font-face {
+      font-family: "LibreBaskerville";
+      src:
+        url("fonts/libre-baskerville-latin-400.woff2") format("woff2"),
+        local("Libre Baskerville");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "LibreBaskerville";
+      src:
+        url("fonts/libre-baskerville-latin-700.woff2") format("woff2"),
+        local("Libre Baskerville Bold");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
     /* Obsidian-inspired calm palette */
     :root, html[data-theme="dark"] {
       --bg: #1e1e1e;
@@ -60,6 +82,7 @@
       --max: 1080px;
       --nav-h: 64px;
       --font: "JingHuaOldSong", "京华老宋体", "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+      --font-latin-display: "LibreBaskerville", "Libre Baskerville", "JingHuaOldSong", serif;
       /* 宣传图气质：视口最左上角（含顶栏）暖光 + 轻纸纹 */
       --atmosphere-glow:
         radial-gradient(
@@ -312,13 +335,6 @@
       align-items: center;
       gap: 0.35rem;
     }
-    .nav-drop > button svg {
-      opacity: 0.7;
-      transition: transform 0.15s ease;
-    }
-    .nav-drop.open > button svg {
-      transform: rotate(180deg);
-    }
     .nav-menu {
       display: none;
       position: absolute;
@@ -335,6 +351,28 @@
     .nav-drop.open .nav-menu {
       display: grid;
       gap: 0.15rem;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .nav-drop:hover .nav-menu {
+        display: grid;
+        gap: 0.15rem;
+      }
+      .nav-drop:hover > button {
+        color: var(--text);
+        background: var(--bg-soft);
+      }
+      .nav-drop:hover > button svg {
+        transform: rotate(180deg);
+      }
+      /* 悬停移向子菜单时的缓冲带 */
+      .nav-drop::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        height: 0.45rem;
+      }
     }
     .nav-menu a {
       padding: 0.55rem 0.7rem;
@@ -379,6 +417,385 @@
       background: var(--accent-soft);
       font-weight: 600;
     }
+    
+    html[data-site-view="changelog"] #top,
+    html[data-site-view="changelog"] footer,
+    html[data-site-view="changelog"] #view-tutorials {
+      display: none !important;
+    }
+    /* 更新日志：编辑纪事式双栏，非圆点卡片轨 */
+    html[data-site-view="changelog"] #view-changelog { display: block; }
+    #view-changelog {
+      display: none;
+      padding: clamp(2.6rem, 5.5vw, 4rem) 0 clamp(4.5rem, 9vw, 7rem);
+      min-height: calc(100vh - var(--nav-h) - 5rem);
+    }
+    .changelog-hero {
+      display: grid;
+      gap: 0.55rem;
+      margin-bottom: clamp(2.8rem, 6vw, 4rem);
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: none;
+    }
+    .changelog-hero .eyebrow {
+      margin: 0;
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .changelog-hero h1 {
+      margin: 0;
+      font-family: var(--font-latin-display);
+      font-size: clamp(1.85rem, 3.2vw, 2.35rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+    .changelog-timeline {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0;
+      max-width: none;
+    }
+    .changelog-year {
+      --changelog-rail: 1.35rem;
+      --changelog-node-y: 0.28rem;
+      display: grid;
+      grid-template-columns: minmax(9.5rem, 13rem) var(--changelog-rail) minmax(0, 1fr);
+      column-gap: 1.35rem;
+      margin: 0;
+      padding: clamp(1.1rem, 2.4vw, 1.6rem) 0 0.2rem;
+      list-style: none;
+    }
+    .changelog-year:first-child {
+      padding-top: 0.15rem;
+    }
+    .changelog-year-label {
+      margin: 0;
+      font-family: var(--font-latin-display);
+      color: var(--text-faint);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.3;
+      text-align: right;
+      padding-top: 0.05rem;
+    }
+    .changelog-year-axis {
+      position: relative;
+      width: var(--changelog-rail);
+      justify-self: center;
+      align-self: stretch;
+      min-height: 1.2rem;
+    }
+    .changelog-year-axis::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      transform: translateX(-50%);
+      background: color-mix(in srgb, var(--border-strong) 55%, transparent);
+    }
+    .changelog-year-node {
+      position: absolute;
+      left: 50%;
+      top: var(--changelog-node-y);
+      z-index: 1;
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: var(--bg);
+      border: 1.5px solid color-mix(in srgb, var(--text-faint) 70%, var(--border-strong));
+      box-sizing: border-box;
+    }
+    .changelog-year-spacer {
+      min-width: 0;
+    }
+    .changelog-entry {
+      --changelog-rail: 1.35rem;
+      --changelog-node-y: 0.42rem;
+      display: grid;
+      grid-template-columns: minmax(9.5rem, 13rem) var(--changelog-rail) minmax(0, 1fr);
+      column-gap: 1.35rem;
+      padding: clamp(2rem, 4vw, 2.85rem) 0;
+      border-bottom: 0;
+    }
+    .changelog-entry:first-child,
+    .changelog-year + .changelog-entry {
+      padding-top: 0.85rem;
+    }
+    .changelog-entry:last-child {
+      padding-bottom: 0.35rem;
+    }
+    .changelog-aside {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      padding-top: 0;
+      align-self: start;
+      text-align: right;
+    }
+    .changelog-axis {
+      position: relative;
+      width: var(--changelog-rail);
+      justify-self: center;
+      align-self: stretch;
+      margin: 0;
+    }
+    .changelog-axis::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      transform: translateX(-50%);
+      background: color-mix(in srgb, var(--border-strong) 72%, transparent);
+    }
+    .changelog-entry.is-latest .changelog-axis::before {
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent) 58%, var(--border-strong)) 0%,
+        color-mix(in srgb, var(--border-strong) 72%, transparent) 4.5rem,
+        color-mix(in srgb, var(--border-strong) 72%, transparent) 100%
+      );
+    }
+    .changelog-entry:first-child .changelog-axis::before,
+    .changelog-year + .changelog-entry .changelog-axis::before {
+      top: var(--changelog-node-y);
+    }
+    .changelog-entry:last-child .changelog-axis::before {
+      bottom: auto;
+      height: calc(100% - var(--changelog-node-y));
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--border-strong) 72%, transparent) 0%,
+        color-mix(in srgb, var(--border-strong) 72%, transparent) 55%,
+        transparent 100%
+      );
+    }
+    .changelog-entry.is-latest:last-child .changelog-axis::before {
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent) 58%, var(--border-strong)) 0%,
+        color-mix(in srgb, var(--border-strong) 65%, transparent) 3.5rem,
+        transparent 100%
+      );
+    }
+    .changelog-node {
+      position: absolute;
+      left: 50%;
+      top: var(--changelog-node-y);
+      z-index: 2;
+      width: 0.78rem;
+      height: 0.78rem;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-sizing: border-box;
+      background: var(--bg);
+      border: 2px solid color-mix(in srgb, var(--text-faint) 55%, var(--border-strong));
+      box-shadow: 0 0 0 3px var(--bg);
+    }
+    .changelog-entry.is-latest .changelog-node {
+      width: 0.9rem;
+      height: 0.9rem;
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow:
+        0 0 0 3px var(--bg),
+        0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .changelog-version {
+      margin: 0;
+      font-family: var(--font-latin-display);
+      font-size: clamp(1.55rem, 2.4vw, 1.95rem);
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1.2;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .changelog-entry.is-latest .changelog-version {
+      color: var(--accent);
+    }
+    .changelog-aside-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      max-width: 100%;
+    }
+    .changelog-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+      text-transform: none;
+    }
+    .changelog-date {
+      color: var(--text-faint);
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+      line-height: 1.45;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .changelog-body {
+      min-width: 0;
+      padding-top: 0.12rem; /* 与左侧大号版号 / 轴点光学对齐 */
+    }
+    .changelog-groups {
+      display: grid;
+      gap: 1.35rem;
+    }
+    .changelog-group-title {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 0.6rem;
+      padding: 0.12rem 0.48rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+    }
+    .changelog-group-title.is-added {
+      color: #5f9e8f;
+      background: color-mix(in srgb, #5f9e8f 10%, transparent);
+    }
+    .changelog-group-title.is-improved {
+      color: #7a90c4;
+      background: color-mix(in srgb, #7a90c4 10%, transparent);
+    }
+    .changelog-group-title.is-changed {
+      color: #b89655;
+      background: color-mix(in srgb, #b89655 11%, transparent);
+    }
+    .changelog-group-title.is-fixed {
+      color: #c07a7a;
+      background: color-mix(in srgb, #c07a7a 10%, transparent);
+    }
+    html[data-theme="light"] .changelog-group-title.is-added {
+      color: #2f7a68;
+      background: color-mix(in srgb, #2f7a68 9%, transparent);
+    }
+    html[data-theme="light"] .changelog-group-title.is-improved {
+      color: #3f5f9e;
+      background: color-mix(in srgb, #3f5f9e 9%, transparent);
+    }
+    html[data-theme="light"] .changelog-group-title.is-changed {
+      color: #8a6a28;
+      background: color-mix(in srgb, #8a6a28 10%, transparent);
+    }
+    html[data-theme="light"] .changelog-group-title.is-fixed {
+      color: #9a4545;
+      background: color-mix(in srgb, #9a4545 9%, transparent);
+    }
+    .changelog-group ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .changelog-group li {
+      position: relative;
+      padding-left: 1.15rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      letter-spacing: 0.015em;
+    }
+    .changelog-group li::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--text-faint);
+      font-weight: 500;
+    }
+    .changelog-footer {
+      margin-top: clamp(2.5rem, 5vw, 3.5rem);
+      padding-top: 1.5rem;
+      border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    }
+    .nav-menu .menu-sub {
+      display: block;
+      color: var(--text-faint);
+      font-size: 0.78rem;
+      margin-top: 0.15rem;
+      white-space: normal;
+    }
+    @media (max-width: 720px) {
+      .changelog-year,
+      .changelog-entry {
+        --changelog-rail: 1.15rem;
+        grid-template-columns: var(--changelog-rail) minmax(0, 1fr);
+        column-gap: 0.95rem;
+      }
+      .changelog-year {
+        padding: 1.1rem 0 0.15rem;
+      }
+      .changelog-year-label {
+        grid-column: 2;
+        text-align: left;
+        padding-top: 0;
+      }
+      .changelog-year-axis {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .changelog-year-spacer {
+        display: none;
+      }
+      .changelog-entry {
+        padding: 1.7rem 0;
+      }
+      .changelog-aside {
+        grid-column: 2;
+        grid-row: 1;
+        text-align: left;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.45rem 0.8rem;
+      }
+      .changelog-axis {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+      }
+      .changelog-aside-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.35rem 0.65rem;
+      }
+      .changelog-body {
+        grid-column: 2;
+        grid-row: 2;
+        padding-top: 0.15rem;
+      }
+      .changelog-version {
+        font-size: 1.45rem;
+      }
+    }
+
     html[data-site-view="tutorials"] #top,
     html[data-site-view="tutorials"] footer {
       display: none;
@@ -489,7 +906,7 @@
 
     /* Hero: 幻灯片为主视觉；文案精简，避免双首屏 */
     .hero {
-      padding: clamp(2.25rem, 5vw, 3.5rem) 0 clamp(3.5rem, 7vw, 5.5rem);
+      padding: clamp(2.25rem, 5vw, 3.5rem) 0 clamp(2.4rem, 5vw, 3.6rem);
     }
     .hero-top {
       max-width: 40rem;
@@ -767,6 +1184,45 @@
     .section + .section {
       border-top: 1px solid var(--border);
     }
+    .site-rule {
+      position: relative;
+      height: 1.4rem;
+      margin: 0 auto;
+      width: min(calc(100% - 2.5rem), 22rem);
+    }
+    .site-rule::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      transform: translateY(-50%);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in srgb, var(--border-strong) 88%, var(--accent)) 14%,
+        color-mix(in srgb, var(--border-strong) 88%, var(--accent)) 86%,
+        transparent
+      );
+    }
+    .site-rule-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: var(--bg);
+      border: 1.5px solid color-mix(in srgb, var(--accent) 42%, var(--border-strong));
+      box-shadow: 0 0 0 3px var(--bg);
+    }
+    #products.section {
+      padding-top: clamp(2.2rem, 5vw, 3.4rem);
+    }
+    #products .plugin:first-child {
+      padding-top: clamp(1.6rem, 3.5vw, 2.2rem);
+    }
     .section-intro {
       max-width: 32rem;
       margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
@@ -783,49 +1239,6 @@
       color: var(--text-muted);
       font-size: 1.02rem;
       line-height: 1.75;
-    }
-
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .pillar {
-      padding: 1.6rem 1.4rem;
-      border-radius: var(--radius);
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      min-height: 100%;
-      transition: border-color 0.2s ease;
-    }
-    .pillar:hover {
-      border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-    }
-    .pillar.featured {
-      background:
-        linear-gradient(165deg, var(--accent-soft), transparent 55%),
-        var(--bg-elev);
-      border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
-    }
-    .pillar .n {
-      display: block;
-      margin-bottom: 1.1rem;
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-    .pillar h3 {
-      margin: 0 0 0.55rem;
-      font-size: 1.15rem;
-      font-weight: 650;
-      letter-spacing: -0.02em;
-    }
-    .pillar p {
-      margin: 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.65;
     }
 
     .plugin {
@@ -1064,40 +1477,6 @@
       line-height: 1.1;
     }
     .price-now small { font-size: 0.95rem; font-weight: 600; }
-    .price-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.45rem 0.7rem;
-    }
-    .price-rise {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-    }
-    .price-rise-icon {
-      display: grid;
-      place-items: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      border: 1px solid var(--border-strong);
-      background: var(--bg-soft);
-      color: var(--text-muted);
-      flex: 0 0 auto;
-    }
-    .price-next {
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--text-muted);
-      line-height: 1.1;
-    }
-    .price-old {
-      color: var(--text-faint);
-      text-decoration: line-through;
-      font-size: 0.92rem;
-    }
     .price-card ul {
       margin: 0.3rem 0 0.8rem;
       padding: 0;
@@ -1335,7 +1714,6 @@
     .footer-links a:hover { color: var(--text-muted); }
 
     @media (max-width: 900px) {
-      .pillars,
       .price-grid,
       .community-grid,
       .install-grid,
@@ -1377,7 +1755,8 @@
         padding: 0 0 0 0.75rem;
         margin-top: 0.15rem;
       }
-      .nav.open .nav-drop.open .nav-menu {
+      .nav.open .nav-drop.open .nav-menu,
+      .nav.open .nav-drop:hover .nav-menu {
         display: grid;
       }
     }
@@ -1405,8 +1784,25 @@
       </a>
       <div class="nav-right">
         <nav class="nav-links">
-          <a href="#series" data-i18n="nav.series">系列</a>
-          <a href="#products" data-i18n="nav.products">产品</a>
+          <div class="nav-drop" id="changelogDrop">
+            <button type="button" id="changelogToggle" aria-expanded="false" aria-haspopup="true">
+              <span data-i18n="nav.changelog">更新日志</span>
+            </button>
+            <div class="nav-menu" role="menu">
+              <button type="button" role="menuitem" class="is-active" data-changelog-nav="weave">
+                <span data-i18n="changelog.plugin.weave">Weave</span>
+                <span class="menu-sub" data-i18n="changelog.plugin.weaveSub">记忆与检验</span>
+              </button>
+              <button type="button" role="menuitem" data-changelog-nav="reader">
+                <span data-i18n="changelog.plugin.reader">EPUB Reader</span>
+                <span class="menu-sub" data-i18n="changelog.plugin.readerSub">阅读现场</span>
+              </button>
+              <button type="button" role="menuitem" data-changelog-nav="ir">
+                <span data-i18n="changelog.plugin.ir">Incremental Reading</span>
+                <span class="menu-sub" data-i18n="changelog.plugin.irSub">阅读节奏</span>
+              </button>
+            </div>
+          </div>
           <a href="#pricing" data-i18n="nav.pricing">价格</a>
           <div class="nav-drop" id="tutorialsDrop">
             <button type="button" id="navTutorials" aria-expanded="false" aria-haspopup="true">
@@ -1422,7 +1818,6 @@
           <div class="nav-drop" id="communityDrop">
             <button type="button" id="communityToggle" aria-expanded="false" aria-haspopup="true">
               <span data-i18n="nav.community">交流</span>
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="nav-menu" role="menu">
               <a class="nav-community-zh" href="#community" role="menuitem" data-i18n="nav.communityGroups">交流群</a>
@@ -1453,6 +1848,20 @@
   <div id="view-tutorials" aria-label="教程界面" hidden>
     <iframe id="tutorialsFrame" title="Weave series tutorials" src="about:blank"></iframe>
   </div>
+
+  <div id="view-changelog" aria-labelledby="changelogHeading" hidden>
+    <div class="wrap">
+      <header class="changelog-hero">
+        <p class="eyebrow" data-i18n="changelog.eyebrow">版本记录</p>
+        <h1 id="changelogHeading">Weave</h1>
+      </header>
+      <ol class="changelog-timeline" id="changelogTimeline" aria-live="polite"></ol>
+      <div class="changelog-footer">
+        <a class="btn btn-ghost" id="changelogGithub" href="https://github.com/zhuzhige123/obsidian---Weave/releases" target="_blank" rel="noopener noreferrer" data-i18n="changelog.github">在 GitHub 查看全部版本</a>
+      </div>
+    </div>
+  </div>
+
 
   <main id="top">
     <section class="hero">
@@ -1578,45 +1987,16 @@
           <p class="showcase-caption" id="showcaseCaption">Obsidian全平台阅读器系列教程①</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#pricing" data-i18n="hero.ctaPrice">查看价格</a>
-            <a class="btn btn-ghost" href="#series" data-i18n="hero.ctaSeries">了解系列</a>
+            <a class="btn btn-ghost" href="#products" data-i18n="hero.ctaSeries">了解系列</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="series">
-      <div class="wrap">
-        <div class="section-intro">
-          <h2 data-i18n="series.title">三款插件，一条舒适的学习链路</h2>
-          <p data-i18n="series.lead">三款独立插件，干净分工、按需组合；数据留在你的库里，合起来是一条完整学习链路。</p>
-        </div>
-        <div class="pillars">
-          <article class="pillar featured">
-            <span class="n" data-i18n="series.p1n">01 · 优先</span>
-            <h3>Weave Deck</h3>
-            <p data-i18n="series.p1">制卡、FSRS6 复习、题库检验。卡片与原文双向溯源。</p>
-          </article>
-          <article class="pillar">
-            <span class="n">02</span>
-            <h3>EPUB Reader</h3>
-            <p data-i18n="series.p2">库内读书与摘录，正文回显，一键回到原书段落。</p>
-          </article>
-          <article class="pillar">
-            <span class="n">03</span>
-            <h3>Incremental Reading</h3>
-            <p data-i18n="series.p3">阅读队列与日历排期，让「以后再看」真正被推进。</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <div class="site-rule" aria-hidden="true"><span class="site-rule-dot"></span></div>
 
     <section class="section" id="products">
       <div class="wrap">
-        <div class="section-intro">
-          <h2 data-i18n="products.title">产品详情</h2>
-          <p data-i18n="products.lead">截图与要点如下；需要闭环时再回到上方系列总览。</p>
-        </div>
-
         <article class="plugin" id="weave">
           <div>
             <p class="plugin-tag" data-i18n="weave.tag">01 · 记忆与检验</p>
@@ -1725,19 +2105,7 @@
             <span class="price-badge" data-i18n="pricing.endingSoon">近期截止</span>
             <h3 data-i18n="pricing.seriesTitle">Weave 系列激活码</h3>
             <p class="hint" data-i18n="pricing.seriesHint">三款插件高级支持</p>
-            <div class="price-row">
-              <div class="price-now" data-i18n="pricing.seriesNow">74 元</div>
-              <div class="price-rise">
-                <span class="price-rise-icon" data-i18n-aria="pricing.riseTo" aria-label="升至">
-                  <svg width="14" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
-                    <path d="M1.5 10.5 L6 6 L9 8.5 L14 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M10.5 3 H14 V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                <span class="price-next" data-i18n="pricing.seriesNext">78 元</span>
-              </div>
-            </div>
-            <div class="price-old" data-i18n="pricing.old">原价 108 元</div>
+            <div class="price-now" data-i18n="pricing.seriesNow">74 元</div>
             <ul>
               <li>Weave Deck</li>
               <li>EPUB Reader</li>
@@ -1757,7 +2125,6 @@
             <h3 data-i18n="pricing.readerTitle">独立阅读器</h3>
             <p class="hint" data-i18n="pricing.readerHint">仅 EPUB Reader</p>
             <div class="price-now" style="font-size:1.65rem;" data-i18n="pricing.readerNow">30 元</div>
-            <div class="price-old" data-i18n="pricing.readerOld">原价 46 元</div>
             <ul>
               <li data-i18n="pricing.readerOnly">仅限于阅读器</li>
               <li data-i18n="pricing.lDevices">支持五台设备</li>
@@ -1783,7 +2150,6 @@
             <a class="btn btn-ghost" href="#pricing" data-i18n="pricing.seeSeries">查看系列方案</a>
           </article>
         </div>
-        <div class="price-note" data-i18n="pricing.deadlineNote">优惠价近期截止；系列此后升至 78 元，原价 108 元。</div>
         <div class="price-note" data-i18n="pricing.usdNote" data-i18n-empty-hide hidden></div>
       </div>
     </section>
@@ -1888,11 +2254,26 @@
           "brand.series": "系列",
           "nav.series": "系列",
           "nav.products": "产品",
+          "nav.changelog": "更新日志",
           "nav.pricing": "价格",
           "nav.docs": "教程",
           "plugin.weave": "Weave Deck",
           "plugin.reader": "EPUB Reader",
           "plugin.ir": "增量阅读",
+          "meta.title.changelog": "更新日志 · Obsidian Weave 插件系列",
+          "changelog.eyebrow": "版本记录",
+          "changelog.latest": "最新",
+          "changelog.github": "在 GitHub 查看全部版本",
+          "changelog.plugin.weave": "Weave",
+          "changelog.plugin.weaveSub": "记忆与检验",
+          "changelog.plugin.reader": "EPUB Reader",
+          "changelog.plugin.readerSub": "阅读现场",
+          "changelog.plugin.ir": "Incremental Reading",
+          "changelog.plugin.irSub": "阅读节奏",
+          "changelog.group.added": "新增",
+          "changelog.group.improved": "优化",
+          "changelog.group.changed": "调整",
+          "changelog.group.fixed": "修复",
           "nav.community": "交流",
           "nav.communityGroups": "交流群",
           "nav.communityContact": "反馈联系",
@@ -1914,14 +2295,6 @@
           "hero.title": "在 Obsidian 里，安静地完成长期学习",
           "hero.ctaPrice": "查看价格",
           "hero.ctaSeries": "了解系列",
-          "series.title": "三款插件，一条舒适的学习链路",
-          "series.lead": "三款独立插件，干净分工、按需组合；数据留在你的库里，合起来是一条完整学习链路。",
-          "series.p1n": "01 · 优先",
-          "series.p1": "制卡、FSRS6 复习、题库检验。卡片与原文双向溯源。",
-          "series.p2": "库内读书与摘录，正文回显，一键回到原书段落。",
-          "series.p3": "阅读队列与日历排期，让「以后再看」真正被推进。",
-          "products.title": "产品详情",
-          "products.lead": "截图与要点如下；需要闭环时再回到上方系列总览。",
           "weave.tag": "01 · 记忆与检验",
           "weave.desc": "摘录、制卡、复习、测验、溯源。学习卡片独立存放，复习时仍可回到原文语境。",
           "weave.f1": "FSRS6 间隔复习，问答 / 挖空 / 填空 / 选择",
@@ -1950,15 +2323,11 @@
           "pricing.endingSoon": "近期截止",
           "pricing.readerEndingSoon": "近期截止",
           "pricing.seriesNow": "74 元",
-          "pricing.riseTo": "升至",
-          "pricing.seriesNext": "78 元",
-          "pricing.old": "原价 108 元",
           "pricing.buySeriesCn": "微信 / 支付宝购买",
           "pricing.buySeriesIntl": "国际支付购买",
           "pricing.readerTitle": "独立阅读器",
           "pricing.readerHint": "仅 EPUB Reader",
           "pricing.readerNow": "30 元",
-          "pricing.readerOld": "原价 46 元",
           "pricing.readerOnly": "仅限于阅读器",
           "pricing.buyReaderCn": "微信 / 支付宝购买",
           "pricing.buyReaderIntl": "国际支付购买",
@@ -1972,7 +2341,6 @@
           "pricing.lForever": "永久授权",
           "pricing.lEmail": "邮箱绑定",
           "pricing.lBuyout": "一次性买断",
-          "pricing.deadlineNote": "优惠价近期截止；系列此后升至 78 元，原价 108 元。",
           "pricing.usdNote": "",
           "community.title": "交流群",
           "community.lead": "欢迎加入 QQ / 微信群交流与反馈。公开群请备注来源；购后群请提供订单号。",
@@ -2014,11 +2382,26 @@
           "brand.series": "Series",
           "nav.series": "Series",
           "nav.products": "Products",
+          "nav.changelog": "Changelog",
           "nav.pricing": "Pricing",
           "nav.docs": "Tutorials",
           "plugin.weave": "Weave Deck",
           "plugin.reader": "EPUB Reader",
           "plugin.ir": "Incremental Reading",
+          "meta.title.changelog": "Changelog · Obsidian Weave Plugin Series",
+          "changelog.eyebrow": "Release notes",
+          "changelog.latest": "Latest",
+          "changelog.github": "View all releases on GitHub",
+          "changelog.plugin.weave": "Weave",
+          "changelog.plugin.weaveSub": "Memory & testing",
+          "changelog.plugin.reader": "EPUB Reader",
+          "changelog.plugin.readerSub": "Reading in place",
+          "changelog.plugin.ir": "Incremental Reading",
+          "changelog.plugin.irSub": "Reading rhythm",
+          "changelog.group.added": "Added",
+          "changelog.group.improved": "Improved",
+          "changelog.group.changed": "Changed",
+          "changelog.group.fixed": "Fixed",
           "nav.community": "Community",
           "nav.communityGroups": "Groups",
           "nav.communityContact": "Feedback",
@@ -2040,14 +2423,6 @@
           "hero.title": "Quiet long-term learning, inside Obsidian",
           "hero.ctaPrice": "View pricing",
           "hero.ctaSeries": "Explore the series",
-          "series.title": "Three plugins, one calm learning loop",
-          "series.lead": "Three independent plugins with clean roles—combine as needed, keep data in your vault, and form one calm learning loop.",
-          "series.p1n": "01 · Priority",
-          "series.p1": "Card creation, FSRS6 review, and exam practice—with two-way links back to source text.",
-          "series.p2": "Read and highlight in your vault, with one-click return to the original paragraph.",
-          "series.p3": "Reading queues and calendar scheduling so “read later” actually moves forward.",
-          "products.title": "Product details",
-          "products.lead": "Screenshots and highlights below—return to the series overview above for the full loop.",
           "weave.tag": "01 · Memory & testing",
           "weave.desc": "Extract, create cards, review, quiz, and trace sources. Cards live on their own, yet stay connected to original context.",
           "weave.f1": "FSRS6 spaced review: Q&A / cloze / fill-in / multiple choice",
@@ -2076,15 +2451,11 @@
           "pricing.endingSoon": "Ending soon",
           "pricing.readerEndingSoon": "Ending soon",
           "pricing.seriesNow": "$15",
-          "pricing.riseTo": "Rises to",
-          "pricing.seriesNext": "$18",
-          "pricing.old": "Was $30",
           "pricing.buySeriesCn": "WeChat / Alipay",
           "pricing.buySeriesIntl": "International checkout",
           "pricing.readerTitle": "Reader only",
           "pricing.readerHint": "EPUB Reader only",
           "pricing.readerNow": "$9",
-          "pricing.readerOld": "Was $18",
           "pricing.readerOnly": "Reader only",
           "pricing.buyReaderCn": "WeChat / Alipay",
           "pricing.buyReaderIntl": "International checkout",
@@ -2098,7 +2469,6 @@
           "pricing.lForever": "Perpetual license",
           "pricing.lEmail": "Email binding",
           "pricing.lBuyout": "One-time buyout",
-          "pricing.deadlineNote": "Sale prices end soon; the series then rises to $18 (list $30).",
           "pricing.usdNote": "In this series’ official pricing, USD prices are higher than the China price because they are set together from purchasing power, typical prices in different markets, and a modest discount after balancing the price gap—still a reasonable rate.",
           "community.title": "Community",
           "community.lead": "Join QQ / WeChat groups for discussion and feedback. Public groups need a join note; paid groups need an order ID.",
@@ -2158,7 +2528,8 @@
       function applyLang() {
         root.setAttribute("data-lang", lang);
         root.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
-        document.title = t("meta.title");
+        var onChangelog = root.getAttribute("data-site-view") === "changelog";
+        document.title = onChangelog ? t("meta.title.changelog") : t("meta.title");
         var desc = document.querySelector('meta[name="description"]');
         if (desc) desc.setAttribute("content", t("meta.desc"));
 
@@ -2186,6 +2557,9 @@
         }
         if (captionEl && slides[current]) {
           captionEl.textContent = slideCaption(slides[current]);
+        }
+        if (onChangelog && typeof window.__weaveRenderChangelog === "function") {
+          window.__weaveRenderChangelog();
         }
       }
 
@@ -2700,8 +3074,11 @@
 
         function setSiteView(view, pushHash) {
           var isTutorials = view === "tutorials";
-          root.setAttribute("data-site-view", isTutorials ? "tutorials" : "home");
+          var isChangelog = view === "changelog";
+          var viewChangelog = document.getElementById("view-changelog");
+          root.setAttribute("data-site-view", isTutorials ? "tutorials" : (isChangelog ? "changelog" : "home"));
           if (viewTutorials) viewTutorials.hidden = !isTutorials;
+          if (viewChangelog) viewChangelog.hidden = !isChangelog;
           if (isTutorials && tutorialsFrame) {
             if (tutorialsFrame.getAttribute("src") === "about:blank") {
               tutorialsFrame.addEventListener(
@@ -2718,13 +3095,22 @@
             }
           }
           if (!isTutorials) closeTutorialsMenu();
+          var changelogDropEl = document.getElementById("changelogDrop");
+          var changelogToggleEl = document.getElementById("changelogToggle");
+          if (!isChangelog && changelogDropEl && changelogToggleEl) {
+            changelogDropEl.classList.remove("open");
+            changelogToggleEl.setAttribute("aria-expanded", "false");
+            changelogToggleEl.classList.remove("is-active");
+          }
+          if (isChangelog && changelogToggleEl) changelogToggleEl.classList.add("is-active");
           document.documentElement.style.overflow = isTutorials ? "hidden" : "";
           if (pushHash) {
-            var hash = isTutorials ? "#tutorials" : "#top";
+            var hash = isTutorials ? "#tutorials" : (isChangelog ? "#changelog-weave" : "#top");
             if (history.replaceState) history.replaceState(null, "", hash);
             else location.hash = hash;
           }
         }
+        window.__weaveSetSiteView = setSiteView;
 
         if (navTutorials && tutorialsDrop) {
           navTutorials.addEventListener("click", function (e) {
@@ -2769,9 +3155,10 @@
           }
         });
 
-        document.querySelectorAll('a[href="#top"], a[href="#series"], a[href="#products"], a[href="#pricing"], a[href="#community"], a[href="#install"]').forEach(function (link) {
+        document.querySelectorAll('a[href="#top"], a[href="#products"], a[href="#pricing"], a[href="#community"], a[href="#install"]').forEach(function (link) {
           link.addEventListener("click", function () {
-            if (root.getAttribute("data-site-view") === "tutorials") {
+            var view = root.getAttribute("data-site-view");
+            if (view === "tutorials" || view === "changelog") {
               setSiteView("home", false);
             }
           });
@@ -2779,8 +3166,447 @@
 
         syncTutorialPluginNav(currentTutorialPlugin);
         /* 默认进首页；仅显式 #tutorials 才打开教程，避免刷新卡在文档站 */
-        var initialView = location.hash === "#tutorials" ? "tutorials" : "home";
+        var initialHash = (location.hash || "").replace(/^#/, "");
+        var initialView = "home";
+        if (initialHash === "tutorials") initialView = "tutorials";
+        else if (/^changelog/.test(initialHash)) initialView = "changelog";
         setSiteView(initialView, false);
+      })();
+
+      /* 更新日志视图（叠在线上官网结构上，不影响首页内容） */
+      (function initChangelogView() {
+        var viewChangelog = document.getElementById("view-changelog");
+        var changelogDrop = document.getElementById("changelogDrop");
+        var changelogToggle = document.getElementById("changelogToggle");
+        var changelogTimeline = document.getElementById("changelogTimeline");
+        var changelogHeading = document.getElementById("changelogHeading");
+        var changelogGithub = document.getElementById("changelogGithub");
+        var currentChangelogPlugin = "weave";
+
+        var CHANGELOGS = {
+          weave: {
+            titleKey: "changelog.plugin.weave",
+            github: "https://github.com/zhuzhige123/obsidian---Weave/releases",
+            entries: [
+              {
+                version: "1.0.0",
+                date: "2026-10-05",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "重要日程视图，在牌组学习界面用圆点切换，集中查看当天与近期安排",
+                        "牌组树状图，按父牌组 / 子牌组层级展示记忆牌组与学习进度",
+                        "记忆牌组支持设为子牌组、改挂父级，或升为一级牌组",
+                        "从考试题组一键生成考试安排，写入日历",
+                        "笔记任务（#weave-task），可在日程中勾选、改时间、跳回原笔记",
+                        "重要日程支持关联日记，并识别阅读器阅读计划与增量阅读点",
+                        "牌组独立记忆配置；标签树可显示今日可学数量",
+                        "牌组学习界面可手动切换网格 / 看板视图",
+                        "离线激活与许可证 Cloudflare 国际中转",
+                        "界面可见性设置，可分别隐藏记忆牌组、考试题组、重要日程等入口"
+                      ],
+                      en: [
+                        "Important Schedule view on the deck study screen",
+                        "Deck tree with parent / child hierarchy and progress",
+                        "Memory decks can become child decks, reparent, or promote",
+                        "One-click exam schedules from quiz banks",
+                        "Note tasks (#weave-task) with check-off, reschedule, and jump-back",
+                        "Schedule links daily notes, reader plans, and IR points",
+                        "Per-deck memory settings; tag tree due counts",
+                        "Manual grid / kanban switch on deck study",
+                        "Offline activation and Cloudflare license relay",
+                        "UI visibility settings for decks, quiz banks, and schedule"
+                      ]
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "重要日程月历支持单行 / 双行 / 完整日历，以及日间过渡图",
+                        "重要日程支持来源筛选、搜索、仅看重要项、隐藏已完成",
+                        "考试安排支持单场 / 整批改期与删除"
+                      ],
+                      en: [
+                        "Month calendar modes and day-transition art",
+                        "Filters for source, search, important-only, hide completed",
+                        "Reschedule or delete one exam session or a whole batch"
+                      ]
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "卡片管理顶栏视图顺序改为表格 → 网格 → 看板 → 时间线",
+                        "全局学习设置与单牌组记忆配置职责分开",
+                        "仅作分组用的父牌组在日程中按文件夹占位"
+                      ],
+                      en: [
+                        "Card toolbar order is table → grid → kanban → timeline",
+                        "Global Study Settings vs per-deck Memory Config separated",
+                        "Grouping-only parent decks appear as folders in the schedule"
+                      ]
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "关闭学习结算弹窗后不再强制跳回插件主界面",
+                        "插件重启后重要日程仍能正确读取已保存的考试安排",
+                        "调整父 / 子牌组归属时的约束提示，避免层级错乱"
+                      ],
+                      en: [
+                        "Closing the study summary no longer forces a jump to the main UI",
+                        "Important Schedule keeps exam plans across restarts",
+                        "Clearer parent / child deck constraints"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.9.26",
+                date: "2026-09-26",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: ["表格视图支持多种分组方式", "新增排序功能键"],
+                      en: ["Table view supports multiple grouping modes", "Added sort controls"]
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "批量操作功能键底部显示名称，移动端长按可滚动查看更多",
+                        "重新设计看板列属性与表格标签列"
+                      ],
+                      en: [
+                        "Batch action labels under icons; long-press scroll on mobile",
+                        "Redesigned kanban column properties and table tag column"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.9.24",
+                date: "2026-09-14",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "修复在牌组学习界面或新建卡片列表切换记忆牌组时，因空路径被误当成库根路径导致无法写入默认牌组目录的问题"
+                      ],
+                      en: [
+                        "Fixed empty-path normalize treating vault root as the deck folder, which blocked writing the default deck path"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          reader: {
+            titleKey: "changelog.plugin.reader",
+            github: "https://github.com/zhuzhige123/obsidian-weave-reader/releases",
+            entries: [
+              {
+                version: "0.8.0",
+                date: "2026-10-05",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "激活与云端校验新增国际中转节点；支持离线激活",
+                        "书籍目录右键「加入阅读计划」「从本章起生成阅读计划」，可预览后写入本书数据页",
+                        "选中文本工具条「复制」支持多种格式，可在基础设置中选择默认项"
+                      ],
+                      en: [
+                        "International license relay and offline activation",
+                        "TOC context menu: add / generate reading plans into the book data page",
+                        "Selection toolbar copy supports multiple formats with a default in settings"
+                      ]
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: ["后台阅读标签约 15 秒后自动挂起，切回后自动恢复进度"],
+                      en: ["Background reader tabs suspend after about 15s and resume on return"]
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: ["番茄专注计时改为高级功能，未激活时需开启高级预览才可见"],
+                      en: ["Pomodoro focus timer is premium; preview mode required before activation"]
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "修复部分 TXT 书籍目录解析不全",
+                        "修复部分 TXT 书籍中文正文缩进异常"
+                      ],
+                      en: [
+                        "Fixed incomplete TOC parsing for some TXT books",
+                        "Fixed Chinese body indentation issues in some TXT books"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          ir: {
+            titleKey: "changelog.plugin.ir",
+            github: "https://github.com/zhuzhige123/Obsidian-Weave-incremental-reading/releases",
+            entries: [
+              {
+                version: "0.5.37",
+                date: "2026-10-05",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "激活与云端校验新增国际中转节点：海外优先中转，国内可走直连备用",
+                        "支持离线激活（适用部分单位内网环境）"
+                      ],
+                      en: [
+                        "International license relay with domestic direct fallback",
+                        "Offline activation for restricted intranet environments"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        };
+
+        function pack() {
+          return CHANGELOGS[currentChangelogPlugin] || CHANGELOGS.weave;
+        }
+
+        function formatDate(iso) {
+          var parts = String(iso || "").split("-");
+          if (parts.length !== 3) return iso || "";
+          var y = parts[0];
+          var m = Number(parts[1]);
+          var d = Number(parts[2]);
+          if (lang === "en") {
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            return months[m - 1] + " " + d + ", " + y;
+          }
+          return y + "年" + m + "月" + d + "日";
+        }
+
+        function pick(map) {
+          if (!map) return "";
+          if (lang === "en" && map.en) return map.en;
+          return map.zh || map.en || "";
+        }
+
+        function syncChrome() {
+          var p = pack();
+          if (changelogHeading) changelogHeading.textContent = t(p.titleKey);
+          if (changelogGithub) changelogGithub.href = p.github;
+          document.querySelectorAll("[data-changelog-nav]").forEach(function (btn) {
+            btn.classList.toggle("is-active", btn.getAttribute("data-changelog-nav") === currentChangelogPlugin);
+          });
+          if (changelogToggle) {
+            changelogToggle.classList.toggle("is-active", root.getAttribute("data-site-view") === "changelog");
+          }
+        }
+
+        function entryYear(dateStr) {
+          var m = String(dateStr || "").match(/^(\d{4})/);
+          return m ? m[1] : "";
+        }
+
+        function appendChangelogYear(year) {
+          if (!changelogTimeline || !year) return;
+          var row = document.createElement("li");
+          row.className = "changelog-year";
+          row.setAttribute("aria-hidden", "true");
+
+          var label = document.createElement("p");
+          label.className = "changelog-year-label";
+          label.textContent = year;
+          row.appendChild(label);
+
+          var axis = document.createElement("span");
+          axis.className = "changelog-year-axis";
+          var yearNode = document.createElement("span");
+          yearNode.className = "changelog-year-node";
+          axis.appendChild(yearNode);
+          row.appendChild(axis);
+
+          var spacer = document.createElement("span");
+          spacer.className = "changelog-year-spacer";
+          row.appendChild(spacer);
+
+          changelogTimeline.appendChild(row);
+        }
+
+        function renderChangelog() {
+          if (!changelogTimeline) return;
+          syncChrome();
+          changelogTimeline.innerHTML = "";
+          var lastYear = "";
+          var entries = pack().entries || [];
+          var showYears = entries.some(function (entry, index) {
+            return index > 0 && entryYear(entry.date) && entryYear(entry.date) !== entryYear(entries[0].date);
+          });
+
+          entries.forEach(function (entry) {
+            var year = entryYear(entry.date);
+            if (showYears && year && year !== lastYear) {
+              appendChangelogYear(year);
+              lastYear = year;
+            }
+
+            var item = document.createElement("li");
+            item.className = "changelog-entry" + (entry.latest ? " is-latest" : "");
+
+            var aside = document.createElement("div");
+            aside.className = "changelog-aside";
+
+            var version = document.createElement("h2");
+            version.className = "changelog-version";
+            version.textContent = entry.version;
+            aside.appendChild(version);
+
+            var asideMeta = document.createElement("div");
+            asideMeta.className = "changelog-aside-meta";
+            if (entry.latest) {
+              var badge = document.createElement("span");
+              badge.className = "changelog-badge";
+              badge.textContent = t("changelog.latest");
+              asideMeta.appendChild(badge);
+            }
+            var date = document.createElement("span");
+            date.className = "changelog-date";
+            date.textContent = formatDate(entry.date);
+            asideMeta.appendChild(date);
+            aside.appendChild(asideMeta);
+            item.appendChild(aside);
+
+            var axis = document.createElement("span");
+            axis.className = "changelog-axis";
+            axis.setAttribute("aria-hidden", "true");
+            var node = document.createElement("span");
+            node.className = "changelog-node";
+            axis.appendChild(node);
+            item.appendChild(axis);
+
+            var body = document.createElement("div");
+            body.className = "changelog-body";
+            var groupsWrap = document.createElement("div");
+            groupsWrap.className = "changelog-groups";
+            (entry.groups || []).forEach(function (group) {
+              var items = pick(group.items);
+              if (!items || !items.length) return;
+              var block = document.createElement("div");
+              block.className = "changelog-group";
+              var title = document.createElement("h3");
+              title.className = "changelog-group-title is-" + group.type;
+              title.textContent = t("changelog.group." + group.type);
+              block.appendChild(title);
+              var ul = document.createElement("ul");
+              items.forEach(function (text) {
+                var li = document.createElement("li");
+                li.textContent = text;
+                ul.appendChild(li);
+              });
+              block.appendChild(ul);
+              groupsWrap.appendChild(block);
+            });
+            body.appendChild(groupsWrap);
+            item.appendChild(body);
+            changelogTimeline.appendChild(item);
+          });
+        }
+
+        function closeChangelogMenu() {
+          if (!changelogDrop || !changelogToggle) return;
+          changelogDrop.classList.remove("open");
+          changelogToggle.setAttribute("aria-expanded", "false");
+        }
+
+        function openChangelogMenu() {
+          if (!changelogDrop || !changelogToggle) return;
+          changelogDrop.classList.add("open");
+          changelogToggle.setAttribute("aria-expanded", "true");
+        }
+
+        window.__weaveShowChangelog = function (plugin, pushHash) {
+          currentChangelogPlugin = CHANGELOGS[plugin] ? plugin : "weave";
+          if (typeof window.__weaveSetSiteView === "function") {
+            window.__weaveSetSiteView("changelog", !!pushHash);
+          } else {
+            root.setAttribute("data-site-view", "changelog");
+            if (viewChangelog) viewChangelog.hidden = false;
+          }
+          renderChangelog();
+          window.scrollTo(0, 0);
+          if (pushHash && history.replaceState) {
+            history.replaceState(null, "", "#changelog-" + currentChangelogPlugin);
+          }
+        };
+
+        window.__weaveRenderChangelog = renderChangelog;
+
+        if (changelogToggle && changelogDrop) {
+          changelogToggle.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var on = root.getAttribute("data-site-view") === "changelog";
+            if (!on) {
+              window.__weaveShowChangelog(currentChangelogPlugin, true);
+              openChangelogMenu();
+              return;
+            }
+            if (changelogDrop.classList.contains("open")) closeChangelogMenu();
+            else openChangelogMenu();
+          });
+          changelogDrop.querySelectorAll("[data-changelog-nav]").forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              window.__weaveShowChangelog(btn.getAttribute("data-changelog-nav"), true);
+              closeChangelogMenu();
+              var nav = document.getElementById("nav");
+              var toggle = document.getElementById("navToggle");
+              if (nav) nav.classList.remove("open");
+              if (toggle) toggle.setAttribute("aria-expanded", "false");
+            });
+          });
+        }
+
+        document.addEventListener("click", function (e) {
+          if (changelogDrop && !changelogDrop.contains(e.target)) closeChangelogMenu();
+        });
+
+        var hash = (location.hash || "").replace(/^#/, "");
+        if (hash === "changelog" || hash === "changelog-weave") {
+          window.__weaveShowChangelog("weave", false);
+        } else if (hash === "changelog-reader") {
+          window.__weaveShowChangelog("reader", false);
+        } else if (hash === "changelog-ir") {
+          window.__weaveShowChangelog("ir", false);
+        }
       })();
 
       applyLang();
