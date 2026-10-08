@@ -1,5 +1,7 @@
 The reader remembers where you left off and lets you pin two different positions manually: a current-page bookmark and a reference reading point. Progress suits **resume where I stopped**; bookmarks suit multiple marks within a chapter; reference points suit stepping away, checking earlier text, then jumping back. Details below:
 
+![[Er-01c-书签进度与番茄钟.mp4]]
+
 ## 1. Where Reading Progress Is Saved
 Each book’s progress, bookmarks, cover, and related info are written to book data notes in the Vault (default folder `Weave EPUB Reader`, filenames like `data_*.md`).
 

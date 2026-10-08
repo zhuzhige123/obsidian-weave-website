@@ -1,5 +1,7 @@
 Weave EPUB Reader is the reader in the Obsidian Weave plugin family. It opens books in Obsidian—including EPUB, TXT, FB2/FBZ, MOBI, AZW3, CBZ, and PDF—and manages imports, covers, progress, and reading status through **My Bookshelf**. It works on its own; after installing Weave Deck, you can also connect card creation, Incremental Reading, and AI. Details below:
 
+![[Er-01a-安装与打开书架.mp4]]
+
 ## 1. Install and Enable
 We recommend installing from the Community Plugins marketplace.
 

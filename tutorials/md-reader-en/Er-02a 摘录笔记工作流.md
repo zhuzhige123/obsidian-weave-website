@@ -1,5 +1,7 @@
 Reading excerpts become syncable, backlinkable notes only when written into Vault files. The reader uses trace links in those files to re-highlight text in the book. If save conditions are not met, a selection often shows only a brief highlight and no real data after close or refresh. Details below:
 
+![[Er-02a-摘录笔记工作流.mp4]]
+
 ## 1. Where Excerpts Are Saved
 Excerpts can land in three places—pick by scenario.
 

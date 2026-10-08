@@ -1,5 +1,7 @@
 Paragraph reading focuses attention on the current paragraph—good for close reading, difficult sentences, and chapters you want to slow down. Immersive fullscreen hides Obsidian chrome and leaves only the body. Translucency gradient adds atmosphere to regular reading. These three are mostly premium support. Details below:
 
+![[Er-03a-段落阅读与沉浸式阅读.mp4]]
+
 ## 1. Paragraph Reading Mode
 1. In reader settings, confirm **Enable paragraph reading mode** is on. When off, menu entries disappear.
 2. Open a book and turn on **Paragraph mode** from the menu or top bar.

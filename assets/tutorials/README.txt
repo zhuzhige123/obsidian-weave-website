@@ -1,13 +1,17 @@
-将 We-01a / We-02a 等教程截图放到此目录，文件名与笔记中的 `![[QQ_xxx.png]]` 一致。
+将教程截图 / GIF / 演示视频放到此目录，文件名与笔记中的 ![[...]] 一致。
 
-行内摘录回显（Er-02g）演示动图：
-
-- `Er-02g-inline-excerpt-blue.gif` — 添加蓝色 🔵 行内摘录并正文回显
+阅读器演示（当前）：
+- Er-01a-安装与打开书架.mp4
+- Er-01b-阅读器界面与阅读模式.mp4
+- Er-01c-书签进度与番茄钟.mp4
+- Er-02a-摘录笔记工作流.mp4
+- Er-02g-inline-excerpt-blue.gif
+- Er-03a-段落阅读与沉浸式阅读.mp4
 
 放入后重新运行：
 
-```bat
+`at
 python scripts\build-tutorials.py
-```
+`
 
-占位框会自动换成真实图片 / GIF。
+占位框会自动换成真实媒体。

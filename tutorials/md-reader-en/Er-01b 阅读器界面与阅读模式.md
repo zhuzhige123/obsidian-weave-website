@@ -1,5 +1,7 @@
 After opening a book, the reader occupies an Obsidian tab. The body text sits in the center, a sidebar holds the TOC, bookmarks, excerpts, and more, and the top bar carries reading-related actions. This layout suits everyday reading, chapter jumps, and switching between page-turn and continuous scroll. Details below:
 
+![[Er-01b-阅读器界面与阅读模式.mp4]]
+
 ## 1. Open the Reading Interface
 1. Click a book in **My Bookshelf**.
 2. Or open a supported book file from the file list, then run **Open EPUB Reader**.
