@@ -48,6 +48,7 @@ LINK_MAP = {
     "Er-02d 双向溯源与正文回显": "reader-bidirectional",
     "Er-02e Canvas 脑图摘录": "reader-canvas-excerpt",
     "Er-02f 截图摘录": "reader-screenshot-excerpt",
+    "Er-02g 行内摘录回显": "reader-inline-excerpt-echo",
     "Er-03a 段落阅读与沉浸式全屏": "reader-paragraph-immersive",
     "Er-03b 生词标注与词汇表": "reader-vocabulary",
     "Er-03c 目录标记与全书地图": "reader-toc-map",
@@ -284,6 +285,16 @@ READER_CATALOG = [
         "title": {"zh": "截图摘录", "en": "Screenshot excerpts"},
     },
     {
+        "file": "Er-02g 行内摘录回显.md",
+        "id": "reader-inline-excerpt-echo",
+        "code": "Er-02g",
+        "plugin": "reader",
+        "group": "er02",
+        "level": "intermediate",
+        "badge": "new",
+        "title": {"zh": "行内摘录回显", "en": "Inline excerpt echo"},
+    },
+    {
         "file": "Er-03a 段落阅读与沉浸式全屏.md",
         "id": "reader-paragraph-immersive",
         "code": "Er-03a",
@@ -395,15 +406,77 @@ def inline(text: str) -> str:
 def wiki_image(m: re.Match[str]) -> str:
     name = m.group(1).strip()
     local = ASSETS / name
+    kind = "GIF" if name.lower().endswith(".gif") else "Screenshot"
     if local.exists():
         return (
             f'<figure class="figure"><img src="assets/tutorials/{esc(name)}" alt="" />'
             f"<figcaption>{esc(name)}</figcaption></figure>"
         )
     return (
-        f'<figure class="figure is-placeholder"><div class="ph">Screenshot · {esc(name)}</div>'
+        f'<figure class="figure is-placeholder"><div class="ph">{kind} · {esc(name)}</div>'
         f"<figcaption>Place image at assets/tutorials/{esc(name)}</figcaption></figure>"
     )
+
+
+def note_inline(text: str) -> str:
+    """Inline markdown for rendered note previews (links, ==highlight==, bold, code)."""
+
+    def link_sub(m: re.Match[str]) -> str:
+        return f'<a href="{esc(m.group(2))}">{esc(m.group(1))}</a>'
+
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link_sub, text)
+    text = re.sub(
+        r"==([^=]+)==",
+        r'<mark class="note-hl">\1</mark>',
+        text,
+    )
+    text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"`([^`]+)`", lambda m: f"<code>{esc(m.group(1))}</code>", text)
+    return text
+
+
+def convert_note_preview(md: str) -> str:
+    """Render a sample note as HTML (no h3, so it won't pollute the page TOC)."""
+    lines = md.replace("\r\n", "\n").strip().split("\n")
+    out: list[str] = []
+    list_items: list[str] = []
+    para: list[str] = []
+
+    def flush_para() -> None:
+        if not para:
+            return
+        out.append(f"<p>{note_inline(' '.join(para))}</p>")
+        para.clear()
+
+    def flush_list() -> None:
+        nonlocal list_items
+        if not list_items:
+            return
+        out.append("<ul>" + "".join(f"<li>{x}</li>" for x in list_items) + "</ul>")
+        list_items = []
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            flush_para()
+            flush_list()
+            continue
+        m_h = re.match(r"^#{2,4}\s+(.+)$", stripped)
+        if m_h:
+            flush_para()
+            flush_list()
+            out.append(f'<p class="note-preview-h">{note_inline(m_h.group(1))}</p>')
+            continue
+        m_ul = re.match(r"^[-*]\s+(.+)$", stripped)
+        if m_ul:
+            flush_para()
+            list_items.append(note_inline(m_ul.group(1)))
+            continue
+        flush_list()
+        para.append(stripped)
+    flush_para()
+    flush_list()
+    return f'<div class="note-preview">{"".join(out)}</div>'
 
 
 def flush_para(buf: list[str], out: list[str]) -> None:
@@ -545,9 +618,13 @@ def convert_markdown(md: str) -> tuple[str, str]:
             code = inner[nl + 1 :] if nl != -1 else inner
             if code.endswith("```"):
                 code = code[:-3]
-            html_parts.append(
-                f'<pre><code class="lang-{esc(lang)}">{esc(code.rstrip())}</code></pre>'
-            )
+            code = code.rstrip()
+            if lang in ("note", "preview", "note-preview"):
+                html_parts.append(convert_note_preview(code))
+            else:
+                html_parts.append(
+                    f'<pre><code class="lang-{esc(lang)}">{esc(code)}</code></pre>'
+                )
         else:
             convert_text_block(part, idx == 0)
     return lead.rstrip("：:").replace("以下是详细介绍", "").strip(" ：:"), "".join(html_parts)
@@ -796,7 +873,7 @@ def append_catalog(
                 "body": body_obj,
                 **{
                     key: item[key]
-                    for key in ("created", "updated", "layout", "numberedHeadings")
+                    for key in ("created", "updated", "layout", "numberedHeadings", "badge")
                     if key in item
                 },
             }

@@ -454,6 +454,23 @@
       font-weight: 600;
       letter-spacing: 0.02em;
     }
+    .nav-item .nav-title {
+      flex: 1;
+      min-width: 0;
+    }
+    .nav-item .nav-badge {
+      flex-shrink: 0;
+      margin-left: auto;
+      margin-top: 0.1rem;
+      padding: 0.08rem 0.38rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+      color: #fff;
+      background: linear-gradient(135deg, #e11d48, #f43f5e);
+    }
     .nav-item.is-active .code { color: color-mix(in srgb, var(--accent) 70%, var(--text-faint)); }
     .nav-item.is-hidden { display: none; }
 
@@ -798,6 +815,53 @@
     .doc-body pre::-webkit-scrollbar-thumb {
       background: var(--scrollbar-thumb);
       border-radius: 999px;
+    }
+    .note-preview {
+      margin: 1rem 0 1.35rem;
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-elev);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      white-space: normal;
+    }
+    .note-preview .note-preview-h {
+      margin: 0 0 0.75rem;
+      color: var(--text);
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+    .note-preview p {
+      margin: 0 0 0.65rem;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .note-preview p:last-child { margin-bottom: 0; }
+    .note-preview ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      list-style: disc;
+    }
+    .note-preview li {
+      margin: 0.45rem 0;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .note-preview a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      word-break: break-all;
+    }
+    .note-preview mark.note-hl {
+      padding: 0.05em 0.15em;
+      border-radius: 0.2em;
+      background: color-mix(in srgb, #a855f7 22%, transparent);
+      color: inherit;
     }
     .doc-body pre code {
       padding: 0;
@@ -1172,7 +1236,8 @@
           "crumb.tutorials": "教程",
           "crumb.home": "首页",
           "meta.created": "创建于",
-          "meta.updated": "更新于"
+          "meta.updated": "更新于",
+          "badge.new": "新"
         },
         en: {
           brand: "Weave Series",
@@ -1209,7 +1274,8 @@
           "crumb.tutorials": "Tutorials",
           "crumb.home": "Home",
           "meta.created": "Created",
-          "meta.updated": "Updated"
+          "meta.updated": "Updated",
+          "badge.new": "New"
         }
       };
 
@@ -1342,7 +1408,17 @@
             btn.type = "button";
             btn.className = "nav-item" + (item.id === currentId ? " is-active" : "");
             btn.setAttribute("data-id", item.id);
-            btn.innerHTML = '<span class="code">' + item.code + "</span><span>" + (item.title[lang()] || item.title.zh) + "</span>";
+            var badgeHtml =
+              item.badge === "new"
+                ? '<span class="nav-badge">' + escHtml(t("badge.new")) + "</span>"
+                : "";
+            btn.innerHTML =
+              '<span class="code">' +
+              item.code +
+              '</span><span class="nav-title">' +
+              escHtml(item.title[lang()] || item.title.zh) +
+              "</span>" +
+              badgeHtml;
             btn.addEventListener("click", function () {
               openTutorial(item.id, true);
               closeSidebar();
