@@ -1140,6 +1140,7 @@
               <button type="button" class="nav-dropdown-item is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Deck</button>
               <button type="button" class="nav-dropdown-item" data-plugin-nav="reader" data-i18n="plugin.reader">EPUB Reader</button>
               <button type="button" class="nav-dropdown-item" data-plugin-nav="ir" data-i18n="plugin.ir">Incremental Reading</button>
+              <button type="button" class="nav-dropdown-item" data-plugin-nav="mstodo" data-i18n="plugin.mstodo">MS To Do Sync</button>
             </div>
           </div>
           <a href="index.html#pricing" data-i18n="nav.pricing">价格</a>
@@ -1216,6 +1217,7 @@
           "plugin.weave": "Weave Deck",
           "plugin.reader": "EPUB Reader",
           "plugin.ir": "增量阅读",
+          "plugin.mstodo": "MS To Do Sync",
           "nav.pricing": "价格",
           "nav.install": "安装",
           "nav.installCta": "安装插件",
@@ -1239,6 +1241,10 @@
           "group.er02": "摘录与高亮",
           "group.er03": "阅读功能",
           "group.er04": "设置与联动",
+          "group.mt01": "安装与上手",
+          "group.mt02": "日常同步",
+          "group.mt03": "进阶",
+          "group.mt04": "设置与说明",
           "group.series": "系列插件",
           "crumb.tutorials": "教程",
           "crumb.home": "首页",
@@ -1254,6 +1260,7 @@
           "plugin.weave": "Weave Deck",
           "plugin.reader": "EPUB Reader",
           "plugin.ir": "Incremental Reading",
+          "plugin.mstodo": "MS To Do Sync",
           "nav.pricing": "Pricing",
           "nav.install": "Install",
           "nav.installCta": "Install",
@@ -1277,6 +1284,10 @@
           "group.er02": "Excerpts & highlights",
           "group.er03": "Reading features",
           "group.er04": "Settings & integration",
+          "group.mt01": "Install & start",
+          "group.mt02": "Daily sync",
+          "group.mt03": "Advanced",
+          "group.mt04": "Settings & notes",
           "group.series": "Plugin series",
           "crumb.tutorials": "Tutorials",
           "crumb.home": "Home",
@@ -1323,6 +1334,13 @@
         ],
         ir: [
           { id: "series", labelKey: "group.series" }
+        ],
+        mstodo: [
+          { id: "start", labelKey: "group.start" },
+          { id: "mt01", labelKey: "group.mt01" },
+          { id: "mt02", labelKey: "group.mt02" },
+          { id: "mt03", labelKey: "group.mt03" },
+          { id: "mt04", labelKey: "group.mt04" }
         ]
       };
       function currentGroups() {
@@ -1389,7 +1407,11 @@
         er01: "accent-blue",
         er02: "accent-green",
         er03: "accent-cyan",
-        er04: "accent-purple"
+        er04: "accent-purple",
+        mt01: "accent-blue",
+        mt02: "accent-green",
+        mt03: "accent-cyan",
+        mt04: "accent-purple"
       };
 
       function renderSidebar() {
@@ -1570,13 +1592,18 @@
           er01: "group.er01",
           er02: "group.er02",
           er03: "group.er03",
-          er04: "group.er04"
+          er04: "group.er04",
+          mt01: "group.mt01",
+          mt02: "group.mt02",
+          mt03: "group.mt03",
+          mt04: "group.mt04"
         };
         return map[groupId] || "";
       }
       function pluginLabel(plugin) {
         if (plugin === "reader") return "EPUB Reader";
         if (plugin === "ir") return lang() === "en" ? "Incremental Reading" : "增量阅读";
+        if (plugin === "mstodo") return "MS To Do Sync";
         return "Weave Deck";
       }
       function titleKeywords(doc) {

@@ -20,6 +20,8 @@ WEAVE_MD_DIR = ROOT / "tutorials" / "md"
 WEAVE_MD_EN_DIR = ROOT / "tutorials" / "md-en"
 READER_MD_DIR = ROOT / "tutorials" / "md-reader"
 READER_MD_EN_DIR = ROOT / "tutorials" / "md-reader-en"
+MSTODO_MD_DIR = ROOT / "tutorials" / "md-mstodo"
+MSTODO_MD_EN_DIR = ROOT / "tutorials" / "md-mstodo-en"
 OUT_JS = ROOT / "tutorials-data.js"
 ASSETS = ROOT / "assets" / "tutorials"
 
@@ -58,6 +60,18 @@ LINK_MAP = {
     "Er-04b 阅读器设置与数据同步": "reader-settings-sync",
     "Er-04c 与 Weave 制卡、增量阅读、AI 联动": "reader-weave-integration",
     "Er-04d 高级支持、隐私与常见问题": "reader-faq",
+    "Mt-00a 这是什么、适合谁": "mtd-intro",
+    "Mt-01a 安装与登录": "mtd-install-login",
+    "Mt-01b 同步范围与第一条任务": "mtd-first-task",
+    "Mt-02a 任务写法与字段映射": "mtd-task-format",
+    "Mt-02b 备注、子任务与提醒": "mtd-notes-steps",
+    "Mt-02c 云图标菜单与命令面板": "mtd-menu-commands",
+    "Mt-03a 入站捕获与子标签路由": "mtd-inbound-routes",
+    "Mt-03b 从 To Do 回链到 Obsidian": "mtd-backlink",
+    "Mt-03c 与 Obsidian Tasks 并用": "mtd-tasks-compat",
+    "Mt-04a 设置说明与数据隐私": "mtd-settings-privacy",
+    "Mt-04b 常见问题": "mtd-faq",
+    "Mt-04c 与 Weave 系列的关系": "mtd-vs-weave",
 }
 
 WEAVE_CATALOG = [
@@ -374,6 +388,117 @@ READER_CATALOG = [
         "group": "er04",
         "level": "beginner",
         "title": {"zh": "高级支持、隐私与常见问题", "en": "Premium, privacy & FAQ"},
+    },
+]
+
+MSTODO_CATALOG = [
+    {
+        "file": "Mt-00a 这是什么、适合谁.md",
+        "id": "mtd-intro",
+        "code": "Mt-00a",
+        "plugin": "mstodo",
+        "group": "start",
+        "level": "beginner",
+        "title": {"zh": "这是什么、适合谁", "en": "What it is & who it’s for"},
+    },
+    {
+        "file": "Mt-01a 安装与登录.md",
+        "id": "mtd-install-login",
+        "code": "Mt-01a",
+        "plugin": "mstodo",
+        "group": "mt01",
+        "level": "beginner",
+        "title": {"zh": "安装与登录", "en": "Install & sign in"},
+    },
+    {
+        "file": "Mt-01b 同步范围与第一条任务.md",
+        "id": "mtd-first-task",
+        "code": "Mt-01b",
+        "plugin": "mstodo",
+        "group": "mt01",
+        "level": "beginner",
+        "title": {"zh": "同步范围与第一条任务", "en": "Scope & first task"},
+    },
+    {
+        "file": "Mt-02a 任务写法与字段映射.md",
+        "id": "mtd-task-format",
+        "code": "Mt-02a",
+        "plugin": "mstodo",
+        "group": "mt02",
+        "level": "beginner",
+        "title": {"zh": "任务写法与字段映射", "en": "Task syntax & field map"},
+    },
+    {
+        "file": "Mt-02b 备注、子任务与提醒.md",
+        "id": "mtd-notes-steps",
+        "code": "Mt-02b",
+        "plugin": "mstodo",
+        "group": "mt02",
+        "level": "beginner",
+        "title": {"zh": "备注、子任务与提醒", "en": "Notes, steps & reminders"},
+    },
+    {
+        "file": "Mt-02c 云图标菜单与命令面板.md",
+        "id": "mtd-menu-commands",
+        "code": "Mt-02c",
+        "plugin": "mstodo",
+        "group": "mt02",
+        "level": "beginner",
+        "title": {"zh": "云图标菜单与命令面板", "en": "Cloud menu & commands"},
+    },
+    {
+        "file": "Mt-03a 入站捕获与子标签路由.md",
+        "id": "mtd-inbound-routes",
+        "code": "Mt-03a",
+        "plugin": "mstodo",
+        "group": "mt03",
+        "level": "intermediate",
+        "title": {"zh": "入站捕获与子标签路由", "en": "Inbound capture & routes"},
+    },
+    {
+        "file": "Mt-03b 从 To Do 回链到 Obsidian.md",
+        "id": "mtd-backlink",
+        "code": "Mt-03b",
+        "plugin": "mstodo",
+        "group": "mt03",
+        "level": "intermediate",
+        "title": {"zh": "从 To Do 回链到 Obsidian", "en": "Backlink from To Do"},
+    },
+    {
+        "file": "Mt-03c 与 Obsidian Tasks 并用.md",
+        "id": "mtd-tasks-compat",
+        "code": "Mt-03c",
+        "plugin": "mstodo",
+        "group": "mt03",
+        "level": "intermediate",
+        "title": {"zh": "与 Obsidian Tasks 并用", "en": "Using with Obsidian Tasks"},
+    },
+    {
+        "file": "Mt-04a 设置说明与数据隐私.md",
+        "id": "mtd-settings-privacy",
+        "code": "Mt-04a",
+        "plugin": "mstodo",
+        "group": "mt04",
+        "level": "beginner",
+        "title": {"zh": "设置说明与数据隐私", "en": "Settings & privacy"},
+    },
+    {
+        "file": "Mt-04b 常见问题.md",
+        "id": "mtd-faq",
+        "code": "Mt-04b",
+        "plugin": "mstodo",
+        "group": "mt04",
+        "level": "beginner",
+        "title": {"zh": "常见问题", "en": "FAQ"},
+    },
+    {
+        "file": "Mt-04c 与 Weave 系列的关系.md",
+        "id": "mtd-vs-weave",
+        "code": "Mt-04c",
+        "plugin": "mstodo",
+        "group": "mt04",
+        "level": "beginner",
+        "title": {"zh": "与 Weave 系列的关系", "en": "Relation to Weave series"},
     },
 ]
 
@@ -731,6 +856,36 @@ READER_WELCOME = {
     },
 }
 
+MSTODO_WELCOME = {
+    "id": "mtd-welcome",
+    "code": "—",
+    "plugin": "mstodo",
+    "group": "start",
+    "level": "beginner",
+    "title": {"zh": "MS To Do Sync 教程导读", "en": "MS To Do Sync guide & paths"},
+    "lead": {
+        "zh": "在 Obsidian 规划任务，在 Microsoft To Do 执行；选择性同步，与 Weave 系列无依赖。",
+        "en": "Plan in Obsidian, execute in Microsoft To Do—selective sync, no Weave dependency.",
+    },
+    "body": {
+        "zh": """<div class="path-cards">
+<article class="path-card"><h4>这是什么</h4><p>独立插件、适合谁、核心原则。</p><a href="#mtd-intro" data-goto="mtd-intro">这是什么、适合谁</a></article>
+<article class="path-card"><h4>15 分钟上手</h4><p>安装登录，写第一条带标签任务。</p><a href="#mtd-install-login" data-goto="mtd-install-login">安装与登录 → 第一条任务</a></article>
+<article class="path-card"><h4>日常写法</h4><p>日期、备注、子任务与云图标。</p><a href="#mtd-task-format" data-goto="mtd-task-format">任务写法 → 备注与步骤</a></article>
+<article class="path-card"><h4>进阶与排错</h4><p>入站路由、回链、Tasks 兼容与 FAQ。</p><a href="#mtd-inbound-routes" data-goto="mtd-inbound-routes">入站路由 → 常见问题</a></article>
+</div>
+<h3>Mt-00～Mt-04 怎么读</h3>
+<p><strong>Mt-00</strong> 定位；<strong>Mt-01</strong> 安装与范围；<strong>Mt-02</strong> 日常同步；<strong>Mt-03</strong> 入站 / 回链 / Tasks；<strong>Mt-04</strong> 设置、隐私与和 Weave 的关系。本插件<strong>不属于</strong> Weave 系列产品包，仅同属一位开发者。</p>""",
+        "en": """<div class="path-cards">
+<article class="path-card"><h4>What it is</h4><p>Standalone plugin, audience, principles.</p><a href="#mtd-intro" data-goto="mtd-intro">What it is & who it’s for</a></article>
+<article class="path-card"><h4>15-minute start</h4><p>Install, sign in, first tagged task.</p><a href="#mtd-install-login" data-goto="mtd-install-login">Install → first task</a></article>
+<article class="path-card"><h4>Daily syntax</h4><p>Dates, notes, steps, cloud menu.</p><a href="#mtd-task-format" data-goto="mtd-task-format">Task syntax → notes & steps</a></article>
+<article class="path-card"><h4>Advanced & FAQ</h4><p>Inbound routes, backlinks, Tasks, FAQ.</p><a href="#mtd-inbound-routes" data-goto="mtd-inbound-routes">Inbound → FAQ</a></article>
+</div>
+<p><strong>Mt-00</strong> intro; <strong>Mt-01</strong> setup; <strong>Mt-02</strong> daily sync; <strong>Mt-03</strong> inbound / backlink / Tasks; <strong>Mt-04</strong> settings & relation to Weave. Not part of the Weave product bundle—same developer only.</p>""",
+    },
+}
+
 SERIES = {
     "id": "series-intro",
     "code": "—",
@@ -854,21 +1009,27 @@ def append_catalog(
     catalog: list,
     md_dir: Path,
     md_en_dir: Path | None = None,
+    *,
+    apply_rename: bool = True,
 ) -> None:
     for item in catalog:
         path = md_dir / item["file"]
         if not path.exists():
             raise SystemExit(f"Missing: {path}")
-        md = rename_plugin_mentions(path.read_text(encoding="utf-8"))
-        path.write_text(md, encoding="utf-8", newline="\n")
+        md = path.read_text(encoding="utf-8")
+        if apply_rename:
+            md = rename_plugin_mentions(md)
+            path.write_text(md, encoding="utf-8", newline="\n")
         lead, body = convert_markdown(md)
         lead_obj = {"zh": lead, "en": english_lead(item, lead)}
         body_obj: dict[str, str] = {"zh": body}
         if md_en_dir is not None:
             en_path = md_en_dir / item["file"]
             if en_path.exists():
-                en_md = rename_plugin_mentions(en_path.read_text(encoding="utf-8"))
-                en_path.write_text(en_md, encoding="utf-8", newline="\n")
+                en_md = en_path.read_text(encoding="utf-8")
+                if apply_rename:
+                    en_md = rename_plugin_mentions(en_md)
+                    en_path.write_text(en_md, encoding="utf-8", newline="\n")
                 en_lead, en_body = convert_markdown(en_md)
                 body_obj["en"] = en_body
                 if en_lead:
@@ -896,9 +1057,16 @@ def append_catalog(
 
 def build() -> None:
     copy_sources()
-    tutorials = [WELCOME, READER_WELCOME]
+    tutorials = [WELCOME, READER_WELCOME, MSTODO_WELCOME]
     append_catalog(tutorials, WEAVE_CATALOG, WEAVE_MD_DIR, WEAVE_MD_EN_DIR)
     append_catalog(tutorials, READER_CATALOG, READER_MD_DIR, READER_MD_EN_DIR)
+    append_catalog(
+        tutorials,
+        MSTODO_CATALOG,
+        MSTODO_MD_DIR,
+        MSTODO_MD_EN_DIR,
+        apply_rename=False,
+    )
     tutorials.extend([SERIES, IR])
     payload = json.dumps(tutorials, ensure_ascii=False, indent=2)
     OUT_JS.write_text(
