@@ -22,6 +22,8 @@ READER_MD_DIR = ROOT / "tutorials" / "md-reader"
 READER_MD_EN_DIR = ROOT / "tutorials" / "md-reader-en"
 MSTODO_MD_DIR = ROOT / "tutorials" / "md-mstodo"
 MSTODO_MD_EN_DIR = ROOT / "tutorials" / "md-mstodo-en"
+IR_MD_DIR = ROOT / "tutorials" / "md-ir"
+IR_MD_EN_DIR = ROOT / "tutorials" / "md-ir-en"
 OUT_JS = ROOT / "tutorials-data.js"
 ASSETS = ROOT / "assets" / "tutorials"
 
@@ -72,6 +74,19 @@ LINK_MAP = {
     "Mt-04a 设置说明与数据隐私": "mtd-settings-privacy",
     "Mt-04b 常见问题": "mtd-faq",
     "Mt-04c 与 Weave 系列的关系": "mtd-vs-weave",
+    "Ir-00a 设计理念": "ir-design",
+    "Ir-00b 整体学习流程与协同": "ir-workflow",
+    "Ir-01a 入门概览与快速上手": "ir-intro",
+    "Ir-01b 添加阅读点": "ir-add-points",
+    "Ir-01c 材料导入与订阅": "ir-import-subscribe",
+    "Ir-02a 增量阅读日历": "ir-calendar",
+    "Ir-02b 调度与进度": "ir-scheduling",
+    "Ir-02c 来源与续读": "ir-source-resume",
+    "Ir-03a 设置说明": "ir-settings",
+    "Ir-03b 数据与维护": "ir-data",
+    "Ir-03c 与 Weave 系列的关系": "ir-weave-family",
+    "Ir-04a 最佳实践": "ir-best-practices",
+    "Ir-04b 常见问题": "ir-faq",
 }
 
 WEAVE_CATALOG = [
@@ -502,6 +517,126 @@ MSTODO_CATALOG = [
     },
 ]
 
+IR_CATALOG = [
+    {
+        "file": "Ir-00a 设计理念.md",
+        "id": "ir-design",
+        "code": "Ir-00a",
+        "plugin": "ir",
+        "group": "start",
+        "level": "beginner",
+        "title": {"zh": "设计理念", "en": "Design philosophy"},
+    },
+    {
+        "file": "Ir-00b 整体学习流程与协同.md",
+        "id": "ir-workflow",
+        "code": "Ir-00b",
+        "plugin": "ir",
+        "group": "start",
+        "level": "beginner",
+        "title": {"zh": "整体学习流程与协同", "en": "Learning loop & integrations"},
+    },
+    {
+        "file": "Ir-01a 入门概览与快速上手.md",
+        "id": "ir-intro",
+        "code": "Ir-01a",
+        "plugin": "ir",
+        "group": "start",
+        "level": "beginner",
+        "title": {"zh": "入门概览与快速上手", "en": "Intro & quick start"},
+    },
+    {
+        "file": "Ir-01b 添加阅读点.md",
+        "id": "ir-add-points",
+        "code": "Ir-01b",
+        "plugin": "ir",
+        "group": "ir01",
+        "level": "beginner",
+        "title": {"zh": "添加阅读点", "en": "Add reading points"},
+    },
+    {
+        "file": "Ir-01c 材料导入与订阅.md",
+        "id": "ir-import-subscribe",
+        "code": "Ir-01c",
+        "plugin": "ir",
+        "group": "ir01",
+        "level": "beginner",
+        "title": {"zh": "材料导入与订阅", "en": "Import & subscription"},
+    },
+    {
+        "file": "Ir-02a 增量阅读日历.md",
+        "id": "ir-calendar",
+        "code": "Ir-02a",
+        "plugin": "ir",
+        "group": "ir02",
+        "level": "beginner",
+        "title": {"zh": "增量阅读日历", "en": "Incremental reading calendar"},
+    },
+    {
+        "file": "Ir-02b 调度与进度.md",
+        "id": "ir-scheduling",
+        "code": "Ir-02b",
+        "plugin": "ir",
+        "group": "ir02",
+        "level": "intermediate",
+        "title": {"zh": "调度与进度", "en": "Scheduling & progress"},
+    },
+    {
+        "file": "Ir-02c 来源与续读.md",
+        "id": "ir-source-resume",
+        "code": "Ir-02c",
+        "plugin": "ir",
+        "group": "ir02",
+        "level": "beginner",
+        "title": {"zh": "来源与续读", "en": "Source & resume"},
+    },
+    {
+        "file": "Ir-03a 设置说明.md",
+        "id": "ir-settings",
+        "code": "Ir-03a",
+        "plugin": "ir",
+        "group": "ir03",
+        "level": "beginner",
+        "title": {"zh": "设置说明", "en": "Settings"},
+    },
+    {
+        "file": "Ir-03b 数据与维护.md",
+        "id": "ir-data",
+        "code": "Ir-03b",
+        "plugin": "ir",
+        "group": "ir03",
+        "level": "beginner",
+        "title": {"zh": "数据与维护", "en": "Data & maintenance"},
+    },
+    {
+        "file": "Ir-03c 与 Weave 系列的关系.md",
+        "id": "ir-weave-family",
+        "code": "Ir-03c",
+        "plugin": "ir",
+        "group": "ir03",
+        "level": "beginner",
+        "title": {"zh": "与 Weave 系列的关系", "en": "Relation to Weave series"},
+    },
+    {
+        "file": "Ir-04a 最佳实践.md",
+        "id": "ir-best-practices",
+        "code": "Ir-04a",
+        "plugin": "ir",
+        "group": "ir04",
+        "level": "beginner",
+        "title": {"zh": "最佳实践", "en": "Best practices"},
+    },
+    {
+        "file": "Ir-04b 常见问题.md",
+        "id": "ir-faq",
+        "code": "Ir-04b",
+        "plugin": "ir",
+        "group": "ir04",
+        "level": "beginner",
+        "title": {"zh": "常见问题", "en": "FAQ"},
+    },
+]
+
 
 def esc(text: str) -> str:
     return (
@@ -903,20 +1038,33 @@ SERIES = {
     },
 }
 
-IR = {
-    "id": "ir-soon",
+IR_WELCOME = {
+    "id": "ir-welcome",
     "code": "—",
     "plugin": "ir",
-    "group": "series",
+    "group": "start",
     "level": "beginner",
-    "title": {"zh": "增量阅读教程（筹备中）", "en": "Incremental Reading (coming)"},
+    "title": {"zh": "增量阅读教程导读", "en": "Incremental Reading guide & paths"},
     "lead": {
-        "zh": "阅读点、专题与增量阅读日历的操作指南筹备中。",
-        "en": "Reading points, topics, and IR calendar — in progress.",
+        "zh": "把「以后再看」变成可排期、可续读的阅读队列：阅读点、专题与增量阅读日历。",
+        "en": "Turn “read later” into a schedulable, resumable queue—reading points, topics, and the IR calendar.",
     },
     "body": {
-        "zh": "<p>增量阅读插件独立教程将在系列文档第二批发布。</p>",
-        "en": "<p>IR tutorials ship in batch two of the docs rollout.</p>",
+        "zh": """<div class="path-cards">
+<article class="path-card"><h4>设计与闭环</h4><p>队列哲学；三插件如何串成学习流。</p><a href="#ir-design" data-goto="ir-design">设计理念 → 整体学习流程与协同</a></article>
+<article class="path-card"><h4>15 分钟上手</h4><p>打开日历，用添加链接收入第一条。</p><a href="#ir-intro" data-goto="ir-intro">入门概览 → 添加阅读点</a></article>
+<article class="path-card"><h4>日常推进</h4><p>日历、调度、续读回跳。</p><a href="#ir-calendar" data-goto="ir-calendar">增量阅读日历 → 调度与进度</a></article>
+<article class="path-card"><h4>数据与排错</h4><p>设置、备份、最佳实践与 FAQ。</p><a href="#ir-settings" data-goto="ir-settings">设置 → 常见问题</a></article>
+</div>
+<h3>Ir-00～Ir-04 怎么读</h3>
+<p><strong>Ir-00</strong> 设计理念与<strong>整体学习流程与协同</strong>（系列 / 官方 / 社区插件衔接）；<strong>Ir-01</strong> 入门与添加 / 导入；<strong>Ir-02</strong> 日历、调度与来源续读；<strong>Ir-03</strong> 设置、数据与系列关系；<strong>Ir-04</strong> 最佳实践与常见问题。日常主路径是<strong>日历 + 添加链接</strong>。</p>""",
+        "en": """<div class="path-cards">
+<article class="path-card"><h4>Design & loop</h4><p>Queue philosophy; how three plugins form one learning flow.</p><a href="#ir-design" data-goto="ir-design">Philosophy → Learning loop & integrations</a></article>
+<article class="path-card"><h4>15-minute start</h4><p>Open the calendar and Add link.</p><a href="#ir-intro" data-goto="ir-intro">Intro → Add reading points</a></article>
+<article class="path-card"><h4>Daily pace</h4><p>Calendar, scheduling, resume.</p><a href="#ir-calendar" data-goto="ir-calendar">Calendar → Scheduling</a></article>
+<article class="path-card"><h4>Data & FAQ</h4><p>Settings, backup, practices, FAQ.</p><a href="#ir-settings" data-goto="ir-settings">Settings → FAQ</a></article>
+</div>
+<p><strong>Ir-00</strong> design plus <strong>learning loop & integrations</strong> (Weave / built-ins / community); <strong>Ir-01</strong> intro / add / import; <strong>Ir-02</strong> calendar, scheduling, resume; <strong>Ir-03</strong> settings, data, family; <strong>Ir-04</strong> practices & FAQ. Daily path: <strong>calendar + Add link</strong>.</p>""",
     },
 }
 
@@ -926,6 +1074,7 @@ def rename_plugin_mentions(text: str) -> str:
     if not text:
         return text
     tokens = [
+        ("Weave Incremental Reading", "\x00IR_PLUGIN\x00"),
         ("Weave EPUB Reader", "\x00EPUB_READER\x00"),
         ("weave epub reader", "\x00epub_reader\x00"),
         ("Weave Deck", "\x00WEAVE_DECK\x00"),
@@ -950,7 +1099,7 @@ def rename_plugin_mentions(text: str) -> str:
     text = re.sub(r"Obsidian Weave", "\x00WEAVE_DECK\x00", text)
     text = re.sub(r"obsidian weave", "\x00WEAVE_DECK\x00", text)
     text = re.sub(
-        r"Weave(?! Deck)(?! EPUB)(?! 系列)(?!-family)(?! series)(?! Series)",
+        r"Weave(?! Deck)(?! EPUB)(?! Incremental)(?! 系列)(?!-family)(?! series)(?! Series)",
         "\x00WEAVE_DECK\x00",
         text,
     )
@@ -1057,7 +1206,7 @@ def append_catalog(
 
 def build() -> None:
     copy_sources()
-    tutorials = [WELCOME, READER_WELCOME, MSTODO_WELCOME]
+    tutorials = [WELCOME, READER_WELCOME, MSTODO_WELCOME, IR_WELCOME]
     append_catalog(tutorials, WEAVE_CATALOG, WEAVE_MD_DIR, WEAVE_MD_EN_DIR)
     append_catalog(tutorials, READER_CATALOG, READER_MD_DIR, READER_MD_EN_DIR)
     append_catalog(
@@ -1067,7 +1216,14 @@ def build() -> None:
         MSTODO_MD_EN_DIR,
         apply_rename=False,
     )
-    tutorials.extend([SERIES, IR])
+    append_catalog(
+        tutorials,
+        IR_CATALOG,
+        IR_MD_DIR,
+        IR_MD_EN_DIR,
+        apply_rename=False,
+    )
+    tutorials.extend([SERIES])
     payload = json.dumps(tutorials, ensure_ascii=False, indent=2)
     OUT_JS.write_text(
         "/* generated by scripts/build-tutorials.py — do not edit by hand */\n"

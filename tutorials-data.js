@@ -58,6 +58,25 @@ window.WEAVE_TUTORIALS = [
     }
   },
   {
+    "id": "ir-welcome",
+    "code": "—",
+    "plugin": "ir",
+    "group": "start",
+    "level": "beginner",
+    "title": {
+      "zh": "增量阅读教程导读",
+      "en": "Incremental Reading guide & paths"
+    },
+    "lead": {
+      "zh": "把「以后再看」变成可排期、可续读的阅读队列：阅读点、专题与增量阅读日历。",
+      "en": "Turn “read later” into a schedulable, resumable queue—reading points, topics, and the IR calendar."
+    },
+    "body": {
+      "zh": "<div class=\"path-cards\">\n<article class=\"path-card\"><h4>设计与闭环</h4><p>队列哲学；三插件如何串成学习流。</p><a href=\"#ir-design\" data-goto=\"ir-design\">设计理念 → 整体学习流程与协同</a></article>\n<article class=\"path-card\"><h4>15 分钟上手</h4><p>打开日历，用添加链接收入第一条。</p><a href=\"#ir-intro\" data-goto=\"ir-intro\">入门概览 → 添加阅读点</a></article>\n<article class=\"path-card\"><h4>日常推进</h4><p>日历、调度、续读回跳。</p><a href=\"#ir-calendar\" data-goto=\"ir-calendar\">增量阅读日历 → 调度与进度</a></article>\n<article class=\"path-card\"><h4>数据与排错</h4><p>设置、备份、最佳实践与 FAQ。</p><a href=\"#ir-settings\" data-goto=\"ir-settings\">设置 → 常见问题</a></article>\n</div>\n<h3>Ir-00～Ir-04 怎么读</h3>\n<p><strong>Ir-00</strong> 设计理念与<strong>整体学习流程与协同</strong>（系列 / 官方 / 社区插件衔接）；<strong>Ir-01</strong> 入门与添加 / 导入；<strong>Ir-02</strong> 日历、调度与来源续读；<strong>Ir-03</strong> 设置、数据与系列关系；<strong>Ir-04</strong> 最佳实践与常见问题。日常主路径是<strong>日历 + 添加链接</strong>。</p>",
+      "en": "<div class=\"path-cards\">\n<article class=\"path-card\"><h4>Design & loop</h4><p>Queue philosophy; how three plugins form one learning flow.</p><a href=\"#ir-design\" data-goto=\"ir-design\">Philosophy → Learning loop & integrations</a></article>\n<article class=\"path-card\"><h4>15-minute start</h4><p>Open the calendar and Add link.</p><a href=\"#ir-intro\" data-goto=\"ir-intro\">Intro → Add reading points</a></article>\n<article class=\"path-card\"><h4>Daily pace</h4><p>Calendar, scheduling, resume.</p><a href=\"#ir-calendar\" data-goto=\"ir-calendar\">Calendar → Scheduling</a></article>\n<article class=\"path-card\"><h4>Data & FAQ</h4><p>Settings, backup, practices, FAQ.</p><a href=\"#ir-settings\" data-goto=\"ir-settings\">Settings → FAQ</a></article>\n</div>\n<p><strong>Ir-00</strong> design plus <strong>learning loop & integrations</strong> (Weave / built-ins / community); <strong>Ir-01</strong> intro / add / import; <strong>Ir-02</strong> calendar, scheduling, resume; <strong>Ir-03</strong> settings, data, family; <strong>Ir-04</strong> practices & FAQ. Daily path: <strong>calendar + Add link</strong>.</p>"
+    }
+  },
+  {
     "id": "create-card",
     "code": "We-01a",
     "plugin": "weave",
@@ -936,6 +955,253 @@ window.WEAVE_TUTORIALS = [
     }
   },
   {
+    "id": "ir-design",
+    "code": "Ir-00a",
+    "plugin": "ir",
+    "group": "start",
+    "level": "beginner",
+    "title": {
+      "zh": "设计理念",
+      "en": "Design philosophy"
+    },
+    "lead": {
+      "zh": "Weave Incremental Reading 把「以后再看」变成可排期、可续读的阅读队列。本章说明为什么这样设计，以及它不是什么。",
+      "en": "Weave Incremental Reading turns “read later” into a schedulable, resumable queue. This page explains why it is designed this way—and what it is not."
+    },
+    "body": {
+      "zh": "<h3>收藏不等于读过</h3><p>稍后读、书签、剪藏文件夹解决的是「先存下来」。它们通常不回答：今天该读哪几条、逾期怎么办、同一本书拆成多段后怎样顺着读、打开时能否回到当初的位置。</p><p>本插件把材料收成<strong>阅读点</strong>，用<strong>日历</strong>做每日节奏，用<strong>溯源链接</strong>保证续读——目标是让队列真正动起来。</p><h3>三个设计原则</h3><ol><li><strong>决策在日历，内容在原文</strong>：日历负责选日、负载、优先级、进度与改期；打开阅读点即回跳 Markdown / PDF++ / Canvas / 网页 / EPUB。主路径是队列 + 回跳，而不是再嵌一套日常「第二阅读器」。</li><li><strong>一条主路径，多种入口</strong>：日常新增走日历顶部的<strong>添加链接</strong>（命令侧常写作「添加阅读目标」）。导入留给整份文档 / 整书目录；订阅文件夹留给剪藏收件箱持续补齐（高级功能）。</li><li><strong>增量阅读 ≠ 间隔复习（FSRS）</strong>：本插件管读什么、何时再出现、如何续读；Weave Deck 管记住什么、间隔多久复习。教程与设置里的调度，指的都是阅读点日程，不是 FSRS。</li></ol><h3>为什么用专题（.irdeck）</h3><p>专题把阅读点按主题或计划分组，并以库内 <code>.irdeck</code> 文件保存：可备份、可同步；打开后可在专题视图与日历之间切换；月历标题旁的专题 chip 可过滤「全部」或某一专题。命名请保持稳定，避免同一计划碎成多个拼写不同的专题。</p><h3>免费基线与高级扩展</h3><p>默认保证：<strong>日历 + Markdown 阅读点 + 添加链接 + 基础调度 + 连续阅读</strong> 即可完成闭环。PDF/EPUB 批量章节、订阅文件夹、深度调度策略、计时器、统计、关联笔记等属于高级扩展——需要时再激活，不挡主流程。</p><h3>不要当作日常方案</h3><ol><li>旧增量阅读主阅读界面：已移除，旧入口会转到日历。</li><li>段落阅读工作台：实验设计，未就绪；请用日历侧栏。</li><li>依赖标签组做主流程：仍在完善中；请先用专题、优先级与基础调度。</li><li>用 FSRS「代替」本插件调度：职责属于 Weave Deck。</li></ol>",
+      "en": "<h3>Saving is not reading</h3><p>Bookmarks and clip folders store things. They rarely answer what to read today, how to handle overdue items, how to continue a long source split into many pieces, or how to return to the exact place you left.</p><p>This plugin turns materials into <strong>reading points</strong>, uses a <strong>calendar</strong> for daily rhythm, and keeps <strong>resume links</strong> so the queue moves.</p><h3>Three design principles</h3><ol><li><strong>Decide on the calendar; read in the source.</strong> The calendar handles day selection, load, priority, progress, and reschedule. Opening a point jumps to Markdown / PDF++ / Canvas / web / EPUB. The path is queue + resume—not a second daily “in-plugin reader.”</li><li><strong>One primary capture path, many shortcuts.</strong> Daily capture goes through calendar <strong>Add link</strong> (commands may say Add reading target). Import is for whole documents / book outlines; folder subscription is for an ongoing clip inbox (premium).</li><li><strong>Incremental reading ≠ spaced repetition (FSRS).</strong> This plugin owns what to read, when it returns, and how to resume. Weave Deck owns what to remember and when to review. Scheduling here means reading-point due dates, not FSRS.</li></ol><h3>Why topics (<code>.irdeck</code>)</h3><p>Topics group points by plan and live as vault <code>.irdeck</code> files—backupable and syncable. Open a topic to switch between topic view and calendar. The topic chip on the month header filters All vs one topic. Keep names stable so one plan does not fragment.</p><h3>Free baseline vs premium depth</h3><p>The free loop is <strong>calendar + Markdown points + Add link + basic scheduling + continuous reading</strong>. PDF/EPUB bulk chapters, subscription, deep strategy knobs, timers, analytics, and associated notes are premium extensions.</p><h3>Do not treat these as the daily path</h3><ol><li>Legacy main reading view — removed; redirects to the calendar.</li><li>Paragraph reading workbench — experimental; use the calendar sidebar.</li><li>Tag groups as a primary workflow — still being improved; prefer topics, priority, and basic scheduling.</li><li>FSRS as this plugin’s scheduler — belongs to Weave Deck.</li></ol>"
+    }
+  },
+  {
+    "id": "ir-workflow",
+    "code": "Ir-00b",
+    "plugin": "ir",
+    "group": "start",
+    "level": "beginner",
+    "title": {
+      "zh": "整体学习流程与协同",
+      "en": "Learning loop & integrations"
+    },
+    "lead": {
+      "zh": "Weave 三款插件是按 Obsidian 里「准备材料 → 阅读推进 → 制卡记忆 → 测验巩固」的整体学习流程设计的，而不是三套互不相干的工具。本篇从增量阅读出发，说明如何与系列内其它插件、Obsidian 官方能力以及常见社区插件衔接。分工清单见 `Ir-03c 与 Weave 系列的关系`；本文讲**怎么串起来用**。",
+      "en": "The three Weave plugins are designed as one Obsidian learning loop—**prepare materials → advance reading → make memory cards → consolidate with quizzes**—not three disconnected tools. This article starts from Incremental Reading and shows how it connects to the rest of the Weave family, Obsidian built-ins, and common community plugins. For the install matrix see `Ir-03c 与 Weave 系列的关系`; this page is about **how to wire them together**."
+    },
+    "body": {
+      "zh": "<h3>一条主叙事：先排进队列，再深度加工</h3><p>在浏览 Obsidian 文档的过程中，把认为重要的一段文本生成溯源链接，<strong>添加到增量阅读</strong>，然后继续往下读——不必当场啃完。</p><p>当打开增量阅读月历与当日材料列表时，阅读点已按算法日期与优先级排好。你几乎不必自己纠结「今天读哪条」：顺势打开列表靠前的阅读点，回跳原文并聚焦到对应块。相对初次扫读，这时思维更容易停在这一小段上做深度思考。</p><p>处理完成后：勾选进度、选择下次出现时间，或归档；再继续下一条。</p><p>在这个过程中，若某点值得长期记住，再协同 <strong>Weave Deck</strong> 用 AI 制卡或手动制卡写入记忆牌组。<strong>初次觉得重要、再次深度思考后做成的卡片，往往质量更好、记得更牢。</strong> 需要测验时，仍在 Deck 侧用考试题组等能力巩固——增量阅读负责「何时再读」，Deck 负责「如何记住与检验」。</p><p>这就是 Weave 插件系列在 Obsidian 中的整体性：阅读材料进入可排期队列 → 按日历深度阅读 → 提炼为记忆卡片与测试 → 需要时再回原文。</p><h3>三插件在闭环里各自站哪一环</h3><table><thead><tr><th>环节</th><th>主要落点</th></tr></thead><tbody><tr><td>设计 / 收集阅读材料</td><td>剪藏、RSS、导入、订阅文件夹、各处「添加为阅读点」入口</td></tr><tr><td>阅读与续读</td><td>增量阅读日历 + 原文（Markdown / PDF++ / Canvas / 网页 / EPUB Reader）</td></tr><tr><td>记忆卡片</td><td>Weave Deck（划词制卡、AI 制卡、牌组复习）</td></tr><tr><td>测试题</td><td>Weave Deck 考试题组等</td></tr></tbody></table><p>可只装增量阅读做队列；要 EPUB 章节回跳再加阅读器；要制卡复习再加 Deck。完整闭环三款都装。</p><h3>与 Weave 系列的协同</h3><h3>Weave Deck</h3><ol><li>在日历打开阅读点、深度读完一段后，对同一选区做手动制卡或 AI 制卡。</li><li>卡片尽量带上溯源（<code>we_source</code> 等），复习时可跳回原文核对。</li><li>不要把 Deck 的 FSRS 当成增量阅读的调度；两套节奏分工不同，见 <a href=\"#ir-design\" data-goto=\"ir-design\">Ir-00a 设计理念</a>。</li></ol><h3>Weave EPUB Reader</h3><ol><li>阅读器选中文本工具条 / 章节菜单中的「添加到增量阅读」：把定位好的段落或章节送进队列（高亮本身不会自动变成阅读点）。</li><li>从日历回跳时打开阅读器并定位到 CFI / 章节。</li><li>长书也可在增量阅读侧用导入按目录拆章（高级），再与阅读器续读配合。阅读器侧说明见 <code>Er-04c</code>。</li></ol><h3>嵌在 Obsidian 官方能力上的入口</h3><p>增量阅读尽量在「你本来就会碰到」的位置提供添加入口，链接形态也贴近官方习惯：</p><ol><li><strong>官方 Canvas</strong>：节点菜单 → 添加到增量阅读；也可粘贴 <code>[[画布.canvas#^nodeId]]</code>。</li><li><strong>官方网页查看器（浏览器）</strong>：多功能菜单 / 选区 → 添加到增量阅读；或粘贴 <code>https://…</code>。</li><li><strong>Markdown 阅读过程中</strong>：命令 / 快捷键「从当前选区创建增量阅读点」或「当前位置」捕获块 / 行锚点——读着读着觉得重要，立刻入队，不必中断整篇。</li><li><strong>官方剪藏等到库内的 Markdown</strong>：落进某个文件夹后，可用<strong>订阅剪藏文件夹</strong>（高级）自动补齐到专题；也可对单篇用添加链接。</li></ol><p>链路与格式细节见 <a href=\"#ir-add-points\" data-goto=\"ir-add-points\">Ir-01b 添加阅读点</a>、<a href=\"#ir-source-resume\" data-goto=\"ir-source-resume\">Ir-02c 来源与续读</a>。</p><h3>与常见社区插件 / 外部流程的衔接</h3><h3>RSS 阅读器 → 订阅文件夹</h3><p>许多 RSS 插件会把条目保存为库内 Markdown。把该保存目录配成增量阅读的<strong>订阅文件夹</strong>，绑定专题，并选好「添加到今天」或「按算法正常调度」。新剪来的文章会进入阅读队列，而不是只堆在文件夹里。见 <a href=\"#ir-import-subscribe\" data-goto=\"ir-import-subscribe\">Ir-01c 材料导入与订阅</a>。</p><h3>PDF++</h3><p>精确 PDF 选区 / 书签链接粘贴进「添加链接」，或按目录导入章节（高级）。回跳依赖 PDF 能力与 PDF++ 定位。</p><h3>Video Extended（及同类时间戳链接）</h3><p>在视频笔记里生成的<strong>时间戳溯源链接</strong>（常见为可跳转到某时刻的双链 / 嵌入链接），可经「添加链接」收入为阅读点。打开阅读点时回到对应笔记，并由 Video Extended 等插件解析时间戳定位——适合讲座、精听、跟读类材料「改天再看这一分钟」。链接需能被 Obsidian 正常打开；具体时间戳语法以 Video Extended 文档为准。</p><h3>Excalidraw</h3><p>Excalidraw 图纸在库中通常是可链笔记。可将指向图纸（或图中相关块）的链接添加为阅读点，把「改天再梳这张图」排进日历；也可在深度阅读后把图纸作关联笔记 / 制卡材料。显示名与路径习惯随 Excalidraw 插件约定。</p><h3>其它</h3><p>凡能产出稳定、可打开的 Obsidian 链接（双链、块引用、官方支持的定位格式），原则上都可尝试经统一「添加链接」入口入队。系列在合理衔接位置加了入口；渲染与编辑体验尽量贴近官方，而不是另造一套封闭格式。</p><h3>推荐的一天怎么过</h3><ol><li>浏览 / 剪藏 / 听课笔记时：对重要处用快捷键或菜单<strong>添加阅读点</strong>（不必当场精读）。</li><li>打开<strong>增量阅读日历</strong>：按列表顺序打开、回跳、聚焦思考。</li><li>值得记住的段落：打开 Weave Deck 制卡；需要检验时用题组。</li><li>勾选进度或改期 / 归档，继续下一条。</li><li>EPUB、PDF、Canvas、网页、视频时间戳、Excalidraw 等，按材料类型走对应入口，最终都汇入同一日历。</li></ol><h3>相关教程</h3><ol><li><a href=\"#ir-design\" data-goto=\"ir-design\">Ir-00a 设计理念</a> — 队列哲学与边界</li><li><code>Ir-01b</code> / <code>Ir-01c</code> — 添加与导入、订阅</li><li><code>Ir-02a</code> / <code>Ir-02b</code> / <code>Ir-02c</code> — 日历、调度、溯源</li><li><a href=\"#ir-weave-family\" data-goto=\"ir-weave-family\">Ir-03c 与 Weave 系列的关系</a> — 安装组合表</li><li>Weave Deck / EPUB Reader 顶栏切换后的对应教程（如 <code>Er-04c</code>、Deck 制卡篇）</li></ol>",
+      "en": "<h3>The main story: enqueue first, deepen later</h3><p>While browsing notes, turn an important passage into a traced link and <strong>add it to incremental reading</strong>, then keep reading—you do not have to finish it on the spot.</p><p>When you open the incremental reading calendar and today’s material list, points are already placed by schedule and priority. You rarely need to invent “what to read today”: open the top items, jump back to the source, and focus on that block. Compared with a first skim, this pass is better for deep thinking.</p><p>When done: mark progress, pick the next appearance, or archive—then continue.</p><p>If a point is worth remembering long-term, use <strong>Weave Deck</strong> (manual or AI cards) to add it to a memory deck. <strong>Cards made after a second, deeper pass are often higher quality and stick better.</strong> Quizzes and exam groups stay on the Deck side. Incremental Reading owns <strong>when to read again</strong>; Deck owns <strong>how to remember and check</strong>.</p><p>That is the Weave series in Obsidian: materials enter a schedulable queue → deep read on the calendar → refine into cards and tests → jump back to sources when needed.</p><h3>Where each plugin sits in the loop</h3><table><thead><tr><th>Stage</th><th>Primary home</th></tr></thead><tbody><tr><td>Design / collect reading material</td><td>Clipping, RSS, import, folder subscription, “Add as reading point” entries</td></tr><tr><td>Read and resume</td><td>IR calendar + source (Markdown / PDF++ / Canvas / web / EPUB Reader)</td></tr><tr><td>Memory cards</td><td>Weave Deck</td></tr><tr><td>Quizzes</td><td>Weave Deck exam groups and related tools</td></tr></tbody></table><p>Install IR alone for the queue; add EPUB Reader for chapter resume; add Deck for cards and review. Install all three for the full loop.</p><h3>Collaboration inside Weave</h3><h3>Weave Deck</h3><ol><li>After opening a point from the calendar and thinking deeply, create cards from the same selection (manual or AI).</li><li>Prefer cards with source links (<code>we_source</code>, etc.) so review can jump back.</li><li>Do not treat Deck FSRS as IR scheduling—see <a href=\"#ir-design\" data-goto=\"ir-design\">Ir-00a 设计理念</a>.</li></ol><h3>Weave EPUB Reader</h3><ol><li>Reader selection toolbar / chapter menu → <strong>Add to incremental reading</strong> (highlights alone do not become points).</li><li>Calendar resume opens the reader at CFI / chapter.</li><li>Long books can also be split via IR import (premium) and resumed in the reader. See <code>Er-04c</code> on the Reader tab.</li></ol><h3>Entries on Obsidian built-in surfaces</h3><p>IR adds actions where you already work, with link shapes close to official habits:</p><ol><li><strong>Canvas</strong> — node menu → Add to incremental reading; or paste <code>[[board.canvas#^nodeId]]</code>.</li><li><strong>Official web viewer</strong> — menu / selection → Add to incremental reading; or paste <code>https://…</code>.</li><li><strong>While reading Markdown</strong> — command / hotkey to create a point from selection or capture Current location (block / line)—enqueue mid-read without abandoning the note.</li><li><strong>Official clipper (and similar) Markdown in the vault</strong> — point a <strong>folder subscription</strong> (premium) at that folder, or Add link one note at a time.</li></ol><p>Details: <a href=\"#ir-add-points\" data-goto=\"ir-add-points\">Ir-01b 添加阅读点</a>, <a href=\"#ir-source-resume\" data-goto=\"ir-source-resume\">Ir-02c 来源与续读</a>.</p><h3>Community plugins and adjacent flows</h3><h3>RSS readers → folder subscription</h3><p>Many RSS plugins save items as Markdown. Subscribe that folder in IR, bind a topic, and choose <strong>Add to today</strong> or <strong>Schedule normally</strong>. New clips enter the queue instead of only piling up on disk. See <a href=\"#ir-import-subscribe\" data-goto=\"ir-import-subscribe\">Ir-01c 材料导入与订阅</a>.</p><h3>PDF++</h3><p>Paste precise PDF++ selection / bookmark links into Add link, or import chapters from an outline (premium).</p><h3>Video Extended (and similar timestamp links)</h3><p>Timestamp source links from video notes (wikilinks / embeds that jump to a moment) can be added via Add link. Opening the point returns to the note; Video Extended (or similar) resolves the timestamp—useful for lectures and shadowing (“revisit this minute later”). The link must open normally in Obsidian; follow Video Extended’s own timestamp syntax.</p><h3>Excalidraw</h3><p>Drawings are usually linkable vault notes. Add a link to a drawing (or a related block) as a reading point to schedule “reorganize this map later”; after deep reading, use the drawing as associated material or card fodder. Paths follow Excalidraw conventions.</p><h3>Other</h3><p>Any stable, openable Obsidian link (wikilink, block ref, officially supported locators) can usually enter the queue through unified Add link. Weave places entries at sensible junctions and keeps formats close to core Obsidian rather than a closed parallel system.</p><h3>A recommended day</h3><ol><li>While browsing / clipping / taking lecture notes: <strong>Add reading point</strong> on what matters (no need to deep-read immediately).</li><li>Open the <strong>IR calendar</strong>: follow the list, resume, think.</li><li>Worth remembering → Weave Deck cards; need checks → exam tools.</li><li>Mark progress or reschedule / archive; continue.</li><li>EPUB, PDF, Canvas, web, video timestamps, Excalidraw—use the matching entry; everything lands on the same calendar.</li></ol><h3>Related</h3><ol><li><a href=\"#ir-design\" data-goto=\"ir-design\">Ir-00a 设计理念</a> — philosophy and boundaries</li><li><code>Ir-01b</code> / <code>Ir-01c</code> — add, import, subscribe</li><li><code>Ir-02a</code> / <code>Ir-02b</code> / <code>Ir-02c</code> — calendar, scheduling, resume</li><li><a href=\"#ir-weave-family\" data-goto=\"ir-weave-family\">Ir-03c 与 Weave 系列的关系</a> — install combinations</li><li>Deck / Reader tutorials from the top plugin switcher (e.g. <code>Er-04c</code>, Deck create-card guides)</li></ol>"
+    }
+  },
+  {
+    "id": "ir-intro",
+    "code": "Ir-01a",
+    "plugin": "ir",
+    "group": "start",
+    "level": "beginner",
+    "title": {
+      "zh": "入门概览与快速上手",
+      "en": "Intro & quick start"
+    },
+    "lead": {
+      "zh": "Weave Incremental Reading 是独立的增量阅读主控：把 Markdown、块引用、PDF、Canvas、网页、EPUB 等收成可排期、可续读的阅读点，用专题与日历推进节奏。不依赖 Weave Deck 即可单独使用。",
+      "en": "Weave Incremental Reading is a standalone incremental-reading controller: turn Markdown, block refs, PDF, Canvas, web, and EPUB into schedulable, resumable reading points, driven by topics and a calendar. It does not require Weave Deck."
+    },
+    "body": {
+      "zh": "<h3>三个核心概念</h3><table><thead><tr><th>概念</th><th>说明</th></tr></thead><tbody><tr><td><strong>阅读点</strong></td><td>一条待阅读任务，带来源溯源；可从队列一键回跳原文。</td></tr><tr><td><strong>专题（.irdeck）</strong></td><td>阅读点的容器，以专题文件保存在知识库中。</td></tr><tr><td><strong>增量阅读日历</strong></td><td>主界面：按日期查看待处理、已排期与逾期项，安排每日节奏。</td></tr></tbody></table><h3>五分钟上手</h3><ol><li>安装并启用插件（Obsidian ≥ 1.8.7）。</li><li>打开<strong>增量阅读日历</strong>（功能区日历图标，或命令「打开增量阅读日历」）。</li><li>点顶部 <strong>「+」/ 添加链接</strong>：粘贴来源 → 命名 → 选专题 → 安排首次阅读日 → 保存。</li><li>在今日列表打开条目，回跳原文续读；完成后标记进度，系统安排下次出现。</li></ol><p>日常新增请优先走<strong>添加链接</strong>；整份文档或整书拆分再用「导入阅读材料」。</p><h3>免费与高级（摘要）</h3><p><strong>免费：</strong> 日历与 Markdown 阅读点、专题管理、基础调度与续读、添加链接、Markdown 拆分导入、连续阅读、Markdown 聚焦阅读、数据管理。</p><p><strong>高级（需激活）：</strong> PDF/EPUB 章节导入、订阅文件夹、调度策略深度自定义与交错学习、统计分析、阅读计时器、日历背景墙、关联笔记等。标签组仍在完善中，勿作主流程依赖。</p><p>若已激活 Weave Deck，本插件可继承授权。独立激活：设置 → Weave Incremental Reading → 授权。</p><h3>数据与隐私（摘要）</h3><p>阅读点、专题与调度默认保存在本地知识库；插件不主动上传笔记正文。卸载不会自动删除已创建的 <code>.irdeck</code> 数据。</p>",
+      "en": "<h3>Three core concepts</h3><table><thead><tr><th>Concept</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>Reading point</strong></td><td>One reading task with source tracing; jump back to the original location from the queue.</td></tr><tr><td><strong>Topic (<code>.irdeck</code>)</strong></td><td>A container for reading points, stored as a topic file in your vault.</td></tr><tr><td><strong>Incremental reading calendar</strong></td><td>Main view: browse pending, scheduled, and overdue items by date.</td></tr></tbody></table><h3>Five-minute start</h3><ol><li>Install and enable the plugin (Obsidian ≥ 1.8.7).</li><li>Open the <strong>incremental reading calendar</strong> (ribbon calendar icon, or command Open incremental reading calendar).</li><li>Click <strong>“+” / Add link</strong>: paste source → name → topic → first day → save.</li><li>Open today’s item, resume at the source, mark progress; scheduling picks the next appearance.</li></ol><p>Prefer <strong>Add link</strong> for daily capture; use Import reading materials for whole documents or books.</p><h3>Free vs premium (summary)</h3><p><strong>Free:</strong> calendar and Markdown points, topic management, basic scheduling and resume, Add link, Markdown split import, continuous reading, Markdown focused reading, data management.</p><p><strong>Premium:</strong> PDF/EPUB chapter import, folder subscription, deep scheduling customization and interleaving, analytics, reading timer, calendar background wall, associated notes, and more. Tag groups are still being improved—do not rely on them yet.</p><p>If Weave Deck is activated, this plugin can inherit that license. Standalone activation: Settings → Weave Incremental Reading → License.</p><h3>Data and privacy (summary)</h3><p>Points, topics, and schedules stay in the local vault by default. The plugin does not actively upload note bodies. Uninstall does not auto-delete <code>.irdeck</code> data.</p>"
+    }
+  },
+  {
+    "id": "ir-add-points",
+    "code": "Ir-01b",
+    "plugin": "ir",
+    "group": "ir01",
+    "level": "beginner",
+    "title": {
+      "zh": "添加阅读点",
+      "en": "Add reading points"
+    },
+    "lead": {
+      "zh": "日常新增**一条**阅读点，请用「添加链接 / 添加阅读目标」，而不是材料导入。添加适合一条 URL、一个双链或块、一个选区、一个 Canvas 节点；导入适合把整份文档或整书拆成大量阅读点。",
+      "en": "To add **one** reading point, use Add link / Add reading target—not material import. Add fits one URL, wikilink/block, selection, or Canvas node. Import fits turning a whole document or book into many points."
+    },
+    "body": {
+      "zh": "<h3>推荐入口</h3><ol><li>日历顶部 <strong>「+」/ 添加链接</strong>（日常主路径）。</li><li>命令面板 <strong>添加阅读目标到增量阅读</strong>（同一模态窗流程）。</li></ol><h3>模态窗五步</h3><ol><li>粘贴链接，或点击「当前位置」捕获 Markdown 编辑器中的块 / 行锚点。</li><li>确认阅读点名称。</li><li>选择归属专题（<code>.irdeck</code>；可新建）。</li><li>安排首次阅读日（自选或系统推荐）。</li><li>可选：创建阅读笔记、在源笔记追加标记 → 确认后写入队列并排期。</li></ol><h3>支持粘贴的类型</h3><ol><li>网页：<code>https://…</code></li><li>Vault 链接 / 块引用：<code>[[笔记]]</code>、<code>[[笔记#^块ID]]</code></li><li>PDF++ 选区或书签链接（callout 内亦可）</li><li>Canvas 节点：<code>[[画布.canvas#^nodeId]]</code></li><li>EPUB 定位链接（需安装并启用 Weave EPUB Reader）</li></ol><h3>其它快捷入口</h3><ol><li>Markdown 选区：命令「从当前选区创建增量阅读点」。</li><li>Obsidian 浏览器：网页菜单 / 选区右键 → 添加到增量阅读。</li><li>Canvas 节点：节点菜单 → 添加到增量阅读。</li></ol><h3>建议</h3><ol><li>能粘贴稳定定位就粘贴（块 ID、PDF++ 选区、节点 ID），少用只有文件名、没有位置的模糊链接。</li><li>一条阅读点只表达一件待读任务；长文拆分后可用日历里的连续阅读。</li><li>首次阅读日如实选择；全部丢到今天会迅速抬高当日负载。</li></ol>",
+      "en": "<h3>Recommended entry</h3><ol><li>Calendar <strong>“+” / Add link</strong> (daily primary path).</li><li>Command palette <strong>Add reading target to incremental reading</strong> (same modal).</li></ol><h3>Five steps in the modal</h3><ol><li>Paste a link, or use Current location for a Markdown block / line anchor.</li><li>Confirm the reading-point name.</li><li>Choose a topic (<code>.irdeck</code>; create if needed).</li><li>Pick the first reading day (manual or recommended).</li><li>Optionally create a reading note or append a source marker → confirm to enqueue.</li></ol><h3>Pasteable types</h3><ol><li>Web: <code>https://…</code></li><li>Vault links / block refs: <code>[[Note]]</code>, <code>[[Note#^blockId]]</code></li><li>PDF++ selection or bookmark links (including links in PDF callouts)</li><li>Canvas nodes: <code>[[board.canvas#^nodeId]]</code></li><li>EPUB location links (requires Weave EPUB Reader)</li></ol><h3>Other shortcuts</h3><ol><li>Markdown selection: command Create incremental reading point from selection.</li><li>Obsidian browser: viewer / selection → Add to incremental reading.</li><li>Canvas node: node menu → Add to incremental reading.</li></ol><h3>Tips</h3><ol><li>Prefer stable locators (block IDs, PDF++ selections, node IDs) over file-only links.</li><li>One point = one pending task; after splitting a long source, use continuous reading on the calendar.</li><li>Be honest about the first day—pinning everything to today spikes load.</li></ol>"
+    }
+  },
+  {
+    "id": "ir-import-subscribe",
+    "code": "Ir-01c",
+    "plugin": "ir",
+    "group": "ir01",
+    "level": "beginner",
+    "title": {
+      "zh": "材料导入与订阅",
+      "en": "Import & subscription"
+    },
+    "lead": {
+      "zh": "要把**整份** Markdown、PDF 目录或 EPUB 目录变成大量阅读点时，使用「导入阅读材料」。希望剪藏 / 收件箱文件夹**持续自动补齐**到专题时，使用「订阅文件夹」（高级功能）。二者都不同于日常的「添加链接」。",
+      "en": "Use **Import reading materials** when a whole Markdown file, PDF outline, or EPUB outline should become many reading points. Use **folder subscription** (premium) when a clip/inbox folder should keep topping up a topic. Both differ from daily Add link."
+    },
+    "body": {
+      "zh": "<h3>何时用导入</h3><p>入口：日历顶部 <strong>更多 → 导入阅读材料</strong>。</p><p>适合：长文按标题拆分、按目录勾选章节、需要预览后再批量确认。不适合：每天随手一条网页或一个选区（请用添加链接）。</p><h3>导入步骤</h3><ol><li>选择文件（同批只能是同一类：<code>md</code> / <code>pdf</code> / <code>epub</code>，不可混合同批）。</li><li>PDF / EPUB 会先进入目录（outline）步骤，勾选要导入的章节。</li><li>选择拆分模式并配置参数。</li><li>预览生成的阅读点后确认导入。</li></ol><h3>格式与能力边界</h3><p><strong>Markdown（免费）：</strong> 可按标题、空行等规则拆分；整文件可选「引用」或「复制」。兼容导入目录默认为「插件数据文件夹 / IR」（历史兼容路径，日常不必手工往里塞文件）。</p><p><strong>PDF / EPUB（高级）：</strong> 按目录生成书签式阅读点，保留章节续读信息。EPUB 目录解析依赖 Weave EPUB Reader。精确 PDF 选区建议配合 PDF++。</p><h3>订阅文件夹（高级）</h3><p>配置：设置 → Weave Incremental Reading → 基础 → 订阅剪藏文件夹（规则、文件夹、绑定专题、初次排期方式等）。</p><p>手动同步：日历 <strong>更多 → 更新订阅文件夹</strong>，或命令「更新订阅文件夹」。插件启动或相关文件变更时也会后台同步。</p><p><strong>初次排期方式（重要）：</strong></p><ol><li><strong>添加到今天</strong>：新材料钉在今天（不会按视野天数摊到后面）。</li><li><strong>按算法正常调度</strong>：按调度视野与负载规则安排 due。</li></ol><p>订阅面向 <strong>Markdown</strong> 材料；未激活时入口可能隐藏或带锁。</p>",
+      "en": "<h3>When to import</h3><p>Entry: calendar <strong>More → Import reading materials</strong>.</p><p>Fits: split long notes by headings, pick chapters from an outline, preview then confirm. Poor fit: one casual web clip or selection per day (use Add link).</p><h3>Import steps</h3><ol><li>Choose files (one batch = one type only: <code>md</code> / <code>pdf</code> / <code>epub</code>).</li><li>PDF / EPUB open an outline step so you can pick chapters.</li><li>Choose a split mode and options.</li><li>Preview generated points, then confirm.</li></ol><h3>Formats and limits</h3><p><strong>Markdown (free):</strong> split by headings, blank lines, and similar rules; whole-file mode can reference or copy. Compatibility import folder defaults to plugin data folder / IR (legacy path—you need not manage it by hand).</p><p><strong>PDF / EPUB (premium):</strong> bookmark-style points from outlines with resume info. EPUB outline parsing depends on Weave EPUB Reader. Precise PDF selections work best with PDF++.</p><h3>Folder subscription (premium)</h3><p>Configure: Settings → Weave Incremental Reading → Basic → Subscribe clipping folders (rules, folders, bound topics, initial schedule mode, …).</p><p>Manual sync: calendar <strong>More → Update subscribed folders</strong>, or the matching command. Background sync also runs on startup and relevant vault changes.</p><p><strong>Initial schedule mode (important):</strong></p><ol><li><strong>Add to today</strong> — pin new materials on today (not smoothed across the horizon).</li><li><strong>Schedule normally</strong> — place due dates by horizon / load rules.</li></ol><p>Subscription targets <strong>Markdown</strong>. Without activation the entry may be hidden or locked.</p>"
+    }
+  },
+  {
+    "id": "ir-calendar",
+    "code": "Ir-02a",
+    "plugin": "ir",
+    "group": "ir02",
+    "level": "beginner",
+    "title": {
+      "zh": "增量阅读日历",
+      "en": "Incremental reading calendar"
+    },
+    "lead": {
+      "zh": "增量阅读日历是本插件的主界面：按日期查看待处理、已排期与逾期的阅读点，并用月历热力感知负载。",
+      "en": "The incremental reading calendar is the plugin’s main surface: browse pending, scheduled, and overdue reading points by date, and read load from the month heatmap."
+    },
+    "body": {
+      "zh": "<h3>界面结构</h3><ol><li><strong>上方</strong>：月历热力——哪几天挤、哪几天空。</li><li><strong>下方</strong>：选中日期的阅读材料列表——当天真正要处理的队列。</li><li><strong>顶部工具栏</strong>：添加、搜索、继续阅读建议、教程、更多。</li></ol><p>打开方式：功能区日历图标，或命令「打开增量阅读日历」。也可打开某个 <code>.irdeck</code>，在专题视图与日历之间切换。</p><h3>日常循环</h3><ol><li>打开日历，确认今天（或要处理的日期）。</li><li>查看当日列表：优先逾期与高优先级。</li><li>打开阅读点，在原文续读。</li><li>完成后标记进度（或暂停 / 改期 / 归档）。</li><li>需要新材料时用顶部「+」/ 添加链接；整书拆分用「更多 → 导入阅读材料」。</li></ol><h3>顶部工具栏</h3><table><thead><tr><th>控件</th><th>作用</th></tr></thead><tbody><tr><td><strong>+ / 添加链接</strong></td><td>单条创建阅读点（日常主入口）</td></tr><tr><td>搜索</td><td>在材料中查找</td></tr><tr><td>继续阅读建议</td><td>额外建议；含已搁置，可恢复到今天</td></tr><tr><td>帮助 / 教程</td><td>插件内短教程</td></tr><tr><td>更多</td><td>导入、更新订阅、数据管理、视图模式等</td></tr></tbody></table><p>月历标题旁的<strong>专题 chip</strong> 可点击：在「全部」与某一专题之间切换。</p><h3>连续阅读</h3><p>适合同一文档被拆成多个阅读点时，按来源连续推进。</p><ol><li>阅读点右键 / 长按 → 更多操作 → <strong>连续阅读</strong>。</li><li>开启后，项旁出现展开按钮，可展开同一来源下的其它阅读点。</li></ol><p>该能力属于基础调度辅助，无需高级授权。</p><h3>暂停与搁置</h3><p>菜单文案常见为<strong>暂停</strong>；继续阅读建议中常见为<strong>已搁置</strong>——指同一类「先放下、稍后再拉回」的状态。可将搁置项恢复到今天。</p><h3>免费与高级（日历相关）</h3><p>日历与 Markdown 主流程免费。常见需激活的能力：阅读计时器、日历背景墙、统计分析、PDF/EPUB 导入、订阅文件夹、关联笔记、调度策略深度自定义等。</p>",
+      "en": "<h3>Layout</h3><ol><li><strong>Top:</strong> month heatmap — which days are heavy or empty.</li><li><strong>Bottom:</strong> reading materials for the selected day.</li><li><strong>Toolbar:</strong> add, search, continue-reading suggestions, tutorial, more.</li></ol><p>Open via the ribbon calendar icon or command Open incremental reading calendar. You can also open a <code>.irdeck</code> and switch between topic view and calendar.</p><h3>Daily loop</h3><ol><li>Open the calendar on today (or the day you mean to work).</li><li>Prefer overdue and high-priority items.</li><li>Open a point and resume in the source.</li><li>Mark progress (or suspend / reschedule / archive).</li><li>Capture with “+” / Add link; bulk-split with More → Import reading materials.</li></ol><h3>Toolbar</h3><table><thead><tr><th>Control</th><th>Role</th></tr></thead><tbody><tr><td><strong>+ / Add link</strong></td><td>Create one reading point</td></tr><tr><td>Search</td><td>Find materials</td></tr><tr><td>Continue-reading suggestions</td><td>Extra suggestions; suspended items can restore to today</td></tr><tr><td>Help / tutorial</td><td>In-plugin short tutorial</td></tr><tr><td>More</td><td>Import, update subscriptions, data management, view modes, …</td></tr></tbody></table><p>Click the <strong>topic chip</strong> next to the month title to filter All vs one topic.</p><h3>Continuous reading</h3><p>When one source was split into many points, advance by source instead of hunting the list.</p><ol><li>Context menu → More actions → <strong>Continuous reading</strong>.</li><li>An expand control shows siblings from the same source.</li></ol><p>Part of basic scheduling assistance—no premium license required.</p><h3>Suspend</h3><p>Menus often say <strong>Suspend</strong>; the suggestions panel may say <strong>Suspended</strong>—same “parked for later” idea. Restore to today when ready.</p><h3>Free vs premium (calendar-related)</h3><p>Calendar + Markdown main flow is free. Common premium surfaces: reading timer, background wall, analytics, PDF/EPUB import, folder subscription, associated notes, deep strategy customization.</p>"
+    }
+  },
+  {
+    "id": "ir-scheduling",
+    "code": "Ir-02b",
+    "plugin": "ir",
+    "group": "ir02",
+    "level": "intermediate",
+    "title": {
+      "zh": "调度与进度",
+      "en": "Scheduling & progress"
+    },
+    "lead": {
+      "zh": "调度决定阅读点何时再次出现在日历上。它服务的是阅读节奏，不是 Weave Deck 的 FSRS 间隔复习。基础调度在免费主流程中可用；调度策略深度自定义、交错学习等属于高级功能。",
+      "en": "Scheduling decides when a reading point reappears on the calendar. It serves reading rhythm—not Weave Deck’s FSRS reviews. Basic scheduling is part of the free main flow; deep strategy customization and interleaving are premium."
+    },
+    "body": {
+      "zh": "<h3>两种调度策略</h3><p>设置文案中的名称是<strong>处理流</strong>与<strong>阅读列表</strong>：</p><table><thead><tr><th>策略</th><th>倾向</th><th>适合</th></tr></thead><tbody><tr><td><strong>处理流</strong></td><td>优先推进当前活跃材料，减少上下文切换</td><td>同一主题短期内反复加工</td></tr><tr><td><strong>阅读列表</strong></td><td>更强调连续阅读感，减少同一块反复冒头</td><td>更像书单：一天见一次、顺着读</td></tr></tbody></table><p>先选一种跑通「添加 → 续读 → 完成」闭环，再按体感调整。</p><h3>常见节奏控件</h3><p>以设置 → 核心调度 / 高级为准，常见概念包括：每日时间预算、每日阅读点上限、心流 stretch、负载自动顺延、跨日平滑、提前阅读窗口与间隔相关选项。日历侧常见负载摘要：合理负载 · 心流上限 · 已安排分钟数。</p><h3>阅读点状态与操作</h3><ol><li><strong>打开 / 续读</strong>：回跳原文。</li><li><strong>标记进度</strong>：按当前策略计算下次出现。</li><li><strong>改期 / 排期</strong>：手动指定或调整日期。</li><li><strong>优先级</strong>：影响队列中的相对重要性。</li><li><strong>暂停（搁置）</strong>：暂时离开今日主队列；可在继续阅读建议中恢复到今天。</li><li><strong>归档</strong>：结束活跃调度；Markdown 源笔记可写入归档相关标签便于库内筛选。</li><li><strong>移除</strong>：从专题 / 队列中去掉（请确认后再操作）。</li></ol><h3>订阅与「今天」钉选</h3><p>从订阅文件夹入库时：<strong>添加到今天</strong>会钉在今天；<strong>按算法正常调度</strong>才会按视野与负载均摊。不要用错选项后误以为系统行为异常。</p><h3>高级相关（可选）</h3><p>调度策略设置、交错学习、阅读计时器、统计分析为高级功能。<strong>标签组</strong>仍在完善中，勿作主流程依赖。</p>",
+      "en": "<h3>Two strategies</h3><p>Settings labels: <strong>Processing</strong> and <strong>Reading list</strong>.</p><table><thead><tr><th>Strategy</th><th>Tendency</th><th>Fits</th></tr></thead><tbody><tr><td><strong>Processing</strong></td><td>Prefer active material; fewer context switches</td><td>Short-cycle work on the same theme</td></tr><tr><td><strong>Reading list</strong></td><td>More “book list” feel; less repeated popping of the same chunk</td><td>Once-a-day, read-along pace</td></tr></tbody></table><p>Ship the add → resume → progress loop first, then tune.</p><h3>Common rhythm controls</h3><p>Under Settings → Core scheduling / Advanced: daily time budget, daily reading-point cap, flow stretch, auto defer under load, cross-day smoothing, ahead window and interval-related options. Calendar day-load summaries often show baseline, stretch ceiling, and assigned minutes.</p><h3>Point actions and states</h3><ol><li><strong>Open / resume</strong> — jump to source.</li><li><strong>Mark progress</strong> — compute next appearance by strategy.</li><li><strong>Reschedule</strong> — set or move the day.</li><li><strong>Priority</strong> — relative importance in the queue.</li><li><strong>Suspend</strong> — leave the main today queue; restore from continue-reading suggestions.</li><li><strong>Archive</strong> — end active scheduling; Markdown sources may get archive-related tags for vault filters.</li><li><strong>Remove</strong> — drop from topic/queue (confirm first).</li></ol><h3>Subscription and “today” pins</h3><p><strong>Add to today</strong> pins on today; <strong>Schedule normally</strong> spreads by horizon/load. Don’t confuse the two and assume a bug.</p><h3>Optional premium surfaces</h3><p>Scheduling strategy settings, interleaving, reading timer, and analytics are premium. <strong>Tag groups</strong> are still being improved—not a daily dependency.</p>"
+    }
+  },
+  {
+    "id": "ir-source-resume",
+    "code": "Ir-02c",
+    "plugin": "ir",
+    "group": "ir02",
+    "level": "beginner",
+    "title": {
+      "zh": "来源与续读",
+      "en": "Source & resume"
+    },
+    "lead": {
+      "zh": "每个阅读点保存稳定的续读链接与来源类型。从日历打开时，插件按类型路由回原文，并尽可能定位到创建时的位置。",
+      "en": "Each reading point stores a stable resume link and source kind. Opening from the calendar routes by type and locates the original position when possible."
+    },
+    "body": {
+      "zh": "<h3>溯源原则</h3><ol><li>创建时尽量带上可定位信息（块 ID、页码选区、节点 ID、CFI 等）。</li><li>回跳依赖对应能力或协作插件是否可用。</li><li>源文件移动 / 重命名可能导致「来源丢失」——需修复链接或重建阅读点。</li></ol><h3>Obsidian Markdown</h3><p>加入：块引用 <code>[[笔记#^块ID]]</code>、行锚点，或「当前位置」/ 选区快速创建。回跳：打开笔记并滚动到块或行，必要时显示定位高亮。可在设置中开启 <strong>Markdown 聚焦阅读</strong>（免费）：按块弱化周围内容，便于专注。</p><h3>PDF（PDF++）</h3><p>加入：粘贴 PDF++ 选区 / 书签链接；或用导入按目录批量创建（高级）。回跳：打开 PDF 并解析页码与选区锚点。精确选区建议配合 PDF++。</p><h3>Canvas 节点</h3><p>加入：Canvas 节点菜单，或粘贴 <code>[[画布.canvas#^nodeId]]</code>。回跳：打开对应 Canvas，按节点 ID 定位高亮。依赖 Obsidian 内置 Canvas。</p><h3>网页（Obsidian 浏览器）</h3><p>加入：Web Viewer「添加到增量阅读」，或粘贴 <code>https://…</code>；通常会创建阅读笔记载体。回跳：用 Obsidian 浏览器打开该 URL。</p><h3>Weave EPUB Reader</h3><p>加入：阅读器中选中文本后「添加到增量阅读」，或粘贴 EPUB 定位链接。<strong>高亮本身不会自动变成阅读点。</strong> 回跳：通过 <code>obsidian://weave-epub-reader</code> 协议打开书籍并定位到 CFI / 章节。依赖 Weave EPUB Reader。</p><h3>关联笔记（高级）</h3><p>入口：阅读点右键 / 长按 → 关联笔记。PDF / EPUB 用手写精选关联；Markdown / 网页用来源笔记出链做相关笔记浏览。未激活时入口可能隐藏或带锁。</p>",
+      "en": "<h3>Principles</h3><ol><li>Prefer locatable info at create time (block ID, page selection, node ID, CFI, …).</li><li>Resume quality depends on built-in or companion capabilities.</li><li>Moves/renames can cause “missing source”—fix links or recreate the point.</li></ol><h3>Obsidian Markdown</h3><p>Add via <code>[[Note#^blockId]]</code>, line anchors, Current location, or selection quick-create. Resume opens the note and scrolls to the block/line. <strong>Markdown focused reading</strong> (settings, free) dims surrounding blocks for focus.</p><h3>PDF (PDF++)</h3><p>Add via PDF++ selection/bookmark links, or import chapters from an outline (premium). Resume opens the PDF and resolves page/selection anchors. Precise selections work best with PDF++.</p><h3>Canvas nodes</h3><p>Add via node menu or <code>[[board.canvas#^nodeId]]</code>. Resume opens the canvas and highlights by node ID. Requires built-in Obsidian Canvas.</p><h3>Web (Obsidian browser)</h3><p>Add via Web Viewer “Add to incremental reading” or paste <code>https://…</code>; usually creates a reading-note carrier. Resume opens the URL in Obsidian’s browser.</p><h3>Weave EPUB Reader</h3><p>Add from a reader selection or paste an EPUB location link. <strong>Highlights alone do not become reading points.</strong> Resume uses <code>obsidian://weave-epub-reader</code> to open at CFI/chapter. Requires Weave EPUB Reader.</p><h3>Associated notes (premium)</h3><p>Context menu → Associated notes. PDF/EPUB use curated links; Markdown/web use outbound links from the source note. Without activation the entry may be hidden or locked.</p>"
+    }
+  },
+  {
+    "id": "ir-settings",
+    "code": "Ir-03a",
+    "plugin": "ir",
+    "group": "ir03",
+    "level": "beginner",
+    "title": {
+      "zh": "设置说明",
+      "en": "Settings"
+    },
+    "lead": {
+      "zh": "打开方式：设置 → Weave Incremental Reading。常见分页：基础、核心调度、高级、授权、关于。可在基础页开启「高级功能预览」，以带锁形式查看未激活能力。",
+      "en": "Open Settings → Weave Incremental Reading. Typical tabs: Basic, Core scheduling, Advanced, License, About. Enable Show advanced feature preview on Basic to see locked premium entries."
+    },
+    "body": {
+      "zh": "<h3>基础</h3><p>语言、高级功能预览、数据文件夹（Vault 内数据根）、<strong>Markdown 聚焦阅读</strong>（免费）、数据管理入口、<strong>订阅剪藏文件夹</strong>（高级）。更改数据根路径前请先备份。</p><h3>核心调度</h3><p>每日时间预算、每日阅读点上限、提前阅读窗口、间隔相关选项、<strong>调度策略</strong>（处理流 / 阅读列表）、心流 stretch、负载自动顺延、跨日平滑、新增阅读点默认设置（如默认收件箱专题）等。部分策略深度自定义可能受授权影响。</p><h3>高级</h3><p>交错学习、沉底回拉、自动后推、优先级半衰期等；<strong>标签组管理</strong>（高级，仍在完善中，勿作日常主流程）；标签与 YAML 同步相关选项。</p><h3>授权</h3><p>查看激活状态；独立输入激活信息；若已激活 Weave Deck，可继承授权而无需重复激活。</p><h3>日历内偏好</h3><p>部分显示选项在日历「更多」或列表偏好中，例如：连续阅读、调度预览、视图模式、是否显示计时器 / 类型标签 / 缺失来源、隐藏已完成或已归档、日历背景墙（高级）。以你安装版本的菜单为准。</p>",
+      "en": "<h3>Basic</h3><p>Language, advanced feature preview, data folder (vault data root), <strong>Markdown focused reading</strong> (free), data management entry, <strong>Subscribe clipping folders</strong> (premium). Back up before changing the data root.</p><h3>Core scheduling</h3><p>Daily time budget, daily reading-point cap, ahead window, interval-related options, <strong>strategy</strong> (Processing / Reading list), flow stretch, auto defer, cross-day smoothing, defaults for new points (e.g. inbox topic). Some deep strategy knobs may be license-gated.</p><h3>Advanced</h3><p>Interleaving, bury/pull-back, auto postpone, priority half-life, and more; <strong>Tag group manager</strong> (premium, still being improved—not a daily workflow); tag ↔ YAML sync options.</p><h3>License</h3><p>View status; activate standalone; inherit from an activated Weave Deck when supported.</p><h3>Calendar preferences</h3><p>Some options live under calendar More or list prefs: continuous reading, schedule preview, view modes, show timers/type/missing-source, hide completed/archived, background wall (premium). Follow your installed build’s menus.</p>"
+    }
+  },
+  {
+    "id": "ir-data",
+    "code": "Ir-03b",
+    "plugin": "ir",
+    "group": "ir03",
+    "level": "beginner",
+    "title": {
+      "zh": "数据与维护",
+      "en": "Data & maintenance"
+    },
+    "lead": {
+      "zh": "阅读点与专题的真相来源在 Vault 数据里；插件目录主要存设置与可重建的缓存。备份与同步时请优先保护数据根与全部 `.irdeck` 文件。",
+      "en": "Topics and reading points live in vault data. The plugin folder mainly holds settings and rebuildable cache. Back up the data root and every `.irdeck` first."
+    },
+    "body": {
+      "zh": "<h3>两层存储</h3><ol><li><strong>Vault 数据</strong>：专题、阅读点、材料与注册信息等——高优先级备份。</li><li><strong>插件目录</strong>：<code>data.json</code> 设置、cache、state——多数可重建。</li></ol><h3>Vault 数据根</h3><p>默认文件夹名为 <code>weave Incremental reading/</code>，可在设置 → 基础 → 数据文件夹中修改。典型结构：</p><pre><code class=\"lang-\">weave Incremental reading/\n  points/                  # .irdeck 专题文件\n  materials/\n  registry/\n  pdf-bookmark-tasks.json\n  epub-bookmark-tasks.json\n  IR/                      # 兼容用导入目录\n  editor/                  # 临时编辑文件（若产生）</code></pre><p><code>IR/</code> 为历史兼容路径；日常收录请走添加链接或导入阅读材料。</p><h3>.irdeck 专题文件</h3><p>每个专题是一份 <code>.irdeck</code>：包含专题元数据与 points 数组（调度、溯源、关联等）。跨工具协作时，应以 <code>.irdeck</code> 中的记录为唯一真相。</p><h3>插件目录</h3><p>路径通常为 <code>.obsidian/plugins/weave-incremental-reading/</code>。卸载插件不会自动删除 Vault 内已创建的 <code>.irdeck</code> 与阅读点数据。</p><h3>数据管理与备份</h3><p>入口：设置 → 数据管理，或日历更多 → 数据管理。用于专题巡检、格式统一、重复处理等。若仍有旧版 Markdown 阅读点格式，请在此统一 / 迁移，不要继续按旧格式新建。</p><p>备份请包含整个数据根（含全部 <code>.irdeck</code>）。更改数据根路径前，确认旧目录内容已就绪。</p>",
+      "en": "<h3>Two layers</h3><ol><li><strong>Vault data</strong> — topics, points, materials, registry — high backup priority.</li><li><strong>Plugin folder</strong> — <code>data.json</code>, cache, state — mostly rebuildable.</li></ol><h3>Vault data root</h3><p>Default folder name: <code>weave Incremental reading/</code> (change under Settings → Basic → Data folder). Typical layout:</p><pre><code class=\"lang-\">weave Incremental reading/\n  points/                  # .irdeck topic files\n  materials/\n  registry/\n  pdf-bookmark-tasks.json\n  epub-bookmark-tasks.json\n  IR/                      # compatibility import folder\n  editor/                  # temp editor files when produced</code></pre><p><code>IR/</code> is a legacy compatibility path—use Add link or Import for day-to-day capture.</p><h3><code>.irdeck</code> topic files</h3><p>Each topic is one <code>.irdeck</code>: metadata plus a points array (schedule, trace, relations, …). Treat <code>.irdeck</code> records as the source of truth across tools.</p><h3>Plugin folder</h3><p>Usually <code>.obsidian/plugins/weave-incremental-reading/</code>. Uninstall does not auto-delete vault <code>.irdeck</code> data.</p><h3>Data management and backup</h3><p>Entry: Settings → Data management, or calendar More → Data management. Use it to inspect topics, unify formats, and handle duplicates. Migrate legacy Markdown point formats here—do not keep teaching legacy create paths.</p><p>Back up the whole data root (including every <code>.irdeck</code>). Confirm the old folder is ready before changing the data root path.</p>"
+    }
+  },
+  {
+    "id": "ir-weave-family",
+    "code": "Ir-03c",
+    "plugin": "ir",
+    "group": "ir03",
+    "level": "beginner",
+    "title": {
+      "zh": "与 Weave 系列的关系",
+      "en": "Relation to Weave series"
+    },
+    "lead": {
+      "zh": "Weave 是一组面向 Obsidian 的知识工作流插件，围绕「读 → 记 → 排 → 复习」组织长期学习。系列有且仅有三款插件，职责分离、可组合；本插件不依赖 Weave Deck 即可单独使用。",
+      "en": "Weave is a set of Obsidian plugins around read → capture → schedule → review. There are exactly three plugins. They compose; this plugin does not require Weave Deck."
+    },
+    "body": {
+      "zh": "<h3>三者分工</h3><table><thead><tr><th>插件</th><th>主要职责</th></tr></thead><tbody><tr><td><strong>Weave Incremental Reading</strong>（本插件）</td><td>阅读点、专题、日历调度、续读与来源回跳</td></tr><tr><td><strong>Weave Deck</strong></td><td>记忆牌组、题库、摘录制卡、FSRS 复习等</td></tr><tr><td><strong>Weave EPUB Reader</strong></td><td>库内 EPUB 阅读、摘录与章节定位</td></tr></tbody></table><h3>怎么组合</h3><ol><li>只做增量阅读队列：只装本插件。</li><li>还要读 EPUB 并回跳章节：本插件 + Weave EPUB Reader。</li><li>还要制卡与复习：本插件 + Weave Deck。</li><li>完整闭环（读 → 记 → 排 → 复习）：三款都装。</li></ol><h3>系列外协作（摘要）</h3><p><strong>PDF++</strong>、RSS 剪藏目录订阅、官方 Canvas / 网页查看器 / 选区快捷键、Video Extended 时间戳链接、Excalidraw 图纸链接等，如何和日历串成一天的学习流，见 <a href=\"#ir-workflow\" data-goto=\"ir-workflow\">Ir-00b 整体学习流程与协同</a>。</p><h3>授权继承</h3><p>若已安装并激活 Weave Deck，本插件可继承其授权，无需重复激活。独立激活入口仍在本插件设置 → 授权。</p>",
+      "en": "<h3>Division of labor</h3><table><thead><tr><th>Plugin</th><th>Responsibility</th></tr></thead><tbody><tr><td><strong>Weave Incremental Reading</strong> (this)</td><td>Reading points, topics, calendar scheduling, resume</td></tr><tr><td><strong>Weave Deck</strong></td><td>Memory decks, quizzes, excerpt-to-card, FSRS review</td></tr><tr><td><strong>Weave EPUB Reader</strong></td><td>In-vault EPUB reading, excerpts, chapter location</td></tr></tbody></table><h3>How to combine</h3><ol><li>Queue only — this plugin alone.</li><li>Also read/resume EPUB chapters — this plugin + Weave EPUB Reader.</li><li>Also create cards and review — this plugin + Weave Deck.</li><li>Full loop (read → capture → schedule → review) — all three.</li></ol><h3>Outside the family (summary)</h3><p>PDF++, RSS clip folders via subscription, official Canvas / web viewer / selection hotkeys, Video Extended timestamp links, Excalidraw drawing links, and how they form one daily loop—see <a href=\"#ir-workflow\" data-goto=\"ir-workflow\">Ir-00b 整体学习流程与协同</a>.</p><h3>License inheritance</h3><p>If Weave Deck is installed and activated, this plugin can inherit that license. Standalone activation remains under Settings → License.</p>"
+    }
+  },
+  {
+    "id": "ir-best-practices",
+    "code": "Ir-04a",
+    "plugin": "ir",
+    "group": "ir04",
+    "level": "beginner",
+    "title": {
+      "zh": "最佳实践",
+      "en": "Best practices"
+    },
+    "lead": {
+      "zh": "下列建议帮助你把主路径跑稳，而不是堆功能。",
+      "en": "Practical habits to keep the main path stable—not a feature dump."
+    },
+    "body": {
+      "zh": "<h3>选定一条主路径</h3><ol><li>新增一条：日历<strong>添加链接</strong>。</li><li>整书 / 长文拆分：<strong>导入阅读材料</strong>。</li><li>剪藏收件箱：<strong>订阅文件夹</strong>（高级）。</li><li>每天开始：先打开<strong>增量阅读日历</strong>。</li></ol><p>不要把实验性段落工作台或已移除的旧主阅读界面当作默认入口。</p><h3>专题命名保持稳定</h3><p>同一计划始终使用同一专题名（同一 <code>.irdeck</code>）。避免 <code>网站改版</code> / <code>WebsiteRedesign</code> / <code>网站_改版</code> 并存，否则过滤与统计会碎成多个「项目」。</p><h3>创建时带上可回跳的定位</h3><p>Markdown 先打块 ID；PDF 用 PDF++ 选区链接；Canvas 带 nodeId；EPUB 用阅读器选区或定位链接。「只有书名、没有位置」也能入队，但续读体验会差一截。</p><h3>尊重负载</h3><p>看月历热力与当日负载摘要。新材料不要默认全部钉在今天。逾期用改期、搁置恢复或整理积压处理。订阅入库时分清「添加到今天」与「按算法正常调度」。</p><h3>免费闭环先跑通</h3><p>先保证：添加 → 今日打开 → 回跳 → 标记进度。再按需激活 PDF/EPUB 导入、订阅、计时器、统计、关联笔记、深度调度等。</p><h3>不要依赖尚未稳定的能力</h3><p>标签组仍在完善中；段落工作台为实验中；FSRS 属于 Weave Deck，勿当作本插件调度说明。</p><h3>备份数据根</h3><p>同步与备份请包含 <code>weave Incremental reading/</code>（或你自定义的数据根）下全部 <code>.irdeck</code>。设置改路径前先确认旧数据就绪。</p>",
+      "en": "<h3>One primary path</h3><ol><li>Add one item — calendar <strong>Add link</strong>.</li><li>Split a book / long note — <strong>Import reading materials</strong>.</li><li>Clip inbox — <strong>Folder subscription</strong> (premium).</li><li>Start the day — open the <strong>incremental reading calendar</strong>.</li></ol><p>Do not default to the experimental paragraph workbench or any removed legacy main reading view.</p><h3>Stable topic names</h3><p>One plan → one <code>.irdeck</code> name. Avoid parallel spellings that fragment filters.</p><h3>Capture with locators</h3><p>Markdown block IDs, PDF++ selections, Canvas node IDs, EPUB location links. File-only points enqueue, but resume feels weaker.</p><h3>Respect load</h3><p>Watch the heatmap and day-load summary. Don’t pin every new item to today. Clear overdue with reschedule, restore-from-suspend, or rebalance. Know Add to today vs Schedule normally for subscriptions.</p><h3>Free loop first</h3><p>Ship add → open today → resume → mark progress before unlocking PDF/EPUB import, subscription, timers, analytics, associated notes, or deep strategy knobs.</p><h3>Don’t lean on unfinished surfaces</h3><p>Tag groups are still being improved; the paragraph workbench is experimental; FSRS belongs to Weave Deck—not this scheduler.</p><h3>Back up the data root</h3><p>Include <code>weave Incremental reading/</code> (or your custom root) and every <code>.irdeck</code>. Confirm the old folder before changing the path.</p>"
+    }
+  },
+  {
+    "id": "ir-faq",
+    "code": "Ir-04b",
+    "plugin": "ir",
+    "group": "ir04",
+    "level": "beginner",
+    "title": {
+      "zh": "常见问题",
+      "en": "FAQ"
+    },
+    "lead": {
+      "zh": "按症状查找。若仍无法解决，请到 GitHub Issues 反馈，并注明 Obsidian 版本、插件版本与平台。",
+      "en": "Find by symptom. If stuck, open a GitHub Issue with Obsidian version, plugin version, and platform."
+    },
+    "body": {
+      "zh": "<h3>找不到增量阅读日历</h3><p>命令面板搜索「打开增量阅读日历」；确认插件已启用。旧版「主阅读界面」入口若仍存在，应已重定向到日历——请改用日历作为唯一主界面。</p><h3>新建专题后搜索里暂时没有</h3><p>稍候或重开日历侧栏；确认 <code>.irdeck</code> 写在当前数据根下的 <code>points/</code>；用数据管理工具检查专题是否可读。</p><h3>粘贴后无法识别 / 导入入口不可用</h3><p>检查链接是否完整；同批导入是否混了 md/pdf/epub（不允许）。PDF/EPUB 导入需高级功能；EPUB 目录依赖 Weave EPUB Reader。</p><h3>订阅不收录或排期不符合预期</h3><p>确认订阅的是 Markdown 文件夹、规则已绑定专题并启用；手动执行「更新订阅文件夹」。分清「添加到今天」与「按算法正常调度」——只有后者会按视野均摊 due。</p><h3>提示来源丢失 / 打不开原文</h3><p>检查源文件是否移动、重命名或删除；PDF++ / EPUB / Canvas 节点 / 块 ID 是否仍有效。EPUB 回跳需安装并启用 Weave EPUB Reader；高亮不会自动变成阅读点。</p><h3>PDF 只能打开文件、到不了选区</h3><p>请用 PDF++ 生成的选区 / 书签链接再添加；仅有文件路径的阅读点无法提供精确选区。</p><h3>完成后很久不再出现或出现过勤</h3><p>查看策略（处理流 vs 阅读列表）与间隔相关选项；是否被暂停或归档；日上限与时间预算是否卡住放出。本插件调度不是 FSRS——间隔复习请用 Weave Deck。</p><h3>标签组不生效</h3><p>标签组仍在完善中，可能无法正常使用。请改用专题、优先级与基础调度。</p><h3>高级功能带锁 / 主插件已激活仍提示未授权</h3><p>在设置 → 授权激活，或确认 Weave Deck 授权可继承后重载插件。可开启「高级功能预览」查看入口，但未激活仍不可用。</p><h3>换机后专题消失</h3><p>是否同步了数据根文件夹（默认 <code>weave Incremental reading/</code>）；设置中的数据路径是否与实际文件夹一致。</p>",
+      "en": "<h3>Can’t find the calendar</h3><p>Command palette: Open incremental reading calendar. Confirm the plugin is enabled. Legacy “main reading” entries should redirect to the calendar—use the calendar as the only main UI.</p><h3>New topic missing from search briefly</h3><p>Reopen the calendar sidebar; confirm the <code>.irdeck</code> is under the data root <code>points/</code>; use data management to verify readability.</p><h3>Paste not recognized / import unavailable</h3><p>Check link completeness; don’t mix md/pdf/epub in one import batch. PDF/EPUB import needs premium; EPUB outlines need Weave EPUB Reader.</p><h3>Subscription ignores files or schedules oddly</h3><p>Confirm a Markdown folder, bound topic, and enabled rule; run Update subscribed folders manually. Distinguish Add to today vs Schedule normally—only the latter spreads due across the horizon.</p><h3>Missing source / won’t open</h3><p>Check moves, renames, deletes; verify PDF++ / EPUB / Canvas node / block ID still valid. EPUB resume needs Weave EPUB Reader; highlights alone are not reading points.</p><h3>PDF opens but not the selection</h3><p>Add via PDF++ selection/bookmark links; path-only points can’t restore a precise selection.</p><h3>Rarely returns / returns too often</h3><p>Check Processing vs Reading list and interval-related settings; suspended or archived?; daily cap / time budget blocking release? This plugin is not FSRS—use Weave Deck for spaced repetition.</p><h3>Tag groups do nothing</h3><p>Still being improved—use topics, priority, and basic scheduling instead.</p><h3>Premium locked / Deck licensed but IR still locked</h3><p>Activate under Settings → License, or confirm Weave Deck inheritance then reload plugins. Advanced preview shows entries; activation is still required to use them.</p><h3>Topics missing after machine switch</h3><p>Did you sync the data root (<code>weave Incremental reading/</code> by default)? Does the settings path match the real folder?</p>"
+    }
+  },
+  {
     "id": "series-intro",
     "code": "—",
     "plugin": "weave",
@@ -952,25 +1218,6 @@ window.WEAVE_TUTORIALS = [
     "body": {
       "zh": "<p>Weave Deck、EPUB Reader、增量阅读三款插件如何分工与组合。各插件操作教程见顶栏切换。</p>",
       "en": "<p>How Weave Deck, EPUB Reader, and IR divide work. Switch plugins from the Tutorials menu in the top bar.</p>"
-    }
-  },
-  {
-    "id": "ir-soon",
-    "code": "—",
-    "plugin": "ir",
-    "group": "series",
-    "level": "beginner",
-    "title": {
-      "zh": "增量阅读教程（筹备中）",
-      "en": "Incremental Reading (coming)"
-    },
-    "lead": {
-      "zh": "阅读点、专题与增量阅读日历的操作指南筹备中。",
-      "en": "Reading points, topics, and IR calendar — in progress."
-    },
-    "body": {
-      "zh": "<p>增量阅读插件独立教程将在系列文档第二批发布。</p>",
-      "en": "<p>IR tutorials ship in batch two of the docs rollout.</p>"
     }
   }
 ];

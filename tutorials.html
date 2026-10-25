@@ -1194,7 +1194,7 @@
     </aside>
   </div>
 
-  <script src="tutorials-data.js?v=20261008-reader-demos"></script>
+  <script src="tutorials-data.js?v=20261025-ir-workflow"></script>
   <script>
     (function () {
       var root = document.documentElement;
@@ -1245,6 +1245,10 @@
           "group.mt02": "日常同步",
           "group.mt03": "进阶",
           "group.mt04": "设置与说明",
+          "group.ir01": "添加与导入",
+          "group.ir02": "日历与调度",
+          "group.ir03": "设置与数据",
+          "group.ir04": "实践与排错",
           "group.series": "系列插件",
           "crumb.tutorials": "教程",
           "crumb.home": "首页",
@@ -1288,6 +1292,10 @@
           "group.mt02": "Daily sync",
           "group.mt03": "Advanced",
           "group.mt04": "Settings & notes",
+          "group.ir01": "Add & import",
+          "group.ir02": "Calendar & scheduling",
+          "group.ir03": "Settings & data",
+          "group.ir04": "Practices & FAQ",
           "group.series": "Plugin series",
           "crumb.tutorials": "Tutorials",
           "crumb.home": "Home",
@@ -1333,7 +1341,11 @@
           { id: "er04", labelKey: "group.er04" }
         ],
         ir: [
-          { id: "series", labelKey: "group.series" }
+          { id: "start", labelKey: "group.start" },
+          { id: "ir01", labelKey: "group.ir01" },
+          { id: "ir02", labelKey: "group.ir02" },
+          { id: "ir03", labelKey: "group.ir03" },
+          { id: "ir04", labelKey: "group.ir04" }
         ],
         mstodo: [
           { id: "start", labelKey: "group.start" },
@@ -1385,7 +1397,6 @@
         return TUTORIALS.filter(function (x) {
           if (x.plugin === currentPlugin) return true;
           if (currentPlugin === "weave" && x.group === "series" && x.id === "series-intro") return true;
-          if (currentPlugin === "ir" && x.group === "series" && x.id === "ir-soon") return true;
           return false;
         });
       }
@@ -1411,7 +1422,11 @@
         mt01: "accent-blue",
         mt02: "accent-green",
         mt03: "accent-cyan",
-        mt04: "accent-purple"
+        mt04: "accent-purple",
+        ir01: "accent-blue",
+        ir02: "accent-green",
+        ir03: "accent-cyan",
+        ir04: "accent-purple"
       };
 
       function renderSidebar() {
