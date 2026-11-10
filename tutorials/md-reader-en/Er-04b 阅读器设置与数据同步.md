@@ -1,7 +1,7 @@
 The reader settings page covers UI language, default bookshelf display, auto progress save, book data directory, and export template directory. When syncing, distinguish **books and notes in the Vault** from **plugin cache**. Details below:
 
 ## 1. Open Settings
-1. Click **Settings** on the bookshelf toolbar, or open Weave EPUB Reader under Obsidian settings.
+1. Click **Settings** on the bookshelf toolbar, or open Weave Reader under Obsidian settings.
 2. Common tabs: Basic, Vocabulary, License, About.
 3. **About** shows version, supported formats, platform, and contact info.
 

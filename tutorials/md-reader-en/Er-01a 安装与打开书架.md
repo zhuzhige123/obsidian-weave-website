@@ -1,4 +1,4 @@
-Weave EPUB Reader is the reader in the Obsidian Weave plugin family. It opens books in Obsidian—including EPUB, TXT, FB2/FBZ, MOBI, AZW3, CBZ, and PDF—and manages imports, covers, progress, and reading status through **My Bookshelf**. It works on its own; after installing Weave Deck, you can also connect card creation, Incremental Reading, and AI. Details below:
+Weave Reader is the reader in the Obsidian Weave plugin family. It opens books in Obsidian—including EPUB, TXT, FB2/FBZ, MOBI, AZW3, CBZ, and PDF—and manages imports, covers, progress, and reading status through **My Bookshelf**. It works on its own; after installing Weave Deck, you can also connect card creation, Incremental Reading, and AI. Details below:
 
 ![[Er-01a-安装与打开书架.mp4]]
 
@@ -6,7 +6,7 @@ Weave EPUB Reader is the reader in the Obsidian Weave plugin family. It opens bo
 We recommend installing from the Community Plugins marketplace.
 
 1. Open Obsidian **Settings → Community plugins → Browse**.
-2. Search for **Weave EPUB Reader**, then install and enable it.
+2. Search for **Weave Reader**, then install and enable it.
 3. After enabling, a bookshelf icon appears in the left ribbon. Click it to open **My Bookshelf**.
 4. You can also run **My Bookshelf** from the command palette.
 
@@ -17,7 +17,7 @@ If the Community marketplace is unavailable, install manually from the GitHub re
 
 1. Download the release package that matches the version in `manifest.json`, and obtain `main.js`, `manifest.json`, and `styles.css`.
 2. Copy them to `.obsidian/plugins/weave-epub-reader/` in your Vault.
-3. Restart Obsidian, then enable **Weave EPUB Reader** under **Settings → Community plugins**.
+3. Restart Obsidian, then enable **Weave Reader** under **Settings → Community plugins**.
 
 > Note: For manual installation, all three files must sit in the same plugin folder and match each other in version.
 
@@ -53,7 +53,7 @@ Once a book is on the bookshelf, you can start reading.
 
 1. Click the title or cover to open the reader.
 2. For side-by-side comparison, choose **Open in new tab** from the book menu.
-3. If you are already viewing a supported book file in the Vault, you can also run **Open EPUB Reader** from the command palette.
+3. If you are already viewing a supported book file in the Vault, you can also run **Open Weave Reader** from the command palette.
 4. If the source file is moved or deleted, refreshing the bookshelf cleans up stale entries and may prompt that the book was removed from the shelf.
 
 

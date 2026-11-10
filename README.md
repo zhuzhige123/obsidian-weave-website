@@ -68,7 +68,7 @@ python -m http.server 8765
 | `robots.txt` / `sitemap.xml` | 搜索引擎抓取与站点地图 |
 | `tutorials-data.js` | 由教程 Markdown 生成的正文数据，勿手改 |
 | `tutorials/md/` | Weave Deck 教程稿 |
-| `tutorials/md-reader/` | EPUB Reader 教程稿 |
+| `tutorials/md-reader/` | Weave Reader 教程稿 |
 | `tutorials/md-ir/` | Incremental Reading 教程稿 |
 | `tutorials/md-mstodo/` | MS To Do Sync 教程稿 |
 | `scripts/build-tutorials.py` | 从 Markdown 生成 `tutorials-data.js` |

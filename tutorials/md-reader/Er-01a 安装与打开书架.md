@@ -1,4 +1,4 @@
-Weave EPUB Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidian 里打开 EPUB、TXT、FB2/FBZ、MOBI、AZW3、CBZ、PDF 等图书，用「我的书架」管理导入、封面、进度与阅读状态。可单独使用；安装 Weave Deck 后，还能衔接制卡、增量阅读与 AI。以下是详细介绍：
+Weave Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidian 里打开 EPUB、TXT、FB2/FBZ、MOBI、AZW3、CBZ、PDF 等图书，用「我的书架」管理导入、封面、进度与阅读状态。可单独使用；安装 Weave Deck 后，还能衔接制卡、增量阅读与 AI。以下是详细介绍：
 
 ![[Er-01a-安装与打开书架.mp4]]
 
@@ -6,7 +6,7 @@ Weave EPUB Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidi
 推荐从社区插件市场安装。
 
 1. 打开 Obsidian **设置 → 社区插件 → 浏览**。
-2. 搜索 **Weave EPUB Reader**，安装并启用。
+2. 搜索 **Weave Reader**，安装并启用。
 3. 启用后，左侧功能区会出现书架图标。点击即可打开「我的书架」。
 4. 也可在命令面板中执行「我的书架」。
 
@@ -17,7 +17,7 @@ Weave EPUB Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidi
 
 1. 下载与 `manifest.json` 版本号一致的发布包，取得 `main.js`、`manifest.json`、`styles.css`。
 2. 复制到库目录 `.obsidian/plugins/weave-epub-reader/`。
-3. 重启 Obsidian，在 **设置 → 社区插件** 中启用 **Weave EPUB Reader**。
+3. 重启 Obsidian，在 **设置 → 社区插件** 中启用 **Weave Reader**。
 
 >备注：手动安装时，三个文件需放在同一插件文件夹内，且版本互相匹配。
 
@@ -53,7 +53,7 @@ Weave EPUB Reader 是 Obsidian Weave 插件系列里的阅读器。它在 Obsidi
 
 1. 点击书名或封面，打开阅读器。
 2. 需要并排对照时，可在书籍菜单中选择「在新标签页打开」。
-3. 若当前正在看 Vault 里的一本支持格式图书，也可在命令面板执行「打开 EPUB 阅读器」。
+3. 若当前正在看 Vault 里的一本支持格式图书，也可在命令面板执行「打开 Weave Reader」。
 4. 源文件被移动或删除时，刷新书架会清理失效记录，并可能提示已从书架移除。
 
 

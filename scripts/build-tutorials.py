@@ -951,14 +951,14 @@ WELCOME = {
 </div>
 <h3>教程与插件界面的对应关系</h3>
 <p>「卡片管理」与「牌组学习」是两个不同入口：前者偏查看、筛选与整理；后者偏复习、开练与牌组操作。左侧目录按此划分。</p>
-<p>正文来自产品库 <code>obsidian weave 教程</code>。顶栏可切换到 EPUB Reader 阅读器教程。</p>""",
+<p>正文来自产品库 <code>obsidian weave 教程</code>。顶栏可切换到 Weave Reader 阅读器教程。</p>""",
         "en": """<div class="path-cards">
 <article class="path-card"><h4>15-minute start</h4><p>Create cards, then study.</p><a href="#create-card" data-goto="create-card">Create → Deck study → Review</a></article>
 <article class="path-card"><h4>Organize cards</h4><p>Table, kanban, timeline.</p><a href="#table-view" data-goto="table-view">Start with table view</a></article>
 <article class="path-card"><h4>Batch creation</h4><p>AI generation vs rule parsing.</p><a href="#ai-cards" data-goto="ai-cards">AI cards → Batch parse</a></article>
 </div>
 <h3>How tutorials map to the plugin</h3>
-<p>Card management and deck study are separate entry points. Switch the top tab for EPUB Reader guides.</p>""",
+<p>Card management and deck study are separate entry points. Switch the top tab for Weave Reader guides.</p>""",
     },
 }
 
@@ -1029,12 +1029,12 @@ SERIES = {
     "level": "beginner",
     "title": {"zh": "Weave 系列插件介绍", "en": "Weave plugin series intro"},
     "lead": {
-        "zh": "Weave Deck、EPUB Reader、Incremental Reading 三款插件如何分工与组合。",
-        "en": "How Weave Deck, EPUB Reader, and IR divide work and combine.",
+        "zh": "Weave Deck、Weave Reader、Incremental Reading 三款插件如何分工与组合。",
+        "en": "How Weave Deck, Weave Reader, and IR divide work and combine.",
     },
     "body": {
-        "zh": "<p>Weave Deck、EPUB Reader、增量阅读三款插件如何分工与组合。各插件操作教程见顶栏切换。</p>",
-        "en": "<p>How Weave Deck, EPUB Reader, and IR divide work. Switch plugins from the Tutorials menu in the top bar.</p>",
+        "zh": "<p>Weave Deck、Weave Reader、增量阅读三款插件如何分工与组合。各插件操作教程见顶栏切换。</p>",
+        "en": "<p>How Weave Deck, Weave Reader, and IR divide work. Switch plugins from the Tutorials menu in the top bar.</p>",
     },
 }
 
@@ -1075,6 +1075,7 @@ def rename_plugin_mentions(text: str) -> str:
         return text
     tokens = [
         ("Weave Incremental Reading", "\x00IR_PLUGIN\x00"),
+        ("Weave Reader", "\x00EPUB_READER\x00"),
         ("Weave EPUB Reader", "\x00EPUB_READER\x00"),
         ("weave epub reader", "\x00epub_reader\x00"),
         ("Weave Deck", "\x00WEAVE_DECK\x00"),
@@ -1099,18 +1100,18 @@ def rename_plugin_mentions(text: str) -> str:
     text = re.sub(r"Obsidian Weave", "\x00WEAVE_DECK\x00", text)
     text = re.sub(r"obsidian weave", "\x00WEAVE_DECK\x00", text)
     text = re.sub(
-        r"Weave(?! Deck)(?! EPUB)(?! Incremental)(?! 系列)(?!-family)(?! series)(?! Series)",
+        r"Weave(?! Deck)(?! Reader)(?! EPUB)(?! Incremental)(?! 系列)(?!-family)(?! series)(?! Series)",
         "\x00WEAVE_DECK\x00",
         text,
     )
     text = re.sub(r"(?<![A-Za-z0-9_\-])weave(?![A-Za-z0-9_\-])", "\x00WEAVE_DECK\x00", text)
     for src, token in tokens:
-        restored = "Weave EPUB Reader" if src == "weave epub reader" else src
+        restored = "Weave Reader" if src == "weave epub reader" else src
         text = text.replace(token, restored)
     text = re.sub(r"(Weave Deck)(?=[\u4e00-\u9fff])", r"\1 ", text)
     text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave Deck)", r" \1", text)
-    text = re.sub(r"(Weave EPUB Reader)(?=[\u4e00-\u9fff])", r"\1 ", text)
-    text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave EPUB Reader)", r" \1", text)
+    text = re.sub(r"(Weave Reader)(?=[\u4e00-\u9fff])", r"\1 ", text)
+    text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave Reader)", r" \1", text)
     text = text.replace("Weave Deck后", "Weave Deck 后")
     text = text.replace("Weave Deck中", "Weave Deck 中")
     text = text.replace("Weave Deck时", "Weave Deck 时")

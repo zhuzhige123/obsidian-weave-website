@@ -4,7 +4,7 @@ After opening a book, the reader occupies an Obsidian tab. The body text sits in
 
 ## 1. Open the Reading Interface
 1. Click a book in **My Bookshelf**.
-2. Or open a supported book file from the file list, then run **Open EPUB Reader**.
+2. Or open a supported book file from the file list, then run **Open Weave Reader**.
 3. Once inside, the body renders in the current reading mode. First open may briefly unpack or build cache.
 4. If opening is slow, you may see a still-loading prompt; after a timeout, close, return to the bookshelf, refresh, and try again.
 

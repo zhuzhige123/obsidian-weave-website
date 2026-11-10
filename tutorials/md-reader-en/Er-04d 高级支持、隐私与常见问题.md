@@ -23,7 +23,7 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 
 ## 3. How to Activate
 1. Open reader settings **License**.
-2. Enter a standalone EPUB Reader activation code.
+2. Enter a standalone Weave Reader activation code.
 3. If Weave Deck is installed and activated, license can inherit—no duplicate code needed.
 4. License page shows source (Weave Deck vs reader), sharing status, and expiry.
 5. Purchase and redemption paths follow in-app notes and `PREMIUM_TERMS.md` (including community promotion redemption when offered).

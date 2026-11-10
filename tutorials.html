@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>教程 · Obsidian Weave 插件系列</title>
-  <meta name="description" content="Obsidian Weave 插件系列用户教程：Weave Deck 制卡复习、EPUB Reader 阅读摘录、增量阅读排期。" />
+  <meta name="description" content="Obsidian Weave 插件系列用户教程：Weave Deck 制卡复习、Weave Reader 阅读摘录、增量阅读排期。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://obsidian-weave.xyz/tutorials.html" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
@@ -1138,7 +1138,7 @@
             </button>
             <div class="nav-dropdown-menu" id="navTutorialsMenu" hidden>
               <button type="button" class="nav-dropdown-item is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Deck</button>
-              <button type="button" class="nav-dropdown-item" data-plugin-nav="reader" data-i18n="plugin.reader">EPUB Reader</button>
+              <button type="button" class="nav-dropdown-item" data-plugin-nav="reader" data-i18n="plugin.reader">Weave Reader</button>
               <button type="button" class="nav-dropdown-item" data-plugin-nav="ir" data-i18n="plugin.ir">Incremental Reading</button>
               <button type="button" class="nav-dropdown-item" data-plugin-nav="mstodo" data-i18n="plugin.mstodo">MS To Do Sync</button>
             </div>
@@ -1215,7 +1215,7 @@
           "nav.home": "首页",
           "nav.tutorials": "教程",
           "plugin.weave": "Weave Deck",
-          "plugin.reader": "EPUB Reader",
+          "plugin.reader": "Weave Reader",
           "plugin.ir": "增量阅读",
           "plugin.mstodo": "MS To Do Sync",
           "nav.pricing": "价格",
@@ -1262,7 +1262,7 @@
           "nav.home": "Home",
           "nav.tutorials": "Tutorials",
           "plugin.weave": "Weave Deck",
-          "plugin.reader": "EPUB Reader",
+          "plugin.reader": "Weave Reader",
           "plugin.ir": "Incremental Reading",
           "plugin.mstodo": "MS To Do Sync",
           "nav.pricing": "Pricing",
@@ -1616,7 +1616,7 @@
         return map[groupId] || "";
       }
       function pluginLabel(plugin) {
-        if (plugin === "reader") return "EPUB Reader";
+        if (plugin === "reader") return "Weave Reader";
         if (plugin === "ir") return lang() === "en" ? "Incremental Reading" : "增量阅读";
         if (plugin === "mstodo") return "MS To Do Sync";
         return "Weave Deck";

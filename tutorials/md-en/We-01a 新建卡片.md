@@ -6,7 +6,7 @@ After installing the plugin, a floating action button with a ➕ icon and pulse 
 
 1. After clicking the new-card floating button, enter card content in the modal, choose a deck, and save. At the top of the modal is a pin button—useful when you want to create and save multiple cards without closing the modal.
 2. The new-card editor uses Obsidian’s official editor, so it works naturally with many plugins. For example, after opening the new-card modal, you can open the PDF++ plugin and automatically paste PDF selections into the modal, then save. Note that cards are saved in non-Markdown JSON files—`.wdeck` deck files—so PDF++ cannot render the selection box inside the PDF file itself. However, Weave Deck supports tracing back to the PDF selection location.
-3. To add a source link for a new card, find the YAML field named `we_source` in the editor and fill in the source link. Supported formats include Obsidian links, PDF++, Excalidraw, Weave EPUB Reader, and external URLs. The plugin parses this automatically when saving.
+3. To add a source link for a new card, find the YAML field named `we_source` in the editor and fill in the source link. Supported formats include Obsidian links, PDF++, Excalidraw, Weave Reader, and external URLs. The plugin parses this automatically when saving.
 
 ## Create Card from Selected Text
 Unlike standard new card, creating from selected text automatically generates a block-level source link. Steps:
@@ -39,7 +39,7 @@ This feature is for files that already contain multiple cards in a standard form
 > Note: The plugin includes several built-in regex parse templates. Both AI card generation and regex parsing mark selected files as source documents for cards, but not at block-level precision.
 
 ## Adding Word-Type Cards
-The latest Weave EPUB Reader adds a vocabulary feature for assisted reading of English originals. It works with adding looked-up words to Weave Deck.
+The latest Weave Reader adds a vocabulary feature for assisted reading of English originals. It works with adding looked-up words to Weave Deck.
 
 1. Search for the fingertip translation plugin in the Obsidian community plugin marketplace.
 2. It supports lookup on text selection and Ctrl+selection without extra setup—lightweight and practical for basic needs.
