@@ -3207,9 +3207,507 @@
             github: "https://github.com/zhuzhige123/obsidian---Weave/releases",
             entries: [
               {
+                version: "1.1.12",
+                date: "2026-11-10",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "卡片管理在考试题目数据源下支持按正确率、答题状态（如掌握 / 薄弱）分组",
+                        "表格视图分组后支持组内全选",
+                        "考试题组牌组分析支持选择题组与时间范围，交互对齐记忆牌组分析",
+                        "考试题组支持涌现视图，可按标签汇聚题组内题目并直接开考",
+                        "考试日程向导改为扁平步骤界面，流程更清晰",
+                      ],
+                      en: [
+                        "Card management can group exam questions by accuracy and mastery status (e.g. mastered / weak)",
+                        "Table view supports select-all within a group when grouped",
+                        "Question-bank deck analytics supports bank and time-range selection, matching memory-deck analytics",
+                        "Question banks support emergent views that group in-bank questions by tags and start an exam directly",
+                        "Exam schedule wizard uses a flatter step UI for a clearer setup flow",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "开考「题目来源」筛选真正生效，预计题数随未练习 / 错题本 / 已标记同步变化",
+                        "考试题组涌现卡片统计统一为总题、已练、错题，并保留正确率展示",
+                      ],
+                      en: [
+                        "Exam “question source” filters now apply for real, and the estimated question count updates for untested / error-book / starred sets",
+                        "Emergent question-bank cards show Total / Practiced / Errors, with accuracy when available",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "卡片管理多选后「新建考试题组」无反应、控制台报错，以及新建后无法写入题目引用",
+                      ],
+                      en: [
+                        "Creating a new question bank from multi-selected cards in card management no longer fails silently or leave broken question references",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.11",
+                date: "2026-11-09",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "基础与高级功能对比窗增加交流反馈入口（插件官网、官方教程、QQ 公开交流群、全家桶会员群、Discord 频道、开发者邮箱）",
+                      ],
+                      en: [
+                        "Basic/premium comparison dialog now includes community links (official website, tutorials, QQ public group, series-bundle member group, Discord channel, and developer email)",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "记忆学习界面默认改为悬浮模态显示，用户选择的展示方式仍会持久保存",
+                        "启动时数据检查默认关闭，避免每次打开主界面都弹出数据管理窗打断使用",
+                        "购买永久授权菜单移除「社区宣传兑换」与邮箱联系开发者入口",
+                      ],
+                      en: [
+                        "Memory study now defaults to floating modal; the user’s chosen display mode is still saved",
+                        "Startup data checks are off by default so the data-management modal no longer pops up every time you open the main UI",
+                        "Removed “community promotion redemption” and developer-email purchase fallbacks from the lifetime license purchase menu",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.10",
+                date: "2026-11-03",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "手机端记忆学习标签页编辑时，弹出键盘后编辑区被二次顶高、正文几乎被挤出可视区的问题（对齐官方「底层编辑 / 上层工具条+键盘」浮层模型）",
+                        "手机端插件内编辑器可能不出现官方键盘上方格式工具条的问题",
+                      ],
+                      en: [
+                        "On mobile memory-study tab edit, opening the keyboard could push the editor up a second time and nearly squeeze content out of view (aligned with Obsidian’s underlay editor / overlay toolbar+keyboard model)",
+                        "Official above-keyboard formatting toolbar could fail to appear in the plugin’s embedded editor on mobile",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.9",
+                date: "2026-10-30",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "记忆学习中编辑卡片后点「保存并预览」可能提示「会话不存在」、无法保存的问题",
+                        "学习悬浮窗处于编辑态时拖动窗口，编辑内容区停在原位置、与窗口错位的问题",
+                      ],
+                      en: [
+                        "Saving from card edit in memory study could fail with “session does not exist”",
+                        "In study float window edit mode, dragging the modal left the editor content stuck at the old position",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.8",
+                date: "2026-10-29",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "关联材料改为手动添加；当前笔记以候选条提示，点 ➕ 后再加入对话",
+                        "可折叠的关联文件列表，并显示文件大小",
+                        "生成过程中可将发送键改为停止",
+                        "输入区显示本轮上下文 / Token 用量占比",
+                        "步骤详细程度（紧凑 / 适中 / 详细），可在对话界面中切换",
+                        "一轮结束后可将步骤折叠为「思考了 Xs」",
+                        "界面可见性可隐藏或显示主界面 AI 助手入口",
+                      ],
+                      en: [
+                        "Context notes are attached manually; the active note appears as a candidate and joins the chat only after you tap ➕",
+                        "Collapsible attached-file list with file sizes",
+                        "While generating, the send control can stop the run",
+                        "Composer shows this turn’s context / token usage share",
+                        "Activity detail levels (compact / balanced / detailed), switchable in the chat UI",
+                        "After a turn finishes, steps can collapse into a “Thought for Xs” summary",
+                        "Interface visibility can hide or show the main-interface AI assistant entry",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "讨论后再说「制卡 / 走制卡流程」时，优先使用本会话讨论内容，不被默默挂着的关联文档、残留 @ 或 EPUB 划线缓存盖过",
+                        "按本轮用户意图收窄可用工具；明确制卡时不再给出覆盖/改笔记类工具",
+                        "对话提示将「本轮意图」置于关联材料之上，减少被长文档带偏",
+                        "气泡内步骤轨迹更接近常见 AI 对话：工具名称更易读、步骤可累积保留，制卡进度也走同一套展示",
+                        "关联文件列表移出输入卡，叠在对话上方，整体更接近 Cursor 式布局",
+                        "选择关联笔记时的文件列表改为更清晰的单行路径样式",
+                        "对话输入区更紧凑，发送键更小",
+                      ],
+                      en: [
+                        "After a discussion, “make cards” / “follow the card flow” prefers this conversation over a silently linked note, leftover @ mention, or EPUB highlight cache",
+                        "Available tools are narrowed by this turn’s intent; explicit card-making no longer exposes overwrite / note-edit tools",
+                        "Prompts put this turn’s intent above linked materials so long documents are less likely to pull the reply off course",
+                        "In-bubble activity trail is closer to common AI chat UIs: clearer tool labels, kept step history, and card-generation progress on the same trail",
+                        "Attached-file list sits outside the input card and floats above the conversation, closer to a Cursor-style layout",
+                        "The note picker for attachments uses a cleaner single-line path list",
+                        "Chat composer is more compact with a smaller send control",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "明明在走制卡流程时，不再误弹出覆盖 EPUB 等非笔记文件的确认",
+                        "覆盖 / 编辑笔记仅允许 Markdown；禁止把 .epub 等二进制当作写盘目标",
+                        "模型只口头说「准备覆盖 / 请确认」却未真正发起工具时，会按真实写盘意图纠偏，避免空挂确认卡",
+                        "启动时数据检查模式说明不再显示未翻译的英文键名",
+                      ],
+                      en: [
+                        "Following the card-making flow no longer shows a false overwrite confirm for EPUB or other non-note files",
+                        "Overwrite / edit-note tools only allow Markdown targets; .epub and other binaries cannot be write targets",
+                        "When the model only claims “ready to overwrite / please confirm” without a real tool call, recovery follows an actual write intent instead of leaving an empty confirm card",
+                        "Startup data-check mode hints no longer show untranslated English keys",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.7",
+                date: "2026-10-27",
+                groups: [
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "卡片管理看板列头改为侧边色条与状态点数字，去掉抢眼的「待复习」标签",
+                        "看板列内容区可跟随列色淡染，列身份更清晰",
+                        "网格与看板卡片改为淡实线边框与轻阴影，观感更接近 Obsidian 官方看板",
+                        "重要日程内容区采用上月历、下列表布局",
+                      ],
+                      en: [
+                        "Card-management kanban headers now use a side accent bar and status-dot counts instead of a loud “due” pill",
+                        "Kanban column content can pick up a light tint from the column color",
+                        "Grid and kanban cards use a softer solid border and light shadow, closer to Obsidian’s official kanban look",
+                        "Important Schedule main pane uses calendar on top and list below",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "文件列表中的牌组统计数字按各牌组记忆模板配置计算",
+                        "涌现牌组统计数字按各自牌组模板配置计算",
+                      ],
+                      en: [
+                        "File-explorer deck study counts now follow each deck’s memory template settings",
+                        "Emergent-deck study counts now follow each deck’s own template settings",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.6",
+                date: "2026-10-26",
+                groups: [
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "重要日程在内容区改为与侧栏相同的上月历、下列表布局",
+                      ],
+                      en: [
+                        "Important Schedule in the main pane now matches the sidebar layout—calendar on top, list below",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "移除牌组等级功能",
+                        "移除国风雅致样式",
+                        "移除插件设置界面中多余的牌组视图设置",
+                        "移除记忆学习界面侧边功能栏中的知识图谱关联",
+                        "移除牌组背景图功能",
+                      ],
+                      en: [
+                        "Removed deck level feature",
+                        "Removed the Chinese elegant deck style",
+                        "Removed redundant deck view options from plugin settings",
+                        "Removed knowledge graph linking from the memory study side toolbar",
+                        "Removed deck background image feature",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.5",
+                date: "2026-10-25",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "AI 对话支持局部改笔记，确认前可查看 diff，写入后可撤销",
+                        "可从某条用户消息「回退到这里」，清除其后对话并尽量还原本轮笔记改动",
+                        "对话气泡内显示进行中的步骤（思考、调用工具、制卡进度等）",
+                        "输入区展示当前关联文档与 @ 引用材料，可随时取消跟随",
+                        "AI 可在库内检索、精读笔记，并提议修改属性或重命名笔记",
+                        "长对话会自动压缩更早轮次，减轻上下文过长影响",
+                        "可按本会话讨论内容制卡，不必只依赖当前打开的文档",
+                        "执行模式菜单 Agent / Auto / Plan（含图标）：确认写入、本会话直跑、或只讨论方案",
+                      ],
+                      en: [
+                        "AI chat can edit notes locally, with a diff preview before confirm and undo after write",
+                        "Rewind to a user message to clear later turns and restore note changes from that stretch when possible",
+                        "In-bubble activity steps (thinking, tool calls, card generation progress, and more)",
+                        "Composer shows the followed active note and @ attachments, with one-tap unfollow",
+                        "AI can search the vault, read notes, and propose frontmatter edits or renames",
+                        "Long chats compact older turns so the model context stays manageable",
+                        "Generate cards from this conversation, not only from the open note",
+                        "Run-mode menu Agent / Auto / Plan (with icons): confirm writes, auto-run for the session, or plan-only",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "AI 对话在 OpenAI、DeepSeek、智谱、Claude、Gemini 等支持的模型上改用原生工具调用，写盘与制卡更稳；不支持时自动回退原有文本协议",
+                        "讨论完再说「制卡 / 走制卡流程」时，优先用本会话讨论，不再默默改用活动文档",
+                        "制卡结果会标明材料来源（如「本会话讨论」或「关联文档」）",
+                        "底栏去掉与气泡重复的「回退」键，Auto 与 Plan 合并为同一模式菜单",
+                      ],
+                      en: [
+                        "AI chat uses native function calling on supported models (OpenAI, DeepSeek, Zhipu, Claude, Gemini, and more) so write and card tools fire more reliably; unsupported models still fall back to the text tool protocol",
+                        "After a discussion, “make cards” prefers the conversation over silently using the active note",
+                        "Card results show the material source (conversation vs linked note)",
+                        "Removed the duplicate footer Rewind control; Auto and Plan share one mode menu",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "AI 工具默认不会读写受保护目录（如 `.obsidian`、回收站、隐私相关路径）",
+                      ],
+                      en: [
+                        "AI tools no longer access protected paths by default (such as `.obsidian`, trash, and privacy-related folders)",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.4",
+                date: "2026-10-24",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "手机考试/学习界面顶栏计时器显示更干净，不再拥挤杂乱",
+                        "手机考试顶栏去掉多余的「当前题/总题数」进度文案，避免与主界面信息重复",
+                        "手机考试底栏不再与 Obsidian 底部导航重叠，按钮可正常点击",
+                        "考试学习编辑卡片时，计时器不再错误出现在顶栏下方",
+                        "考试学习完成后的结算模态窗，去掉背后多余空白区域",
+                        "学习侧栏「优先级」恢复为真正的二级菜单，不再被错误展平成一级项",
+                        "手机题库导航在「单列」模式下改为单行横向滑动，避免占多行",
+                        "卡片管理手机视图圆点的文案与顺序与实际视图一致（含加载态不再误显示「看板」）",
+                        "AI 卡片预览顶栏导航改为单行横向滑动，并缩小模态底栏多余留白",
+                        "AI 对话输入区补回清晰边框，并避免首字被圆角裁切",
+                      ],
+                      en: [
+                        "Exam/study timer in the mobile view header is cleaner and less cluttered",
+                        "Removed the redundant question progress text from the mobile exam header",
+                        "Mobile exam footer no longer overlaps Obsidian’s bottom navigation",
+                        "Exam countdown no longer appears under the header while editing a card",
+                        "Removed excess blank space behind the exam/study completion settlement modal",
+                        "Study pane “Priority” is a real submenu again instead of being flattened",
+                        "Question-bank navigator in mobile single-column mode is a single horizontal scroll row",
+                        "Card-management mobile view-dot labels and order match the real views (loading no longer shows “Kanban” by mistake)",
+                        "AI card preview top navigation is a single horizontal scroll row, with less wasted footer space in the modal",
+                        "AI chat composer has a clear border again, without clipping the first character at rounded corners",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.3",
+                date: "2026-10-21",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "在阅读器中将章节加入阅读计划后，主插件重要日程能正确显示这些安排",
+                        "牌组「记忆配置」选择模板并确认后，能正确改绑并持久保存",
+                        "旧牌组未绑定模板时，不再被误显示为「已绑定默认」",
+                        "绑定的记忆模板已不可用时会明确提示，而不是静默显示成默认",
+                        "更换记忆模板时保留本牌组已设置的目标记忆率覆盖",
+                        "版本说明仅在真正更新且有内置说明时自动打开一次，不会反复弹出",
+                      ],
+                      en: [
+                        "Chapters added to a reading plan from the reader now appear correctly in Important Schedule",
+                        "Choosing a memory profile in deck Memory Config and confirming now rebinds and persists correctly",
+                        "Older decks without a bound profile are no longer shown as bound to Default",
+                        "When a bound memory profile is missing, the UI warns clearly instead of silently showing Default",
+                        "Switching memory profiles keeps an existing per-deck target retention override",
+                        "Release notes open automatically only once after a real update with built-in notes, not repeatedly",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.2",
+                date: "2026-10-18",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "文件列表右键可新建记忆牌组",
+                      ],
+                      en: [
+                        "Right-click in the file explorer can create a new memory deck",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "解析预览结果区去掉重复文件名、格式说明与题号等多余文字",
+                      ],
+                      en: [
+                        "Parse preview results no longer show redundant file name, format label, and card index text",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "学习完成后结算弹窗背后不再留下空白学习窗口",
+                      ],
+                      en: [
+                        "After study ends, the celebration dialog no longer leaves a blank study window behind it",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.1",
+                date: "2026-10-17",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "牌组学习里打开「查看卡片」后，保存并预览不再误关卡片编辑窗口",
+                        "Canvas 节点右键菜单恢复「添加到记忆牌组」",
+                        "移动端/平板激活提示里的「基础 / 高级」彩色圆点异常偏小",
+                      ],
+                      en: [
+                        "Opening a card from deck study “View card”, then saving and previewing, no longer closes the edit window by mistake",
+                        "Canvas node right-click menu again includes “Add to memory deck”",
+                        "On mobile/tablet, the Basic/Premium colored dots in the activation prompt no longer appear abnormally tiny",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.0",
+                date: "2026-10-07",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "AI 助手对话：可跟随当前笔记提问、分析与学习",
+                        "明确要求制卡后，结果先进入「预览卡片」再导入",
+                        "预览卡片可显示对话摘要，并可自动打开预览",
+                        "制卡可写入已有牌组或按名称新建；默认走预览导入",
+                        "输入 @ 可提及笔记或技能（内置与库内技能）",
+                        "助手可列出牌组与卡片、扫描低质量卡、展示相关卡并生成学习报告",
+                        "对话内确认后可删卡、移卡、删牌组，并创建 Markdown 笔记",
+                        "可将当前 EPUB 章节与高亮作为对话与制卡材料",
+                        "可发现并调用暴露官方 API 的已启用插件（Weave、阅读器、增量阅读）；写操作仅在你明确要求时使用",
+                        "支持多会话：新建、删除，并导出为 Markdown",
+                        "可编辑对话系统提示词，或恢复为插件默认",
+                      ],
+                      en: [
+                        "AI Assistant chat that can follow the active note for questions, analysis, and study",
+                        "After you explicitly ask for cards, results open in Preview cards for review before import",
+                        "Preview cards can show a chat summary, open a modal automatically, or open the preview after generation",
+                        "Card generation can target an existing deck or create a deck by name; the default path is Preview import",
+                        "Type @ to mention notes or skills (built-in and vault skills)",
+                        "The assistant can list decks and cards, scan low-quality cards, show related cards, and produce a learning report",
+                        "After in-chat confirmation, cards can be deleted or moved, a deck can be deleted, and a Markdown note can be created",
+                        "The current EPUB chapter and highlights can be read as chat and card-making material",
+                        "Enabled plugins that expose an official API can be discovered and called (Weave, Epub Reader, Incremental Reading); API writes are used only when you explicitly ask for them",
+                        "Multiple conversations can be kept; you can create, delete, and export a session as Markdown",
+                        "The chat system prompt can be edited, or restored to the plugin default",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "侧栏「AI 制卡」更名为「AI 助手」",
+                        "原独立制卡与摘录编辑任务改到对话中完成",
+                        "AI 助手页保留对话与解析预览",
+                        "编辑器选区命令改为把选区送入 AI 助手对话",
+                        "移除独立 AI 制卡页与摘录编辑制卡界面",
+                      ],
+                      en: [
+                        "The sidebar label “AI card creation” is now “AI Assistant”",
+                        "Former standalone card-generation and snippet-editing tasks now happen in chat",
+                        "The AI Assistant page keeps Chat and Parse preview",
+                        "The editor-selection command now sends the selection into AI Assistant chat",
+                        "The standalone AI card-generation page",
+                        "The snippet-editing card-making screen",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
                 version: "1.0.0",
                 date: "2026-10-05",
-                latest: true,
                 groups: [
                   {
                     type: "added",
@@ -3224,7 +3722,7 @@
                         "牌组独立记忆配置；标签树可显示今日可学数量",
                         "牌组学习界面可手动切换网格 / 看板视图",
                         "离线激活与许可证 Cloudflare 国际中转",
-                        "界面可见性设置，可分别隐藏记忆牌组、考试题组、重要日程等入口"
+                        "界面可见性设置，可分别隐藏记忆牌组、考试题组、重要日程等入口",
                       ],
                       en: [
                         "Important Schedule view on the deck study screen",
@@ -3236,8 +3734,8 @@
                         "Per-deck memory settings; tag tree due counts",
                         "Manual grid / kanban switch on deck study",
                         "Offline activation and Cloudflare license relay",
-                        "UI visibility settings for decks, quiz banks, and schedule"
-                      ]
+                        "UI visibility settings for decks, quiz banks, and schedule",
+                      ],
                     }
                   },
                   {
@@ -3246,13 +3744,13 @@
                       zh: [
                         "重要日程月历支持单行 / 双行 / 完整日历，以及日间过渡图",
                         "重要日程支持来源筛选、搜索、仅看重要项、隐藏已完成",
-                        "考试安排支持单场 / 整批改期与删除"
+                        "考试安排支持单场 / 整批改期与删除",
                       ],
                       en: [
                         "Month calendar modes and day-transition art",
                         "Filters for source, search, important-only, hide completed",
-                        "Reschedule or delete one exam session or a whole batch"
-                      ]
+                        "Reschedule or delete one exam session or a whole batch",
+                      ],
                     }
                   },
                   {
@@ -3261,13 +3759,13 @@
                       zh: [
                         "卡片管理顶栏视图顺序改为表格 → 网格 → 看板 → 时间线",
                         "全局学习设置与单牌组记忆配置职责分开",
-                        "仅作分组用的父牌组在日程中按文件夹占位"
+                        "仅作分组用的父牌组在日程中按文件夹占位",
                       ],
                       en: [
                         "Card toolbar order is table → grid → kanban → timeline",
                         "Global Study Settings vs per-deck Memory Config separated",
-                        "Grouping-only parent decks appear as folders in the schedule"
-                      ]
+                        "Grouping-only parent decks appear as folders in the schedule",
+                      ],
                     }
                   },
                   {
@@ -3276,13 +3774,13 @@
                       zh: [
                         "关闭学习结算弹窗后不再强制跳回插件主界面",
                         "插件重启后重要日程仍能正确读取已保存的考试安排",
-                        "调整父 / 子牌组归属时的约束提示，避免层级错乱"
+                        "调整父 / 子牌组归属时的约束提示，避免层级错乱",
                       ],
                       en: [
                         "Closing the study summary no longer forces a jump to the main UI",
                         "Important Schedule keeps exam plans across restarts",
-                        "Clearer parent / child deck constraints"
-                      ]
+                        "Clearer parent / child deck constraints",
+                      ],
                     }
                   }
                 ]
@@ -3294,8 +3792,14 @@
                   {
                     type: "added",
                     items: {
-                      zh: ["表格视图支持多种分组方式", "新增排序功能键"],
-                      en: ["Table view supports multiple grouping modes", "Added sort controls"]
+                      zh: [
+                        "表格视图支持多种分组方式",
+                        "新增排序功能键",
+                      ],
+                      en: [
+                        "Table view supports multiple grouping modes",
+                        "Added sort controls",
+                      ],
                     }
                   },
                   {
@@ -3303,12 +3807,12 @@
                     items: {
                       zh: [
                         "批量操作功能键底部显示名称，移动端长按可滚动查看更多",
-                        "重新设计看板列属性与表格标签列"
+                        "重新设计看板列属性与表格标签列",
                       ],
                       en: [
                         "Batch action labels under icons; long-press scroll on mobile",
-                        "Redesigned kanban column properties and table tag column"
-                      ]
+                        "Redesigned kanban column properties and table tag column",
+                      ],
                     }
                   }
                 ]
@@ -3321,11 +3825,11 @@
                     type: "fixed",
                     items: {
                       zh: [
-                        "修复在牌组学习界面或新建卡片列表切换记忆牌组时，因空路径被误当成库根路径导致无法写入默认牌组目录的问题"
+                        "修复在牌组学习界面或新建卡片列表切换记忆牌组时，因空路径被误当成库根路径导致无法写入默认牌组目录的问题",
                       ],
                       en: [
-                        "Fixed empty-path normalize treating vault root as the deck folder, which blocked writing the default deck path"
-                      ]
+                        "Fixed empty-path normalize treating vault root as the deck folder, which blocked writing the default deck path",
+                      ],
                     }
                   }
                 ]
@@ -3337,9 +3841,696 @@
             github: "https://github.com/zhuzhige123/obsidian-weave-reader/releases",
             entries: [
               {
+                version: "0.9.1",
+                date: "2026-11-13",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "空书架在「扫描 Vault 添加书籍或漫画」下提供「查看使用教程」入口",
+                        "空书架底部提供 QQ 群、Discord、购买 Pro、联系作者入口",
+                        "购买菜单增加「查看功能对照清单」，可切换浏览基础与高级功能",
+                        "扫描导入列表可一键在系统文件管理器中定位书籍文件",
+                        "目录右键增加免费「导出当前章为 Markdown」（正文导出，不含摘录标记）",
+                        "使用教程工具页补充 PDF / PDF++ 相关说明",
+                      ],
+                      en: [
+                        "Empty-bookshelf secondary action “Open tutorial” under the scan CTA",
+                        "Empty-bookshelf footer links for QQ, Discord, Buy Pro, and developer contact",
+                        "“View feature comparison” in the purchase menu, with free / premium tabs",
+                        "One-click reveal of scanned books in the system file manager",
+                        "Free TOC context action “Export current chapter to Markdown” (body only, no excerpt marks)",
+                        "PDF / PDF++ notes in the tutorial Tools tab",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "引用角标详情菜单位置跟随角标，不再偏离阅读标签页",
+                        "空书架进入时轻微淡入，插画区增加克制光晕",
+                      ],
+                      en: [
+                        "Citation-badge detail menu stays anchored to the badge inside the reader tab",
+                        "Subtle empty-bookshelf enter fade and a restrained glow behind the illustration",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "教程标题与文案统一为 Weave Reader，并覆盖多格式阅读表述",
+                        "空书架去掉冗长提示文案；扫描主按钮文案改为「扫描 Vault 添加书籍或漫画」",
+                        "扫描导入列表不再显示书籍路径，改由文件管理器入口查看所在文件夹",
+                        "书架活动热力纳入高级功能；未激活时入口带锁定提示，开启会弹出功能预览",
+                      ],
+                      en: [
+                        "Tutorial title and copy now say Weave Reader and cover multi-format reading",
+                        "Empty bookshelf drops the long hint; scan CTA reads “Scan vault to add books or comics”",
+                        "Import scan list no longer shows vault paths; use the file-manager action instead",
+                        "Bookshelf activity heatmap is premium; locked entry shows a preview when unlicensed",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "部分 Kindle 固定版式漫画 EPUB 在双页模式下只显示一张图、另一侧空白的问题",
+                      ],
+                      en: [
+                        "Some Kindle fixed-layout comic EPUBs showing only one page (blank other side) in double-page mode",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.9.0",
+                date: "2026-11-12",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "书架支持「热力图：最近一年」，可切换查看近一年阅读活动",
+                        "热力图悬停提示番茄数量、摘录笔记与阅读时长（按时长按番茄数换算）",
+                        "热力图支持按书籍来源多选筛选；移动端使用官方列表菜单",
+                      ],
+                      en: [
+                        "Bookshelf “Heatmap: past year” to review the last year of reading activity",
+                        "Heatmap hover tip for tomatoes, excerpt notes, and reading time (derived from tomato count)",
+                        "Multi-select book-source filter for the heatmap; mobile uses the official list menu",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                      ],
+                      en: [
+                        "Heatmap fills wide panes; narrow sidebars keep readable cells with horizontal scrolling",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "授权与关于等文案改为 Weave Reader / 书籍表述，不再误导为仅支持 EPUB",
+                        "关于页「核心介绍」中的「EPUB 双向溯源」改为「双向溯源」，明确适用于已支持的全部格式",
+                      ],
+                      en: [
+                        "License and About copy now say Weave Reader / books, and no longer imply EPUB-only support",
+                        "About overview wording changes “EPUB deep links” to “bidirectional deep links” across supported book formats",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "MOBI / AZW3 书籍中高亮摘录未正确回显到正文的问题",
+                        "MOBI / AZW3 从高亮跳转摘录笔记时，未打开对应文件或无法描点定位的问题",
+                      ],
+                      en: [
+                        "Highlights not painting over excerpt text in MOBI / AZW3 books",
+                        "Opening the excerpt note from a MOBI / AZW3 highlight could miss the file or fail to pinpoint the callout",
+                        "Heatmap cells that did not match tip stats, and historical excerpts missing from daily counts",
+                        "Bookshelf heatmap remaining visible after turning it off in plugin settings",
+                        "Heatmap toolbar toggle appearing in views that cannot show the heatmap",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.18",
+                date: "2026-11-07",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "移动端支持沉浸式全屏；入口在官方「更多 → 阅读显示」，保留顶部功能栏以便退出",
+                      ],
+                      en: [
+                        "Immersive fullscreen on mobile via the official More → Reading & display menu, keeping the top bar for exit",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "移动端段落阅读模式上方功能键并入官方菜单，避免顶栏叠两行",
+                      ],
+                      en: [
+                        "On mobile, paragraph-mode toolbar actions move into the official menu so two header rows no longer stack",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "移动端默认关闭透光渐变与段落聚焦光晕，并隐藏相关设置；桌面端保持不变",
+                        "沉浸式全屏不再强制开启紫色渐变，透光渐变开关可独立控制",
+                      ],
+                      en: [
+                        "Mobile defaults turn off reading glow and paragraph spotlight, and hide those settings; desktop is unchanged",
+                        "Immersive fullscreen no longer forces the purple glow; the reading-atmosphere toggle controls it independently",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "段落阅读模式与沉浸全屏下紫色渐变关不掉的问题",
+                      ],
+                      en: [
+                        "Purple gradient that could not be turned off in paragraph mode and immersive fullscreen",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.17",
+                date: "2026-11-03",
+                groups: [
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "社区插件显示名改为 Weave Reader（插件 id `weave-epub-reader` 与协议链接不变）",
+                      ],
+                      en: [
+                        "Community plugin display name is now Weave Reader (plugin id `weave-epub-reader` and protocol links unchanged)",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.16",
+                date: "2026-11-03",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "书架书籍右键菜单支持「在系统资源管理器中显示」（macOS 为「在访达中显示」），便于定位源文件",
+                      ],
+                      en: [
+                        "Bookshelf book context menu can show the file in the system explorer (Finder on macOS)",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "移动端书架在内容区时改为三列书卡密度，并隐藏内嵌工具栏；搜索进入官方顶栏，原多功能菜单并入官方 ⋯ 菜单",
+                        "内容区移动端书卡仅保留书名与「仅看封面」同款进度条，去掉格式 / 字数 / 作者等噪音信息，并加轻边框",
+                        "书架网格 / 封面视图加强封面书脊与阴影层次，桌面悬停轻抬起与轻微倾斜；书名改用衬线题注风格",
+                        "阅读日志与列表书卡提高底面对比与描边阴影，卡片边界更易分辨",
+                        "网格与阅读日志中的字数 / 章节 / 格式改为胶囊标签（格式用强调色）；网格中胶囊贴近底部进度条，底边对齐更规整",
+                      ],
+                      en: [
+                        "On mobile, when the bookshelf is in the content pane, use a denser three-column card grid and hide the in-content toolbar; Search moves to the official view header, and the former multi-function menu merges into Obsidian’s ⋯ pane menu",
+                        "Mobile content-pane book cards keep only the title plus the covers-mode progress bar, drop format / word-count / author clutter, and use a light card frame",
+                        "Grid / covers bookshelf views strengthen cover spine and shadow depth, with a light desktop hover lift and tilt; titles use a serif caption style",
+                        "Log and list book cards gain clearer surface contrast, borders, and shadows so card edges read more distinctly",
+                        "Word count, chapter count, and format on grid and reading-log cards become capsule tags (format uses the accent tone); on grid cards, capsules sit just above the progress bar for cleaner bottom alignment",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "内容区窄屏下「继续阅读」书卡横跨整行展示，普通书卡与月历 / 封面视图仍互不混排",
+                        "桌面网格 / 封面视图中「继续阅读」同样改为全宽横条；桌面仍显示作者与统计信息，极简信息仅用于移动端内容区",
+                      ],
+                      en: [
+                        "On compact main panes, the Continue Reading card spans the full row; calendar / grid / covers views stay mutually exclusive",
+                        "Desktop grid / covers also use a full-width Continue Reading strip; desktop still shows author and stats, while compact metadata stays limited to the mobile content pane",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.15",
+                date: "2026-10-31",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "翻页模式下，按住拖选并用滚轮翻页时，选区可跨页衔接，松手后可整段高亮 / 摘录（同章内）",
+                      ],
+                      en: [
+                        "In paginated mode, drag-selecting while turning pages with the mouse wheel keeps a continuous selection across pages; releasing can highlight / excerpt the full span (within the same chapter)",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "部分书籍目录页码前半段与后半段混用两套估算，导致页码回跳、看起来未正序",
+                        "自动化摘录在编辑并保存想法后，下一段摘录会嵌进上一段 callout（插在想法分隔线之后）；现会空一行再插入，并仍跟随光标位置",
+                        "目录全书地图密度条在部分章节不显示摘录统计；长章节名被截断、摘录缺少章节索引，或 Calibre 拆分章节 / 同文件多目录项时，现可正确归入对应目录行",
+                      ],
+                      en: [
+                        "Some books mixed coarse byte-size page estimates with later text metrics in the TOC, causing page numbers to jump backward and look unsorted",
+                        "After editing and saving a thought on an auto-inserted excerpt, the next auto-excerpt could nest inside the previous callout (right after the thought divider); it now inserts after that block with a blank separator while still following the cursor when outside a callout",
+                        "TOC book-map density bars missed excerpt counts on some chapters; long truncated titles, excerpts without chapter index, Calibre-split chapters, and multiple TOC entries in one file now resolve to the correct TOC row",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.14",
+                date: "2026-10-27",
+                groups: [
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "后台阅读标签改为「会话存活 + 分级降载」——切去看笔记再回来，会回到刚才阅读的位置，无需每次手动记录旗标",
+                        "不可见标签先进入轻量 SoftIdle（少做后台重活），约 45 秒后才卸载阅读引擎以省内存；分屏仍可见时不会卸载",
+                        "挂起占位文案改为中性「后台节省资源」，去掉关书感",
+                      ],
+                      en: [
+                        "Background reader tabs now keep a per-tab reading session and resume where you left off when you switch back—no need to manually flag the position every time",
+                        "Covered tabs enter SoftIdle first (less background work), then park the engine after about 45 seconds to free memory; split-visible tabs stay hot",
+                        "Parked-tab placeholder copy is neutral (“saving resources”) instead of sounding like the book was closed",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "后台挂起后切回标签时，不再错误跳回「上次手动记录的阅读位置」而丢掉当前页",
+                        "同书打开多个标签时，激活态与后台降载按标签身份判断，不再按路径互相误伤",
+                      ],
+                      en: [
+                        "Returning from a parked reader tab no longer jumps back to the last manually recorded reference point and loses the page you were reading",
+                        "When the same book is open in multiple tabs, active/background gating uses leaf identity instead of matching by file path alone",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.13",
+                date: "2026-10-24",
+                groups: [
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "书单右键「删除书单」改为「解散书单」，明确只解除书单引用、不删除书内文件",
+                      ],
+                      en: [
+                        "Playlist context menu “Delete playlist” is now “Disband playlist”, clarifying that only the list grouping is removed—not the book files",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "旧书籍数据页（`data_*.md`）迁移在已有标记后仍会补导入缺失书籍，不再被旧 marker 永久挡住",
+                        "库态空扫（vault 索引未齐）不再写入迁移完成标记，避免随后清理旧页时进度永久丢失",
+                        "清理旧书籍数据页前会再跑迁移，且仅删除已写入 `library-state.json` 的页面；「暂不清理」不再烧尽一次性提示",
+                        "合并书籍记录时按进度 / 书签 / 统计等丰富度择优，避免较新但更空的 MD 盖掉更完整的库态",
+                        "读写 `library-state.json` 时拒绝灾难性缩水覆盖（例如更瘦缓存盖掉磁盘上更完整的状态）",
+                        "损坏或无法解析的旧数据页不会进入清理候选",
+                        "批量选择书籍后经「书单 → 新建书单」创建时，会自动将当前选中书籍加入新书单（并修正新建后切到空书单导致选中丢失的问题）",
+                      ],
+                      en: [
+                        "Legacy book-data page (`data_*.md`) migration still backfills missing books after an old migrate marker, instead of being permanently blocked",
+                        "An empty vault-index scan no longer writes the migrate-completed marker, avoiding permanent progress loss if old pages are cleaned up too early",
+                        "Cleanup of legacy book-data pages re-runs migrate first and only trashes pages already covered by `library-state.json`; choosing Later no longer burns the one-shot prompt",
+                        "Book-record merge prefers richer progress / bookmarks / analytics so a newer but emptier MD cannot overwrite a fuller library-state entry",
+                        "Reading and writing `library-state.json` rejects catastrophic shrink overwrites (e.g. a thinner cache replacing a richer on-disk state)",
+                        "Unparseable or corrupt legacy data pages are excluded from cleanup candidates",
+                        "Creating a playlist via Playlists → New after multi-select now seeds the new playlist with the selected books (and no longer drops the selection by switching to an empty playlist first)",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.12",
+                date: "2026-10-24",
+                groups: [
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "阅读进度、书签、计时与书架归属等库态改为保存在库内点目录 `.weave-epub-reader/library-state.json`；升级后会从旧「阅读库」路径自动迁入，文件列表中默认隐藏，仍可随库同步",
+                        "目录「加入阅读计划 / 从本章起生成」改为在模态内生成可复制任务行，不再自动创建或追加阅读计划笔记；粘贴到任意笔记后，重要日程仍可识别",
+                      ],
+                      en: [
+                        "Library state (progress, bookmarks, timers, bookshelf membership) now lives in the vault dot folder `.weave-epub-reader/library-state.json`; upgrades migrate automatically from the old reading-library path; the file is hidden in the file list by default and still syncs with the vault",
+                        "“Add to reading plan” / “Generate reading plan from here” now produce copyable task lines in the modal instead of creating or appending reading-plan notes; paste into any note—Important Schedule can still recognize them",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.11",
+                date: "2026-10-23",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "目标笔记已在编辑器打开时保存想法，不再因整篇重写把笔记滚到开头",
+                        "从高亮工具栏打开「想法」时，大块多行高亮偶发把编辑窗顶到界面顶部并截断；现锚定末行、按可用高度收缩，上方不够时翻到高亮下方",
+                      ],
+                      en: [
+                        "Saving a thought no longer scrolls an already-open note to the top after a whole-document editor rewrite",
+                        "Opening Thought from the highlight toolbar on tall multi-line highlights no longer parks the editor under the title bar; anchors to the last line, shrinks to fit, and flips below when space above is tight",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.10",
+                date: "2026-10-22",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "书架右键菜单支持「批量选择」：可多选书籍，批量加入书单、移出书架或删除文件",
+                        "专注番茄栏支持长按拖动到任意位置，位置会记住；双击或设置中可恢复默认（底部左侧）",
+                      ],
+                      en: [
+                        "Bookshelf context menu “Batch select” for multi-select books—add to playlist, remove from shelf, or delete files in bulk",
+                        "Long-press and drag the focus tomato rail anywhere; position is remembered; double-click or Settings restores the default bottom-left dock",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "扫描 Vault 加入书架的模态窗：搜索、未导入/已导入筛选、全选当前列表，书名显示更干净",
+                        "专注番茄默认停在底部翻页栏左侧，少挡正文；展开为横排、叠加统计仍可用",
+                      ],
+                      en: [
+                        "Vault scan import modal with search, pending/added filters, select-visible, and cleaner book titles",
+                        "Focus tomatoes default to the bottom-left near the page bar so they block less text; expanded row and summary modes still work",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.9",
+                date: "2026-10-21",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "阅读器教程新增「公开 API」标签页，说明如何供其他 Obsidian 插件协同调用（当前章节、目录章节、摘录笔记等）",
+                      ],
+                      en: [
+                        "Reader tutorial “Public API” tab explaining how other Obsidian plugins can collaborate (current chapter, TOC chapters, excerpt notes, and more)",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "书架显示模式「阅读日志」更名为「阅读月历」（多语言同步；内部模式 id 不变）",
+                        "教程标签顺序将「致谢」置于首位，更易看到设计灵感与致谢说明",
+                      ],
+                      en: [
+                        "Bookshelf display mode “Reading log” renamed to “Reading calendar” (localized; internal mode id unchanged)",
+                        "Tutorial tabs put “Credits” first so design credits are easier to find",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "教程模态窗标签过多时被裁切、无法看到右侧标签；溢出时显示左右滚动箭头，切换标签会自动滚入可视区",
+                        "目录右键将章节加入阅读计划后，Weave Deck 重要日程因书名含方括号（如 `[韩]`）无法识别任务行的问题；新写入的协议链接别名会改用全角括号",
+                        "目录右键「添加到增量阅读」提示暂无专题、但库内已有 `.irdeck` 专题的问题；阅读器改为直接读取增量阅读插件的专题列表",
+                      ],
+                      en: [
+                        "Tutorial modal tabs no longer get clipped when there are many tabs; overflow shows left/right scroll arrows, and the active tab scrolls into view",
+                        "Chapters added to a reading plan from the TOC menu now appear in Weave Deck Important Schedule even when book titles contain brackets such as `[韩]`; new protocol link aliases use full-width brackets",
+                        "“Add to incremental reading” from the TOC no longer reports missing topics when `.irdeck` topics already exist; the reader now reads the topic list directly from the Incremental Reading plugin",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.8",
+                date: "2026-10-21",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "沉浸全屏下侧栏截图模式光标与点击无法正常退出的问题",
+                        "阅读标签休眠或冷启动后偶发打开空白阅读器（标题显示「织文阅者」）的问题",
+                        "截图摘录溯源链接在重启 Obsidian 后打开空白阅读器、无法定位到原文；新截图摘录会写入与文本摘录一致的源身份标识",
+                      ],
+                      en: [
+                        "Screenshot mode on the side toolbar in immersive fullscreen can be exited with cursor and clicks again",
+                        "Hibernated or cold-started reader tabs no longer open as a blank reader titled “Weave Reader”",
+                        "Screenshot excerpt source links no longer open a blank reader after restarting Obsidian; new screenshot excerpts embed the same source identity as text excerpts",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.7",
+                date: "2026-10-18",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "书籍目录右键菜单将当前章节添加到 Weave deck 阅读计划失败的问题",
+                      ],
+                      en: [
+                        "Adding the current chapter to a Weave deck reading plan from the book TOC context menu no longer fails",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.6",
+                date: "2026-10-17",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "脚注浮窗不再截断长内容，完整显示；过长时可在浮窗内滚动阅读",
+                      ],
+                      en: [
+                        "Footnote preview popovers no longer truncate long notes; full text is shown, with scrolling when needed",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.5",
+                date: "2026-10-15",
+                groups: [
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "导出笔记模板不再自动写入官方预设文件；仅在模板配置窗中从预设创建时生成对应 md，避免删除后反复重建",
+                      ],
+                      en: [
+                        "Official export-note templates are no longer auto-created in the vault; a preset md is written only when you create it from a preset in the template modal, so deleted files are not recreated",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "点击侧边书架功能键时优先复用已有书架页；若该页已切为目录侧栏则切回书架，避免重复打开多个书架标签",
+                        "设置中「管理模板…」在已选中时再次点击无法打开模板配置窗的问题",
+                      ],
+                      en: [
+                        "The bookshelf ribbon reuses an existing bookshelf leaf, or switches a TOC sidebar leaf back to the bookshelf, instead of opening duplicate bookshelf tabs",
+                        "Choosing Manage templates… in settings opens the template modal even when that option is already selected",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.4",
+                date: "2026-10-10",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "部分微信读书导出 EPUB 正文被网页侧栏预留边距挤歪（左空、中缝过大、右侧裁切）",
+                      ],
+                      en: [
+                        "Some WeRead-exported EPUBs no longer show skewed layout from leftover web-reader sidebar padding (large left gap, oversized gutter, clipped right edge)",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.3",
+                date: "2026-10-09",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "选区复制格式「文本 + 时间 + MD / 页码链接」，时间使用本地 `YYYY-MM-DD HH:mm`；开启行内回显时写入 emoji 紧挨时间前，便于摘录时间线按日排序",
+                      ],
+                      en: [
+                        "Selection copy formats “text + time + MD / page link” using local `YYYY-MM-DD HH:mm`; with inline excerpt echo enabled, the color emoji sits immediately before the timestamp so the excerpt timeline can sort and group by day",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "高亮工具条「复制」跟随「选区复制格式」设置，不再固定为纯文本",
+                        "行内回显摘录可在阅读器内改色（重写笔记中的颜色 emoji）；样式与删除仍需在笔记中手动处理",
+                      ],
+                      en: [
+                        "Highlight toolbar Copy follows the Selection copy format setting instead of always copying plain text",
+                        "Inline excerpt echoes can change color inside the reader by rewriting the note’s color emoji; style and delete still require manual edits in the note",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "选区「更多」菜单「复制摘录块」文案缺失，界面露出 i18n key",
+                        "侧栏摘录批量选择 / 删除偶发删错项或批量后无法继续删除",
+                        "行内回显摘录无法通过阅读器自动删除时给出明确提示，并可跳转到对应笔记",
+                      ],
+                      en: [
+                        "Selection More menu “Copy excerpt block” showed a raw i18n key because the label was missing",
+                        "Sidebar excerpt batch select/delete could remove the wrong item or leave delete unavailable after a batch",
+                        "When an inline excerpt echo cannot be auto-deleted from the reader, show a clear notice and offer to jump to the note",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.2",
+                date: "2026-10-08",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "行内摘录回显——笔记中带颜色 emoji 的溯源链接（如 `文本🔴 [链接]`）会在阅读器正文回显高亮，便于层级列表摘录；无 emoji 的参考链接不回显；设置中可开关",
+                        "首次打开书架显示引导页，介绍多格式阅读、书架视图、阅读版式、摘录回链与更多能力，并提供官网与阅读器教程入口",
+                      ],
+                      en: [
+                        "Inline excerpt echo — source links in notes that include a color emoji (e.g. `text🔴 [link]`) are echoed as highlights in the reader body, which helps with hierarchical list excerpts; plain reference links without an emoji are not echoed; can be toggled in settings",
+                        "First-time bookshelf onboarding introduces multi-format reading, bookshelf views, reading layout, excerpt backlinks, and more, with links to the website and the reader tutorial",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "启用自动插入时，选区工具条「插入」跟随「选区复制格式」设置（如文本 + 链接）；高亮圆点与画布摘录仍使用标注块",
+                        "选区「更多」菜单新增「复制标注块」；点开已有高亮时，工具条「复制」位置与其它场景对齐",
+                      ],
+                      en: [
+                        "When auto-insert is enabled, the selection toolbar Insert action follows the Selection copy format setting (e.g. text + link); highlight dots and canvas excerpts still use annotation blocks",
+                        "Selection More menu adds Copy annotation block; when opening an existing highlight, the toolbar Copy control aligns with other contexts",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "阅读进度、书签、计时与书架归属改为集中保存在 `library-state.json`，不再为每本书自动生成书籍数据页；升级后可确认清理旧的 `data_*.md`；摘录笔记不受影响",
+                      ],
+                      en: [
+                        "Reading progress, bookmarks, timers, and bookshelf membership are now stored centrally in `library-state.json` instead of auto-creating a book data page per book; after upgrading you can confirm cleanup of old `data_*.md` files; excerpt notes are unaffected",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "Canvas 脑图自动化摘录时链式连线偶发中断，以及方向为「向下」时新节点未优先落在正下方的问题",
+                        "离开阅读标签一段时间后再切回，正文偶发空白（后台挂起后未正确恢复）",
+                      ],
+                      en: [
+                        "Canvas mind-map auto-excerpts could break chain edges, and with Downward layout new nodes did not prefer landing directly below",
+                        "Returning to a reading tab after leaving it for a while could show a blank body (background hibernation did not restore correctly)",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.8.1",
+                date: "2026-10-07",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "刚自动摘录进笔记后立刻写想法时，偶发提示「保存想法失败」；写入成功后再上色，并带上笔记路径与行号，避免冷启动索引对不上",
+                        "打开想法编辑时正文高亮被清空，需溯源定位才恢复的问题（可见帧暂时为空时不再误删已渲染批注）",
+                      ],
+                      en: [
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
                 version: "0.8.0",
                 date: "2026-10-05",
-                latest: true,
                 groups: [
                   {
                     type: "added",
@@ -3347,27 +4538,35 @@
                       zh: [
                         "激活与云端校验新增国际中转节点；支持离线激活",
                         "书籍目录右键「加入阅读计划」「从本章起生成阅读计划」，可预览后写入本书数据页",
-                        "选中文本工具条「复制」支持多种格式，可在基础设置中选择默认项"
+                        "选中文本工具条「复制」支持多种格式，可在基础设置中选择默认项",
                       ],
                       en: [
                         "International license relay and offline activation",
                         "TOC context menu: add / generate reading plans into the book data page",
-                        "Selection toolbar copy supports multiple formats with a default in settings"
-                      ]
+                        "Selection toolbar copy supports multiple formats with a default in settings",
+                      ],
                     }
                   },
                   {
                     type: "improved",
                     items: {
-                      zh: ["后台阅读标签约 15 秒后自动挂起，切回后自动恢复进度"],
-                      en: ["Background reader tabs suspend after about 15s and resume on return"]
+                      zh: [
+                        "后台阅读标签约 15 秒后自动挂起，切回后自动恢复进度",
+                      ],
+                      en: [
+                        "Background reader tabs suspend after about 15s and resume on return",
+                      ],
                     }
                   },
                   {
                     type: "changed",
                     items: {
-                      zh: ["番茄专注计时改为高级功能，未激活时需开启高级预览才可见"],
-                      en: ["Pomodoro focus timer is premium; preview mode required before activation"]
+                      zh: [
+                        "番茄专注计时改为高级功能，未激活时需开启高级预览才可见",
+                      ],
+                      en: [
+                        "Pomodoro focus timer is premium; preview mode required before activation",
+                      ],
                     }
                   },
                   {
@@ -3375,12 +4574,12 @@
                     items: {
                       zh: [
                         "修复部分 TXT 书籍目录解析不全",
-                        "修复部分 TXT 书籍中文正文缩进异常"
+                        "修复部分 TXT 书籍中文正文缩进异常",
                       ],
                       en: [
                         "Fixed incomplete TOC parsing for some TXT books",
-                        "Fixed Chinese body indentation issues in some TXT books"
-                      ]
+                        "Fixed Chinese body indentation issues in some TXT books",
+                      ],
                     }
                   }
                 ]
@@ -3392,21 +4591,185 @@
             github: "https://github.com/zhuzhige123/Obsidian-Weave-incremental-reading/releases",
             entries: [
               {
+                version: "0.6.1",
+                date: "2026-11-13",
+                latest: true,
+                groups: [
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "段落工作台选择「强化 / 正常 / 放缓 / 推迟」后自动进入下一段；优先级仍只改属性、不切段",
+                        "推进 / 推迟 / 归档 / 调度支持最多 3 步撤销，可回到原段并恢复调度",
+                      ],
+                      en: [
+                        "Choosing Intensive / Normal / Slow / Postpone in the paragraph workbench now advances to the next segment; priority still only changes the attribute",
+                        "Advance / Postpone / Archive / Schedule support up to 3 undo steps, restoring the prior segment and schedule",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "整理今日积压会打乱导入顺序的问题；有序列材料优先保留靠前未读，靠后先移入待放出，放出时不跳号",
+                        "段落工作台字号滑条不生效",
+                        "段落工作台内容区 / 编辑态顶部首行被截断",
+                      ],
+                      en: [
+                        "Rebalancing today’s backlog no longer scrambles import order; sequenced materials keep earlier unread items today, park later ones first, and re-admit without skipping ahead",
+                        "Paragraph workbench font-size slider not applying",
+                        "First line clipped at the top of the paragraph workbench content / edit view",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.6.0",
+                date: "2026-10-28",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "段落阅读工作台改为可拖动、调整大小的模态窗，支持钉住背后桌面、模态全屏，并保留库内快捷键",
+                        "段落工作台正式接入阅读点：可添加当前块、同步专题归属，并写入延后 / 归档 / 优先级与调度",
+                        "材料列表点击带 `#^块ID` 的 Markdown 阅读点时，可默认用段落工作台打开并定位到该段（可在「界面与阅读偏好」关闭）",
+                        "跨文件随机漫游，在范围内抽取 Markdown 段落预览；不会自动加入增量阅读",
+                        "文件列表右键可在段落阅读台打开笔记，或从该文件夹开始随机漫游",
+                        "漫游时「下一则」继续随机，「上一则」可返回最近最多 5 则",
+                        "设置中可配置随机漫游的包含 / 排除文件夹",
+                      ],
+                      en: [
+                        "Paragraph workbench opens as a draggable, resizable modal with pin-behind-desktop, modal maximize, and vault hotkeys kept working",
+                        "Paragraph workbench formally binds reading points—add the current block, sync topic affiliation, and write postpone / archive / priority / schedule",
+                        "Materials-list clicks on Markdown reading points with a `#^blockId` can open the paragraph workbench at that segment (toggle in Interface & reading preferences)",
+                        "Cross-file random roam samples Markdown paragraphs in scope for preview; never auto-adds to incremental reading",
+                        "File-explorer context menu opens a note in the paragraph workbench, or starts random roam from a folder",
+                        "While roaming, Next keeps jumping randomly; Previous returns through up to 5 recent stops",
+                        "Settings for include / exclude folders used by random roam",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "段落台调度改为与材料列表一致的「强化 / 正常 / 放缓 / 推迟」，并同步当日完成进度",
+                        "设置分页改为「通用 / 调度 / 标签组 / 授权 / 关于」，分组与命名更清晰",
+                        "通用页「界面与阅读偏好」合并语言、高级功能预览、Markdown 聚焦阅读，以及材料列表打开段落工作台的开关",
+                        "调度页将开关类设置前置、调度参数置底；未激活时优先展示可改的参数与负荷选项",
+                        "标签组页始终可见，Markdown 标签 YAML 同步可免费调整；标签组管理仍可按授权锁定",
+                        "Obsidian 设置搜索可跳到对应分页",
+                        "高级功能锁定卡片增加「前往激活授权」入口，若干调度文案更易理解",
+                        "段落台优先级与调度改为浮层，避免撑开工具栏布局",
+                      ],
+                      en: [
+                        "Workbench scheduling matches the materials list (Intensive / Normal / Slow / Postpone) and syncs today’s completion progress",
+                        "Settings tabs are now General / Scheduling / Tag groups / License / About, with clearer grouping and names",
+                        "General “Interface & reading preferences” merges language, premium preview, Markdown focused reading, and the materials-list → workbench open toggle",
+                        "Scheduling puts toggle-based options first and parameters last; free users see editable budget/load options before locked cards",
+                        "Tag groups tab is always available—Markdown tag YAML sync stays free; tag-group manager can still be license-locked",
+                        "Obsidian settings search jumps to the matching settings tab",
+                        "Locked premium cards include an “Open license settings” action; several scheduling labels are easier to understand",
+                        "Priority and schedule controls in the paragraph workbench use floating panels so the toolbar no longer stretches",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "段落阅读工作台与随机漫游范围设置划为高级功能；未激活时相关入口会提示授权",
+                        "分析图表入口与「活跃趋势」标签页改为基础功能；「数量变化 / 调度时机 / 优先级矩阵 / 未来负荷」仍为高级功能",
+                        "负荷回拉调参与 Markdown 块聚焦模式保持为基础功能",
+                        "「推进下一段」仅对已加入增量阅读的段落可用，并按「正常」调度后进入下一段；未加入时请用「下一则」浏览",
+                        "Canvas / 书籍 / 网页阅读点仍走原生打开与溯源定位，不默认进入段落工作台",
+                        "设置页不再展示数据管理入口（数据管理功能仍保留，可通过既有命令等方式打开）",
+                        "段落阅读工作台不再标为实验设计",
+                        "移除「处理流 / 阅读列表」调度策略选择；统一为通用默认节奏（约 1/3/7 天），升级自动迁移；后续由算法、日历操作与相关设置共同决定",
+                        "统计分析页「重点母文档」列表",
+                        "月历背景墙功能及相关高级入口",
+                      ],
+                      en: [
+                        "Paragraph workbench and random-roam scope settings are premium; unlicensed use shows the activation preview",
+                        "Analytics entry and the Activity trend tab are free; Quantity / Timing / Priority matrix / Future load tabs remain premium",
+                        "Load-tuning knobs and Markdown block focus mode stay free",
+                        "“Advance” is enabled only for paragraphs already in incremental reading; it applies Normal schedule then moves on—use Next to browse unbound paragraphs",
+                        "Canvas, book, and web reading points still open via native resume/focus; they do not default into the paragraph workbench",
+                        "Data management entry is removed from Settings (the feature remains available via existing commands)",
+                        "Paragraph workbench is no longer marked experimental",
+                        "Removed the Processing / Reading-list scheduling strategy picker; everyone uses the universal default rhythm (~1/3/7 days) with automatic upgrade migration; further pacing comes from the algorithm, calendar actions, and related settings",
+                        "Analytics “Top parent documents” list",
+                        "Calendar background wall feature and its premium entry",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.5.39",
+                date: "2026-10-25",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "手机侧栏月历功能栏改为与文件列表相同的 leaf 级 `.nav-header` 结构，底部显示并跟随官方主题规则；",
+                      ],
+                      en: [
+                        "Phone sidebar calendar toolbar now uses the same leaf-level `.nav-header` as file explorer (bottom placement follows Obsidian/themes);",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.5.38",
+                date: "2026-10-21",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "月历标题旁的专题名可点击切换，支持显示全部或其它专题",
+                      ],
+                      en: [
+                        "Click the topic chip next to the calendar title to switch filters (all topics or another topic)",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "归档、搁置、恢复与移除阅读点统一走同一调度写入路径，避免状态落盘不一致或列表短暂残留",
+                        "归档后阅读材料列表能立即按隐藏规则更新，不再短暂显示已归档项",
+                      ],
+                      en: [
+                        "Archive, suspend, resume, and remove now share one schedule write path, avoiding inconsistent persistence and brief list leftovers",
+                        "After archiving, the reading list updates hide rules immediately so archived items no longer linger",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
                 version: "0.5.37",
                 date: "2026-10-05",
-                latest: true,
                 groups: [
                   {
                     type: "added",
                     items: {
                       zh: [
                         "激活与云端校验新增国际中转节点：海外优先中转，国内可走直连备用",
-                        "支持离线激活（适用部分单位内网环境）"
+                        "支持离线激活（适用部分单位内网环境）",
                       ],
                       en: [
                         "International license relay with domestic direct fallback",
-                        "Offline activation for restricted intranet environments"
-                      ]
+                        "Offline activation for restricted intranet environments",
+                      ],
                     }
                   }
                 ]

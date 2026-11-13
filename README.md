@@ -72,6 +72,7 @@ python -m http.server 8765
 | `tutorials/md-ir/` | Incremental Reading 教程稿 |
 | `tutorials/md-mstodo/` | MS To Do Sync 教程稿 |
 | `scripts/build-tutorials.py` | 从 Markdown 生成 `tutorials-data.js` |
+| `scripts/sync-changelogs-from-github.py` | 从三款插件 GitHub Release 同步顶栏「更新日志」到 `index.html` |
 | `uploads/` | 产品截图 |
 | `assets/` | 品牌与辅助资源 |
 
