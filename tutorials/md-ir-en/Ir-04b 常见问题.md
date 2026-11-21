@@ -19,13 +19,13 @@ Check moves, renames, deletes; verify PDF++ / EPUB / Canvas node / block ID stil
 Add via PDF++ selection/bookmark links; path-only points can’t restore a precise selection.
 
 ## Rarely returns / returns too often
-Check Processing vs Reading list and interval-related settings; suspended or archived?; daily cap / time budget blocking release? This plugin is not FSRS—use Weave Deck for spaced repetition.
+Check Processing vs Reading list and interval-related settings; suspended or archived?; daily cap / time budget blocking release? This plugin is not FSRS—use Weave Review for spaced repetition.
 
 ## Tag groups do nothing
 Still being improved—use topics, priority, and basic scheduling instead.
 
 ## Premium locked / Deck licensed but IR still locked
-Activate under Settings → License, or confirm Weave Deck inheritance then reload plugins. Advanced preview shows entries; activation is still required to use them.
+Activate under Settings → License, or confirm Weave Review inheritance then reload plugins. Advanced preview shows entries; activation is still required to use them.
 
 ## Topics missing after machine switch
 Did you sync the data root (`weave Incremental reading/` by default)? Does the settings path match the real folder?

@@ -10,7 +10,7 @@ Daily time budget, daily reading-point cap, ahead window, interval-related optio
 Interleaving, bury/pull-back, auto postpone, priority half-life, and more; **Tag group manager** (premium, still being improved—not a daily workflow); tag ↔ YAML sync options.
 
 ## License
-View status; activate standalone; inherit from an activated Weave Deck when supported.
+View status; activate standalone; inherit from an activated Weave Review when supported.
 
 ## Calendar preferences
 Some options live under calendar More or list prefs: continuous reading, schedule preview, view modes, show timers/type/missing-source, hide completed/archived, background wall (premium). Follow your installed build’s menus.

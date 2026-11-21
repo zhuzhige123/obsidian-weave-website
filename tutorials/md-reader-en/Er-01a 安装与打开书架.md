@@ -1,4 +1,4 @@
-Weave Reader is the reader in the Obsidian Weave plugin family. It opens books in Obsidian—including EPUB, TXT, FB2/FBZ, MOBI, AZW3, CBZ, and PDF—and manages imports, covers, progress, and reading status through **My Bookshelf**. It works on its own; after installing Weave Deck, you can also connect card creation, Incremental Reading, and AI. Details below:
+Weave Reader is the reader in the Obsidian Weave plugin family. It opens books in Obsidian—including EPUB, TXT, FB2/FBZ, MOBI, AZW3, CBZ, and PDF—and manages imports, covers, progress, and reading status through **My Bookshelf**. It works on its own; after installing Weave Review, you can also connect card creation, Incremental Reading, and AI. Details below:
 
 ![[Er-01a-安装与打开书架.mp4]]
 
@@ -76,9 +76,9 @@ When you have many books, use the top search bar.
 3. Reading status includes **Not started**, **Reading**, and **Finished**.
 
 
-## 9. Relationship with the Main Weave Deck Plugin
+## 9. Relationship with the Main Weave Review Plugin
 The reader can handle reading, the bookshelf, and basic excerpts on its own.
 
-1. Without Weave Deck installed, you can still read, manage the bookshelf, and write excerpts to Markdown / Canvas.
-2. With Weave Deck installed, you can optionally connect card review, Incremental Reading, AI menus, and writing excerpts to decks.
-3. If Weave Deck is activated, the reader’s premium support can inherit that license—you do not need a separate reader activation code.
+1. Without Weave Review installed, you can still read, manage the bookshelf, and write excerpts to Markdown / Canvas.
+2. With Weave Review installed, you can optionally connect card review, Incremental Reading, AI menus, and writing excerpts to decks.
+3. If Weave Review is activated, the reader’s premium support can inherit that license—you do not need a separate reader activation code.

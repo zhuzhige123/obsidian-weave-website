@@ -36,7 +36,7 @@ Specifies which folder export templates are loaded from. If changing directory f
 **Recommended to sync with Vault:**
 
 1. Original book files (epub, pdf, etc.).
-2. Your Markdown excerpts, Canvas, Weave Deck.
+2. Your Markdown excerpts, Canvas, Weave Review.
 3. Book data notes `data_*.md` and covers.
 
 **Usually no need to sync across devices:**

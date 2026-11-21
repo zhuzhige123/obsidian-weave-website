@@ -7,7 +7,7 @@ When you open the incremental reading calendar and today’s material list, poin
 
 When done: mark progress, pick the next appearance, or archive—then continue.
 
-If a point is worth remembering long-term, use **Weave Deck** (manual or AI cards) to add it to a memory deck. **Cards made after a second, deeper pass are often higher quality and stick better.** Quizzes and exam groups stay on the Deck side. Incremental Reading owns **when to read again**; Deck owns **how to remember and check**.
+If a point is worth remembering long-term, use **Weave Review** (manual or AI cards) to add it to a memory deck. **Cards made after a second, deeper pass are often higher quality and stick better.** Quizzes and exam groups stay on the Deck side. Incremental Reading owns **when to read again**; Deck owns **how to remember and check**.
 
 That is the Weave series in Obsidian: materials enter a schedulable queue → deep read on the calendar → refine into cards and tests → jump back to sources when needed.
 
@@ -16,13 +16,13 @@ That is the Weave series in Obsidian: materials enter a schedulable queue → de
 |-------|----------------|
 | Design / collect reading material | Clipping, RSS, import, folder subscription, “Add as reading point” entries |
 | Read and resume | IR calendar + source (Markdown / PDF++ / Canvas / web / EPUB Reader) |
-| Memory cards | Weave Deck |
-| Quizzes | Weave Deck exam groups and related tools |
+| Memory cards | Weave Review |
+| Quizzes | Weave Review exam groups and related tools |
 
 Install IR alone for the queue; add EPUB Reader for chapter resume; add Deck for cards and review. Install all three for the full loop.
 
 ## Collaboration inside Weave
-### Weave Deck
+### Weave Review
 1. After opening a point from the calendar and thinking deeply, create cards from the same selection (manual or AI).
 2. Prefer cards with source links (`we_source`, etc.) so review can jump back.
 3. Do not treat Deck FSRS as IR scheduling—see `Ir-00a 设计理念`.
@@ -61,7 +61,7 @@ Any stable, openable Obsidian link (wikilink, block ref, officially supported lo
 ## A recommended day
 1. While browsing / clipping / taking lecture notes: **Add reading point** on what matters (no need to deep-read immediately).
 2. Open the **IR calendar**: follow the list, resume, think.
-3. Worth remembering → Weave Deck cards; need checks → exam tools.
+3. Worth remembering → Weave Review cards; need checks → exam tools.
 4. Mark progress or reschedule / archive; continue.
 5. EPUB, PDF, Canvas, web, video timestamps, Excalidraw—use the matching entry; everything lands on the same calendar.
 

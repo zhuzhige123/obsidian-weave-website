@@ -24,8 +24,8 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 ## 3. How to Activate
 1. Open reader settings **License**.
 2. Enter a standalone Weave Reader activation code.
-3. If Weave Deck is installed and activated, license can inherit—no duplicate code needed.
-4. License page shows source (Weave Deck vs reader), sharing status, and expiry.
+3. If Weave Review is installed and activated, license can inherit—no duplicate code needed.
+4. License page shows source (Weave Review vs reader), sharing status, and expiry.
 5. Purchase and redemption paths follow in-app notes and `PREMIUM_TERMS.md` (including community promotion redemption when offered).
 
 > Note: Activation may contact the license service—see privacy section. Device limits per About page and terms.
@@ -47,10 +47,10 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 ## 6. FAQ
 
 **Why don’t excerpts stick?**  
-They must be written to Markdown, Canvas, or Weave Deck with traces. Momentary highlight alone is not enough. See `Er-02a 摘录笔记工作流`.
+They must be written to Markdown, Canvas, or Weave Review with traces. Momentary highlight alone is not enough. See `Er-02a 摘录笔记工作流`.
 
-**Do I need Weave Deck?**  
-No. Reader-only Markdown notes work fine. Install Weave Deck for spaced repetition, vocabulary list, and main-plugin license inheritance.
+**Do I need Weave Review?**  
+No. Reader-only Markdown notes work fine. Install Weave Review for spaced repetition, vocabulary list, and main-plugin license inheritance.
 
 **Do excerpts sync across platforms?**  
 Yes—sync the Vault. Do not rely on syncing plugin cache folders only. See `Er-04b 阅读器设置与数据同步`.

@@ -21,7 +21,7 @@ Markdown 先打块 ID；PDF 用 PDF++ 选区链接；Canvas 带 nodeId；EPUB �
 先保证：添加 → 今日打开 → 回跳 → 标记进度。再按需激活 PDF/EPUB 导入、订阅、计时器、统计、关联笔记、深度调度等。
 
 ## 不要依赖尚未稳定的能力
-标签组仍在完善中；段落工作台为实验中；FSRS 属于 Weave Deck，勿当作本插件调度说明。
+标签组仍在完善中；段落工作台为实验中；FSRS 属于 Weave Review，勿当作本插件调度说明。
 
 ## 备份数据根
 同步与备份请包含 `weave Incremental reading/`（或你自定义的数据根）下全部 `.irdeck`。设置改路径前先确认旧数据就绪。

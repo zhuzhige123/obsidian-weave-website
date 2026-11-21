@@ -9,7 +9,7 @@ MS To Do Sync is a standalone Obsidian plugin from the same developer (not part 
 1. **Selective sync**: Only tasks with the sync namespace tag (default `#mtd-sync`, including sub-tags like `#mtd-sync/work`), or lines you map via **Sync current task line**.
 2. **List isolation**: Reads/writes only your main Obsidian sync list and dedicated route lists; other To Do lists never inbound.
 3. **No text pollution**: Machine mapping lives in inline HTML comments `<!-- mtd:… -->`, hidden in reading view; no default visible `🆔`.
-4. **Standalone**: Works fully without Weave Deck / EPUB Reader / Incremental Reading.
+4. **Standalone**: Works fully without Weave Review / EPUB Reader / Incremental Reading.
 
 ## 3. A typical day
 1. Write tagged tasks with due dates in Obsidian.

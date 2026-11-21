@@ -1,4 +1,4 @@
-Weave Incremental Reading 是独立的增量阅读主控：把 Markdown、块引用、PDF、Canvas、网页、EPUB 等收成可排期、可续读的阅读点，用专题与日历推进节奏。不依赖 Weave Deck 即可单独使用。
+Weave Incremental Reading 是独立的增量阅读主控：把 Markdown、块引用、PDF、Canvas、网页、EPUB 等收成可排期、可续读的阅读点，用专题与日历推进节奏。不依赖 Weave Review 即可单独使用。
 
 ## 三个核心概念
 | 概念 | 说明 |
@@ -20,7 +20,7 @@ Weave Incremental Reading 是独立的增量阅读主控：把 Markdown、块引
 
 **高级（需激活）：** PDF/EPUB 章节导入、订阅文件夹、调度策略深度自定义与交错学习、统计分析、阅读计时器、日历背景墙、关联笔记等。标签组仍在完善中，勿作主流程依赖。
 
-若已激活 Weave Deck，本插件可继承授权。独立激活：设置 → Weave Incremental Reading → 授权。
+若已激活 Weave Review，本插件可继承授权。独立激活：设置 → Weave Incremental Reading → 授权。
 
 ## 数据与隐私（摘要）
 阅读点、专题与调度默认保存在本地知识库；插件不主动上传笔记正文。卸载不会自动删除已创建的 `.irdeck` 数据。

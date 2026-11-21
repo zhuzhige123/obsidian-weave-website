@@ -67,12 +67,13 @@ python -m http.server 8765
 | `tutorials.html` | 教程页（侧栏目录 + 正文 + 本页目录） |
 | `robots.txt` / `sitemap.xml` | 搜索引擎抓取与站点地图 |
 | `tutorials-data.js` | 由教程 Markdown 生成的正文数据，勿手改 |
-| `tutorials/md/` | Weave Deck 教程稿 |
+| `tutorials/md/` | Weave Review 教程稿 |
 | `tutorials/md-reader/` | Weave Reader 教程稿 |
 | `tutorials/md-ir/` | Incremental Reading 教程稿 |
 | `tutorials/md-mstodo/` | MS To Do Sync 教程稿 |
 | `scripts/build-tutorials.py` | 从 Markdown 生成 `tutorials-data.js` |
 | `scripts/sync-changelogs-from-github.py` | 从三款插件 GitHub Release 同步顶栏「更新日志」到 `index.html` |
+| `scripts/post-changelogs-to-discord.py` | 按插件+语言分频道发 Discord 更新日志（Webhook：`.local/discord-changelog-webhook-{plugin}-{lang}.txt`） |
 | `uploads/` | 产品截图 |
 | `assets/` | 品牌与辅助资源 |
 

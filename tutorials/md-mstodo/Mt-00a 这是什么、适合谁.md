@@ -9,7 +9,7 @@ MS To Do Sync 是同一开发者推出的独立 Obsidian 插件（不属于 Weav
 1. **选择性同步**：默认只处理带同步命名空间标签的任务（默认 `#mtd-sync`，含子标签如 `#mtd-sync/工作`），或你用命令「同步当前任务行」主动建立映射的行。
 2. **列表隔离**：只读写你配置的「Obsidian 主同步列表」以及「专用同步列表（子标签路由）」；其它 To Do 列表不会入站。
 3. **无文本污染**：机器映射写在行内 HTML 注释 `<!-- mtd:… -->` 中，阅读视图自动隐藏；不会默认写可见的 `🆔`。
-4. **独立插件**：不安装 Weave Deck / EPUB Reader / Incremental Reading 也可完整使用。
+4. **独立插件**：不安装 Weave Review / EPUB Reader / Incremental Reading 也可完整使用。
 
 ## 3. 典型一天
 1. 在 Obsidian 写好带 `#mtd-sync` 的任务与截止日期。

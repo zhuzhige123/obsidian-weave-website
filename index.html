@@ -7,7 +7,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="waffo-verify" content="f01af109ecd2ec3c254d2929ff1c8b5a" />
   <title>Obsidian Weave 插件系列</title>
-  <meta name="description" content="Obsidian Weave 插件系列官网：Weave Deck 记忆牌组、Weave Reader 阅读摘录、增量阅读排期，在 Obsidian 内完成摘录、制卡、复习与测试闭环。" />
+  <meta name="description" content="Obsidian Weave 插件系列官网：Weave Review 记忆牌组、Weave Reader 阅读摘录、增量阅读排期，在 Obsidian 内完成摘录、制卡、复习与测试闭环。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://obsidian-weave.xyz/" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
@@ -15,12 +15,12 @@
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Obsidian Weave 插件系列" />
-  <meta property="og:description" content="在 Obsidian 里完成摘录、制卡、复习与测试：Weave Deck、Weave Reader、增量阅读。" />
+  <meta property="og:description" content="在 Obsidian 里完成摘录、制卡、复习与测试：Weave Review、Weave Reader、增量阅读。" />
   <meta property="og:url" content="https://obsidian-weave.xyz/" />
   <meta property="og:image" content="https://obsidian-weave.xyz/assets/brand/weave-mark.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Obsidian Weave 插件系列" />
-  <meta name="twitter:description" content="在 Obsidian 里完成摘录、制卡、复习与测试：Weave Deck、Weave Reader、增量阅读。" />
+  <meta name="twitter:description" content="在 Obsidian 里完成摘录、制卡、复习与测试：Weave Review、Weave Reader、增量阅读。" />
   <style>
     /* 京华老宋体：站点内嵌子集，访客无需本机安装 */
     @font-face {
@@ -1823,7 +1823,7 @@
               <span data-i18n="nav.docs">教程</span>
             </button>
             <div class="nav-menu" role="menu">
-              <button type="button" role="menuitem" class="is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Deck</button>
+              <button type="button" role="menuitem" class="is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Review</button>
               <button type="button" role="menuitem" data-plugin-nav="reader" data-i18n="plugin.reader">Weave Reader</button>
               <button type="button" role="menuitem" data-plugin-nav="ir" data-i18n="plugin.ir">Incremental Reading</button>
               <button type="button" role="menuitem" data-plugin-nav="mstodo" data-i18n="plugin.mstodo">MS To Do Sync</button>
@@ -1978,8 +1978,8 @@
                 class="slide"
                 data-type="image"
                 data-image="assets/promo/weave-plugin-banner-deck.png"
-                data-caption-zh="Weave Deck · 插件横幅"
-                data-caption-en="Weave Deck · Plugin banner"
+                data-caption-zh="Weave Review · 插件横幅"
+                data-caption-en="Weave Review · Plugin banner"
               >
                 <span class="slide-badge" data-i18n="slide.badge8">08 Deck</span>
                 <div class="slide-media">
@@ -2016,7 +2016,7 @@
         <article class="plugin" id="weave">
           <div>
             <p class="plugin-tag" data-i18n="weave.tag">01 · 记忆与检验</p>
-            <h3>Weave Deck</h3>
+            <h3>Weave Review</h3>
             <p class="plugin-desc" data-i18n="weave.desc">摘录、制卡、复习、测验、溯源。学习卡片独立存放，复习时仍可回到原文语境。</p>
             <ul class="feature-list">
               <li data-i18n="weave.f1">FSRS6 间隔复习，问答 / 挖空 / 填空 / 选择</li>
@@ -2029,11 +2029,11 @@
           </div>
           <div class="plugin-visual">
             <div class="shot-slide" data-shot-slide>
-              <div class="shot is-active"><img src="uploads/weave-slide-1.png" alt="Weave Deck 截图 1" /></div>
-              <div class="shot"><img src="uploads/weave-slide-2.png" alt="Weave Deck 截图 2" /></div>
-              <div class="shot"><img src="uploads/weave-slide-3.png" alt="Weave Deck 截图 3" /></div>
-              <div class="shot"><img src="uploads/weave-slide-4.png" alt="Weave Deck 牌组分析" /></div>
-              <div class="shot"><img src="uploads/weave-slide-5.png" alt="Weave Deck 网格卡片视图" /></div>
+              <div class="shot is-active"><img src="uploads/weave-slide-1.png" alt="Weave Review 截图 1" /></div>
+              <div class="shot"><img src="uploads/weave-slide-2.png" alt="Weave Review 截图 2" /></div>
+              <div class="shot"><img src="uploads/weave-slide-3.png" alt="Weave Review 截图 3" /></div>
+              <div class="shot"><img src="uploads/weave-slide-4.png" alt="Weave Review 牌组分析" /></div>
+              <div class="shot"><img src="uploads/weave-slide-5.png" alt="Weave Review 网格卡片视图" /></div>
               <div class="shot-nav">
                 <button type="button" data-shot-prev aria-label="上一张">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 L5 8 L10 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2123,7 +2123,7 @@
             <p class="hint" data-i18n="pricing.seriesHint">三款插件高级支持</p>
             <div class="price-now" data-i18n="pricing.seriesNow">74 元</div>
             <ul>
-              <li>Weave Deck</li>
+              <li>Weave Review</li>
               <li>Weave Reader</li>
               <li>Incremental Reading</li>
               <li data-i18n="pricing.lDevices">支持五台设备</li>
@@ -2213,8 +2213,8 @@
         </div>
         <div class="install-grid">
           <article class="install-card">
-            <h3>1. Weave Deck</h3>
-            <p data-i18n="install.w">搜索 Weave Deck，初始化卡片库后开始复习。</p>
+            <h3>1. Weave Review</h3>
+            <p data-i18n="install.w">搜索 Weave Review，初始化卡片库后开始复习。</p>
             <a class="btn btn-ghost" href="https://community.obsidian.md/plugins/weave" target="_blank" rel="noopener noreferrer" data-i18n="install.open">打开社区页面</a>
           </article>
           <article class="install-card">
@@ -2265,7 +2265,7 @@
       var I18N = {
         zh: {
           "meta.title": "Obsidian Weave 插件系列",
-          "meta.desc": "Obsidian Weave 插件系列官网：Weave Deck 记忆牌组、Weave Reader 阅读摘录、增量阅读排期，在 Obsidian 内完成摘录、制卡、复习与测试闭环。",
+          "meta.desc": "Obsidian Weave 插件系列官网：Weave Review 记忆牌组、Weave Reader 阅读摘录、增量阅读排期，在 Obsidian 内完成摘录、制卡、复习与测试闭环。",
           brand: "Weave 系列",
           "brand.series": "系列",
           "nav.series": "插件系列",
@@ -2273,7 +2273,7 @@
           "nav.changelog": "更新日志",
           "nav.pricing": "价格",
           "nav.docs": "教程",
-          "plugin.weave": "Weave Deck",
+          "plugin.weave": "Weave Review",
           "plugin.reader": "Weave Reader",
           "plugin.ir": "增量阅读",
           "plugin.mstodo": "MS To Do Sync",
@@ -2380,7 +2380,7 @@
           "community.lightboxClose": "关闭",
           "install.title": "在 Obsidian 中安装",
           "install.lead": "设置 → 社区插件 → 浏览，搜索对应名称；或直接打开社区插件页。",
-          "install.w": "搜索 Weave Deck，初始化卡片库后开始复习。",
+          "install.w": "搜索 Weave Review，初始化卡片库后开始复习。",
           "install.r": "搜索阅读器插件，在库内打开电子书。",
           "install.i": "搜索增量阅读，建立阅读点与日历。",
           "install.open": "打开社区页面",
@@ -2394,7 +2394,7 @@
         },
         en: {
           "meta.title": "Obsidian Weave Plugin Series",
-          "meta.desc": "Official site for the Obsidian Weave plugin series: Weave Deck, Weave Reader, and Incremental Reading—excerpt, cards, review, and tests inside Obsidian.",
+          "meta.desc": "Official site for the Obsidian Weave plugin series: Weave Review, Weave Reader, and Incremental Reading—excerpt, cards, review, and tests inside Obsidian.",
           brand: "Weave Series",
           "brand.series": "Series",
           "nav.series": "Plugins",
@@ -2402,7 +2402,7 @@
           "nav.changelog": "Changelog",
           "nav.pricing": "Pricing",
           "nav.docs": "Tutorials",
-          "plugin.weave": "Weave Deck",
+          "plugin.weave": "Weave Review",
           "plugin.reader": "Weave Reader",
           "plugin.ir": "Incremental Reading",
           "plugin.mstodo": "MS To Do Sync",
@@ -2509,7 +2509,7 @@
           "community.lightboxClose": "Close",
           "install.title": "Install in Obsidian",
           "install.lead": "Settings → Community plugins → Browse, or open each plugin’s community page.",
-          "install.w": "Search Weave Deck, initialize your card library, and start reviewing.",
+          "install.w": "Search Weave Review, initialize your card library, and start reviewing.",
           "install.r": "Search the reader plugin and open ebooks in your vault.",
           "install.i": "Search Incremental Reading to build reading points and a calendar.",
           "install.open": "Open community page",
@@ -3207,9 +3207,88 @@
             github: "https://github.com/zhuzhige123/obsidian---Weave/releases",
             entries: [
               {
+                version: "1.1.15",
+                date: "2026-11-21",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "牌组学习界面（网格 / 看板）进入时，卡片轻量上浮并错开入场",
+                      ],
+                      en: [
+                        "Entering deck study (grid / kanban) plays a light staggered float-up for cards",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "插件显示名称由 Weave Deck 更名为 Weave Review",
+                      ],
+                      en: [
+                        "Plugin display name from Weave Deck to Weave Review",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.14",
+                date: "2026-11-17",
+                groups: [
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "断网时许可证状态显示「离线可用」，并落盘待联网对齐，重启不会假恢复成在线",
+                        "恢复网络或窗口重新获得焦点时，自动尝试对账；设置中可手动验证许可证",
+                        "启动时先信任本地授权解锁高级功能，再在后台完成云端对账",
+                      ],
+                      en: [
+                        "When the cloud is unreachable, the license status shows Available offline and persists a needs-online-reconcile flag so a restart cannot look fully online",
+                        "Coming back online or focusing the window triggers automatic reconcile; you can also verify the license in Settings",
+                        "Startup unlocks premium from local authorization first, then reconciles with the cloud in the background",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.1.13",
+                date: "2026-11-16",
+                groups: [
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "`we_block` 合并与教程牌组残留改为隐藏救援，不再出现在正式数据健康检查列表；旧 `we_block` 仍由后台静默收口",
+                        "移除已无实际用途的孤立卡片 / 无效引用检测项，并从安全批量修复名单中去掉 EPUB 拆分残留项",
+                      ],
+                      en: [
+                        "`we_block` merge and tutorial-deck residue are now hidden-rescue items and no longer appear in the formal data-health checklist; legacy `we_block` is still cleaned silently in the background",
+                        "Removed unused orphan-card / invalid-reference checks, and dropped split-plugin EPUB residue from the safe batch-fix list",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "将「启动时数据检查」设为关闭后，打开 Weave 仍可能弹出迁移冲突文件提示或相关 Notice",
+                      ],
+                      en: [
+                        "Turning off startup data check no longer leaves migration-conflict prompts or related Notices when opening Weave",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
                 version: "1.1.12",
                 date: "2026-11-10",
-                latest: true,
                 groups: [
                   {
                     type: "added",
@@ -3825,7 +3904,7 @@
                     type: "fixed",
                     items: {
                       zh: [
-                        "修复在牌组学习界面或新建卡片列表切换记忆牌组时，因空路径被误当成库根路径导致无法写入默认牌组目录的问题",
+                        "在牌组学习界面或新建卡片列表切换记忆牌组时，因空路径被误当成库根路径导致无法写入默认牌组目录的问题",
                       ],
                       en: [
                         "Fixed empty-path normalize treating vault root as the deck folder, which blocked writing the default deck path",
@@ -3841,9 +3920,135 @@
             github: "https://github.com/zhuzhige123/obsidian-weave-reader/releases",
             entries: [
               {
+                version: "1.0.1",
+                date: "2026-11-21",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "书架网格与封面视图打开时，卡片轻量上浮错开入场；大库自动封顶错开、本视图只播一次，并尊重系统「减少动态效果」",
+                      ],
+                      en: [
+                        "Light staggered float-up enter animation for bookshelf grid and cover views; capped for large libraries, plays once per view open, and respects reduced-motion",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "1.0.0",
+                date: "2026-11-20",
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "剩余阅读时间（高级功能）——阅读器右上角贴纸优先显示本章、否则全书剩余时长，并随翻页语速自适应估算；可在窗格菜单开关显示、布局与摇晃；未激活时可通过高级预览查看锁定入口",
+                      ],
+                      en: [
+                        "Remaining reading time (premium)—top-right sticker for remaining chapter or book time with adaptive pace from page turns; show, layout, and wiggle from the pane menu; locked preview entry when unlicensed",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "Canvas 脑图在固定锚点下新增多个子节点时，自动绕父节点居中排布，连线更少缠绕",
+                        "链式自动延伸时按节点边框中线对齐，不同高度卡片之间的连线不再明显偏斜",
+                      ],
+                      en: [
+                        "With a pinned Canvas hub, new sibling nodes are recentered around the parent so connector lines fan more cleanly",
+                        "Auto-chain placement aligns border midlines, so links between cards of different heights stay straighter",
+                      ],
+                    }
+                  },
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "从阅读器切到 Canvas 右键节点时，「固定阅读器摘录锚点」与摘录方向菜单偶发不显示",
+                        "选中根节点连续摘录时，链条偶发从中间节点重新开叉，而不是按 A→B→C→D 延伸",
+                      ],
+                      en: [
+                        "After focusing the reader, right-clicking a Canvas node sometimes hid Pin reader excerpt anchor and the excerpt direction menu",
+                        "Continuous excerpts from a selected root could sporadically branch from a mid-chain node instead of extending A→B→C→D",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.9.4",
+                date: "2026-11-17",
+                groups: [
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "断网时许可证状态显示「离线可用」，并落盘待联网对齐，重启不会假恢复成在线",
+                        "恢复网络或窗口重新获得焦点时，自动尝试对账；也可手动「重新验证」",
+                      ],
+                      en: [
+                        "When the cloud is unreachable, the license status shows Available offline and persists a needs-online-reconcile flag so a restart cannot look fully online",
+                        "Coming back online or focusing the window triggers automatic reconcile; you can also force Re-verify",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "离线激活仅在联网激活失败后出现，并与主激活按钮同为无边框样式",
+                      ],
+                      en: [
+                        "Offline activation appears only after online activation fails, and uses the same borderless style as the primary activate button",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.9.3",
+                date: "2026-11-15",
+                groups: [
+                  {
+                    type: "fixed",
+                    items: {
+                      zh: [
+                        "设置页已显示激活时，部分高级功能仍弹出基础/高级对照层、无法使用的问题（启动即按本地授权放行，功能入口统一走授权守卫）",
+                        "本地有激活记录但云端尚未确认时，点击高级功能改为明确提示，而不再误开购买对照层",
+                      ],
+                      en: [
+                        "Advanced features sometimes opened the basic/premium comparison overlay even when Settings already showed an activated license (trust local authorization on startup; route all feature gates through the license guard)",
+                        "When a local activation record exists but cloud confirmation is still pending or failed, premium clicks now show a clear notice instead of the purchase comparison overlay",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
+                version: "0.9.2",
+                date: "2026-11-15",
+                groups: [
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "初次安装时，书架显示功能默认改为「跟随位置」（侧边栏阅读月历，主内容区卡片网格）",
+                      ],
+                      en: [
+                        "Fresh installs default bookshelf display to Follow location (reading calendar in the sidebar, card grid in the main area)",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
                 version: "0.9.1",
                 date: "2026-11-13",
-                latest: true,
                 groups: [
                   {
                     type: "added",
@@ -4296,12 +4501,12 @@
                     items: {
                       zh: [
                         "教程模态窗标签过多时被裁切、无法看到右侧标签；溢出时显示左右滚动箭头，切换标签会自动滚入可视区",
-                        "目录右键将章节加入阅读计划后，Weave Deck 重要日程因书名含方括号（如 `[韩]`）无法识别任务行的问题；新写入的协议链接别名会改用全角括号",
+                        "目录右键将章节加入阅读计划后，Weave Review 重要日程因书名含方括号（如 `[韩]`）无法识别任务行的问题；新写入的协议链接别名会改用全角括号",
                         "目录右键「添加到增量阅读」提示暂无专题、但库内已有 `.irdeck` 专题的问题；阅读器改为直接读取增量阅读插件的专题列表",
                       ],
                       en: [
                         "Tutorial modal tabs no longer get clipped when there are many tabs; overflow shows left/right scroll arrows, and the active tab scrolls into view",
-                        "Chapters added to a reading plan from the TOC menu now appear in Weave Deck Important Schedule even when book titles contain brackets such as `[韩]`; new protocol link aliases use full-width brackets",
+                        "Chapters added to a reading plan from the TOC menu now appear in Weave Review Important Schedule even when book titles contain brackets such as `[韩]`; new protocol link aliases use full-width brackets",
                         "“Add to incremental reading” from the TOC no longer reports missing topics when `.irdeck` topics already exist; the reader now reads the topic list directly from the Incremental Reading plugin",
                       ],
                     }
@@ -4573,8 +4778,8 @@
                     type: "fixed",
                     items: {
                       zh: [
-                        "修复部分 TXT 书籍目录解析不全",
-                        "修复部分 TXT 书籍中文正文缩进异常",
+                        "部分 TXT 书籍目录解析不全",
+                        "部分 TXT 书籍中文正文缩进异常",
                       ],
                       en: [
                         "Fixed incomplete TOC parsing for some TXT books",
@@ -4591,9 +4796,50 @@
             github: "https://github.com/zhuzhige123/Obsidian-Weave-incremental-reading/releases",
             entries: [
               {
+                version: "0.6.2",
+                date: "2026-11-17",
+                latest: true,
+                groups: [
+                  {
+                    type: "added",
+                    items: {
+                      zh: [
+                        "许可证状态支持手动「验证许可证」，便于防火墙或弱网下主动对齐云端",
+                      ],
+                      en: [
+                        "Manual Verify license on the license status card, so you can force cloud reconcile behind a firewall or on a weak network",
+                      ],
+                    }
+                  },
+                  {
+                    type: "improved",
+                    items: {
+                      zh: [
+                        "断网时许可证状态显示「离线可用」，并落盘待联网对齐，重启不会假恢复成在线",
+                        "恢复网络或窗口重新获得焦点时，自动尝试对账",
+                      ],
+                      en: [
+                        "When the cloud is unreachable, the license status shows Available offline and persists a needs-online-reconcile flag so a restart cannot look fully online",
+                        "Coming back online or focusing the window triggers automatic reconcile",
+                      ],
+                    }
+                  },
+                  {
+                    type: "changed",
+                    items: {
+                      zh: [
+                        "离线激活按钮改为无边框链接样式，与主激活按钮一致",
+                      ],
+                      en: [
+                        "Offline activate uses the same borderless link style as the primary activate button",
+                      ],
+                    }
+                  }
+                ]
+              },
+              {
                 version: "0.6.1",
                 date: "2026-11-13",
-                latest: true,
                 groups: [
                   {
                     type: "improved",

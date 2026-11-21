@@ -21,7 +21,7 @@ Watch the heatmap and day-load summary. Don’t pin every new item to today. Cle
 Ship add → open today → resume → mark progress before unlocking PDF/EPUB import, subscription, timers, analytics, associated notes, or deep strategy knobs.
 
 ## Don’t lean on unfinished surfaces
-Tag groups are still being improved; the paragraph workbench is experimental; FSRS belongs to Weave Deck—not this scheduler.
+Tag groups are still being improved; the paragraph workbench is experimental; FSRS belongs to Weave Review—not this scheduler.
 
 ## Back up the data root
 Include `weave Incremental reading/` (or your custom root) and every `.irdeck`. Confirm the old folder before changing the path.

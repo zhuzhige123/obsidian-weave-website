@@ -971,7 +971,7 @@ READER_WELCOME = {
     "title": {"zh": "阅读器教程导读", "en": "Reader guide & paths"},
     "lead": {
         "zh": "在 Obsidian 里读书、摘录、回链与制卡的完整路径。",
-        "en": "Read, excerpt, link back, and integrate with Weave Deck in Obsidian.",
+        "en": "Read, excerpt, link back, and integrate with Weave Review in Obsidian.",
     },
     "body": {
         "zh": """<div class="path-cards">
@@ -1029,12 +1029,12 @@ SERIES = {
     "level": "beginner",
     "title": {"zh": "Weave 系列插件介绍", "en": "Weave plugin series intro"},
     "lead": {
-        "zh": "Weave Deck、Weave Reader、Incremental Reading 三款插件如何分工与组合。",
-        "en": "How Weave Deck, Weave Reader, and IR divide work and combine.",
+        "zh": "Weave Review、Weave Reader、Incremental Reading 三款插件如何分工与组合。",
+        "en": "How Weave Review, Weave Reader, and IR divide work and combine.",
     },
     "body": {
-        "zh": "<p>Weave Deck、Weave Reader、增量阅读三款插件如何分工与组合。各插件操作教程见顶栏切换。</p>",
-        "en": "<p>How Weave Deck, Weave Reader, and IR divide work. Switch plugins from the Tutorials menu in the top bar.</p>",
+        "zh": "<p>Weave Review、Weave Reader、增量阅读三款插件如何分工与组合。各插件操作教程见顶栏切换。</p>",
+        "en": "<p>How Weave Review, Weave Reader, and IR divide work. Switch plugins from the Tutorials menu in the top bar.</p>",
     },
 }
 
@@ -1070,7 +1070,7 @@ IR_WELCOME = {
 
 
 def rename_plugin_mentions(text: str) -> str:
-    """Display name is Weave Deck; series name stays Weave. Do not touch technical ids."""
+    """Display name is Weave Review; series name stays Weave. Do not touch technical ids."""
     if not text:
         return text
     tokens = [
@@ -1078,7 +1078,7 @@ def rename_plugin_mentions(text: str) -> str:
         ("Weave Reader", "\x00EPUB_READER\x00"),
         ("Weave EPUB Reader", "\x00EPUB_READER\x00"),
         ("weave epub reader", "\x00epub_reader\x00"),
-        ("Weave Deck", "\x00WEAVE_DECK\x00"),
+        ("Weave Review", "\x00WEAVE_REVIEW\x00"),
         ("Obsidian Weave 插件系列", "\x00SERIES_ZH\x00"),
         ("Obsidian Weave plugin series", "\x00SERIES_EN\x00"),
         ("Obsidian Weave plugin family", "\x00SERIES_FAM\x00"),
@@ -1094,31 +1094,31 @@ def rename_plugin_mentions(text: str) -> str:
     ]
     for src, token in tokens:
         text = text.replace(src, token)
-    text = text.replace("Weave 主插件", "\x00WEAVE_DECK\x00")
-    text = text.replace("the main Weave plugin", "\x00WEAVE_DECK\x00")
-    text = text.replace("main Weave plugin", "\x00WEAVE_DECK\x00")
-    text = re.sub(r"Obsidian Weave", "\x00WEAVE_DECK\x00", text)
-    text = re.sub(r"obsidian weave", "\x00WEAVE_DECK\x00", text)
+    text = text.replace("Weave 主插件", "\x00WEAVE_REVIEW\x00")
+    text = text.replace("the main Weave plugin", "\x00WEAVE_REVIEW\x00")
+    text = text.replace("main Weave plugin", "\x00WEAVE_REVIEW\x00")
+    text = re.sub(r"Obsidian Weave", "\x00WEAVE_REVIEW\x00", text)
+    text = re.sub(r"obsidian weave", "\x00WEAVE_REVIEW\x00", text)
     text = re.sub(
-        r"Weave(?! Deck)(?! Reader)(?! EPUB)(?! Incremental)(?! 系列)(?!-family)(?! series)(?! Series)",
-        "\x00WEAVE_DECK\x00",
+        r"Weave(?! Review)(?! Reader)(?! EPUB)(?! Incremental)(?! 系列)(?!-family)(?! series)(?! Series)",
+        "\x00WEAVE_REVIEW\x00",
         text,
     )
-    text = re.sub(r"(?<![A-Za-z0-9_\-])weave(?![A-Za-z0-9_\-])", "\x00WEAVE_DECK\x00", text)
+    text = re.sub(r"(?<![A-Za-z0-9_\-])weave(?![A-Za-z0-9_\-])", "\x00WEAVE_REVIEW\x00", text)
     for src, token in tokens:
         restored = "Weave Reader" if src == "weave epub reader" else src
         text = text.replace(token, restored)
-    text = re.sub(r"(Weave Deck)(?=[\u4e00-\u9fff])", r"\1 ", text)
-    text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave Deck)", r" \1", text)
+    text = re.sub(r"(Weave Review)(?=[\u4e00-\u9fff])", r"\1 ", text)
+    text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave Review)", r" \1", text)
     text = re.sub(r"(Weave Reader)(?=[\u4e00-\u9fff])", r"\1 ", text)
     text = re.sub(r"(?<=[\u4e00-\u9fff])(Weave Reader)", r" \1", text)
-    text = text.replace("Weave Deck后", "Weave Deck 后")
-    text = text.replace("Weave Deck中", "Weave Deck 中")
-    text = text.replace("Weave Deck时", "Weave Deck 时")
-    text = text.replace("Weave Deck的", "Weave Deck 的")
-    text = text.replace("Weave Deck与", "Weave Deck 与")
-    while "Weave Deck Deck" in text:
-        text = text.replace("Weave Deck Deck", "Weave Deck")
+    text = text.replace("Weave Review后", "Weave Review 后")
+    text = text.replace("Weave Review中", "Weave Review 中")
+    text = text.replace("Weave Review时", "Weave Review 时")
+    text = text.replace("Weave Review的", "Weave Review 的")
+    text = text.replace("Weave Review与", "Weave Review 与")
+    while "Weave Review Deck" in text:
+        text = text.replace("Weave Review Deck", "Weave Review")
     return text
 
 

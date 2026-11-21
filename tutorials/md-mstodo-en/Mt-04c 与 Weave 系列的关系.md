@@ -1,4 +1,4 @@
-MS To Do Sync and Weave Deck / EPUB Reader / Incremental Reading share a **developer**, but MS To Do Sync is **not** part of the Weave product bundle and has **no code dependency**. Install it alone. Details below:
+MS To Do Sync and Weave Review / EPUB Reader / Incremental Reading share a **developer**, but MS To Do Sync is **not** part of the Weave product bundle and has **no code dependency**. Install it alone. Details below:
 
 ## 1. What “standalone” means
 1. Without any Weave plugin, MS To Do Sync still does login, two-way sync, inbound capture, and backlinks.
@@ -12,7 +12,7 @@ MS To Do Sync and Weave Deck / EPUB Reader / Incremental Reading share a **devel
 
 ## 3. Optional overlap with reading / cards
 1. Write study tasks in EPUB Reader notes or any note, tag `#mtd-sync`, and execute them in To Do.
-2. Weave Deck spaced repetition and To Do checklists are different jobs—no forced bridge.
+2. Weave Review spaced repetition and To Do checklists are different jobs—no forced bridge.
 3. If you also use Tasks queries, follow `Mt-03c` line order.
 
 ## 4. Install path cheat sheet
@@ -20,7 +20,7 @@ MS To Do Sync and Weave Deck / EPUB Reader / Incremental Reading share a **devel
 |---|---|
 | MS To Do Sync | `.obsidian/plugins/ms-todo-sync/` |
 | Weave EPUB Reader | `.obsidian/plugins/weave-epub-reader/` (confirm ID) |
-| Weave Deck | per community page / manifest |
+| Weave Review | per community page / manifest |
 
 ## 5. Getting help
 1. Prefer this tab’s tutorials and in-plugin settings copy.

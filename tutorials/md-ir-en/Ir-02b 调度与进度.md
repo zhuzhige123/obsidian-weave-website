@@ -1,4 +1,4 @@
-Scheduling decides when a reading point reappears on the calendar. It serves reading rhythm—not Weave Deck’s FSRS reviews. Basic scheduling is part of the free main flow; deep strategy customization and interleaving are premium.
+Scheduling decides when a reading point reappears on the calendar. It serves reading rhythm—not Weave Review’s FSRS reviews. Basic scheduling is part of the free main flow; deep strategy customization and interleaving are premium.
 
 ## Two strategies
 Settings labels: **Processing** and **Reading list**.

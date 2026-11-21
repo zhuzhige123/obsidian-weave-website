@@ -5,7 +5,7 @@ Books on the bookshelf are ones you intend to read carefully—deep reading. Tha
 
 ### Why was auto-saving reading position removed?
 
-This reader is not like a standalone ebook app. Many choices are different inside Obsidian. Using it here leans toward output: Markdown, Canvas, Excalidraw, Weave Deck, and other plugins. You often jump from excerpt backlinks into different places in the book to check the source text. Auto-saving position easily overwrites the last reading position by mistake. Reading progress and last viewed location should not be mixed up. Manually updating the reading position also feels closer to slipping a bookmark into a physical book—and that feedback is better.
+This reader is not like a standalone ebook app. Many choices are different inside Obsidian. Using it here leans toward output: Markdown, Canvas, Excalidraw, Weave Review, and other plugins. You often jump from excerpt backlinks into different places in the book to check the source text. Auto-saving position easily overwrites the last reading position by mistake. Reading progress and last viewed location should not be mixed up. Manually updating the reading position also feels closer to slipping a bookmark into a physical book—and that feedback is better.
 
 
 ### Why not auto-create a Markdown file for excerpts when you highlight text?

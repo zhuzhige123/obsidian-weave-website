@@ -1,4 +1,4 @@
-Weave Incremental Reading is a standalone incremental-reading controller: turn Markdown, block refs, PDF, Canvas, web, and EPUB into schedulable, resumable reading points, driven by topics and a calendar. It does not require Weave Deck.
+Weave Incremental Reading is a standalone incremental-reading controller: turn Markdown, block refs, PDF, Canvas, web, and EPUB into schedulable, resumable reading points, driven by topics and a calendar. It does not require Weave Review.
 
 ## Three core concepts
 | Concept | Meaning |
@@ -20,7 +20,7 @@ Prefer **Add link** for daily capture; use Import reading materials for whole do
 
 **Premium:** PDF/EPUB chapter import, folder subscription, deep scheduling customization and interleaving, analytics, reading timer, calendar background wall, associated notes, and more. Tag groups are still being improved—do not rely on them yet.
 
-If Weave Deck is activated, this plugin can inherit that license. Standalone activation: Settings → Weave Incremental Reading → License.
+If Weave Review is activated, this plugin can inherit that license. Standalone activation: Settings → Weave Incremental Reading → License.
 
 ## Data and privacy (summary)
 Points, topics, and schedules stay in the local vault by default. The plugin does not actively upload note bodies. Uninstall does not auto-delete `.irdeck` data.
