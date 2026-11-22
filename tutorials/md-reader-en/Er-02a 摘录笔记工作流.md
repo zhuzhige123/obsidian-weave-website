@@ -1,7 +1,5 @@
 Reading excerpts become syncable, backlinkable notes only when written into Vault files. The reader uses trace links in those files to re-highlight text in the book. If save conditions are not met, a selection often shows only a brief highlight and no real data after close or refresh. Details below:
 
-![[Er-02a-摘录笔记工作流.mp4]]
-
 ## 1. Where Excerpts Are Saved
 Excerpts can land in three places—pick by scenario.
 
@@ -29,7 +27,6 @@ Top-bar **Automation** switches between two output modes.
 1. **On (insert)**: Excerpts write directly at the cursor in the current note. Good for read-and-note in one flow.
 2. **Off (copy)**: Excerpts go to the clipboard for you to paste. Good when you do not want to touch the current note yet, or paste elsewhere.
 
-
 ## 4. Selection Toolbar
 After selecting body text, a toolbar appears. Common actions include:
 
@@ -39,7 +36,6 @@ After selecting body text, a toolbar appears. Common actions include:
 4. Copy plain text.
 5. Create card (requires Weave Review).
 6. Add to vocabulary (requires related capability; see `Er-03b 生词标注与词汇表`).
-
 
 ## 5. Why Highlights Disappear Quickly
 Common causes all tie to **not landing in Vault files**.

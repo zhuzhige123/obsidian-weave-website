@@ -19,9 +19,6 @@ Between which heart chambers is the mitral valve located? What does it mainly pr
 Between the left atrium and left ventricle. It closes during systole to prevent backflow from the left ventricle into the left atrium.
 ```
 
-![[QQ_1786423499965.png]]
-
-
 Another example with a footnote hint:
 
 ```markdown
@@ -61,7 +58,6 @@ D. Compression-to-ventilation ratio is fixed at 15:2
 Adult compression site is the lower half of the sternum (near the nipple line midpoint); depth is usually about 5–6 cm; single-rescuer compression-to-ventilation is often 30:2.
 ```
 
-![[QQ_1786423548856.png]]
 Multi-select standard example:
 
 ```markdown
@@ -96,7 +92,6 @@ Standard example:
 Insulin is secreted by pancreatic ==beta cells of the islets of Langerhans== and mainly acts to ==lower blood glucose==.
 ```
 
-![[QQ_1786423613711.png]]
 Example with explanation:
 
 ```markdown
@@ -165,7 +160,6 @@ Myocardial infarction; heart attack
 
 > Note: Full add steps are in `We-01a 新建卡片`. Auto-play during study is in `We-02c 记忆学习界面`.
 
-![[QQ_1786423701008.png]]
 ## Image Mask
 This capability suits atlases, anatomy diagrams, and structure diagrams where you hide a region, recall, then reveal.
 
@@ -176,7 +170,6 @@ This capability suits atlases, anatomy diagrams, and structure diagrams where yo
 5. During study you can click individual masks to reveal or cover again as needed.
 
 > Note: Image masks suit atlas localization and structure identification; text cloze still prefers highlight or numbered cloze. Use separately by scenario or together on one image card. Study-side details are also in `We-02c 记忆学习界面`.
-![[QQ_1786423885405.png]]
 ## Other Ways to Use Card Content
 Because card preview and editing use official Obsidian capabilities, beyond the types above you often combine community plugins for finer material presentation and source tracing.
 
@@ -185,8 +178,6 @@ Because card preview and editing use official Obsidian capabilities, beyond the 
 3. Also PDF++ excerpts and trace-back, mind maps, formulas, components, etc. Without corresponding plugins, Weave Review’s main Markdown card and review path is unaffected.
 
 > Note: Weave Review handles memory and testing; reading, drawing, and video context should reuse the Obsidian ecosystem. After material is in cards, study can still jump back to original context.
-
-![[QQ_1786424056485.png]]
 
 ## How to Choose
 Pick a format by memory goal.

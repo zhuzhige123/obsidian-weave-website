@@ -1,7 +1,5 @@
 In the Weave Review main interface, **Deck Study** and **Card Management** are two important entries. Deck Study works at the deck level—for creating decks, browsing decks, starting memory study, and import/export. Here is a detailed guide:
-![[QQ_1786447495859.png]]
 
-![[QQ_1786447562170.png]]
 ## Create a Deck
 Use this when you need a learnable deck entry first.
 
@@ -18,7 +16,6 @@ Deck Study shows each deck as a deck card with name, study-related status, and d
 1. In the main content area, decks usually display in a kanban-style multi-column layout—good for wide screens and many decks.
 2. Each deck is a clickable card with its own menu.
 3. Here you manage **decks**, not individual memory cards as in Card Management.
-![[QQ_1786447637557.png]]
 ## Switch Deck Card Style
 Deck cards in Deck Study support two style themes you can switch by preference.
 
@@ -29,8 +26,6 @@ Deck cards in Deck Study support two style themes you can switch by preference.
 
 > Note: This theme is deck card appearance—not formal vs. emergent decks, and not the Obsidian appearance theme.
 
-![[QQ_1786447666804.png]]
-![[QQ_1786447683734.png]]
 ## Deck Card Menu
 Open the menu on a deck card for deck-level management.
 
@@ -43,7 +38,6 @@ Open the menu on a deck card for deck-level management.
 
 > Note: Dissolving a deck is not the same as deleting cards. Dissolve affects deck entry and organization; deleting cards removes card content.
 
-
 ## Enter Memory Study
 Use this to start review from a deck.
 
@@ -54,7 +48,6 @@ Use this to start review from a deck.
 
 > Note: Rating keys, toolbar, and more actions inside memory study are in `We-02c 记忆学习界面`.
 
-![[QQ_1786447683734.png]]
 ## Import CSV and Legacy APKG
 Use this to import existing card packages or spreadsheet data into Weave Review—not everyone needs it, so entries can be hidden in settings.
 
@@ -65,7 +58,6 @@ Use this to import existing card packages or spreadsheet data into Weave Review�
 
 > Note: CSV import may be an advanced feature. After import, confirm the deck appears in Deck Study, then check card content in Card Management.
 
-![[QQ_1786447838801.png]]
 ## Position Adaptation and Note Embedding
 Deck Study works in different Obsidian positions and can be embedded in Markdown notes.
 
@@ -75,7 +67,6 @@ Deck Study works in different Obsidian positions and can be embedded in Markdown
 
 > Note: Position adaptation changes how Deck Study displays; note embedding puts deck entry on ordinary note pages.
 
-![[QQ_1786447877556.png]]
 ## Emergent Decks and Kanban Column Settings
 This section covers further organization of deck display.
 
@@ -85,7 +76,6 @@ This section covers further organization of deck display.
 
 > Note: Kanban column settings affect how decks columnize; emergent decks affect which deck views are auto-aggregated. Both are organization—not rewriting card body text.
 
-![[QQ_1786447922937.png]]
 ## Switch to Exam Question Groups
 Deck Study also supports switching to exam question groups.
 

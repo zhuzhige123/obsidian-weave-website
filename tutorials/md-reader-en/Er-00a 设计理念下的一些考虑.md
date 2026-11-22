@@ -2,11 +2,9 @@
 
 Books on the bookshelf are ones you intend to read carefully—deep reading. That choice is yours. If you need a library catalog, use the official Bases database or another plugin’s database features. Add an attachment path or book link in that database; opening it can default to this reader plugin.
 
-
 ### Why was auto-saving reading position removed?
 
 This reader is not like a standalone ebook app. Many choices are different inside Obsidian. Using it here leans toward output: Markdown, Canvas, Excalidraw, Weave Review, and other plugins. You often jump from excerpt backlinks into different places in the book to check the source text. Auto-saving position easily overwrites the last reading position by mistake. Reading progress and last viewed location should not be mixed up. Manually updating the reading position also feels closer to slipping a bookmark into a physical book—and that feedback is better.
-
 
 ### Why not auto-create a Markdown file for excerpts when you highlight text?
 
@@ -19,7 +17,6 @@ In the end, the reader gathers excerpts scattered across files and shows them in
 At this stage, we do not plan to embed AI in the reader. The vision is a clean, immersive reading environment in Obsidian, with natural interactions and a comfortable text experience. We do not aim to meet needs like auto-parse, summary, or chat-style assistance through AI inside the reader. In most cases that would disrupt reading pace, split attention, and interrupt deep thinking.
 
 If you need those capabilities, copy text, export the current chapter as Markdown, or use the plugin API for chapter content and excerpts, then work with other AI-capable plugins for custom automation. The reader’s API is designed for that.
-
 
 ### Why was reading-time tracking removed?
 

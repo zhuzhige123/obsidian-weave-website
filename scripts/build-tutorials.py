@@ -664,31 +664,23 @@ def inline(text: str) -> str:
 
 
 def wiki_image(m: re.Match[str]) -> str:
+    """Embed only when the asset exists. Missing media is omitted (no placeholder)."""
     name = m.group(1).strip()
     local = ASSETS / name
+    if not local.exists():
+        return ""
     lower = name.lower()
     is_video = lower.endswith((".mp4", ".webm", ".mov"))
-    if lower.endswith(".gif"):
-        kind = "GIF"
-    elif is_video:
-        kind = "Video"
-    else:
-        kind = "Screenshot"
-    if local.exists():
-        if is_video:
-            return (
-                f'<figure class="figure figure-video">'
-                f'<video controls playsinline preload="metadata" '
-                f'src="assets/tutorials/{esc(name)}"></video>'
-                f"<figcaption>{esc(name)}</figcaption></figure>"
-            )
+    if is_video:
         return (
-            f'<figure class="figure"><img src="assets/tutorials/{esc(name)}" alt="" />'
+            f'<figure class="figure figure-video">'
+            f'<video controls playsinline preload="metadata" '
+            f'src="assets/tutorials/{esc(name)}"></video>'
             f"<figcaption>{esc(name)}</figcaption></figure>"
         )
     return (
-        f'<figure class="figure is-placeholder"><div class="ph">{kind} · {esc(name)}</div>'
-        f"<figcaption>Place image at assets/tutorials/{esc(name)}</figcaption></figure>"
+        f'<figure class="figure"><img src="assets/tutorials/{esc(name)}" alt="" />'
+        f"<figcaption>{esc(name)}</figcaption></figure>"
     )
 
 

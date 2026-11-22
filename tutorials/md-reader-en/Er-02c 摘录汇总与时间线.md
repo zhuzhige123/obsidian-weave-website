@@ -6,7 +6,6 @@ The reader sidebar can gather the current book’s excerpts into cards, or show 
 3. The list loads indexed highlights and thoughts for this book.
 4. With no excerpts yet, you are prompted: select text while reading and review it here later.
 
-
 ## 2. What Each List Card Can Do
 Each excerpt card typically lets you:
 
@@ -15,7 +14,6 @@ Each excerpt card typically lets you:
 3. **Jump to note**—open the Markdown (or other) file that holds the entry.
 4. Delete a single excerpt (with confirmation as prompted).
 
-
 ## 3. Filter and Search
 When excerpts pile up, use sidebar search.
 
@@ -23,7 +21,6 @@ When excerpts pile up, use sidebar search.
 2. You can also use property prefixes, e.g. `tag:`, `source:`, `comment:`, `type:`, `color:`, `chapter:`.
 3. Narrow by thought status, note type, highlight color, and more.
 4. With no matches, you are prompted to adjust conditions.
-
 
 ## 4. Sort
 When excerpts show as **list cards**, you can change sort order.
@@ -38,7 +35,6 @@ This book’s excerpt area can switch between two displays.
 
 1. **List cards**: One card per entry—good for filtering and batch actions.
 2. **Timeline view**: Review this book’s excerpts by date.
-
 
 ## 6. Batch Select, Export, and Delete
 In list view you can enter batch selection.

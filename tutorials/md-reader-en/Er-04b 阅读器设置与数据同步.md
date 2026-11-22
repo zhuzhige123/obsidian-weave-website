@@ -5,12 +5,10 @@ The reader settings page covers UI language, default bookshelf display, auto pro
 2. Common tabs: Basic, Vocabulary, License, About.
 3. **About** shows version, supported formats, platform, and contact info.
 
-
 ## 2. Interface Language
 1. Default is **Follow Obsidian**.
 2. You can also pick Simplified Chinese, Traditional Chinese, English, Japanese, Korean, Russian, German, Spanish, Arabic, and more individually.
 3. After specifying a language, the plugin UI may not revert to English when you change Obsidian’s language.
-
 
 ## 3. Default Bookshelf Display
 **Default display mode for My Bookshelf** matches bookshelf menu modes: follow location, list details, card grid, covers only. See `Er-01a 安装与打开书架`.
@@ -21,13 +19,12 @@ The reader settings page covers UI language, default bookshelf display, auto pro
 3. Closing the reader or switching books still saves last position. See `Er-01c 书签、进度与参考阅读点`.
 
 ## 5. Book Data Directory
-Progress, bookmarks, and covers for each book default to a Vault folder (commonly `Weave EPUB Reader`), filenames like `data_*.md`, covers in matching `covers/`.
+Progress, bookmarks, and covers for each book default to a Vault folder (commonly `Weave Reader`), filenames like `data_*.md`, covers in matching `covers/`.
 
 1. You can change this directory in settings.
 2. On change, existing `data_*.md` and covers migrate to the new location when possible.
 3. Same-name files at the destination are skipped to avoid overwrite.
 4. New directory cannot be a child or parent of the current directory.
-
 
 ## 6. Export Template Directory
 Specifies which folder export templates are loaded from. If changing directory fails, move files manually per prompt. See `Er-04a 导出笔记与模板`.
@@ -49,7 +46,6 @@ Specifies which folder export templates are loaded from. If changing directory f
 
 ## 8. Premium Preview Toggle
 **Show premium feature preview** is on by default. Basic UI shows locked premium entries; click for tier explanation. Turn off for less clutter—the choice is remembered.
-
 
 ## 9. Diagnostics
 Development and diagnostic switches are for troubleshooting only. Keep them off during everyday reading to avoid log noise.

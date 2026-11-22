@@ -1059,10 +1059,6 @@
           <span class="lang-en">EN</span>
           <span class="lang-zh">中</span>
         </button>
-        <button class="icon-btn" id="themeToggle" type="button" data-i18n-aria="themeToggle" aria-label="切换深浅色">
-          <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5Z" stroke="currentColor" stroke-width="1.7"/></svg>
-          <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
         <button class="icon-btn nav-toggle" id="navToggle" type="button" data-i18n-aria="menu" aria-label="菜单">
           <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
@@ -1106,10 +1102,9 @@
   <script>
     (function () {
       var root = document.documentElement;
-      var themeKey = "weave-theme-obsidian";
       var langKey = "weave-lang-obsidian";
-      var savedTheme = localStorage.getItem(themeKey);
-      if (savedTheme === "light" || savedTheme === "dark") root.setAttribute("data-theme", savedTheme);
+      root.setAttribute("data-theme", "dark");
+      try { localStorage.removeItem("weave-theme-obsidian"); } catch (e) {}
       var savedLang = localStorage.getItem(langKey);
       if (savedLang === "zh" || savedLang === "en") root.setAttribute("data-lang", savedLang);
       if (/[?&]embed=1(?:&|$)/.test(location.search)) {
@@ -1128,7 +1123,6 @@
           "nav.pricing": "价格",
           "nav.install": "安装",
           "nav.installCta": "安装插件",
-          themeToggle: "切换深浅色",
           menu: "菜单",
           "sidebar.search": "搜索教程…",
           "toc.title": "本页目录",
@@ -1167,7 +1161,6 @@
           "nav.pricing": "Pricing",
           "nav.install": "Install",
           "nav.installCta": "Install",
-          themeToggle: "Toggle theme",
           menu: "Menu",
           "sidebar.search": "Search tutorials…",
           "toc.title": "On this page",
@@ -1649,105 +1642,6 @@
         document.getElementById("sidebarBackdrop").classList.add("is-open");
         document.getElementById("sidebarBackdrop").hidden = false;
       }
-
-      function setThemeCircleOrigin(originEl) {
-        var x;
-        var y;
-        if (originEl && originEl.getBoundingClientRect) {
-          var rect = originEl.getBoundingClientRect();
-          x = rect.left + rect.width / 2;
-          y = rect.top + rect.height / 2;
-        } else {
-          x = window.innerWidth - 48;
-          y = 32;
-        }
-        var radius = Math.hypot(
-          Math.max(x, window.innerWidth - x),
-          Math.max(y, window.innerHeight - y)
-        );
-        root.style.setProperty("--weave-theme-x", x + "px");
-        root.style.setProperty("--weave-theme-y", y + "px");
-        root.style.setProperty("--weave-theme-r", radius + "px");
-        return { x: x, y: y, radius: radius };
-      }
-
-      function applyTheme(next, options) {
-        options = options || {};
-        var theme = next === "light" ? "light" : "dark";
-        var current = root.getAttribute("data-theme") === "light" ? "light" : "dark";
-        if (theme === current) {
-          if (options.notifyParent !== false && isEmbed() && window.parent && window.parent !== window) {
-            window.parent.postMessage({ type: "weave-theme-changed", theme: theme }, "*");
-          }
-          return;
-        }
-
-        function commit() {
-          root.setAttribute("data-theme", theme);
-          localStorage.setItem(themeKey, theme);
-          if (options.notifyParent !== false && isEmbed() && window.parent && window.parent !== window) {
-            window.parent.postMessage({ type: "weave-theme-changed", theme: theme }, "*");
-          }
-        }
-
-        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        var animate = options.animate === true && !reduceMotion;
-
-        if (animate && typeof document.startViewTransition === "function") {
-          setThemeCircleOrigin(options.originEl);
-          root.classList.add("is-theme-circle");
-          var cleaned = false;
-          function cleanupThemeCircle() {
-            if (cleaned) return;
-            cleaned = true;
-            root.classList.remove("is-theme-circle");
-          }
-          try {
-            var transition = document.startViewTransition(commit);
-            Promise.resolve(transition.finished).then(cleanupThemeCircle, cleanupThemeCircle);
-          } catch (err) {
-            cleanupThemeCircle();
-            commit();
-            return;
-          }
-          window.setTimeout(cleanupThemeCircle, 900);
-          return;
-        }
-
-        if (animate) {
-          var origin = setThemeCircleOrigin(options.originEl);
-          var overlay = document.createElement("div");
-          overlay.setAttribute("aria-hidden", "true");
-          overlay.style.cssText =
-            "position:fixed;inset:0;z-index:10000;pointer-events:none;background:" +
-            (theme === "light" ? "#f8f7f4" : "#1e1e1e") +
-            ";clip-path:circle(0px at " + origin.x + "px " + origin.y + "px);";
-          document.body.appendChild(overlay);
-          var anim = overlay.animate(
-            [
-              { clipPath: "circle(0px at " + origin.x + "px " + origin.y + "px)" },
-              { clipPath: "circle(" + origin.radius + "px at " + origin.x + "px " + origin.y + "px)" }
-            ],
-            { duration: 620, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
-          );
-          function finishFallback() {
-            commit();
-            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-          }
-          Promise.resolve(anim.finished).then(finishFallback, finishFallback);
-          return;
-        }
-
-        commit();
-      }
-
-      document.getElementById("themeToggle").addEventListener("click", function () {
-        var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
-        applyTheme(next, {
-          originEl: document.getElementById("themeToggle"),
-          animate: true
-        });
-      });
       document.getElementById("langToggle").addEventListener("click", function () {
         var next = lang() === "zh" ? "en" : "zh";
         root.setAttribute("data-lang", next);
@@ -1809,11 +1703,6 @@
         if (!e.data) return;
         if (e.data.type === "weave-set-plugin") {
           switchPlugin(e.data.plugin);
-          return;
-        }
-        if (e.data.type === "weave-set-theme") {
-          var theme = e.data.theme === "light" ? "light" : "dark";
-          applyTheme(theme, { animate: false, notifyParent: false });
           return;
         }
         if (e.data.type === "weave-set-lang") {

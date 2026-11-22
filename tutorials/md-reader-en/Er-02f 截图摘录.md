@@ -24,13 +24,11 @@ When one page is not enough, turn pages while capturing.
 2. Turn the page and box follow-up regions (per on-screen prompts).
 3. When finished, write to the note or save images together.
 
-
 ## 4. vs Text Selection Excerpts
 1. Text selection: Searchable text + trace links—good for ideas and quotes.
 2. Screenshot: Image—good when layout itself is the information.
 3. Both can carry book location to return near the page from notes.
 4. Screenshots do not replace every entry in the text highlight list; sidebar excerpts remain text-first.
-
 
 ## 5. Common Prompts
 1. **Screenshot saved** includes the filename—confirm location in the Vault.

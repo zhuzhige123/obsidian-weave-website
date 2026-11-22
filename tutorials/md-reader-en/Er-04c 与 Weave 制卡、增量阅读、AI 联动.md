@@ -6,14 +6,12 @@ The reader finishes books and keeps excerpts. Spaced-repetition cards, Increment
 3. After save, cards can carry reader traces to jump back from study UI.
 4. Without Weave Review installed, the entry is unavailable or prompts missing capability.
 
-
 ## 2. Incremental Reading
 If the separate Incremental Reading plugin is installed:
 
 1. From a chapter menu in the TOC, choose **Add to Incremental Reading**.
 2. On success, the chapter enters Incremental Reading tasks—not just a reader bookmark.
 3. If not installed or service not ready, you are told the feature is unavailable and nothing is written to tasks.
-
 
 ## 3. AI Panel and Selection Search
 1. The reader offers selection search, AI panel, and similar entries (Help / tools menu—per UI).
@@ -30,7 +28,6 @@ Adding selections to the vocabulary list and marking words in body text: see `Er
 1. Reader premium: Timeline, precise bidirectional tracing, paragraph mode, reading lists, etc.—reader activation code, or inherit from activated Weave Review.
 2. Cards / Incremental Reading / AI: Do not separately deduct reader premium slots, but each plugin’s own requirements still apply.
 3. Reader only, no Weave Review: Integration entries lack a host.
-
 
 ## 6. Recommended Combinations
 1. **Read and take notes only**: Reader + Markdown / Canvas—Weave Review optional.

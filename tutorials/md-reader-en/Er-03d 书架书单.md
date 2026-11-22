@@ -6,19 +6,16 @@ Reading lists let you group bookshelf books by theme—e.g. **This semester’s 
 3. Each list shows book count and last updated time.
 4. Inside a list you see only books in that group; use **Back to bookshelf** for all books.
 
-
 ## 2. Create and Rename
 1. Choose **New reading list**, enter a name, and create.
 2. Default name may be **New list**—rename immediately to a clear theme.
 3. **Rename reading list** changes the group name only; book filenames are unchanged.
-
 
 ## 3. Add Books to a List
 1. In the full book list, open a book’s menu.
 2. Choose **Add to reading list**, then pick the target list.
 3. On success you are notified it was added.
 4. One book can appear in multiple lists (per actual menu behavior).
-
 
 ## 4. Remove from List and Delete List
 1. Inside a list, open a book menu and **Remove from reading list**. The book stays on the bookshelf.

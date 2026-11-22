@@ -7,7 +7,6 @@ Colored dots on the TOC mark whole-chapter status—e.g. key, questionable, mast
 4. **Clear mark** removes the dot for that chapter.
 5. If save fails, retry per prompt—avoid rapid repeated clicks.
 
-
 ## 2. Dot Meaning Settings
 If default **Key / Questionable / Mastered** does not match your habit, change meaning and color.
 
@@ -16,13 +15,11 @@ If default **Key / Questionable / Mastered** does not match your habit, change m
 3. Restore defaults if needed.
 4. After save, TOC dots follow the new convention.
 
-
 ## 3. Full-Book Map Density Bar
 1. Enable **Show full-book map density bar** in TOC-related menu.
 2. Sidebar gives an overview of excerpt density across the book.
 3. Chapters with more excerpts show a more prominent bar (exact style per UI).
 4. When reviewing, jump first to chapters that are **most densely highlighted**.
-
 
 ## 4. vs Last Reading Position
 The TOC may mark **Last read** and **Current reading position**.

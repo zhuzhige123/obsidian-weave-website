@@ -1,7 +1,5 @@
 Callout blocks suit full excerpts, but nested lists often look awkward. Inline excerpts write `quote text + color emoji + source link` on a normal list line and can still re-highlight in the reader body. Good for chapter → excerpt → thought outlines. Details below:
 
-![[Er-02g-inline-excerpt-blue.gif]]
-
 ## 1. vs Callout Blocks
 1. **Callouts** (`[!EPUB]`): full excerpts, line styles, thought divider. See `Er-02a 摘录笔记工作流` and `Er-02b 高亮、想法与样式标注`.
 2. **Inline excerpts**: live in `-` / `1.` lists for outline notes.

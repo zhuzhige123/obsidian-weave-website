@@ -8,7 +8,6 @@ Pick a highlight color when creating an excerpt.
 3. On export, color names may appear in some templates (e.g. yellow, red, blue).
 4. The sidebar excerpt list can filter by color.
 
-
 ## 2. Underline, Strikethrough, and Wavy Line
 Besides color blocks, you can use line styles.
 
@@ -27,7 +26,6 @@ A thought is a short comment attached to an excerpt—not a separate unrelated n
 4. The sidebar can filter **with thought / without thought**.
 5. In notes, thoughts often use a separator convention (e.g. `---div---`) from excerpt body text so the reader can parse them.
 
-
 ## 4. Excerpt Timestamps
 Toggle **Excerpt timestamp** in the menu.
 
@@ -35,14 +33,12 @@ Toggle **Excerpt timestamp** in the menu.
 2. When off, inserted content stays cleaner if you care only about the original text.
 3. Export templates may also use time fields. See `Er-04a 导出笔记与模板`.
 
-
 ## 5. Hide Strikethrough Text
 If strikethrough means **this passage is rejected / outdated**, readability suffers.
 
 1. Choose **Hide strikethrough text** in the menu.
 2. When you need comparison, show hidden text and strikethrough in the sidebar.
 3. Good for close reading revisions; does not affect whether the excerpt was saved to notes.
-
 
 ## 6. Edit and Delete
 1. Click a highlight in the body to change color, add a thought, jump to the note, or delete the highlight.

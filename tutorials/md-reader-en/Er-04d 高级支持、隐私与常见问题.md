@@ -9,7 +9,6 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 6. Export templates and built-in presets, public API (for other plugins—not everyday buttons).
 7. In-reader tutorials, selection search / AI entry (AI needs separate configuration).
 
-
 ## 2. What Premium Adds
 1. Excerpt timeline, full-bookshelf timeline.
 2. TOC density bar, chapter colored dots.
@@ -19,7 +18,6 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 6. Vocabulary marking.
 7. Export whole-book / whole-chapter excerpts, chapter Markdown with marks.
 8. Footnote popover preview.
-
 
 ## 3. How to Activate
 1. Open reader settings **License**.
@@ -42,7 +40,6 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 1. Font and size follow Obsidian **Settings → Appearance**.
 2. Background follows the current theme—change theme to change reading background.
 3. The reader does not ship a separate skin system.
-
 
 ## 6. FAQ
 

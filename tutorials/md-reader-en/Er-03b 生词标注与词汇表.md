@@ -6,7 +6,6 @@ Under reader settings **Vocabulary** or basic settings:
 1. **Enable vocabulary marking**: Master switch. When off, body marking menu and selection **Add to word bank** entries hide—good if you do not need vocabulary learning at all.
 2. On by default. Turn off for a cleaner UI when not needed.
 
-
 ## 2. Body Vocabulary Marking
 1. Turn on **Body vocabulary marking** or menu **Enable marking**.
 2. In EPUB body and Markdown reading / live preview, words in the bank get underline-style marks.
@@ -14,13 +13,11 @@ Under reader settings **Vocabulary** or basic settings:
 4. You can separately show **New**, **Learning**, **Mastered**, and **Due for review**.
 5. **Mastered** may be off by default; if words exist in the bank but never show, try enabling this first.
 
-
 ## 3. Show Together with Excerpt Highlights
 **Show together with excerpt notes** decides whether vocabulary lines and excerpt color blocks appear at once.
 
 1. On: Vocabulary marks and highlights show together.
 2. Off: When vocabulary marking is on, excerpt re-highlight in the body is temporarily hidden; sidebar excerpt list is unaffected.
-
 
 ## 4. Add Words from the Book
 1. Select a word or phrase.
