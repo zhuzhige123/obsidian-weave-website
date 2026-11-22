@@ -4,16 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>教程 · Obsidian Weave 插件系列</title>
-  <meta name="description" content="Obsidian Weave 插件系列用户教程：Weave Review 制卡复习、Weave Reader 阅读摘录、增量阅读排期。" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://obsidian-weave.xyz/tutorials.html" />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="48x48" href="assets/brand/favicon-48.png" />
-  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+  <meta name="description" content="Obsidian Weave 插件系列用户使用教程原型。" />
   <style>
     @font-face {
       font-family: "JingHuaOldSong";
       src:
+        url("fonts/KingHwaOldSong.woff2") format("woff2"),
         local("京华老宋体"),
         local("京華老宋體"),
         local("KingHwa OldSong"),
@@ -36,6 +32,9 @@
       --accent-hover: #b9a4f8;
       --accent-soft: rgba(166, 140, 245, 0.12);
       --accent-ink: #1e1e1e;
+      --cta: #d8cfc0;
+      --cta-hover: #e4dcd0;
+      --cta-ink: #1e1e1e;
       --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
       --radius: 12px;
       --radius-sm: 8px;
@@ -46,6 +45,15 @@
       --scrollbar-track: #2a2a2a;
       --scrollbar-thumb: #555555;
       --scrollbar-thumb-hover: #6a6a6a;
+      --atmosphere-glow:
+        radial-gradient(
+          ellipse 100% 100% at 0% 0%,
+          rgba(255, 242, 220, 0.22) 0%,
+          rgba(240, 225, 200, 0.1) 32%,
+          transparent 70%
+        );
+      --atmosphere-grain-opacity: 0.05;
+      --atmosphere-grain-blend: soft-light;
     }
 
     html[data-theme="light"] {
@@ -61,10 +69,22 @@
       --accent-hover: #6a4aad;
       --accent-soft: rgba(124, 92, 191, 0.1);
       --accent-ink: #ffffff;
+      --cta: #3a342c;
+      --cta-hover: #2a2620;
+      --cta-ink: #f8f7f4;
       --shadow: 0 18px 40px rgba(40, 30, 20, 0.08);
       --scrollbar-track: #eceae4;
       --scrollbar-thumb: #c4bfb4;
       --scrollbar-thumb-hover: #a8a399;
+      --atmosphere-glow:
+        radial-gradient(
+          ellipse 100% 100% at 0% 0%,
+          rgba(255, 255, 255, 0.55) 0%,
+          rgba(255, 248, 236, 0.22) 34%,
+          transparent 70%
+        );
+      --atmosphere-grain-opacity: 0.035;
+      --atmosphere-grain-blend: multiply;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -83,12 +103,47 @@
     html::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
     body {
       margin: 0;
+      position: relative;
+      isolation: isolate;
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
       font-size: 16px;
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
+    }
+
+    .site-atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .site-atmosphere::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: var(--atmosphere-grain-opacity);
+      mix-blend-mode: var(--atmosphere-grain-blend);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      background-repeat: repeat;
+    }
+    .site-corner-light {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: min(820px, 92vw);
+      height: min(560px, 78vh);
+      z-index: 75;
+      pointer-events: none;
+      background: var(--atmosphere-glow);
+      background-repeat: no-repeat;
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .site-atmosphere::after { opacity: 0.02; }
+      .site-corner-light { opacity: 0.5; }
     }
 
     /* 深浅色：圆形揭示（View Transitions；无 API 时见脚本回退） */
@@ -138,8 +193,8 @@
       top: 0;
       z-index: 50;
       height: var(--nav-h);
-      background: color-mix(in srgb, var(--bg) 82%, transparent);
-      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 58%, transparent);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       view-transition-name: weave-nav;
     }
@@ -153,49 +208,55 @@
     }
     .brand {
       display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-weight: 600;
-      font-size: 0.98rem;
-      letter-spacing: -0.02em;
+      align-items: baseline;
+      gap: 0.7rem;
+      line-height: 1;
     }
-    .brand-mark {
-      width: 1.55rem;
-      height: 1.55rem;
-      border-radius: 5px;
-      flex: 0 0 auto;
-      display: block;
-      object-fit: cover;
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--border) 90%, transparent);
+    .brand-lockup {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.38rem;
     }
     .brand-word {
       position: relative;
-      display: inline-block;
-      font-weight: 650;
-      line-height: 1.1;
-      padding-bottom: 0.15rem;
+      font-size: 1.32rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-variant-ligatures: none;
+      padding-bottom: 0;
     }
-    .brand-w {
+    .brand-word > span {
       color: var(--accent);
-      font-size: 1.18em;
-      font-weight: 700;
     }
-    .brand-underline {
+    .brand-word::after {
+      content: "";
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 2px;
+      left: 0.02em;
+      right: 0.18em;
+      bottom: -0.22em;
+      height: 1.5px;
       border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 35%, transparent) 72%, transparent 100%);
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--accent) 85%, transparent),
+        color-mix(in srgb, var(--accent) 15%, transparent) 70%,
+        transparent
+      );
       pointer-events: none;
     }
-    .brand-series { font-weight: 650; }
+    .brand-series {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--text);
+    }
     .brand-sub {
       color: var(--text-faint);
-      font-size: 0.8rem;
-      font-weight: 500;
-      margin-left: 0.1rem;
+      font-weight: 400;
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      transform: translateY(-0.05em);
     }
     .nav-right {
       display: flex;
@@ -325,11 +386,13 @@
       margin-left: 0.35rem;
       padding: 0.45rem 0.9rem;
       border-radius: 8px;
-      background: var(--accent);
-      color: var(--accent-ink);
+      background: var(--cta);
+      color: var(--cta-ink);
       font-size: 0.88rem;
       font-weight: 600;
+      transition: background 0.15s ease;
     }
+    .nav-cta:hover { background: var(--cta-hover); }
     .nav-toggle { display: none; }
     .sidebar-toggle { display: none; }
 
@@ -345,7 +408,8 @@
       height: calc(100vh - var(--nav-h));
       overflow: auto;
       border-right: 1px solid var(--border);
-      background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+      /* 不铺实底，让整页左上角暖光穿过侧栏 */
+      background: transparent;
       padding: 1.1rem 0 2rem;
       scrollbar-width: thin;
       scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
@@ -454,23 +518,6 @@
       font-weight: 600;
       letter-spacing: 0.02em;
     }
-    .nav-item .nav-title {
-      flex: 1;
-      min-width: 0;
-    }
-    .nav-item .nav-badge {
-      flex-shrink: 0;
-      margin-left: auto;
-      margin-top: 0.1rem;
-      padding: 0.08rem 0.38rem;
-      border-radius: 999px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      line-height: 1.35;
-      color: #fff;
-      background: linear-gradient(135deg, #e11d48, #f43f5e);
-    }
     .nav-item.is-active .code { color: color-mix(in srgb, var(--accent) 70%, var(--text-faint)); }
     .nav-item.is-hidden { display: none; }
 
@@ -498,43 +545,6 @@
       margin-bottom: 1.75rem;
       padding-bottom: 1.25rem;
       border-bottom: 1px solid var(--border);
-    }
-    .doc-header.is-essay {
-      margin-bottom: 2rem;
-      padding-bottom: 1.35rem;
-      text-align: left;
-    }
-    .docs-main.is-essay-layout {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .docs-main.is-essay-layout .doc-breadcrumb,
-    .docs-main.is-essay-layout .doc-header,
-    .docs-main.is-essay-layout .doc-body,
-    .docs-main.is-essay-layout .doc-footer,
-    .docs-main.is-essay-layout .doc-nav-row {
-      width: min(100%, 44rem);
-    }
-    .docs-main.is-essay-layout .doc-breadcrumb {
-      align-self: center;
-    }
-    .doc-footer {
-      margin: 2.5rem 0 0;
-      padding-top: 1.15rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-faint);
-      font-size: 0.84rem;
-      letter-spacing: 0.02em;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 0.35rem 0.75rem;
-    }
-    .doc-footer[hidden] { display: none !important; }
-    .doc-footer .sep {
-      margin: 0 0.15rem;
-      opacity: 0.4;
     }
     .doc-meta {
       display: flex;
@@ -675,8 +685,6 @@
       line-height: 1.75;
       max-width: 42rem;
     }
-    .doc-lead:empty,
-    .doc-lead[hidden] { display: none !important; }
     .doc-body h3,
     .doc-body h4 {
       scroll-margin-top: calc(var(--nav-h) + 1rem);
@@ -695,54 +703,6 @@
       margin-top: 0;
       padding-top: 0;
       border-top: none;
-    }
-    .doc-body.is-essay {
-      max-width: none;
-    }
-    .doc-body.is-essay p {
-      font-size: 1.02rem;
-      line-height: 1.85;
-      color: var(--text-muted);
-    }
-    .doc-body.is-essay h3 {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      column-gap: 0.85rem;
-      row-gap: 0.15rem;
-      align-items: baseline;
-      margin: 2.75rem 0 1rem;
-      padding: 1.35rem 0 0;
-      border-top: 1px solid var(--border);
-      font-size: 1.14rem;
-      font-weight: 650;
-      line-height: 1.45;
-    }
-    .doc-body.is-essay h3:first-child {
-      margin-top: 0.35rem;
-      padding-top: 0;
-      border-top: none;
-    }
-    .doc-body.is-essay h3 .section-num {
-      color: var(--accent);
-      font-size: 0.78em;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      font-variant-numeric: tabular-nums;
-      line-height: 1.45;
-    }
-    .doc-body.is-essay h3 + p {
-      margin-top: 0.15rem;
-    }
-    .doc-body.is-essay h3 ~ p + p {
-      margin-top: 0.85rem;
-    }
-    .toc-list a .toc-num {
-      color: var(--accent);
-      font-variant-numeric: tabular-nums;
-      font-weight: 700;
-      margin-right: 0.35rem;
-      font-size: 0.78em;
-      letter-spacing: 0.04em;
     }
     .doc-body h4 {
       margin: 1.65rem 0 0.65rem;
@@ -816,53 +776,6 @@
       background: var(--scrollbar-thumb);
       border-radius: 999px;
     }
-    .note-preview {
-      margin: 1rem 0 1.35rem;
-      padding: 1rem 1.15rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg-elev);
-      overflow-wrap: anywhere;
-      word-break: break-word;
-      white-space: normal;
-    }
-    .note-preview .note-preview-h {
-      margin: 0 0 0.75rem;
-      color: var(--text);
-      font-size: 1.02rem;
-      font-weight: 700;
-      line-height: 1.45;
-    }
-    .note-preview p {
-      margin: 0 0 0.65rem;
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.7;
-    }
-    .note-preview p:last-child { margin-bottom: 0; }
-    .note-preview ul {
-      margin: 0;
-      padding-left: 1.25rem;
-      list-style: disc;
-    }
-    .note-preview li {
-      margin: 0.45rem 0;
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.7;
-    }
-    .note-preview a {
-      color: var(--accent);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      word-break: break-all;
-    }
-    .note-preview mark.note-hl {
-      padding: 0.05em 0.15em;
-      border-radius: 0.2em;
-      background: color-mix(in srgb, #a855f7 22%, transparent);
-      color: inherit;
-    }
     .doc-body pre code {
       padding: 0;
       border: 0;
@@ -906,13 +819,6 @@
       background: var(--bg-elev);
     }
     .figure img { width: 100%; height: auto; }
-    .figure-video video {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: min(70vh, 720px);
-      background: #0b0f14;
-    }
     .figure figcaption {
       padding: 0.65rem 0.85rem;
       border-top: 1px solid var(--border);
@@ -1065,6 +971,8 @@
         transform: translateX(-105%);
         transition: transform 0.22s ease;
         box-shadow: var(--shadow);
+        /* 抽屉打开时实底，避免目录字叠在正文/灯光上 */
+        background: var(--bg-elev);
       }
       .docs-sidebar.is-open { transform: translateX(0); }
       .sidebar-backdrop.is-open { display: block; }
@@ -1086,6 +994,15 @@
 
     html[data-embed="1"] .nav { display: none; }
     html[data-embed="1"] { --nav-h: 0px; }
+    /* 嵌入首页时：关掉本页气氛层，透出父页从视口左上角发出的光 */
+    html[data-embed="1"],
+    html[data-embed="1"] body {
+      background: transparent;
+    }
+    html[data-embed="1"] .site-atmosphere,
+    html[data-embed="1"] .site-corner-light {
+      display: none;
+    }
     html[data-embed="1"] .docs-sidebar,
     html[data-embed="1"] .docs-toc {
       top: 0;
@@ -1107,22 +1024,15 @@
   </style>
 </head>
 <body>
+  <div class="site-atmosphere" aria-hidden="true"></div>
+  <div class="site-corner-light" aria-hidden="true"></div>
   <header class="nav" id="nav">
     <div class="nav-inner">
       <a class="brand" href="index.html" id="brandHome" title="返回首页">
-        <img
-          class="brand-mark"
-          src="assets/brand/weave-mark-128.png"
-          width="26"
-          height="26"
-          alt=""
-          decoding="async"
-        />
-        <span class="brand-word" aria-hidden="true">
-          <span class="brand-w">W</span>eave
-          <span class="brand-underline"></span>
+        <span class="brand-lockup">
+          <span class="brand-word"><span>W</span>eave</span>
+          <span class="brand-series" data-i18n="brand.suffix">系列</span>
         </span>
-        <span class="brand-series" data-i18n="brand.suffix">系列</span>
         <span class="brand-sub">for Obsidian</span>
       </a>
       <div class="nav-right">
@@ -1140,7 +1050,6 @@
               <button type="button" class="nav-dropdown-item is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Review</button>
               <button type="button" class="nav-dropdown-item" data-plugin-nav="reader" data-i18n="plugin.reader">Weave Reader</button>
               <button type="button" class="nav-dropdown-item" data-plugin-nav="ir" data-i18n="plugin.ir">Incremental Reading</button>
-              <button type="button" class="nav-dropdown-item" data-plugin-nav="mstodo" data-i18n="plugin.mstodo">MS To Do Sync</button>
             </div>
           </div>
           <a href="index.html#pricing" data-i18n="nav.pricing">价格</a>
@@ -1184,7 +1093,6 @@
         <p class="doc-lead" id="docLead"></p>
       </header>
       <article class="doc-body" id="docBody"></article>
-      <footer class="doc-footer" id="docFooter" hidden></footer>
       <div class="doc-nav-row" id="docPager"></div>
     </main>
 
@@ -1194,7 +1102,7 @@
     </aside>
   </div>
 
-  <script src="tutorials-data.js?v=20261025-ir-workflow"></script>
+  <script src="tutorials-data.js"></script>
   <script>
     (function () {
       var root = document.documentElement;
@@ -1217,7 +1125,6 @@
           "plugin.weave": "Weave Review",
           "plugin.reader": "Weave Reader",
           "plugin.ir": "增量阅读",
-          "plugin.mstodo": "MS To Do Sync",
           "nav.pricing": "价格",
           "nav.install": "安装",
           "nav.installCta": "安装插件",
@@ -1241,20 +1148,13 @@
           "group.er02": "摘录与高亮",
           "group.er03": "阅读功能",
           "group.er04": "设置与联动",
-          "group.mt01": "安装与上手",
-          "group.mt02": "日常同步",
-          "group.mt03": "进阶",
-          "group.mt04": "设置与说明",
-          "group.ir01": "添加与导入",
-          "group.ir02": "日历与调度",
-          "group.ir03": "设置与数据",
-          "group.ir04": "实践与排错",
+          "group.ir01": "入门与日历",
+          "group.ir02": "材料入队",
+          "group.ir03": "日常阅读",
+          "group.ir04": "调度与设置",
           "group.series": "系列插件",
           "crumb.tutorials": "教程",
-          "crumb.home": "首页",
-          "meta.created": "创建于",
-          "meta.updated": "更新于",
-          "badge.new": "新"
+          "crumb.home": "首页"
         },
         en: {
           brand: "Weave Series",
@@ -1264,7 +1164,6 @@
           "plugin.weave": "Weave Review",
           "plugin.reader": "Weave Reader",
           "plugin.ir": "Incremental Reading",
-          "plugin.mstodo": "MS To Do Sync",
           "nav.pricing": "Pricing",
           "nav.install": "Install",
           "nav.installCta": "Install",
@@ -1288,20 +1187,13 @@
           "group.er02": "Excerpts & highlights",
           "group.er03": "Reading features",
           "group.er04": "Settings & integration",
-          "group.mt01": "Install & start",
-          "group.mt02": "Daily sync",
-          "group.mt03": "Advanced",
-          "group.mt04": "Settings & notes",
-          "group.ir01": "Add & import",
-          "group.ir02": "Calendar & scheduling",
-          "group.ir03": "Settings & data",
-          "group.ir04": "Practices & FAQ",
+          "group.ir01": "Basics & calendar",
+          "group.ir02": "Material intake",
+          "group.ir03": "Daily reading",
+          "group.ir04": "Scheduling & settings",
           "group.series": "Plugin series",
           "crumb.tutorials": "Tutorials",
-          "crumb.home": "Home",
-          "meta.created": "Created",
-          "meta.updated": "Updated",
-          "badge.new": "New"
+          "crumb.home": "Home"
         }
       };
 
@@ -1346,13 +1238,6 @@
           { id: "ir02", labelKey: "group.ir02" },
           { id: "ir03", labelKey: "group.ir03" },
           { id: "ir04", labelKey: "group.ir04" }
-        ],
-        mstodo: [
-          { id: "start", labelKey: "group.start" },
-          { id: "mt01", labelKey: "group.mt01" },
-          { id: "mt02", labelKey: "group.mt02" },
-          { id: "mt03", labelKey: "group.mt03" },
-          { id: "mt04", labelKey: "group.mt04" }
         ]
       };
       function currentGroups() {
@@ -1418,15 +1303,7 @@
         er01: "accent-blue",
         er02: "accent-green",
         er03: "accent-cyan",
-        er04: "accent-purple",
-        mt01: "accent-blue",
-        mt02: "accent-green",
-        mt03: "accent-cyan",
-        mt04: "accent-purple",
-        ir01: "accent-blue",
-        ir02: "accent-green",
-        ir03: "accent-cyan",
-        ir04: "accent-purple"
+        er04: "accent-purple"
       };
 
       function renderSidebar() {
@@ -1452,17 +1329,7 @@
             btn.type = "button";
             btn.className = "nav-item" + (item.id === currentId ? " is-active" : "");
             btn.setAttribute("data-id", item.id);
-            var badgeHtml =
-              item.badge === "new"
-                ? '<span class="nav-badge">' + escHtml(t("badge.new")) + "</span>"
-                : "";
-            btn.innerHTML =
-              '<span class="code">' +
-              item.code +
-              '</span><span class="nav-title">' +
-              escHtml(item.title[lang()] || item.title.zh) +
-              "</span>" +
-              badgeHtml;
+            btn.innerHTML = '<span class="code">' + item.code + "</span><span>" + (item.title[lang()] || item.title.zh) + "</span>";
             btn.addEventListener("click", function () {
               openTutorial(item.id, true);
               closeSidebar();
@@ -1481,86 +1348,13 @@
           var li = document.createElement("li");
           var a = document.createElement("a");
           a.href = "#" + h.id;
-          var num = h.getAttribute("data-section");
-          var titleNode = h.cloneNode(true);
-          var numEl = titleNode.querySelector(".section-num");
-          if (numEl) numEl.remove();
-          var titleText = (titleNode.textContent || "").trim();
-          if (num) {
-            a.innerHTML =
-              '<span class="toc-num">' +
-              escHtml(num) +
-              "</span>" +
-              escHtml(titleText);
-          } else {
-            a.textContent = titleText;
-          }
+          a.textContent = h.textContent;
           a.addEventListener("click", function (e) {
             e.preventDefault();
             h.scrollIntoView({ behavior: "smooth", block: "start" });
           });
           li.appendChild(a);
           toc.appendChild(li);
-        });
-      }
-
-      function pad2(n) {
-        return n < 10 ? "0" + n : String(n);
-      }
-      function formatDocDate(iso) {
-        if (!iso) return "";
-        var parts = String(iso).split("-");
-        if (parts.length < 3) return iso;
-        var y = parts[0];
-        var m = parseInt(parts[1], 10);
-        var d = parseInt(parts[2], 10);
-        if (lang() === "en") {
-          var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-          return months[m - 1] + " " + d + ", " + y;
-        }
-        return y + "年" + m + "月" + d + "日";
-      }
-      function buildDateBits(doc) {
-        var bits = [];
-        if (doc.created) bits.push(t("meta.created") + " " + formatDocDate(doc.created));
-        if (doc.updated) bits.push(t("meta.updated") + " " + formatDocDate(doc.updated));
-        return bits;
-      }
-      function renderEssayMeta(doc) {
-        var footer = document.getElementById("docFooter");
-        var bits = buildDateBits(doc);
-        var isEssay = doc.layout === "essay";
-        if (!footer) return;
-        if (isEssay && bits.length) {
-          footer.hidden = false;
-          footer.innerHTML = bits
-            .map(function (b) { return "<span>" + escHtml(b) + "</span>"; })
-            .join('<span class="sep" aria-hidden="true">·</span>');
-        } else {
-          footer.hidden = true;
-          footer.textContent = "";
-        }
-      }
-      function decorateEssayBody(doc) {
-        var body = document.getElementById("docBody");
-        var header = document.querySelector(".doc-header");
-        var main = document.querySelector(".docs-main");
-        var isEssay = doc.layout === "essay";
-        var numbered = !!doc.numberedHeadings || isEssay;
-        body.classList.toggle("is-essay", isEssay);
-        if (header) header.classList.toggle("is-essay", isEssay);
-        if (main) main.classList.toggle("is-essay-layout", isEssay);
-        if (!numbered) return;
-        body.querySelectorAll("h3").forEach(function (h, i) {
-          var n = pad2(i + 1);
-          h.setAttribute("data-section", n);
-          if (!h.querySelector(".section-num")) {
-            var span = document.createElement("span");
-            span.className = "section-num";
-            span.setAttribute("aria-hidden", "true");
-            span.textContent = n;
-            h.insertBefore(span, h.firstChild);
-          }
         });
       }
 
@@ -1608,17 +1402,16 @@
           er02: "group.er02",
           er03: "group.er03",
           er04: "group.er04",
-          mt01: "group.mt01",
-          mt02: "group.mt02",
-          mt03: "group.mt03",
-          mt04: "group.mt04"
+          ir01: "group.ir01",
+          ir02: "group.ir02",
+          ir03: "group.ir03",
+          ir04: "group.ir04"
         };
         return map[groupId] || "";
       }
       function pluginLabel(plugin) {
         if (plugin === "reader") return "Weave Reader";
         if (plugin === "ir") return lang() === "en" ? "Incremental Reading" : "增量阅读";
-        if (plugin === "mstodo") return "MS To Do Sync";
         return "Weave Review";
       }
       function titleKeywords(doc) {
@@ -1821,17 +1614,8 @@
           }
         }
         document.getElementById("docTitle").textContent = localizedField(doc, "title");
-        var leadBag = doc.lead || {};
-        var leadText =
-          lang() === "en"
-            ? leadBag.en || ""
-            : leadBag.zh || "";
-        var leadEl = document.getElementById("docLead");
-        leadEl.textContent = leadText;
-        leadEl.hidden = !leadText;
+        document.getElementById("docLead").textContent = localizedField(doc, "lead");
         document.getElementById("docBody").innerHTML = localizedBody(doc);
-        decorateEssayBody(doc);
-        renderEssayMeta(doc);
         document.getElementById("docMeta").innerHTML = renderDocMeta(doc);
         bindDocMetaEvents();
         renderTagResults();
