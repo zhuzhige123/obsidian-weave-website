@@ -1,8 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark" data-lang="zh">
+<html lang="en" data-theme="dark" data-lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+    (function () {
+      var key = "weave-lang-obsidian";
+      var legacy = "weave-site-lang";
+      var lang = null;
+      try {
+        var saved = localStorage.getItem(key) || localStorage.getItem(legacy);
+        if (saved === "zh" || saved === "en") lang = saved;
+      } catch (e) {}
+      if (!lang) {
+        try {
+          var list = (navigator.languages && navigator.languages.length)
+            ? navigator.languages
+            : [navigator.language || ""];
+          for (var i = 0; i < list.length; i++) {
+            var tag = String(list[i] || "").toLowerCase();
+            if (tag === "zh" || tag.indexOf("zh-") === 0) { lang = "zh"; break; }
+          }
+        } catch (e2) {}
+      }
+      lang = lang || "en";
+      document.documentElement.setAttribute("data-lang", lang);
+      document.documentElement.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
+    })();
+  </script>
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>隐私政策 · Privacy Policy — Obsidian Weave</title>
   <meta name="description" content="Obsidian Weave 插件系列隐私政策 / Privacy Policy." />
@@ -69,15 +94,15 @@
     <div class="topbar-inner">
       <a class="brand" href="./">← Weave</a>
       <div class="top-actions">
-        <button type="button" class="chip is-active" id="btnZh" data-set-lang="zh">中文</button>
-        <button type="button" class="chip" id="btnEn" data-set-lang="en">EN</button>
-        <button type="button" class="chip" id="themeToggle" aria-label="Toggle theme">主题</button>
+        <button type="button" class="chip" id="btnZh" data-set-lang="zh">中文</button>
+        <button type="button" class="chip is-active" id="btnEn" data-set-lang="en">EN</button>
+        <button type="button" class="chip" id="themeToggle" aria-label="Toggle theme">Theme</button>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-    <div class="lang-block" data-lang-panel="zh">
+    <div class="lang-block" data-lang-panel="zh" hidden>
       <h1>隐私政策</h1>
       <p class="meta">生效日期：2026-08-30 · Obsidian Weave 插件系列 · <a href="./">官网</a></p>
 
@@ -160,7 +185,7 @@
       </div>
     </div>
 
-    <div class="lang-block" data-lang-panel="en" hidden>
+    <div class="lang-block" data-lang-panel="en">
       <h1>Privacy Policy</h1>
       <p class="meta">Effective date: 2026-08-30 · Obsidian Weave plugin series · <a href="./">Home</a></p>
 
@@ -259,21 +284,44 @@
     (function () {
       var root = document.documentElement;
       var themeKey = "weave-site-theme";
-      var langKey = "weave-site-lang";
+      var langKey = "weave-lang-obsidian";
+      var legacyLangKey = "weave-site-lang";
       var savedTheme = localStorage.getItem(themeKey);
       if (savedTheme === "light" || savedTheme === "dark") root.setAttribute("data-theme", savedTheme);
-      function setLang(lang) {
-        lang = lang === "en" ? "en" : "zh";
+      function resolveLang() {
+        try {
+          var saved = localStorage.getItem(langKey) || localStorage.getItem(legacyLangKey);
+          if (saved === "zh" || saved === "en") return saved;
+        } catch (e) {}
+        try {
+          var list = (navigator.languages && navigator.languages.length)
+            ? navigator.languages
+            : [navigator.language || navigator.userLanguage || ""];
+          for (var i = 0; i < list.length; i++) {
+            var tag = String(list[i] || "").toLowerCase();
+            if (tag === "zh" || tag.indexOf("zh-") === 0) return "zh";
+          }
+        } catch (e2) {}
+        return "en";
+      }
+      function applyLang(lang) {
+        lang = lang === "zh" ? "zh" : "en";
         root.setAttribute("data-lang", lang);
-        localStorage.setItem(langKey, lang);
+        root.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
         document.querySelectorAll("[data-lang-panel]").forEach(function (el) {
           el.hidden = el.getAttribute("data-lang-panel") !== lang;
         });
         document.getElementById("btnZh").classList.toggle("is-active", lang === "zh");
         document.getElementById("btnEn").classList.toggle("is-active", lang === "en");
         document.getElementById("themeToggle").textContent = lang === "en" ? "Theme" : "主题";
+        return lang;
       }
-      setLang(localStorage.getItem(langKey) === "en" ? "en" : "zh");
+      function setLang(lang) {
+        lang = applyLang(lang);
+        localStorage.setItem(langKey, lang);
+        try { localStorage.removeItem(legacyLangKey); } catch (e) {}
+      }
+      applyLang(resolveLang());
       document.querySelectorAll("[data-set-lang]").forEach(function (btn) {
         btn.addEventListener("click", function () { setLang(btn.getAttribute("data-set-lang")); });
       });
