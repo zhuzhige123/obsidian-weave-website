@@ -27,23 +27,39 @@ The bookshelf can catalog and open the formats below. Book files must first be p
 3. TXT is split into chapters by paragraph, making TOC navigation easier.
 
 ## 4. Open the Bookshelf and Add Books
-On first use, the bookshelf is usually empty.
+On first use, the bookshelf is usually empty. Two common ways to add books: **scan files already in the Vault**, or **import from outside the vault**.
 
 1. Click the bookshelf icon in the ribbon, or run the **My Bookshelf** command.
 2. An empty bookshelf prompts you: no books or comics yet—you can scan Vault files and add them.
-3. Click **Scan Vault to Add Books**, or open **Scan Vault for Books and Comics** from the menu.
-4. In the results, select files to add. Items already on the bookshelf are marked as already added.
-5. After a successful add, cover, title, and progress appear in the list or grid.
+3. **Scan Vault**: Click **Scan Vault to Add Books**, or open **Scan Vault for Books and Comics** from the menu; check files to add. Items already on the bookshelf are marked as already added.
+4. **Import from outside the vault**: In the bookshelf menu choose **Import books from outside vault**, pick EPUB / TXT / MOBI (and other supported formats) with the system file picker; the plugin copies them into a Vault folder and adds them to the shelf. Multi-select is supported.
+5. After a successful add, cover, title, and progress appear on the shelf.
+
+> Note: The first time you open the bookshelf, an onboarding page may introduce multi-format reading, shelf views, reading layouts, excerpt backlinks, and links to the site and in-reader tutorial. Outside-vault import suits books still in a Downloads folder; you still choose what joins the shelf—nothing auto-dumps the whole library onto it.
 
 ## 5. Bookshelf Display Modes
-The bookshelf supports several layouts—good for wide screens, sidebars, or cover-only browsing.
+The bookshelf supports several layouts. Default is **Follow location**. Switch from the bookshelf menu or settings.
 
-1. **List details**: Emphasizes title, author, tags, and progress.
-2. **Card grid**: Shows covers and key info.
-3. **Covers only**: A pure cover wall.
-4. **Follow location**: List in the sidebar, card grid in the main content area.
+1. **Follow location**: Reading calendar in the sidebar; bookshelf home in the main content area (next section).
+2. **Reading calendar**: Browse the shelf timeline by month (e.g. “September” groups) to revisit reading footprints.
+3. **Card grid**: Covers plus key info (author, progress, and more).
+4. **Banner cards**: Horizontal cover banners with reading status and progress (premium).
+5. **Covers only**: A pure cover wall—less info, more browsing (premium).
 
-## 6. Open a Book
+> Note: Sidebar and main content favor different widths. **Follow location** picks a suitable form for where the pane sits, without leaving the home shell.
+
+## 6. Content-Area Bookshelf Home
+When the bookshelf sits in Obsidian’s **main content area**, you get bookshelf home—not only a narrow list.
+
+1. The top bar switches among **Shelf / Notes / Stats** (mobile may use top dots).
+2. **Shelf**: Status, sort, and filters; reading-list shortcuts; recent reading in the bottom bar. Display mode only changes card / calendar style inside home.
+3. **Notes**: Entry to the full-bookshelf excerpt timeline (premium; locked state shows a prompt).
+4. **Stats**: Favorites, reading portrait, completion footprints, yearly heatmap, and more (premium; may be time-limited).
+5. Optionally show a **Continue reading** info card at the top, or the bookshelf activity heatmap (premium; heatmap and info card are usually mutually exclusive).
+
+> Note: In the sidebar, the reading calendar is better for quick finds. For stats and cross-book note trails, drag the bookshelf into the main content area. To group books by theme, see `Er-01d 书架书单`.
+
+## 7. Open a Book
 Once a book is on the bookshelf, you can start reading.
 
 1. Click the title or cover to open the reader.
@@ -51,7 +67,7 @@ Once a book is on the bookshelf, you can start reading.
 3. If you are already viewing a supported book file in the Vault, you can also run **Open Weave Reader** from the command palette.
 4. If the source file is moved or deleted, refreshing the bookshelf cleans up stale entries and may prompt that the book was removed from the shelf.
 
-## 7. Common Book Menu Actions
+## 8. Common Book Menu Actions
 Open the menu on a bookshelf book for everyday organization.
 
 1. **View full book info**: Author, word count, chapter count, and more.
@@ -61,14 +77,14 @@ Open the menu on a bookshelf book for everyday organization.
 5. **Remove from bookshelf**: Removes from the shelf only; does not delete the book in the Vault.
 6. **Delete book file**: Deletes the book file in the Vault; excerpt notes remain in their original Markdown files.
 
-## 8. Search and Filter
+## 9. Search and Filter
 When you have many books, use the top search bar.
 
 1. Type keywords such as the book title.
 2. You can also use property prefixes, e.g. `status:`, `author:`, `created:`.
 3. Reading status includes **Not started**, **Reading**, and **Finished**.
 
-## 9. Relationship with the Main Weave Review Plugin
+## 10. Relationship with the Main Weave Review Plugin
 The reader can handle reading, the bookshelf, and basic excerpts on its own.
 
 1. Without Weave Review installed, you can still read, manage the bookshelf, and write excerpts to Markdown / Canvas.

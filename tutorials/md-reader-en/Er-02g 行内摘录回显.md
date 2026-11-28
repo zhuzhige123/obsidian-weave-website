@@ -49,7 +49,7 @@ With automation on, color chips still write callouts; **Insert** writes the curr
 4. Select body text and tap **Insert** on the toolbar.
 5. The note should get text + color emoji + link (default yellow 🟡). You can also use blue 🔵; after save, the reader echoes that color.
 
-> Note: With automation off, **Copy** goes to the clipboard without a color emoji by default, so it will not echo as an inline excerpt. To echo, add an emoji before the link after pasting, or use Insert as above.
+> Note: With automation off, **Copy** still goes to the clipboard (no color emoji by default). If **Auto-write book excerpt notes on highlight** is on, the highlight itself still writes the per-book excerpt Markdown and re-highlights—but emoji-link inline echo still needs this section’s format in a note. For inline echo, add an emoji before the link after pasting, or use Insert as above.
 
 ## 5. When Re-Highlight Does Not Appear
 1. Confirm **Inline excerpt echo** is on.

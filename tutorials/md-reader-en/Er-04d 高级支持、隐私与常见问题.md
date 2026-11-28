@@ -2,9 +2,9 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 
 ## 1. What’s Free
 1. Multi-format reading, TOC navigation, page-turn and continuous scroll.
-2. Five-color highlights, thoughts, auto insert / copy, screenshot tool.
-3. Excerpt summary card list.
-4. Bookshelf multi-view, import scan, progress, current-page bookmarks, reference reading points.
+2. Five-color highlights, thoughts, auto-write book excerpt notes on highlight, auto insert / copy, screenshot tool.
+3. Excerpt summary card list; chapter-side excerpt marker strip in continuous scroll.
+4. Bookshelf multi-view (follow location / reading calendar / card grid), content-area bookshelf home (Shelf / Notes), scan Vault and import from outside vault, progress, current-page bookmarks, and resume position.
 5. Canvas bind and write nodes (per current software tiers; if entry shows a lock, follow prompt).
 6. Export templates and built-in presets, public API (for other plugins—not everyday buttons).
 7. In-reader tutorials, selection search / AI entry (AI needs separate configuration).
@@ -12,12 +12,16 @@ The free tier covers everyday reading, five-color highlights, thoughts, excerpt 
 ## 2. What Premium Adds
 1. Excerpt timeline, full-bookshelf timeline.
 2. TOC density bar, chapter colored dots.
-3. Bookshelf reading lists.
-4. Precise bidirectional tracing.
-5. Regular reading translucency gradient, paragraph reading, immersive fullscreen.
-6. Vocabulary marking.
-7. Export whole-book / whole-chapter excerpts, chapter Markdown with marks.
-8. Footnote popover preview.
+3. Bookshelf reading lists (including set as bookshelf home), banner cards, and covers-only view.
+4. Content-area home **Stats**, bookshelf activity heatmap (some capabilities may be time-limited or trial).
+5. Reading progress scale (dock / hairline, chapter nodes, resume pin; see `Er-03i`; may be time-limited).
+6. Precise bidirectional tracing.
+7. Regular reading translucency gradient, paragraph reading, immersive fullscreen.
+8. Body vocabulary marking, Pomodoro focus timer, remaining reading-time estimate (see `Er-03f` / `Er-03g`).
+9. Reading plan (TOC → Important schedule task lines; see `Er-03h`).
+10. Illustration marker highlight stroke (classic rectangle stays free).
+11. Export whole-book / whole-chapter excerpts, chapter Markdown with marks.
+12. Footnote popover preview, inline excerpt echo, and more (per in-app tiers).
 
 ## 3. How to Activate
 1. Open reader settings **License**.

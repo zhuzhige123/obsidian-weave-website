@@ -20,7 +20,7 @@ If strikethrough means **this passage is void**, the body looks messy.
 3. Display may be inline, right column, etc.—per menu.
 
 ## 4. Top Badge
-Reference reading points can use a top badge, with optional **Sticker shake effect**.
+Resume position can use a top badge, with optional **Sticker shake effect**.
 
 1. Turn off shake if it distracts; keep the position hint.
 2. Badges are unrelated to footnotes—they share reading decoration settings.

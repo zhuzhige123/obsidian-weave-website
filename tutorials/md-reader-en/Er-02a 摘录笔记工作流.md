@@ -1,64 +1,76 @@
-Reading excerpts become syncable, backlinkable notes only when written into Vault files. The reader uses trace links in those files to re-highlight text in the book. If save conditions are not met, a selection often shows only a brief highlight and no real data after close or refresh. Details below:
+Excerpts only become syncable, backlinkable notes when they land in Vault files. The reader uses those backlinks to re-highlight the book. Details below:
 
-## 1. Where Excerpts Are Saved
-Excerpts can land in three places—pick by scenario.
+## 1. Where Excerpts Can Go
+Pick by scenario:
 
-1. **Markdown notes**: Most common. Open a `.md` file and place the cursor where you want insertion.
-2. **Canvas boards**: After binding a canvas, excerpts become nodes. See `Er-02e Canvas 脑图摘录`.
-3. **Weave Review**: With Weave Review installed, content can fill memory cards. See `Er-04c 与 Weave Review 制卡、增量阅读、AI 联动`.
+1. **Per-book excerpt Markdown (default)**: Created or appended on highlight—see the next section.
+2. **A Markdown note you choose**: Open a `.md`, place the cursor, then turn on top **Auto insert**.
+3. **Canvas**: After binding a canvas, excerpts become nodes. See `Er-02e Canvas 脑图摘录`.
+4. **Weave Review decks**: With Weave Review installed, fill memory cards. See `Er-04c 与 Weave Review 制卡、增量阅读、AI 联动`.
 
-> Note: The reader does not treat excerpts stored only in invisible plugin cache as formal notes. For long-term retention, they must land in Vault files.
+> Note: The reader does not treat invisible plugin cache as formal notes. Long-term keep requires Vault files.
 
-## 2. Recommended Workflow
-For a first excerpt, follow this order for the steadiest result.
+## 2. Auto-Write Book Excerpt Notes on Highlight
+**Auto-write book excerpt notes on highlight** is on by default and is separate from top **Auto insert**.
 
-1. Create or open a Markdown note as this book’s reading note.
-2. Place the cursor where you want the excerpt inserted.
-3. Open the book and turn on top-bar **Automation** (auto mode on: insert).
-4. Select text in the body and use the selection toolbar to create a highlight or excerpt.
-5. Switch back to the note and confirm content was inserted with a clickable book trace.
-6. Click the book icon or link in the note—it should jump back to the matching spot in the book.
+1. With **Auto insert off**: Highlighting creates a Markdown excerpt named after the book in Obsidian’s **default new-note folder** (or appends if that book already has one).
+2. The note carries book backlinks and frontmatter so body re-highlight and the sidebar excerpt list can index it.
+3. Turn the setting off if you do not want automatic per-book notes; **Auto insert** and Canvas are unaffected.
+4. Design trade-offs: `Er-00a 设计理念下的一些考虑`.
 
-> Note: Auto insert fails when no active Markdown editor is found. Before inserting, keep the note tab open with the cursor in the edit area.
+> Note: This is the default “mark and it sticks” path. To write into a specific note you are editing, use Auto insert below.
 
-## 3. Auto Insert vs Copy
-Top-bar **Automation** switches between two output modes.
+## 3. Auto Insert: Current Note or Canvas
+Top **Auto insert** decides whether highlights write into the **current workflow**.
 
-1. **On (insert)**: Excerpts write directly at the cursor in the current note. Good for read-and-note in one flow.
-2. **Off (copy)**: Excerpts go to the clipboard for you to paste. Good when you do not want to touch the current note yet, or paste elsewhere.
+1. **On (insert)**: Excerpts go to the current Markdown cursor or a bound Canvas—good for a chosen file while reading.
+2. **Off**: No insert into the open note; if **Auto-write book excerpt notes on highlight** is still on, highlights still go to the per-book excerpt Markdown.
+3. Toolbar **Copy** still puts content on the clipboard for other apps.
 
-## 4. Selection Toolbar
-After selecting body text, a toolbar appears. Common actions include:
+## 4. Recommended Flow (Write into a Specific Note)
+First time writing into one note while reading:
 
-1. Choose highlight color.
-2. Insert excerpt (or copy, depending on auto mode).
+1. Create or open a Markdown note as this book’s reading journal.
+2. Place the cursor where excerpts should land.
+3. Open the book and turn on top **Auto insert**.
+4. Select text in the body and create a highlight or excerpt from the selection toolbar.
+5. Switch back to the note; confirm the excerpt and a clickable book backlink.
+6. Click the book icon or link; you should jump back to the matching place in the book.
+
+> Note: Auto insert fails if there is no active Markdown editor. Keep the note tab open with the cursor in the editor. If you only want the automatic per-book excerpt note, leave Auto insert off.
+
+## 5. Selection Toolbar
+After selecting body text, common actions include:
+
+1. Pick highlight color.
+2. Insert excerpt (into the current note when Auto insert is on) or copy.
 3. Add a thought.
 4. Copy plain text.
-5. Create card (requires Weave Review).
-6. Add to vocabulary (requires related capability; see `Er-03b 生词标注与词汇表`).
+5. Create a card (needs Weave Review).
+6. Add to vocabulary (see `Er-03b 生词标注与词汇表`).
 
-## 5. Why Highlights Disappear Quickly
-Common causes all tie to **not landing in Vault files**.
+## 6. Why a Highlight Disappears
+Usually nothing landed in a Vault file.
 
-1. No Markdown open and no Canvas bound—auto insert has nowhere to write.
-2. Auto mode off, copied to clipboard only, and never pasted into a note.
-3. Inserted content lacks trace links—the reader cannot re-highlight from it.
-4. Source note deleted, moved out of Vault, or path invalid.
+1. **Auto-write book excerpt notes** is off, Auto insert is off, and no Canvas is bound—nowhere to write.
+2. Auto insert is on, but no usable Markdown / Canvas is open—insert fails.
+3. Inserted content lacks a backlink, so the reader cannot re-highlight.
+4. The source note was deleted, moved out of the Vault, or the path broke.
 
-> Note: The sidebar **Excerpts** list summarizes indexed Vault excerpts. An empty list usually means nothing was successfully written to notes yet.
+> Note: The sidebar **Excerpts** list indexes Vault excerpts it can find. An empty list usually means nothing was written successfully.
 
-## 6. How Body Re-Highlight Works
-After writing to a note, the reader scans book location info in those excerpts and draws highlights on the matching sentences.
+## 7. How Body Re-Highlight Works
+After notes are written, the reader scans book location data in those excerpts and paints the matching sentences.
 
-1. Changing color or adding a thought on the same excerpt updates re-highlight when possible.
-2. Clicking the book icon in a note or Canvas can jump back to the book (precise positioning may need premium support; see `Er-02d 双向溯源与正文回显`).
-3. Deleting that excerpt in the note removes re-highlight in the book.
+1. Color changes and thoughts on the same excerpt update the re-highlight when possible.
+2. Clicking the book icon in a note or Canvas jumps back (precise locate may need premium—see `Er-02d 双向溯源与正文回显`).
+3. Deleting that excerpt in the note removes the re-highlight in the book.
 
-> Note: Re-highlight depends on note content—not a separate, unrelated highlight store. Editing the note edits this book’s annotations.
+> Note: Re-highlight depends on note content—not a separate highlight store. Editing the note edits the book’s marks.
 
-## 7. Mobile and Multiple Devices
-Excerpts live in Vault files and stay consistent across devices with your sync method.
+## 8. Mobile and Multi-Device
+Excerpts live in Vault files and follow your sync.
 
-1. Sync the whole Vault (Obsidian Sync, iCloud, cloud drive Vault sync, etc.).
-2. You do not need to force-sync cache under `.obsidian/plugins/weave-epub-reader/`.
-3. On a new device, open notes to confirm excerpts first, then open the book to check re-highlight.
+1. Sync the whole Vault (official Sync, iCloud, cloud Vault sync, etc.).
+2. Do not force-sync cache under `.obsidian/plugins/weave-epub-reader/`.
+3. On a new device, open notes to confirm excerpts exist, then open the book for re-highlight.

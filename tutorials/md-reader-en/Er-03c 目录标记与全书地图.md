@@ -26,3 +26,4 @@ The TOC may mark **Last read** and **Current reading position**.
 
 1. Quick return to resume reading.
 2. Dots and progress markers serve different roles: one is position, one is your judgment about the chapter.
+3. For calendar chapter schedules, the TOC menu also offers **Add to reading plan** / **Generate reading plan from this chapter**. See `Er-03h 阅读计划`.

@@ -22,7 +22,7 @@ If the separate Incremental Reading plugin is installed:
 > Note: Reader AI is not blocked by **reader premium** alone; without Weave Review and API keys, the panel cannot help.
 
 ## 4. Vocabulary List
-Adding selections to the vocabulary list and marking words in body text: see `Er-03b 生词标注与词汇表`. Review still happens in Weave Review memory study.
+Adding selections to the vocabulary deck and body vocabulary marking: see `Er-03b 生词标注与词汇表`. Word-list management and review still happen in Weave Review (no separate reader sidebar vocabulary list).
 
 ## 5. How Licensing Works
 1. Reader premium: Timeline, precise bidirectional tracing, paragraph mode, reading lists, etc.—reader activation code, or inherit from activated Weave Review.

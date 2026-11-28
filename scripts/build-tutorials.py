@@ -46,6 +46,7 @@ LINK_MAP = {
     "Er-01a 安装与打开书架": "reader-install-shelf",
     "Er-01b 阅读器界面与阅读模式": "reader-ui-modes",
     "Er-01c 书签、进度与参考阅读点": "reader-bookmarks-progress",
+    "Er-01d 书架书单": "reader-bookshelf-lists",
     "Er-02a 摘录笔记工作流": "reader-excerpt-workflow",
     "Er-02b 高亮、想法与样式标注": "reader-highlights",
     "Er-02c 摘录汇总与时间线": "reader-excerpt-timeline",
@@ -56,8 +57,11 @@ LINK_MAP = {
     "Er-03a 段落阅读与沉浸式全屏": "reader-paragraph-immersive",
     "Er-03b 生词标注与词汇表": "reader-vocabulary",
     "Er-03c 目录标记与全书地图": "reader-toc-map",
-    "Er-03d 书架书单": "reader-bookshelf-lists",
     "Er-03e 脚注与隐藏文本": "reader-footnotes",
+    "Er-03f 番茄专注计时": "reader-pomodoro",
+    "Er-03g 剩余阅读时间": "reader-remaining-time",
+    "Er-03h 阅读计划": "reader-reading-plan",
+    "Er-03i 阅读进度刻度条": "reader-progress-scale",
     "Er-04a 导出笔记与模板": "reader-export-templates",
     "Er-04b 阅读器设置与数据同步": "reader-settings-sync",
     "Er-04c 与 Weave 制卡、增量阅读、AI 联动": "reader-weave-integration",
@@ -257,7 +261,16 @@ READER_CATALOG = [
         "plugin": "reader",
         "group": "er01",
         "level": "beginner",
-        "title": {"zh": "书签、进度与参考阅读点", "en": "Bookmarks & progress"},
+        "title": {"zh": "书签、进度与段落级接着读", "en": "Bookmarks, progress & resume pin"},
+    },
+    {
+        "file": "Er-01d 书架书单.md",
+        "id": "reader-bookshelf-lists",
+        "code": "Er-01d",
+        "plugin": "reader",
+        "group": "er01",
+        "level": "beginner",
+        "title": {"zh": "书架书单", "en": "Bookshelf lists"},
     },
     {
         "file": "Er-02a 摘录笔记工作流.md",
@@ -339,7 +352,7 @@ READER_CATALOG = [
         "plugin": "reader",
         "group": "er03",
         "level": "intermediate",
-        "title": {"zh": "生词标注与词汇表", "en": "Vocabulary & word lists"},
+        "title": {"zh": "生词标注", "en": "Vocabulary marking"},
     },
     {
         "file": "Er-03c 目录标记与全书地图.md",
@@ -351,15 +364,6 @@ READER_CATALOG = [
         "title": {"zh": "目录标记与全书地图", "en": "TOC marks & book map"},
     },
     {
-        "file": "Er-03d 书架书单.md",
-        "id": "reader-bookshelf-lists",
-        "code": "Er-03d",
-        "plugin": "reader",
-        "group": "er03",
-        "level": "beginner",
-        "title": {"zh": "书架书单", "en": "Bookshelf lists"},
-    },
-    {
         "file": "Er-03e 脚注与隐藏文本.md",
         "id": "reader-footnotes",
         "code": "Er-03e",
@@ -367,6 +371,46 @@ READER_CATALOG = [
         "group": "er03",
         "level": "intermediate",
         "title": {"zh": "脚注与隐藏文本", "en": "Footnotes & hidden text"},
+    },
+    {
+        "file": "Er-03f 番茄专注计时.md",
+        "id": "reader-pomodoro",
+        "code": "Er-03f",
+        "plugin": "reader",
+        "group": "er03",
+        "level": "intermediate",
+        "badge": "new",
+        "title": {"zh": "番茄专注计时", "en": "Pomodoro focus timer"},
+    },
+    {
+        "file": "Er-03g 剩余阅读时间.md",
+        "id": "reader-remaining-time",
+        "code": "Er-03g",
+        "plugin": "reader",
+        "group": "er03",
+        "level": "intermediate",
+        "badge": "new",
+        "title": {"zh": "剩余阅读时间", "en": "Remaining reading time"},
+    },
+    {
+        "file": "Er-03h 阅读计划.md",
+        "id": "reader-reading-plan",
+        "code": "Er-03h",
+        "plugin": "reader",
+        "group": "er03",
+        "level": "intermediate",
+        "badge": "new",
+        "title": {"zh": "阅读计划", "en": "Reading plan"},
+    },
+    {
+        "file": "Er-03i 阅读进度刻度条.md",
+        "id": "reader-progress-scale",
+        "code": "Er-03i",
+        "plugin": "reader",
+        "group": "er03",
+        "level": "intermediate",
+        "badge": "new",
+        "title": {"zh": "阅读进度刻度条", "en": "Reading progress scale"},
     },
     {
         "file": "Er-04a 导出笔记与模板.md",
@@ -967,10 +1011,10 @@ READER_WELCOME = {
     },
     "body": {
         "zh": """<div class="path-cards">
-<article class="path-card"><h4>设计理念</h4><p>为何手动书架、手动进度、不自动建摘录文件。</p><a href="#reader-design" data-goto="reader-design">设计理念下的一些考虑</a></article>
+<article class="path-card"><h4>设计理念</h4><p>手动书架、接着读与摘录落点怎么选。</p><a href="#reader-design" data-goto="reader-design">设计理念下的一些考虑</a></article>
 <article class="path-card"><h4>第一次打开</h4><p>安装插件，把书放进书架。</p><a href="#reader-install-shelf" data-goto="reader-install-shelf">安装与打开书架</a></article>
 <article class="path-card"><h4>边读边记</h4><p>摘录写入笔记并跳回原文。</p><a href="#reader-excerpt-workflow" data-goto="reader-excerpt-workflow">摘录工作流 → 双向溯源</a></article>
-<article class="path-card"><h4>英文原著</h4><p>生词标注与词汇表。</p><a href="#reader-vocabulary" data-goto="reader-vocabulary">生词标注与词汇表</a></article>
+<article class="path-card"><h4>专注与进度</h4><p>番茄、剩余时长、刻度条与阅读计划。</p><a href="#reader-pomodoro" data-goto="reader-pomodoro">番茄 · 时长 · 刻度 · 计划</a></article>
 </div>
 <h3>Er-00～Er-04 怎么读</h3>
 <p><strong>Er-00</strong> 设计理念；<strong>Er-01</strong> 入门与界面；<strong>Er-02</strong> 摘录与高亮；<strong>Er-03</strong> 阅读增强；<strong>Er-04</strong> 导出、设置与系列联动。正文来自产品库 <code>obsidian weave epub reader 教程</code>。</p>""",

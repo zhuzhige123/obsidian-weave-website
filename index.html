@@ -89,19 +89,21 @@
     .site-nav {
       position: sticky;
       top: 0;
-      z-index: 40;
+      z-index: 100;
+      /* No backdrop-filter: it clips overflowing dropdown menus in Chromium */
       height: var(--nav-h);
-      background: color-mix(in srgb, var(--paper) 88%, transparent);
-      backdrop-filter: blur(14px) saturate(1.1);
-      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      overflow: visible;
+      background: color-mix(in srgb, var(--paper) 96%, #fff);
       box-shadow: var(--shadow-nav);
     }
     .site-nav .wrap {
+      position: relative;
       height: 100%;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 16px;
+      overflow: visible;
     }
     .brand {
       display: inline-flex;
@@ -135,6 +137,11 @@
       margin: 0;
       padding: 0;
       white-space: nowrap;
+      overflow: visible;
+    }
+    .nav-links > li {
+      position: relative;
+      overflow: visible;
     }
     .nav-links a,
     .nav-drop > button {
@@ -167,6 +174,7 @@
     }
     .nav-drop {
       position: relative;
+      z-index: 2;
     }
     .nav-drop > button {
       display: inline-flex;
@@ -189,33 +197,29 @@
     .nav-menu {
       display: none;
       position: absolute;
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
+      top: calc(100% + 10px);
+      left: 0;
       min-width: 12.5rem;
       padding: 6px;
       border-radius: 12px;
       border: 1px solid rgba(26, 26, 26, 0.1);
-      background: rgba(255, 255, 255, 0.96);
+      background: #fff;
       box-shadow: 0 14px 36px rgba(40, 32, 24, 0.12), 0 2px 8px rgba(40, 32, 24, 0.06);
-      z-index: 60;
+      z-index: 120;
     }
-    .nav-drop.is-open .nav-menu {
+    .nav-drop.is-open .nav-menu,
+    .nav-drop:hover .nav-menu:not([hidden]) {
       display: grid;
       gap: 2px;
     }
     @media (hover: hover) and (pointer: fine) {
-      .nav-drop:hover .nav-menu {
-        display: grid;
-        gap: 2px;
-      }
       .nav-drop::after {
         content: "";
         position: absolute;
         left: 0;
         right: 0;
         top: 100%;
-        height: 10px;
+        height: 12px;
       }
     }
     .nav-menu [data-plugin-nav] {
@@ -1604,7 +1608,6 @@
     @media (prefers-reduced-transparency: reduce) {
       .site-nav {
         background: var(--paper);
-        backdrop-filter: none;
       }
       .btn-ghost {
         background: #fff;

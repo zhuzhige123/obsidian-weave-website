@@ -7,11 +7,12 @@ After opening a book, the reader occupies an Obsidian tab. The body text sits in
 4. If opening is slow, you may see a still-loading prompt; after a timeout, close, return to the bookshelf, refresh, and try again.
 
 ## 2. Interface Layout
-The reader is roughly divided into three areas.
+The reader is roughly divided into several areas.
 
 1. **Body area**: Shows the current chapter or page; you can select text for excerpts.
 2. **Sidebar**: Switch among TOC, bookmarks, excerpt summary, and more. Use **Toggle sidebar** from the menu to show or hide it.
 3. **Top actions**: Common toggles such as auto excerpt, screenshot, bookmarks, and tutorials. When there are many actions, the toolbar can expand or collapse.
+4. **Bottom**: In page-turn mode, previous/next screen, page status, and jump are common; you can also enable the reading progress scale (see `Er-03i 阅读进度刻度条`).
 
 ## 3. Page Turn and Continuous Scroll
 Reading mode determines how you turn content with touch or scroll wheel.
@@ -28,31 +29,49 @@ On wide screens, two columns approximate an open book.
 2. Two columns suit large desktop windows; narrow panes or mobile usually read clearer in single column.
 3. Some vertical Japanese books can try **Force horizontal layout** when the format does not fit well.
 
-## 5. TOC Navigation
+## 5. Chapter Excerpt Marker Strip (Continuous Scroll)
+In **continuous scroll** within a chapter, if the chapter already has highlights, a clustered marker strip may appear beside the body.
+
+1. Colored marks roughly follow excerpt positions so you can see at a glance what you marked in this chapter.
+2. Hover or select a mark to preview the excerpt and jump back to the source.
+3. Many marks cluster into a browsable stack so they do not fill the screen.
+
+> Note: This is in-chapter location hinting—different from the sidebar **Excerpts** list and the full-bookshelf timeline. Full filter and export still happen in the sidebar. See `Er-02c 摘录汇总与时间线`.
+
+## 6. TOC Navigation
 The sidebar TOC moves you by chapter.
 
 1. Open the sidebar and switch to the TOC.
 2. Click a chapter name; the body jumps to that chapter.
 3. The current chapter is indicated. At the first or last chapter, continuing to turn pages prompts that you are already at the start or end.
 4. If the Incremental Reading plugin is installed, chapters can also be **Added to Incremental Reading** from the TOC. See `Er-04c 与 Weave Review 制卡、增量阅读、AI 联动`.
+5. The TOC can also generate a reading plan (Important schedule task lines). See `Er-03h 阅读计划`.
 
-## 6. Reading Typography
+## 7. Reading Typography
 **Reading typography** in the menu adjusts how the current session feels.
 
 1. Adjust layout and typography-related options (as shown in the app).
 2. Font, size, and background follow Obsidian theme and appearance settings—the plugin does not ship its own skin.
 3. Advanced users can enable **Regular reading translucency gradient** for chapter atmosphere; see `Er-03a 段落阅读与沉浸式全屏`.
 
-## 7. Other Sidebar Entries
+## 8. Other Sidebar Entries
 The same sidebar can switch to the bookshelf or excerpt timeline without closing the book.
 
 1. **My Bookshelf**: Return to organize books.
 2. This book’s **Excerpts** tab: View highlights and thoughts for the current book. See `Er-02c 摘录汇总与时间线`.
 3. **Full-bookshelf timeline**: View excerpts across books by date (premium).
 
-## 8. Reaching the End
+## 9. Progress Scale, Tomato, Remaining Time, and Reading Plan
+These have their own pages—entries only here:
+
+1. Reading progress scale: `Er-03i 阅读进度刻度条`
+2. Pomodoro focus timer: `Er-03f 番茄专注计时`
+3. Remaining reading-time sticker: `Er-03g 剩余阅读时间`
+4. Reading plan from TOC: `Er-03h 阅读计划`
+
+## 10. Reaching the End
 At the end of the book, you may be asked whether to mark it as finished.
 
 1. After confirming, bookshelf progress stays at 100% and status becomes **Finished**.
-2. After marking, resume position still follows bookmark and reference reading point rules—it is not automatically rewritten by the mark.
+2. After marking, resume position still follows bookmark and resume-pin rules—it is not automatically rewritten by the mark.
 3. You can remove the finished mark anytime from the bookshelf book menu.
