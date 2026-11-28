@@ -647,6 +647,10 @@
       root.setAttribute("data-lang", lang);
       root.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
       var currentChangelogPlugin = "weave";
+      var changelogTimeline = document.getElementById("changelogTimeline");
+      var changelogHeading = document.getElementById("changelogHeading");
+      var changelogGithub = document.getElementById("changelogGithub");
+      var changelogToggle = null;
       var I18N = {
         zh: {
           "changelog.eyebrow": "版本记录",
