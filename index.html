@@ -136,19 +136,26 @@
       padding: 0;
       white-space: nowrap;
     }
-    .nav-links a {
+    .nav-links a,
+    .nav-drop > button {
       position: relative;
       font-size: 14px;
       color: var(--muted);
       padding: 6px 0;
       transition: color 0.2s ease;
     }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-links a.is-active {
+    .nav-links a:hover,
+    .nav-drop > button:hover,
+    .nav-drop.is-open > button {
+      color: var(--ink);
+    }
+    .nav-links a.is-active,
+    .nav-drop > button.is-active {
       color: var(--ink);
       font-weight: 500;
     }
-    .nav-links a.is-active::after {
+    .nav-links a.is-active::after,
+    .nav-drop > button.is-active::after {
       content: "";
       position: absolute;
       left: 0;
@@ -157,6 +164,83 @@
       height: 1.5px;
       background: var(--ink);
       border-radius: var(--radius-pill);
+    }
+    .nav-drop {
+      position: relative;
+    }
+    .nav-drop > button {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+    .nav-drop-chevron {
+      width: 12px;
+      height: 12px;
+      opacity: 0.55;
+      transition: transform 0.15s ease;
+    }
+    .nav-drop.is-open .nav-drop-chevron {
+      transform: rotate(180deg);
+    }
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 12.5rem;
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(26, 26, 26, 0.1);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 14px 36px rgba(40, 32, 24, 0.12), 0 2px 8px rgba(40, 32, 24, 0.06);
+      z-index: 60;
+    }
+    .nav-drop.is-open .nav-menu {
+      display: grid;
+      gap: 2px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .nav-drop:hover .nav-menu {
+        display: grid;
+        gap: 2px;
+      }
+      .nav-drop::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        height: 10px;
+      }
+    }
+    .nav-menu [data-plugin-nav] {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+    .nav-menu [data-plugin-nav]:hover {
+      background: rgba(26, 26, 26, 0.04);
+      color: var(--ink);
+    }
+    .nav-menu [data-plugin-nav].is-active {
+      background: rgba(26, 26, 26, 0.06);
+      color: var(--ink);
+      font-weight: 600;
     }
     .nav-end {
       justify-self: end;
@@ -1457,14 +1541,39 @@
         background: var(--paper);
         border-bottom: 1px solid var(--line);
       }
-      .site-nav.is-open .nav-links a {
-        padding: 12px 0;
+      .site-nav.is-open .nav-links > li {
         border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+      }
+      .site-nav.is-open .nav-links a,
+      .site-nav.is-open .nav-drop > button {
+        display: flex;
+        width: 100%;
+        padding: 12px 0;
+        justify-content: space-between;
+      }
+      .site-nav.is-open .nav-drop > button.is-active::after,
+      .site-nav.is-open .nav-links a.is-active::after {
+        display: none;
+      }
+      .site-nav.is-open .nav-drop .nav-menu {
+        position: static;
+        display: none;
+        transform: none;
+        min-width: 0;
+        margin: 0 0 8px;
+        padding: 0 0 0 8px;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+      .site-nav.is-open .nav-drop.is-open .nav-menu {
+        display: grid;
+        gap: 2px;
       }
       .site-nav.is-open .nav-cta {
         display: inline-flex;
         position: absolute;
-        top: calc(var(--nav-h) + 220px);
+        top: calc(var(--nav-h) + 280px);
         right: 24px;
         left: 24px;
         justify-content: center;
@@ -1513,7 +1622,21 @@
       </a>
 
       <ul class="nav-links">
-        <li><a href="#tutorials" data-view="tutorials" data-nav="tutorials" data-i18n="nav.tutorials">教程</a></li>
+        <li>
+          <div class="nav-drop" id="tutorialsDrop">
+            <button type="button" id="navTutorials" data-nav="tutorials" aria-haspopup="true" aria-expanded="false">
+              <span data-i18n="nav.tutorials">教程</span>
+              <svg class="nav-drop-chevron" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 4.5 6 7.5 9 4.5"/>
+              </svg>
+            </button>
+            <div class="nav-menu" id="tutorialsMenu" role="menu">
+              <button type="button" role="menuitem" class="is-active" data-plugin-nav="weave" data-i18n="plugin.weave">Weave Review</button>
+              <button type="button" role="menuitem" data-plugin-nav="reader" data-i18n="plugin.reader">Weave Reader</button>
+              <button type="button" role="menuitem" data-plugin-nav="ir" data-i18n="plugin.ir">Incremental Reading</button>
+            </div>
+          </div>
+        </li>
         <li><a class="is-active" href="#suite" data-view="suite" data-nav="suite" aria-current="page" data-i18n="nav.suite">插件系列</a></li>
         <li><a href="#pricing" data-view="pricing" data-nav="pricing" data-i18n="nav.pricing">定价</a></li>
         <li><a href="#changelog" data-view="changelog" data-nav="changelog" data-i18n="nav.changelog">更新日志</a></li>
@@ -2070,6 +2193,10 @@
         changelog: document.getElementById("changelogFrame")
       };
       var navItems = document.querySelectorAll("[data-nav]");
+      var tutorialsDrop = document.getElementById("tutorialsDrop");
+      var navTutorials = document.getElementById("navTutorials");
+      var currentTutorialPlugin = "weave";
+      var TUTORIAL_PLUGINS = { weave: true, reader: true, ir: true };
       var I18N = {
         zh: {
           "nav.homeAria": "Weave 首页",
@@ -2081,6 +2208,9 @@
           "nav.cta": "获取插件",
           "nav.menuOpen": "打开菜单",
           "nav.menuClose": "关闭菜单",
+          "plugin.weave": "Weave Review",
+          "plugin.reader": "Weave Reader",
+          "plugin.ir": "Incremental Reading",
           "hero.eyebrow": "OBSIDIAN 阅读套件",
           "hero.title": "Weave 阅读插件系列",
           "hero.lead": "更从容的阅读方式，为长期思考者而设计。",
@@ -2176,6 +2306,9 @@
           "nav.cta": "Get the plugin",
           "nav.menuOpen": "Open menu",
           "nav.menuClose": "Close menu",
+          "plugin.weave": "Weave Review",
+          "plugin.reader": "Weave Reader",
+          "plugin.ir": "Incremental Reading",
           "hero.eyebrow": "OBSIDIAN READING SUITE",
           "hero.title": "Weave reading plugins",
           "hero.lead": "A calmer way to read — for long-term thinkers.",
@@ -2607,12 +2740,42 @@
         } catch (err) { /* ignore */ }
       }
 
+      function tutorialHashFor(plugin) {
+        if (plugin === "reader") return "tutorials-reader";
+        if (plugin === "ir") return "tutorials-ir";
+        return "tutorials";
+      }
+
+      function syncTutorialPluginNav(plugin) {
+        currentTutorialPlugin = TUTORIAL_PLUGINS[plugin] ? plugin : "weave";
+        document.querySelectorAll("[data-plugin-nav]").forEach(function (btn) {
+          btn.classList.toggle("is-active", btn.getAttribute("data-plugin-nav") === currentTutorialPlugin);
+        });
+      }
+
+      function sendTutorialPluginToFrame() {
+        postToFrame(frames.tutorials, { type: "weave-set-plugin", plugin: currentTutorialPlugin });
+      }
+
+      function closeTutorialsMenu() {
+        if (!tutorialsDrop || !navTutorials) return;
+        tutorialsDrop.classList.remove("is-open");
+        navTutorials.setAttribute("aria-expanded", "false");
+      }
+
+      function openTutorialsMenu() {
+        if (!tutorialsDrop || !navTutorials) return;
+        tutorialsDrop.classList.add("is-open");
+        navTutorials.setAttribute("aria-expanded", "true");
+      }
+
       function syncFrames() {
         Object.keys(frames).forEach(function (name) {
           var frame = frames[name];
           if (!frame || frame.getAttribute("src") === "about:blank") return;
           postToFrame(frame, { type: "weave-set-theme", theme: "light" });
           postToFrame(frame, { type: "weave-set-lang", lang: lang });
+          if (name === "tutorials") sendTutorialPluginToFrame();
         });
       }
 
@@ -2625,11 +2788,13 @@
             frame.removeEventListener("load", onLoad);
             postToFrame(frame, { type: "weave-set-theme", theme: "light" });
             postToFrame(frame, { type: "weave-set-lang", lang: lang });
+            if (name === "tutorials") sendTutorialPluginToFrame();
           });
           frame.setAttribute("src", src);
         } else {
           postToFrame(frame, { type: "weave-set-theme", theme: "light" });
           postToFrame(frame, { type: "weave-set-lang", lang: lang });
+          if (name === "tutorials") sendTutorialPluginToFrame();
         }
       }
 
@@ -2654,7 +2819,11 @@
         options = options || {};
         if (!panels[name]) name = "suite";
         var embed = name === "tutorials" || name === "changelog";
+        if (name === "tutorials" && options.tutorialPlugin) {
+          syncTutorialPluginNav(options.tutorialPlugin);
+        }
         if (embed) ensureFrame(name);
+        else closeTutorialsMenu();
         document.body.classList.toggle("is-embed-view", embed);
         Object.keys(panels).forEach(function (key) {
           var el = panels[key];
@@ -2668,19 +2837,38 @@
         setNavActive(navName);
         document.title = t("title." + name) || t("title.suite");
         if (pushHash !== false) {
-          var next = "#" + (options.hash || name);
-          if (location.hash !== next) history.pushState({ view: name, hash: options.hash || name }, "", next);
+          var hashName = options.hash || (name === "tutorials" ? tutorialHashFor(currentTutorialPlugin) : name);
+          var next = "#" + hashName;
+          if (location.hash !== next) history.pushState({ view: name, hash: hashName }, "", next);
         }
         if (options.scrollTo === "sponsors") {
           scrollToSponsors();
         } else {
           window.scrollTo(0, 0);
         }
-        if (nav) nav.classList.remove("is-open");
-        if (toggle) {
-          toggle.setAttribute("aria-expanded", "false");
-          toggle.setAttribute("aria-label", t("nav.menuOpen"));
+        if (options.keepMobileNav) {
+          /* keep hamburger open while picking a tutorial plugin on mobile */
+        } else if (nav) {
+          nav.classList.remove("is-open");
+          if (toggle) {
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", t("nav.menuOpen"));
+          }
         }
+      }
+
+      function goTutorials(plugin, pushHash, menuMode) {
+        syncTutorialPluginNav(plugin || currentTutorialPlugin);
+        setView("tutorials", pushHash, {
+          tutorialPlugin: currentTutorialPlugin,
+          hash: tutorialHashFor(currentTutorialPlugin),
+          keepMobileNav: menuMode === "keep-menu"
+        });
+        closeBuyModal();
+        closeGetModal();
+        closeFeatureSheet();
+        if (menuMode === "open") openTutorialsMenu();
+        else if (menuMode !== "keep-menu") closeTutorialsMenu();
       }
 
       function goSponsors(pushHash) {
@@ -2703,7 +2891,11 @@
         }
         if (raw === "pricing") return { view: "pricing" };
         if (raw === "sponsors") return { view: "suite", sponsors: true };
-        if (raw === "tutorials") return { view: "tutorials" };
+        if (raw === "tutorials" || raw === "tutorials-weave") {
+          return { view: "tutorials", tutorialPlugin: "weave" };
+        }
+        if (raw === "tutorials-reader") return { view: "tutorials", tutorialPlugin: "reader" };
+        if (raw === "tutorials-ir") return { view: "tutorials", tutorialPlugin: "ir" };
         if (raw === "changelog" || raw.indexOf("changelog-") === 0) return { view: "changelog" };
         /* Legacy deep link from old site */
         if (raw === "series" || raw === "home" || raw === "features") return { view: "suite" };
@@ -2721,6 +2913,10 @@
           closeGetModal();
           closeBuyModal();
           closeFeatureSheet();
+          return;
+        }
+        if (route.view === "tutorials") {
+          goTutorials(route.tutorialPlugin || "weave", pushHash === true, "close");
           return;
         }
         setView(route.view, pushHash);
@@ -2748,7 +2944,44 @@
         document.title = t("title." + (route.view || "suite"));
       }
 
+      if (navTutorials && tutorialsDrop) {
+        navTutorials.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var inTutorials = panels.tutorials && panels.tutorials.classList.contains("is-active");
+          var mobileNavOpen = !!(nav && nav.classList.contains("is-open"));
+          if (!inTutorials) {
+            goTutorials(currentTutorialPlugin, true, mobileNavOpen ? "keep-menu" : "open");
+            openTutorialsMenu();
+            return;
+          }
+          if (tutorialsDrop.classList.contains("is-open")) closeTutorialsMenu();
+          else openTutorialsMenu();
+        });
+        tutorialsDrop.querySelectorAll("[data-plugin-nav]").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            goTutorials(btn.getAttribute("data-plugin-nav") || "weave", true, "close");
+          });
+        });
+      }
+
+      window.addEventListener("message", function (e) {
+        if (!e.data) return;
+        if (e.data.type === "weave-plugin-changed") {
+          syncTutorialPluginNav(e.data.plugin);
+          if (panels.tutorials && panels.tutorials.classList.contains("is-active")) {
+            var next = "#" + tutorialHashFor(currentTutorialPlugin);
+            if (location.hash !== next) {
+              history.replaceState({ view: "tutorials", hash: tutorialHashFor(currentTutorialPlugin) }, "", next);
+            }
+          }
+        }
+      });
+
       document.addEventListener("click", function (e) {
+        if (tutorialsDrop && !tutorialsDrop.contains(e.target)) closeTutorialsMenu();
         var featureOpen = e.target.closest("[data-feature-open]");
         if (featureOpen) {
           e.preventDefault();
@@ -2820,6 +3053,10 @@
 
       document.addEventListener("keydown", function (e) {
         if (e.key !== "Escape") return;
+        if (tutorialsDrop && tutorialsDrop.classList.contains("is-open")) {
+          closeTutorialsMenu();
+          return;
+        }
         if (featureSheet && !featureSheet.hidden) {
           closeFeatureSheet();
           return;
@@ -2857,6 +3094,7 @@
         });
       }
 
+      syncTutorialPluginNav(currentTutorialPlugin);
       applyI18n();
       applyRoute(false);
     })();
