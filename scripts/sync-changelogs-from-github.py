@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-从三款插件的 GitHub Release 同步官网更新日志到 index.html。
+从三款插件的 GitHub Release 同步官网更新日志到 website-embeds/changelog-embed.html。
 
 用法（在官网仓库根目录）:
   python scripts/sync-changelogs-from-github.py
@@ -16,7 +16,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX = ROOT / "index.html"
+# Paper landing hosts changelog in an iframe shell (not index.html).
+CHANGELOG_PAGE = ROOT / "website-embeds" / "changelog-embed.html"
 CACHE = ROOT / "scripts" / ".changelog-cache"
 CACHE.mkdir(parents=True, exist_ok=True)
 
@@ -452,31 +453,47 @@ def emit_plugin(name: str, entries: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def patch_index(changelogs_js: str) -> None:
-    html = INDEX.read_text(encoding="utf-8")
-    start = html.find("        var CHANGELOGS = {")
-    end = html.find("        function pack()", start)
+def detect_indent(html: str, marker: str) -> str:
+    """Return leading whitespace for the line that contains marker."""
+    idx = html.find(marker)
+    if idx < 0:
+        return "        "
+    line_start = html.rfind("\n", 0, idx) + 1
+    return html[line_start:idx]
+
+
+def patch_changelog_page(changelogs_js: str) -> None:
+    html = CHANGELOG_PAGE.read_text(encoding="utf-8")
+    start = html.find("var CHANGELOGS = {")
+    end = html.find("function pack()", start)
     if start < 0 or end < 0:
-        raise SystemExit("Could not locate CHANGELOGS block in index.html")
-    INDEX.write_text(html[:start] + changelogs_js + "\n" + html[end:], encoding="utf-8")
+        raise SystemExit(f"Could not locate CHANGELOGS block in {CHANGELOG_PAGE}")
+    # Keep the file's existing indentation in front of `var` / `function`.
+    start -= len(detect_indent(html, "var CHANGELOGS = {"))
+    end -= len(detect_indent(html, "function pack()"))
+    CHANGELOG_PAGE.write_text(html[:start] + changelogs_js + "\n" + html[end:], encoding="utf-8")
 
 
 def main() -> int:
     all_entries = {name: build_entries(name) for name in ("weave", "reader", "ir")}
     for name, entries in all_entries.items():
         print(f"{name}: {len(entries)} entries, latest={entries[0]['version']}")
+    indent = detect_indent(
+        CHANGELOG_PAGE.read_text(encoding="utf-8"),
+        "var CHANGELOGS = {",
+    )
     js = (
-        "        var CHANGELOGS = {\n"
+        f"{indent}var CHANGELOGS = {{\n"
         + emit_plugin("weave", all_entries["weave"])
         + ",\n"
         + emit_plugin("reader", all_entries["reader"])
         + ",\n"
         + emit_plugin("ir", all_entries["ir"])
-        + "\n        };\n"
+        + f"\n{indent}}};\n"
     )
     (CACHE / "changelogs.generated.js").write_text(js, encoding="utf-8")
-    patch_index(js)
-    print(f"updated {INDEX}")
+    patch_changelog_page(js)
+    print(f"updated {CHANGELOG_PAGE}")
     return 0
 
 

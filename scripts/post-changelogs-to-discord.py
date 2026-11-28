@@ -34,7 +34,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX = ROOT / "index.html"
+INDEX = ROOT / "website-embeds" / "changelog-embed.html"
 LOCAL = ROOT / ".local"
 
 PLUGIN_META = {

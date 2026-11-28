@@ -81,7 +81,7 @@
     }
 
     html[data-theme="light"] {
-      --bg: #f8f7f4;
+      --bg: #f7f4ee;
       --bg-elev: #ffffff;
       --bg-soft: #f1efe9;
       --text: #2a2a2a;
@@ -129,12 +129,20 @@
       margin: 0;
       position: relative;
       isolation: isolate;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
       font-family: var(--font);
       font-size: 16px;
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
+    }
+    html[data-theme="light"] body {
+      background-color: #f7f4ee;
+      background-image: url("assets/website-landing/bg-paper.png");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
     .site-atmosphere {
@@ -1150,6 +1158,8 @@
       root.setAttribute("lang", initialLang === "en" ? "en" : "zh-CN");
       if (/[?&]embed=1(?:&|$)/.test(location.search)) {
         root.setAttribute("data-embed", "1");
+        /* Match paper landing: keep embed tutorials in light mode */
+        root.setAttribute("data-theme", "light");
       }
 
       var I18N = {
@@ -1744,6 +1754,11 @@
         if (!e.data) return;
         if (e.data.type === "weave-set-plugin") {
           switchPlugin(e.data.plugin);
+          return;
+        }
+        if (e.data.type === "weave-set-theme") {
+          var theme = isEmbed() ? "light" : (e.data.theme === "light" ? "light" : "dark");
+          applyTheme(theme, { animate: false, notifyParent: false });
           return;
         }
         if (e.data.type === "weave-set-lang") {

@@ -63,21 +63,23 @@ python -m http.server 8765
 
 | 文件 | 说明 |
 |------|------|
-| `index.html` | 正式首页；顶栏「教程」可切换至教程界面 |
-| `tutorials.html` | 教程页（侧栏目录 + 正文 + 本页目录） |
+| `index.html` | 纸面落地页（Hash SPA：`#suite` / `#pricing` / `#tutorials` / `#changelog` / `#sponsors`） |
+| `website-embeds/changelog-embed.html` | 更新日志 iframe 壳；由同步脚本写入 `CHANGELOGS` |
+| `tutorials.html` | 教程页（可 `?embed=1` 嵌入首页） |
+| `terms.html` / `privacy.html` | 服务条款与隐私政策 |
 | `robots.txt` / `sitemap.xml` | 搜索引擎抓取与站点地图 |
 | `tutorials-data.js` | 由教程 Markdown 生成的正文数据，勿手改 |
 | `tutorials/md/` | Weave Review 教程稿 |
 | `tutorials/md-reader/` | Weave Reader 教程稿 |
 | `tutorials/md-ir/` | Incremental Reading 教程稿 |
 | `tutorials/md-mstodo/` | MS To Do Sync 教程稿 |
+| `assets/website-landing/` | 落地页纸面背景、头像等 |
+| `assets/brand/` | favicon / OG 图标 |
 | `scripts/build-tutorials.py` | 从 Markdown 生成 `tutorials-data.js` |
-| `scripts/sync-changelogs-from-github.py` | 从三款插件 GitHub Release 同步顶栏「更新日志」到 `index.html` |
+| `scripts/sync-changelogs-from-github.py` | 从三款插件 GitHub Release 同步更新日志到 `website-embeds/changelog-embed.html` |
 | `scripts/post-changelogs-to-discord.py` | 按插件+语言分频道发 Discord 更新日志（Webhook：`.local/discord-changelog-webhook-{plugin}-{lang}.txt`） |
-| `uploads/` | 产品截图 |
-| `assets/` | 品牌与辅助资源 |
 
-支持：深浅色切换、中英切换、B 站 / YouTube 幻灯片嵌入。
+支持：中英切换、获取插件 / 购买弹窗、教程与更新日志嵌入。站点为浅色纸面主题（无深色模式）。
 
 ## GitHub Pages 设置
 
